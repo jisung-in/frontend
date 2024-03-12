@@ -15,7 +15,9 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "ignorePatterns": ["jest.*.js"],
+  "ignorePatterns": [
+    "jest.*.js"
+  ],
   "extends": [
     "airbnb",
     "airbnb-typescript",
@@ -24,11 +26,22 @@
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:@next/next/recommended",
     "plugin:prettier/recommended",
-    "plugin:jest/recommended"
+    "plugin:jest/recommended",
+    "plugin:storybook/recommended"
   ],
-  "plugins": ["prettier", "@typescript-eslint", "jest", "import"],
+  "plugins": [
+    "prettier",
+    "@typescript-eslint",
+    "jest",
+    "import"
+  ],
   "rules": {
-    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "import/extensions": [
       "error",
       {
