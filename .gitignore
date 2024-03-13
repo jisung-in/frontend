@@ -37,3 +37,6 @@ next-env.d.ts
 
 .env
 *storybook.log
+
+# storybook 배포할 정적파일
+storybook-static
