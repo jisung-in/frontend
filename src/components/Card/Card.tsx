@@ -1,9 +1,9 @@
 import { Children, ReactNode, isValidElement } from "react";
-import { CardProps, RankBoxProps } from "./Card.types";
+import { CardProps } from "./Card.types";
 
-const RankBox = ({ children, number }: RankBoxProps) => {
+const RankBox = ({ number }: { number: number }) => {
   return (
-    <div class="text-xl w-9 h-9" font-size="21">
+    <div className="text-xl w-9 h-9" font-size="21">
       {number}
     </div>
   );
@@ -64,7 +64,7 @@ const StarRating = ({ number }: { number: string | number }) => {
 };
 const LikeButton = () => {
   return (
-    <button class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+    <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
       좋아요
     </button>
   );
@@ -76,34 +76,34 @@ const LikeNumbers = ({ number }: { number: string | number }) => {
   return <div>{number}</div>;
 };
 const EntranceButton = () => {
-  return <div>입장하기</div>;
+  return <div className="flex justify-center items-center">입장하기</div>;
 };
 const ViewDetailsButton = () => {
-  return <div>상세보기</div>;
+  return <div className="flex justify-center items-center">상세보기</div>;
 };
 
-const RankBoxType = (<RankBox />).type;
-const BookTitleType = (<BookTitle />).type;
-const CoverType = (<Cover />).type;
-const NumberingType = (<Numbering />).type;
-const HouerAgoType = (<HoursAgo />).type;
-const AuthorType = (<Author />).type;
-const PublisherType = (<Publisher />).type;
-const YearType = (<Year />).type;
-const ProfileType = (<Profile />).type;
-const NameType = (<Name />).type;
-const NickNameType = (<NickName />).type;
-const QuestionTitleType = (<QuestionTitle />).type;
-const OpinionTitleType = (<OpinionTitle />).type;
-const QuestionType = (<Question />).type;
-const EvaluationType = (<Evaluation />).type;
-const OpinionType = (<Opinion />).type;
-const ReviewType = (<Review />).type;
-const MyReviewType = (<MyReview />).type;
-const StarRatingType = (<StarRating />).type;
+const RankBoxType = (<RankBox number={0} />).type;
+const BookTitleType = (<BookTitle title={""} />).type;
+const CoverType = (<Cover src={""} />).type;
+const NumberingType = (<Numbering number={""} />).type;
+const HouerAgoType = (<HoursAgo string={""} />).type;
+const AuthorType = (<Author string={""} />).type;
+const PublisherType = (<Publisher string={""} />).type;
+const YearType = (<Year string={""} />).type;
+const ProfileType = (<Profile src={""} />).type;
+const NameType = (<Name string={""} />).type;
+const NickNameType = (<NickName string={""} />).type;
+const QuestionTitleType = (<QuestionTitle string={""} />).type;
+const OpinionTitleType = (<OpinionTitle string={""} />).type;
+const QuestionType = (<Question string={""} />).type;
+const EvaluationType = (<Evaluation string={""} />).type;
+const OpinionType = (<Opinion string={""} />).type;
+const ReviewType = (<Review string={""} />).type;
+const MyReviewType = (<MyReview string={""} />).type;
+const StarRatingType = (<StarRating number={""} />).type;
 const LikeButtonType = (<LikeButton />).type;
-const IsLikeType = (<IsLike />).type;
-const LikeNumbersType = (<LikeNumbers />).type;
+const IsLikeType = (<IsLike number={""} />).type;
+const LikeNumbersType = (<LikeNumbers number={""} />).type;
 const EntranceButtonType = (<EntranceButton />).type;
 const ViewDetailsButtonType = (<ViewDetailsButton />).type;
 
@@ -259,7 +259,7 @@ const getViewDetailsButton = (children: ReactNode) => {
     .slice(0, 1);
 };
 
-const Card = ({ children, onClick }: CardProps) => {
+const Card = ({ children }: CardProps) => {
   const rankBox = getRankBox(children);
   const bookTitle = getBookTitle(children);
   const cover = getCover(children);
