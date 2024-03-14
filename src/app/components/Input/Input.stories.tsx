@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import type { InputProps } from "./Input";
 import { Input } from "./Input";
-import { useInput } from "../../hook/useInput";
+import { useInput } from "../../../hook/useInput";
 
 const meta: Meta<typeof Input> = {
   title: "components/atoms/input",
