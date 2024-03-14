@@ -31,7 +31,7 @@ export default meta;
 type Story = StoryObj<typeof Input>;
 
 const ExInput = ({ onSubmit, variant }: InputProps) => {
-  const { value, handleChange } = useInput("");
+  const { value, handleChange, reset } = useInput("");
 
   return (
     <Input
@@ -40,6 +40,7 @@ const ExInput = ({ onSubmit, variant }: InputProps) => {
       onChange={handleChange}
       onSubmit={onSubmit}
       variant={variant}
+      reset={reset}
     />
   );
 };

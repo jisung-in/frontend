@@ -37,19 +37,28 @@ export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement>,
     VariantProps<typeof inputVariants> {
   onSubmit?: VoidFunction;
+  reset?: VoidFunction;
   variant?: "main" | "empty";
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, onSubmit = () => {}, variant, ...props }: InputProps, ref) => {
+  (
+    {
+      className,
+      onSubmit = () => {},
+      reset = () => {},
+      variant,
+      ...props
+    }: InputProps,
+    ref,
+  ) => {
     const [isFocused, setIsFocused] = useState(false);
 
     const handleFocus = useCallback(() => setIsFocused(true), []);
     const handleBlur = useCallback(() => setIsFocused(false), []);
-
     return (
       <div className={inputContainerVariants({ isFocused, variant })}>
-        <SearchIcon />
+        <SearchIcon className="shrink-0" />
         <input
           className={clsx(inputVariants({ className }), "pl-[10px]")}
           onFocus={handleFocus}
@@ -57,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           {...props}
         />
-        {isFocused && <RemoveIcon />}
+        <RemoveIcon onClick={reset} className="shrink-0" />
       </div>
     );
   },
