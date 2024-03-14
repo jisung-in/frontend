@@ -8,6 +8,7 @@ const buttonVariants = cva(
       variant: {
         main: "bg-brown-50 text-white hover:bg-brown-60",
         empty: "bg-white text-gray-50 border-2 border-gray-40",
+        none: "text-white",
       },
       rounded: {
         none: "rounded-none",
