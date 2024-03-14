@@ -3,12 +3,12 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "./Button";
 
 const meta: Meta<typeof Button> = {
-  title: "components/atoms/button",
+  title: "components/Button",
   component: Button,
   argTypes: {
     variant: {
       control: "inline-radio",
-      options: ["main", "empty"],
+      options: ["main", "empty", "none"],
     },
     rounded: {
       control: "inline-radio",

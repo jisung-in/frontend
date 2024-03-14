@@ -5,7 +5,7 @@ import { Input } from "./Input";
 import { useInput } from "../../../hook/useInput";
 
 const meta: Meta<typeof Input> = {
-  title: "components/atoms/input",
+  title: "components/Input",
   component: Input,
   argTypes: {
     variant: {
