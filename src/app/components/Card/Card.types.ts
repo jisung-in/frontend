@@ -2,8 +2,8 @@ import { ReactNode } from "react";
 
 export interface CardProps {
   children?: ReactNode;
-}
-export interface RankBoxProps {
-  children?: ReactNode;
-  number: number | string;
+  title?: string;
+  string?: string;
+  src?: string;
+  number?: string | number;
 }
