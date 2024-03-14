@@ -2,7 +2,7 @@ import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "inline-flex gap-[6px] items-center justify-center word-break:keep-all disabled:pointer-events-none disabled:opacity-30 transition-colors duration-200 font-semibold",
+  "inline-flex gap-[6px] items-center justify-center word-break:keep-all disabled:pointer-events-none disabled:opacity-30 transition-colors duration-200 font-medium",
   {
     variants: {
       variant: {
@@ -25,9 +25,9 @@ const buttonVariants = cva(
         sm: "h-[35px]",
       },
       weight: {
-        md: "500",
-        semi: "600",
-        bold: "800",
+        md: "font-medium",
+        semi: "font-semibold",
+        bold: "font-bold",
       },
     },
     defaultVariants: {

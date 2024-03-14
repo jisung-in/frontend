@@ -45,3 +45,16 @@ export const Main: Story = {
     variant: "main",
   },
 };
+
+export const shortButton: Story = {
+  args: {
+    children: "Button",
+  },
+  decorators: [
+    (Story) => (
+      <div className="w-[100px]">
+        <Story />
+      </div>
+    ),
+  ],
+};
