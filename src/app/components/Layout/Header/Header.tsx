@@ -7,7 +7,7 @@ export const Header = () => {
   const { value, handleChange, reset } = useInput("");
 
   return (
-    <div className="flex fixed top-0 items-center w-full px-[28px] h-[85px] bg-brown-60">
+    <div className="flex sticky top-0 items-center w-full px-[7%] h-[85px] bg-brown-60">
       <div className="flex font-GmarketSans font-[500] items-center text-white text-4xl flex-1">
         JISUNGIN
       </div>
