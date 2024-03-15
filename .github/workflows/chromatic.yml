@@ -1,44 +1,48 @@
-name: "Chromatic"
+name: Storybook Deployment
 
 on:
   pull_request:
     branches: [develop]
     paths:
-      - '**.stories.tsx'
+      - "**.stories.tsx"
   push:
     branches: [develop]
     paths:
-      - '**.stories.tsx'
+      - "**.stories.tsx"
 
 jobs:
-  chromatic:
+  storybook:
     runs-on: ubuntu-latest
+    outputs:
+      status: ${{ job.status }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: checkout repository
+        uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-       - name: cache dependencies
+      - name: cache dependencies
         id: cache
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
-          path: '**/node_modules'
+          path: "**/node_modules"
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-storybook
 
       - name: depedency install
         if: steps.cache.outputs.cache-hit != 'true'
         run: npm ci
 
-      - name: Publish to Chromatic
+      - name: publish to chromatic
         id: chromatic
-        uses: chromaui/action@latest
+        uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-       - name: comment PR
+      - name: comment PR
         uses: thollander/actions-comment-pull-request@v1
+        if: ${{ github.event_name == 'pull_request' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          message: '🚀storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
+          message: "🚀 **storybook**: ${{ steps.publish_chromatic.outputs.storybookUrl }}"
