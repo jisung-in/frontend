@@ -28,9 +28,8 @@ jobs:
           path: "**/node_modules"
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-storybook
 
-      - name: depedency install
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
+      - name: Install dependencies
+        run: yarn install --immutable --check-cache
 
       - name: publish to chromatic
         id: chromatic
