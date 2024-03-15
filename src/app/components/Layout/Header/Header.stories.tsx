@@ -11,4 +11,10 @@ export default meta;
 
 type Story = StoryObj<typeof Header>;
 
-export const BasicHeader: Story = {};
+export const BasicHeader: Story = {
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
+};
