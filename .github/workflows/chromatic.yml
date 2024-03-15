@@ -1,5 +1,9 @@
 name: Storybook Deployment
 
+permissions:
+  contents: read
+  pull-requests: write
+
 on:
   pull_request:
     branches: [develop]
@@ -36,4 +40,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          message: "🚀 **storybook**: ${{ steps.publish_chromatic.outputs.storybookUrl }}"
+          message: "🚀 **storybook**: ${{ steps.chromatic.outputs.storybookUrl }}"
