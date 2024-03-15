@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/nextjs";
+import path from "path";
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -18,6 +19,12 @@ const config: StorybookConfig = {
   },
   webpackFinal: async (config) => {
     const imageRule = config.module?.rules?.find((rule) => {
+      if (config.resolve) {
+        config.resolve.alias = {
+          ...config.resolve.alias,
+          "@": path.resolve(__dirname, "../src"),
+        };
+      }
       const test = (rule as { test: RegExp }).test;
 
       if (!test) {
