@@ -3,8 +3,8 @@
 import { forwardRef, useCallback, useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
-import SearchIcon from "../../../assets/search-icon.svg";
-import RemoveIcon from "../../../assets/remove-icon.svg";
+import SearchIcon from "@/assets/img/search-icon.svg";
+import RemoveIcon from "@/assets/img/remove-icon.svg";
 import clsx from "clsx";
 
 const inputContainerVariants = cva(
