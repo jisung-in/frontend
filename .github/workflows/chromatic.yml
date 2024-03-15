@@ -11,7 +11,7 @@ on:
       - "**.stories.tsx"
 
 jobs:
-  storybook:
+  chromatic-deployment:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
@@ -19,25 +19,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: cache dependencies
-        uses: actions/cache@v3
-        with:
-          path: "**/node_modules"
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}-storybook
-
       - name: Install dependencies
-        run: yarn install --frozen-lockfile # Yarn 1 사용시. Yarn 2 사용시 이전 명령어 유지.
+        run: yarn install --immutable --check-cache
 
       - name: publish to chromatic
+        id: chromatic
         uses: chromaui/action@v1
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
           token: ${{ secrets.GITHUB_TOKEN }}
+          onlyChanged: true
 
       - name: comment PR
-        if: ${{ github.event_name == 'pull_request' }}
         uses: thollander/actions-comment-pull-request@v1
+        if: ${{ github.event_name == 'pull_request' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          message: "🚀 **storybook**: ${{ steps.chromatic.outputs.storybookUrl }}"
+          message: "🚀 **storybook**: ${{ steps.publish_chromatic.outputs.storybookUrl }}"
