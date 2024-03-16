@@ -1,6 +1,5 @@
-import { Pretendard } from "./src/app/font";
-import { colors, radius } from "./src/styles/theme";
 import type { Config } from "tailwindcss";
+import { border, colors, height, radius, width } from "./src/styles/theme";
 
 const config: Config = {
   content: [
@@ -10,8 +9,11 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      border,
       colors,
+      height,
       radius,
+      width,
       fontFamily: {
         Pretendard: ["var(--font-Pretendard)"],
         SpoqaHanSansNeo: ["var(--font-SpoqaHanSansNeo)"],

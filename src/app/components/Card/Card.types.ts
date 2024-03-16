@@ -5,5 +5,10 @@ export interface CardProps {
   title?: string;
   string?: string;
   src?: string;
+  className?: string;
+  width?: string;
+  height?: string;
+  border?: string;
+  borderColor?: number;
   number?: string | number;
 }
