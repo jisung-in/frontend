@@ -53,7 +53,7 @@ const MyPage = () => {
         <div className="flex align-center gap-[5%]">
           <span className="text-[27px] font-[700]">{userData.id}</span>
 
-          <MyButton width={133}>
+          <MyButton width={133} path="/my/edit">
             프로필 수정
             <Wheel />
           </MyButton>
