@@ -2,13 +2,14 @@ import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const buttonVariants = cva(
-  "inline-flex gap-[6px] items-center justify-center word-break:keep-all disabled:pointer-events-none disabled:opacity-30 transition-colors duration-200 font-medium",
+  "inline-flex px-[3px] gap-[6px] items-center justify-center word-break:keep-all disabled:pointer-events-none disabled:opacity-30 transition-colors duration-200 font-medium",
   {
     variants: {
       variant: {
         main: "bg-brown-50 text-white hover:bg-brown-60",
         empty: "bg-white text-gray-50 border-2 border-gray-40",
         none: "text-white",
+        gray: "text-gray-80 font-[500] border-2",
       },
       rounded: {
         none: "rounded-none",
