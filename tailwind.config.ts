@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { border, colors, height, radius, width } from "./src/styles/theme";
+import { border, colors, radius } from "./src/styles/theme";
 
 const config: Config = {
   content: [
@@ -11,9 +11,7 @@ const config: Config = {
     extend: {
       border,
       colors,
-      height,
       radius,
-      width,
       fontFamily: {
         Pretendard: ["var(--font-Pretendard)"],
         SpoqaHanSansNeo: ["var(--font-SpoqaHanSansNeo)"],

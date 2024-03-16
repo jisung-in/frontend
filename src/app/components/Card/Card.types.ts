@@ -6,9 +6,5 @@ export interface CardProps {
   string?: string;
   src?: string;
   className?: string;
-  width?: string;
-  height?: string;
-  border?: string;
-  borderColor?: number;
   number?: string | number;
 }

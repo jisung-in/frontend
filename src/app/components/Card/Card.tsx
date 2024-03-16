@@ -1,14 +1,8 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { CardProps } from "./Card.types";
 
-const CardWrapper = ({ children, width, height, borderColor }: CardProps) => {
-  return (
-    <div
-      className={`${width} ${height} border border-solid border-gray-${borderColor}`}
-    >
-      {children}
-    </div>
-  );
+const CardWrapper = ({ children, className }: CardProps) => {
+  return <div className={`${className} border border-solid`}>{children}</div>;
 };
 const RankBox = ({ number }: { number: number }) => {
   return <div className="text-xl w-9 h-9">{number}</div>;
