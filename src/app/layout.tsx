@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Pretendard, SpoqaHanSansNeo, GurmukhiMN } from "./font";
 import "./globals.css";
+import { Header } from "./components/Layout/Header/Header";
+import { Footer } from "./components/Layout/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "지성인",
@@ -14,7 +16,17 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body>{children}</body>
+      <body
+        className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${GurmukhiMN.variable}`}
+      >
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <div className="flex flex-grow w-[100%] justify-center">
+            {children}
+          </div>
+          <Footer />
+        </div>
+      </body>
     </html>
   );
 }
