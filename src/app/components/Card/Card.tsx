@@ -2,13 +2,18 @@ import { Children, ReactNode, isValidElement } from "react";
 import { CardProps } from "./Card.types";
 
 const CardWrapper = ({ children, className }: CardProps) => {
-  return <div className={`${className} border border-solid`}>{children}</div>;
+  return (
+    // <div className={`w-[${width}px] h-[${height}px] border border-solid`}>
+    <div className={className}>{children}</div>
+  );
 };
 const RankBox = ({ number }: { number: number }) => {
   return <div className="text-xl w-9 h-9">{number}</div>;
 };
-const BookTitle = ({ title }: CardProps) => {
-  return <div>{title}</div>;
+const BookTitle = ({ title, className }: CardProps) => {
+  return (
+    <div className={`font-Pretendard font-Medium ${className}`}>{title}</div>
+  );
 };
 const Cover = ({ src }: CardProps) => {
   return <img src={src} />;
@@ -31,14 +36,22 @@ const Year = ({ string }: CardProps) => {
 const Profile = ({ src }: { src: string }) => {
   return <img src={src} />;
 };
-const Name = ({ string }: CardProps) => {
-  return <div>{string}</div>;
+const Name = ({ string, className }: CardProps) => {
+  return (
+    <div className={`font-Pretendard font-Medium ${className}`}>{string}</div>
+  );
 };
-const NickName = ({ string }: CardProps) => {
-  return <div>{string}</div>;
+const AttendCondition = () => {
+  return (
+    <div className="font-Pretendard font-Medium text-[19px] text-[#FF6363]">
+      참가 조건
+    </div>
+  );
 };
-const QuestionTitle = ({ string }: CardProps) => {
-  return <div>{string}</div>;
+const QuestionTitle = ({ string, className }: CardProps) => {
+  return (
+    <div className={`font-Pretendard font-Medium ${className}`}>{string}</div>
+  );
 };
 const OpinionTitle = ({ string }: CardProps) => {
   return <div>{string}</div>;
@@ -58,7 +71,7 @@ const Review = ({ string }: CardProps) => {
 const MyReview = ({ string }: CardProps) => {
   return <div>{string}</div>;
 };
-const StarRating = ({ number }: { number: string | number }) => {
+const StarRating = ({ number }: CardProps) => {
   return <div>{number}</div>;
 };
 const LikeButton = () => {
@@ -68,16 +81,17 @@ const LikeButton = () => {
     </button>
   );
 };
-const Like = ({ number }: { number: string | number }) => {
-  return <div>{number}</div>;
+const LikeNumbers = ({ number, className }: CardProps) => {
+  return <div className={className}>{number}</div>;
 };
-const LikeNumbers = ({ number }: { number: string | number }) => {
-  return <div>{number}</div>;
+const Status = ({ status }: CardProps) => {
+  return (
+    <div className="font-Pretendard font-Medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#F3F3F3] px-[8px] py-[4.5px]  mr-[8px] border border-solid rounded-[4px]">
+      {status}
+    </div>
+  );
 };
-const Status = ({ status }: { status: string }) => {
-  return <div className="flex justify-center items-center">{status}</div>;
-};
-const Category = ({ category }: { category: string }) => {
+const Category = ({ category }: CardProps) => {
   return <div className="flex justify-center items-center">{category} </div>;
 };
 const ShowAll = () => {
@@ -106,7 +120,7 @@ const PublisherType = (<Publisher string={""} />).type;
 const YearType = (<Year string={""} />).type;
 const ProfileType = (<Profile src={""} />).type;
 const NameType = (<Name string={""} />).type;
-const NickNameType = (<NickName string={""} />).type;
+const AttendConditionType = (<AttendCondition />).type;
 const QuestionTitleType = (<QuestionTitle string={""} />).type;
 const OpinionTitleType = (<OpinionTitle string={""} />).type;
 const QuestionType = (<Question string={""} />).type;
@@ -116,7 +130,6 @@ const ReviewType = (<Review string={""} />).type;
 const MyReviewType = (<MyReview string={""} />).type;
 const StarRatingType = (<StarRating number={""} />).type;
 const LikeButtonType = (<LikeButton />).type;
-const LikeType = (<Like number={""} />).type;
 const LikeNumbersType = (<LikeNumbers number={""} />).type;
 const StatusType = (<Status status={""} />).type;
 const CategoryType = (<Category category={""} />).type;
@@ -191,10 +204,12 @@ const getName = (children: ReactNode) => {
     .filter((child) => isValidElement(child) && child.type === NameType)
     .slice(0, 1);
 };
-const getNickName = (children: ReactNode) => {
+const getAttendCondition = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
-    .filter((child) => isValidElement(child) && child.type === NickNameType)
+    .filter(
+      (child) => isValidElement(child) && child.type === AttendConditionType,
+    )
     .slice(0, 1);
 };
 const getQuestionTitle = (children: ReactNode) => {
@@ -251,13 +266,6 @@ const getLikeButton = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
     .filter((child) => isValidElement(child) && child.type === LikeButtonType)
-    .slice(0, 1);
-};
-
-const getLike = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === LikeType)
     .slice(0, 1);
 };
 const getLikeNumbers = (children: ReactNode) => {
@@ -319,7 +327,7 @@ const Card = ({ children }: CardProps) => {
   const year = getYear(children);
   const profile = getProfile(children);
   const name = getName(children);
-  const nickName = getNickName(children);
+  const attendCondition = getAttendCondition(children);
   const questionTitle = getQuestionTitle(children);
   const opinionTitle = getOpinionTitle(children);
   const question = getQuestion(children);
@@ -329,7 +337,6 @@ const Card = ({ children }: CardProps) => {
   const myReview = getMyReview(children);
   const starRating = getStarRating(children);
   const likeButton = getLikeButton(children);
-  const like = getLike(children);
   const likeNumbers = getLikeNumbers(children);
   const status = getStatus(children);
   const category = getCategory(children);
@@ -351,7 +358,7 @@ const Card = ({ children }: CardProps) => {
       {year && <>{year}</>}
       {profile && <>{profile}</>}
       {name && <>{name}</>}
-      {nickName && <>{nickName}</>}
+      {attendCondition && <>{attendCondition}</>}
       {questionTitle && <>{questionTitle}</>}
       {opinionTitle && <>{opinionTitle}</>}
       {question && <>{question}</>}
@@ -361,7 +368,6 @@ const Card = ({ children }: CardProps) => {
       {myReview && <>{myReview}</>}
       {starRating && <>{starRating}</>}
       {likeButton && <>{likeButton}</>}
-      {like && <>{like}</>}
       {likeNumbers && <>{likeNumbers}</>}
       {status && <>{status}</>}
       {category && <>{category}</>}
@@ -385,7 +391,7 @@ export const CardMain = Object.assign(Card, {
   Year,
   Profile,
   Name,
-  NickName,
+  AttendCondition,
   QuestionTitle,
   OpinionTitle,
   Question,
@@ -395,7 +401,6 @@ export const CardMain = Object.assign(Card, {
   MyReview,
   StarRating,
   LikeButton,
-  Like,
   LikeNumbers,
   Status,
   Category,

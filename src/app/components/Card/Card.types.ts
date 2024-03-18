@@ -6,5 +6,7 @@ export interface CardProps {
   string?: string;
   src?: string;
   className?: string;
+  status?: string;
+  category?: string;
   number?: string | number;
 }
