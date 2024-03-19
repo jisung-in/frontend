@@ -1,6 +1,7 @@
 import { BookMain } from "@/app/components/Book/Book";
 import { CardMain } from "@/app/components/Card/Card";
 import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
+import { ThemeMain } from "@/app/components/Theme/Theme";
 import Like from "@/assets/img/like.svg";
 import Profile from "@/assets/img/profile.png";
 import Image from "next/image";
@@ -10,10 +11,7 @@ const page = () => {
     <>
       <div>swiper들어갈 곳</div>
       <div className="mt-[55px] ml-[120px]">
-        <div className="text-[28px] font-SpoqaHanSansNeo font-Medium mb-[23px]">
-          토크해요
-        </div>
-
+        <ThemeMain.MainTheme theme={"토크해요"} />
         <div className="flex">
           <CardMain.CardWrapper className="w-[547px] h-[230px] bg-[#FFF]  border border-solid rounded-[17px]">
             <div className="mt-[26px] ml-[26px]">
