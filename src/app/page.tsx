@@ -1,3 +1,4 @@
+import { BookMain } from "@/app/components/Book/Book";
 import { CardMain } from "@/app/components/Card/Card";
 import Like from "@/assets/img/like.svg";
 import Profile from "@/assets/img/profile.png";
@@ -13,7 +14,7 @@ const page = () => {
         </div>
 
         <div className="flex">
-          <CardMain.CardWrapper className="w-[547px] h-[231px] bg-[#FFF]  border border-solid rounded-[17px]">
+          <CardMain.CardWrapper className="w-[547px] h-[230px] bg-[#FFF]  border border-solid rounded-[17px]">
             <div className="mt-[26px] ml-[26px]">
               <div className="flex">
                 <div className="flex flex-grow w-[60px] h-[24px]">
@@ -43,7 +44,7 @@ const page = () => {
                 {/* <CardMain.Cover src=""></CardMain.Cover> */}
                 <div className="flex flex-col  text-[20px] w-auto">
                   <CardMain.OpinionTitle string={"토크방 제목"} />
-                  <CardMain.BookTitle
+                  <BookMain.BookTitle
                     className="text-[#656565]"
                     title={"책 제목"}
                   />
