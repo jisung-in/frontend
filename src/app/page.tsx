@@ -1,5 +1,6 @@
 import { BookMain } from "@/app/components/Book/Book";
 import { CardMain } from "@/app/components/Card/Card";
+import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
 import Like from "@/assets/img/like.svg";
 import Profile from "@/assets/img/profile.png";
 import Image from "next/image";
@@ -26,16 +27,16 @@ const page = () => {
                     height={24}
                     priority
                   />
-                  <CardMain.Name
+                  <CardHeaderMain.Name
                     className="text-[17px]  ml-[6px]"
-                    string="이름"
-                  ></CardMain.Name>
+                    name="이름"
+                  ></CardHeaderMain.Name>
                 </div>
                 <div className="flex flex-col w-[48px] h-[48px]">
                   <Like />
-                  <CardMain.LikeNumbers
+                  <CardHeaderMain.LikeNumbers
                     className="font-Pretendard font-Regular text-[13px] text-[#656565]"
-                    number={"999+"}
+                    likeNumber={"999+"}
                   />
                 </div>
               </div>

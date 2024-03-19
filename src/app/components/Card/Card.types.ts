@@ -4,7 +4,6 @@ export interface CardProps {
   children?: ReactNode;
   title?: string;
   string?: string;
-  src?: string;
   className?: string;
   status?: string;
   category?: string;
