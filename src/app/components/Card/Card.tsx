@@ -45,6 +45,14 @@ const Status = ({ status }: CardProps) => {
     </div>
   );
 };
+const CreateDay = ({ createDay }: CardProps) => {
+  return (
+    <div className="flex flex-row font-Pretendard font-Medium text-[18px] text-[#AEAEAE]">
+      <div className="mr-[18px]">생성일</div>
+      <div>{createDay}</div>
+    </div>
+  );
+};
 const LikeNumbers = ({ likeNumber, className }: CardProps) => {
   return (
     <div className={`font-Medium text-[17px] text-[#656565] ${className}`}>
@@ -70,6 +78,7 @@ const OpinionType = (<Opinion string={""} />).type;
 const ReviewType = (<Review string={""} />).type;
 const MyReviewType = (<MyReview string={""} />).type;
 const StatusType = (<Status status={""} />).type;
+const CreateDayType = (<CreateDay createDay={""} />).type;
 const LikeNumbersType = (<LikeNumbers likeNumber={""} />).type;
 const AttributeType = (<Attribute />).type;
 
@@ -137,6 +146,12 @@ const getStatus = (children: ReactNode) => {
     .filter((child) => isValidElement(child) && child.type === StatusType)
     .slice(0, 1);
 };
+const getCreateDay = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  return childrenArray
+    .filter((child) => isValidElement(child) && child.type === CreateDayType)
+    .slice(0, 1);
+};
 const getLikeNumbers = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
@@ -161,6 +176,7 @@ const Card = ({ children }: CardProps) => {
   const review = getReview(children);
   const myReview = getMyReview(children);
   const status = getStatus(children);
+  const createDay = getCreateDay(children);
   const likeNumbers = getLikeNumbers(children);
   const attribute = getAttribute(children);
 
@@ -176,6 +192,7 @@ const Card = ({ children }: CardProps) => {
       {review && <>{review}</>}
       {myReview && <>{myReview}</>}
       {status && <>{status}</>}
+      {createDay && <>{createDay}</>}
       {likeNumbers && <>{likeNumbers}</>}
       {attribute && <>{attribute}</>}
     </>
@@ -193,6 +210,7 @@ export const CardMain = Object.assign(Card, {
   Review,
   MyReview,
   Status,
+  CreateDay,
   LikeNumbers,
   Attribute,
 });

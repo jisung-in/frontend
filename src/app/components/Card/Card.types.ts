@@ -8,6 +8,7 @@ export interface CardProps {
   status?: string;
   category?: string;
   attribute?: string;
+  createDay?: string;
   likeNumber?: string | number;
   number?: string | number;
 }
