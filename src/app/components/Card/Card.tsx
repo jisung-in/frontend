@@ -1,3 +1,4 @@
+import Like from "@/assets/img/like.svg";
 import { Children, ReactNode, isValidElement } from "react";
 import { CardProps } from "./Card.types";
 
@@ -44,11 +45,19 @@ const Status = ({ status }: CardProps) => {
     </div>
   );
 };
-const Entrance = () => {
-  return <div className="flex justify-center items-center">입장하기</div>;
+const LikeNumbers = ({ likeNumber, className }: CardProps) => {
+  return (
+    <div className={`font-Medium text-[17px] text-[#656565] ${className}`}>
+      <Like width={16} height={15} /> {likeNumber}
+    </div>
+  );
 };
-const ViewDetails = () => {
-  return <div className="flex justify-center items-center">상세보기</div>;
+const Attribute = ({ attribute }: CardProps) => {
+  return (
+    <div className="font-Pretendard font-Medium text-[20px] flex justify-center items-center border border-[#fff] border-t-[#E3E3E3] h-[55px] mt-[20px]">
+      {attribute}
+    </div>
+  );
 };
 
 const CardWrapperType = (<CardWrapper children={""} />).type;
@@ -61,8 +70,8 @@ const OpinionType = (<Opinion string={""} />).type;
 const ReviewType = (<Review string={""} />).type;
 const MyReviewType = (<MyReview string={""} />).type;
 const StatusType = (<Status status={""} />).type;
-const EntranceType = (<Entrance />).type;
-const ViewDetailsType = (<ViewDetails />).type;
+const LikeNumbersType = (<LikeNumbers likeNumber={""} />).type;
+const AttributeType = (<Attribute />).type;
 
 const getCardWrapper = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -128,16 +137,16 @@ const getStatus = (children: ReactNode) => {
     .filter((child) => isValidElement(child) && child.type === StatusType)
     .slice(0, 1);
 };
-const getEntrance = (children: ReactNode) => {
+const getLikeNumbers = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
-    .filter((child) => isValidElement(child) && child.type === EntranceType)
+    .filter((child) => isValidElement(child) && child.type === LikeNumbersType)
     .slice(0, 1);
 };
-const getViewDetails = (children: ReactNode) => {
+const getAttribute = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
-    .filter((child) => isValidElement(child) && child.type === ViewDetailsType)
+    .filter((child) => isValidElement(child) && child.type === AttributeType)
     .slice(0, 1);
 };
 
@@ -152,8 +161,8 @@ const Card = ({ children }: CardProps) => {
   const review = getReview(children);
   const myReview = getMyReview(children);
   const status = getStatus(children);
-  const entrance = getEntrance(children);
-  const viewDetails = getViewDetails(children);
+  const likeNumbers = getLikeNumbers(children);
+  const attribute = getAttribute(children);
 
   return (
     <>
@@ -167,8 +176,8 @@ const Card = ({ children }: CardProps) => {
       {review && <>{review}</>}
       {myReview && <>{myReview}</>}
       {status && <>{status}</>}
-      {entrance && <>{entrance}</>}
-      {viewDetails && <>{viewDetails}</>}
+      {likeNumbers && <>{likeNumbers}</>}
+      {attribute && <>{attribute}</>}
     </>
   );
 };
@@ -184,6 +193,6 @@ export const CardMain = Object.assign(Card, {
   Review,
   MyReview,
   Status,
-  Entrance,
-  ViewDetails,
+  LikeNumbers,
+  Attribute,
 });

@@ -40,7 +40,6 @@ const page = () => {
               </div>
               <div className="flex w-auto h-[135px]">
                 <div className="w-[95px] h-[135px] mr-[26px]"></div>
-                {/* <CardMain.Cover src=""></CardMain.Cover> */}
                 <div className="flex flex-col  text-[20px] w-auto">
                   <CardMain.OpinionTitle string={"토크방 제목"} />
                   <BookMain.BookTitle
