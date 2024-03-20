@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Pretendard, SpoqaHanSansNeo, GurmukhiMN } from "./font";
-import "./globals.css";
-import { Header } from "./components/Layout/Header/Header";
 import { Footer } from "./components/Layout/Footer/Footer";
+import { Header } from "./components/Layout/Header/Header";
+import { GurmukhiMN, Pretendard, SpoqaHanSansNeo } from "./font";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "지성인",
@@ -21,9 +21,7 @@ export default function RootLayout({
       >
         <div className="flex flex-col min-h-screen">
           <Header />
-          <div className="flex flex-grow w-[100%] justify-center">
-            {children}
-          </div>
+          <div className="flex flex-grow flex-col w-[100%]">{children}</div>
           <Footer />
         </div>
       </body>

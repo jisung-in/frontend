@@ -1,44 +1,24 @@
+import Like from "@/assets/img/like.svg";
 import { Children, ReactNode, isValidElement } from "react";
 import { CardProps } from "./Card.types";
 
-const CardWrapper = ({ children }: CardProps) => {
-  return <div>{children}</div>;
+const CardWrapper = ({ children, className }: CardProps) => {
+  return (
+    // <div className={`w-[${width}px] h-[${height}px] border border-solid`}>
+    <div className={className}>{children}</div>
+  );
 };
-const RankBox = ({ number }: { number: number }) => {
-  return <div className="text-xl w-9 h-9 text-xl">{number}</div>;
+const AttendCondition = () => {
+  return (
+    <div className="font-Pretendard font-Medium text-[19px] text-[#FF6363]">
+      참가 조건
+    </div>
+  );
 };
-const BookTitle = ({ title }: CardProps) => {
-  return <div>{title}</div>;
-};
-const Cover = ({ src }: CardProps) => {
-  return <img src={src} />;
-};
-const Numbering = ({ number }: CardProps) => {
-  return <div>{number}</div>;
-};
-const HoursAgo = ({ string }: CardProps) => {
-  return <div>{string}</div>;
-};
-const Author = ({ string }: CardProps) => {
-  return <div>{string}</div>;
-};
-const Publisher = ({ string }: CardProps) => {
-  return <div>{string}</div>;
-};
-const Year = ({ string }: CardProps) => {
-  return <div>{string}</div>;
-};
-const Profile = ({ src }: { src: string }) => {
-  return <img src={src} />;
-};
-const Name = ({ string }: CardProps) => {
-  return <div>{string}</div>;
-};
-const NickName = ({ string }: CardProps) => {
-  return <div>{string}</div>;
-};
-const QuestionTitle = ({ string }: CardProps) => {
-  return <div>{string}</div>;
+const QuestionTitle = ({ string, className }: CardProps) => {
+  return (
+    <div className={`font-Pretendard font-Medium ${className}`}>{string}</div>
+  );
 };
 const OpinionTitle = ({ string }: CardProps) => {
   return <div>{string}</div>;
@@ -58,55 +38,38 @@ const Review = ({ string }: CardProps) => {
 const MyReview = ({ string }: CardProps) => {
   return <div>{string}</div>;
 };
-const StarRating = ({ number }: { number: string | number }) => {
-  return <div>{number}</div>;
-};
-const LikeButton = () => {
+const Status = ({ status }: CardProps) => {
   return (
-    <button className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
-      좋아요
-    </button>
+    <div className="font-Pretendard font-Medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#F3F3F3] px-[8px] py-[4.5px]  mr-[8px] border border-solid rounded-[4px]">
+      {status}
+    </div>
   );
 };
-const Like = ({ number }: { number: string | number }) => {
-  return <div>{number}</div>;
-};
-const LikeNumbers = ({ number }: { number: string | number }) => {
-  return <div>{number}</div>;
-};
-const Status = ({ status }: { status: string }) => {
-  return <div className="flex justify-center items-center">{status}</div>;
-};
-const Category = ({ category }: { category: string }) => {
-  return <div className="flex justify-center items-center">{category} </div>;
-};
-const ShowAll = () => {
+const CreateDay = ({ createDay }: CardProps) => {
   return (
-    <div className="flex justify-center items-center">전체보기 {">"} </div>
+    <div className="flex flex-row font-Pretendard font-Medium text-[18px] text-[#AEAEAE]">
+      <div className="mr-[18px]">생성일</div>
+      <div>{createDay}</div>
+    </div>
   );
 };
-const ShowMore = () => {
-  return <div className="flex justify-center items-center">더보기 {">"} </div>;
+const LikeNumbers = ({ likeNumber, className }: CardProps) => {
+  return (
+    <div className={`font-Medium text-[17px] text-[#656565] ${className}`}>
+      <Like width={16} height={15} /> {likeNumber}
+    </div>
+  );
 };
-const EntranceButton = () => {
-  return <div className="flex justify-center items-center">입장하기</div>;
-};
-const ViewDetailsButton = () => {
-  return <div className="flex justify-center items-center">상세보기</div>;
+const Attribute = ({ attribute }: CardProps) => {
+  return (
+    <div className="font-Pretendard font-Medium text-[20px] flex justify-center items-center border border-[#fff] border-t-[#E3E3E3] h-[55px] mt-[20px]">
+      {attribute}
+    </div>
+  );
 };
 
 const CardWrapperType = (<CardWrapper children={""} />).type;
-const RankBoxType = (<RankBox number={0} />).type;
-const BookTitleType = (<BookTitle title={""} />).type;
-const CoverType = (<Cover src={""} />).type;
-const NumberingType = (<Numbering number={0} />).type;
-const HouerAgoType = (<HoursAgo string={""} />).type;
-const AuthorType = (<Author string={""} />).type;
-const PublisherType = (<Publisher string={""} />).type;
-const YearType = (<Year string={""} />).type;
-const ProfileType = (<Profile src={""} />).type;
-const NameType = (<Name string={""} />).type;
-const NickNameType = (<NickName string={""} />).type;
+const AttendConditionType = (<AttendCondition />).type;
 const QuestionTitleType = (<QuestionTitle string={""} />).type;
 const OpinionTitleType = (<OpinionTitle string={""} />).type;
 const QuestionType = (<Question string={""} />).type;
@@ -114,16 +77,10 @@ const EvaluationType = (<Evaluation string={""} />).type;
 const OpinionType = (<Opinion string={""} />).type;
 const ReviewType = (<Review string={""} />).type;
 const MyReviewType = (<MyReview string={""} />).type;
-const StarRatingType = (<StarRating number={""} />).type;
-const LikeButtonType = (<LikeButton />).type;
-const LikeType = (<Like number={""} />).type;
-const LikeNumbersType = (<LikeNumbers number={""} />).type;
 const StatusType = (<Status status={""} />).type;
-const CategoryType = (<Category category={""} />).type;
-const ShowAllType = (<ShowAll />).type;
-const ShowMoreType = (<ShowMore />).type;
-const EntranceButtonType = (<EntranceButton />).type;
-const ViewDetailsButtonType = (<ViewDetailsButton />).type;
+const CreateDayType = (<CreateDay createDay={""} />).type;
+const LikeNumbersType = (<LikeNumbers likeNumber={""} />).type;
+const AttributeType = (<Attribute />).type;
 
 const getCardWrapper = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -131,70 +88,12 @@ const getCardWrapper = (children: ReactNode) => {
     .filter((child) => isValidElement(child) && child.type === CardWrapperType)
     .slice(0, 1);
 };
-const getRankBox = (children: ReactNode) => {
+const getAttendCondition = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
-    .filter((child) => isValidElement(child) && child.type === RankBoxType)
-    .slice(0, 1);
-};
-const getBookTitle = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === BookTitleType)
-    .slice(0, 1);
-};
-const getCover = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === CoverType)
-    .slice(0, 1);
-};
-const getNumbering = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === NumberingType)
-    .slice(0, 1);
-};
-const getHoursAgo = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === HouerAgoType)
-    .slice(0, 1);
-};
-const getAuthor = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === AuthorType)
-    .slice(0, 1);
-};
-const getPublisher = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === PublisherType)
-    .slice(0, 1);
-};
-const getYear = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === YearType)
-    .slice(0, 1);
-};
-const getProfile = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === ProfileType)
-    .slice(0, 1);
-};
-const getName = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === NameType)
-    .slice(0, 1);
-};
-const getNickName = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === NickNameType)
+    .filter(
+      (child) => isValidElement(child) && child.type === AttendConditionType,
+    )
     .slice(0, 1);
 };
 const getQuestionTitle = (children: ReactNode) => {
@@ -241,23 +140,16 @@ const getMyReview = (children: ReactNode) => {
     .filter((child) => isValidElement(child) && child.type === MyReviewType)
     .slice(0, 1);
 };
-const getStarRating = (children: ReactNode) => {
+const getStatus = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
-    .filter((child) => isValidElement(child) && child.type === StarRatingType)
+    .filter((child) => isValidElement(child) && child.type === StatusType)
     .slice(0, 1);
 };
-const getLikeButton = (children: ReactNode) => {
+const getCreateDay = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
-    .filter((child) => isValidElement(child) && child.type === LikeButtonType)
-    .slice(0, 1);
-};
-
-const getLike = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === LikeType)
+    .filter((child) => isValidElement(child) && child.type === CreateDayType)
     .slice(0, 1);
 };
 const getLikeNumbers = (children: ReactNode) => {
@@ -266,60 +158,16 @@ const getLikeNumbers = (children: ReactNode) => {
     .filter((child) => isValidElement(child) && child.type === LikeNumbersType)
     .slice(0, 1);
 };
-const getStatus = (children: ReactNode) => {
+const getAttribute = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
-    .filter((child) => isValidElement(child) && child.type === StatusType)
-    .slice(0, 1);
-};
-const getCategory = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === CategoryType)
-    .slice(0, 1);
-};
-const getShowAll = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === ShowAllType)
-    .slice(0, 1);
-};
-const getShowMore = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === ShowMoreType)
-    .slice(0, 1);
-};
-const getEntranceButton = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter(
-      (child) => isValidElement(child) && child.type === EntranceButtonType,
-    )
-    .slice(0, 1);
-};
-const getViewDetailsButton = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter(
-      (child) => isValidElement(child) && child.type === ViewDetailsButtonType,
-    )
+    .filter((child) => isValidElement(child) && child.type === AttributeType)
     .slice(0, 1);
 };
 
 const Card = ({ children }: CardProps) => {
   const cardWrapper = getCardWrapper(children);
-  const rankBox = getRankBox(children);
-  const bookTitle = getBookTitle(children);
-  const cover = getCover(children);
-  const numbering = getNumbering(children);
-  const hoursAgo = getHoursAgo(children);
-  const author = getAuthor(children);
-  const publisher = getPublisher(children);
-  const year = getYear(children);
-  const profile = getProfile(children);
-  const name = getName(children);
-  const nickName = getNickName(children);
+  const attendCondition = getAttendCondition(children);
   const questionTitle = getQuestionTitle(children);
   const opinionTitle = getOpinionTitle(children);
   const question = getQuestion(children);
@@ -327,31 +175,15 @@ const Card = ({ children }: CardProps) => {
   const opinion = getOpinion(children);
   const review = getReview(children);
   const myReview = getMyReview(children);
-  const starRating = getStarRating(children);
-  const likeButton = getLikeButton(children);
-  const like = getLike(children);
-  const likeNumbers = getLikeNumbers(children);
   const status = getStatus(children);
-  const category = getCategory(children);
-  const showAll = getShowAll(children);
-  const showMore = getShowMore(children);
-  const entranceButton = getEntranceButton(children);
-  const viewDetailsButton = getViewDetailsButton(children);
+  const createDay = getCreateDay(children);
+  const likeNumbers = getLikeNumbers(children);
+  const attribute = getAttribute(children);
 
   return (
     <>
-      {cardWrapper}
-      {rankBox && <>{rankBox}</>}
-      {bookTitle && <>{bookTitle}</>}
-      {cover && <>{cover}</>}
-      {numbering && <>{numbering}</>}
-      {hoursAgo && <>{hoursAgo}</>}
-      {author && <>{author}</>}
-      {publisher && <>{publisher}</>}
-      {year && <>{year}</>}
-      {profile && <>{profile}</>}
-      {name && <>{name}</>}
-      {nickName && <>{nickName}</>}
+      {cardWrapper && <>{cardWrapper}</>}
+      {attendCondition && <>{attendCondition}</>}
       {questionTitle && <>{questionTitle}</>}
       {opinionTitle && <>{opinionTitle}</>}
       {question && <>{question}</>}
@@ -359,33 +191,17 @@ const Card = ({ children }: CardProps) => {
       {opinion && <>{opinion}</>}
       {review && <>{review}</>}
       {myReview && <>{myReview}</>}
-      {starRating && <>{starRating}</>}
-      {likeButton && <>{likeButton}</>}
-      {like && <>{like}</>}
-      {likeNumbers && <>{likeNumbers}</>}
       {status && <>{status}</>}
-      {category && <>{category}</>}
-      {showAll && <>{showAll}</>}
-      {showMore && <>{showMore}</>}
-      {entranceButton && <>{entranceButton}</>}
-      {viewDetailsButton && <>{viewDetailsButton}</>}
+      {createDay && <>{createDay}</>}
+      {likeNumbers && <>{likeNumbers}</>}
+      {attribute && <>{attribute}</>}
     </>
   );
 };
 
 export const CardMain = Object.assign(Card, {
   CardWrapper,
-  RankBox,
-  BookTitle,
-  Cover,
-  Numbering,
-  HoursAgo,
-  Author,
-  Publisher,
-  Year,
-  Profile,
-  Name,
-  NickName,
+  AttendCondition,
   QuestionTitle,
   OpinionTitle,
   Question,
@@ -393,14 +209,8 @@ export const CardMain = Object.assign(Card, {
   Opinion,
   Review,
   MyReview,
-  StarRating,
-  LikeButton,
-  Like,
-  LikeNumbers,
   Status,
-  Category,
-  ShowAll,
-  ShowMore,
-  EntranceButton,
-  ViewDetailsButton,
+  CreateDay,
+  LikeNumbers,
+  Attribute,
 });
