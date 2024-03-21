@@ -3,18 +3,20 @@ import { ThemeProps } from "./Theme.types";
 
 const MainTheme = ({ theme }: ThemeProps) => {
   return (
-    <div className="text-[28px] font-SpoqaHanSansNeo font-Medium mb-[23px]">
+    <div className="text-[28px] font-SpoqaHanSansNeo font-Medium flex-grow">
       {theme}
     </div>
   );
 };
 const ShowAll = () => {
   return (
-    <div className="flex justify-center items-center">전체보기 {">"} </div>
+    <div className="text-[20px] text-[#B1B1B1] mr-[116px]">전체보기 {">"} </div>
   );
 };
 const ShowMore = () => {
-  return <div className="flex justify-center items-center">더보기 {">"} </div>;
+  return (
+    <div className="text-[20px] text-[#B1B1B1] mr-[116px]">더보기 {">"} </div>
+  );
 };
 
 const MainThemeType = (<MainTheme />).type;
