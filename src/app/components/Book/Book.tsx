@@ -1,34 +1,48 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { BookProps } from "./Book.types";
 
-const RankBox = ({ rank }: BookProps) => {
-  return <div className="text-xl w-9 h-9">{rank}</div>;
+const BookCover = ({ children }: BookProps) => {
+  return <div className="w-full h-full bg-gray-50">{children}</div>;
 };
-const BookTitle = ({ title, className }: BookProps) => {
+const RankBox = ({ children }: BookProps) => {
   return (
-    <div className={`font-Pretendard font-Medium ${className}`}>{title}</div>
+    <div className="w-9 h-9 text-[#FFF] text-[21px] bg-[#624E45] border rounded-[4px] text-center">
+      {children}
+    </div>
   );
 };
-const Author = ({ author }: BookProps) => {
-  return <div>{author}</div>;
+const BookTitle = ({ children, className }: BookProps) => {
+  return (
+    <div className={`font-Pretendard font-Medium ${className}`}>{children}</div>
+  );
 };
-const Publisher = ({ publisher }: BookProps) => {
-  return <div>{publisher}</div>;
+const Author = ({ children }: BookProps) => {
+  return <div>{children}</div>;
 };
-const Year = ({ year }: BookProps) => {
-  return <div>{year}</div>;
+const Publisher = ({ children }: BookProps) => {
+  return <div>{children}</div>;
 };
-const StarRating = ({ starRating }: BookProps) => {
-  return <div>{starRating}</div>;
+const Year = ({ children }: BookProps) => {
+  return <div>{children}</div>;
+};
+const StarRating = ({ children }: BookProps) => {
+  return <div>{children}</div>;
 };
 
-const RankBoxType = (<RankBox rank={0} />).type;
-const BookTitleType = (<BookTitle title={""} />).type;
-const AuthorType = (<Author author={""} />).type;
-const PublisherType = (<Publisher publisher={""} />).type;
-const YearType = (<Year year={""} />).type;
-const StarRatingType = (<StarRating starRating={""} />).type;
+const BookCoverType = (<BookCover children={""} />).type;
+const RankBoxType = (<RankBox children={""} />).type;
+const BookTitleType = (<BookTitle children={""} />).type;
+const AuthorType = (<Author children={""} />).type;
+const PublisherType = (<Publisher children={""} />).type;
+const YearType = (<Year children={""} />).type;
+const StarRatingType = (<StarRating children={""} />).type;
 
+const getBookCover = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  return childrenArray
+    .filter((child) => isValidElement(child) && child.type === BookCoverType)
+    .slice(0, 1);
+};
 const getRankBox = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
@@ -67,29 +81,38 @@ const getStarRating = (children: ReactNode) => {
 };
 
 const Book = ({ children }: BookProps) => {
-  const rankBox = getRankBox(children);
-  const bookTitle = getBookTitle(children);
   const author = getAuthor(children);
+  const bookCover = getBookCover(children);
+  const bookTitle = getBookTitle(children);
+  const rankBox = getRankBox(children);
   const publisher = getPublisher(children);
   const year = getYear(children);
   const starRating = getStarRating(children);
 
   return (
-    <>
-      {rankBox && <>{rankBox}</>}
-      {bookTitle && <>{bookTitle}</>}
-      {author && <>{author}</>}
-      {publisher && <>{publisher}</>}
-      {year && <>{year}</>}
-      {starRating && <>{starRating}</>}
-    </>
+    <div className="w-full">
+      <div className="flex flex-col">
+        <div className="relative">
+          {bookCover && <>{bookCover}</>}
+          <div className="absolute top-[10px] left-[10px]">
+            {rankBox && <>{rankBox}</>}
+          </div>
+        </div>
+        {bookTitle && <>{bookTitle}</>}
+        {author && <>{author}</>}
+        {publisher && <>{publisher}</>}
+        {year && <>{year}</>}
+        {starRating && <>{starRating}</>}
+      </div>
+    </div>
   );
 };
 
 export const BookMain = Object.assign(Book, {
-  RankBox,
-  BookTitle,
   Author,
+  BookCover,
+  BookTitle,
+  RankBox,
   Publisher,
   StarRating,
   Year,
