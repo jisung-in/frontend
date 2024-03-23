@@ -1,25 +1,26 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { BookProps } from "./Book.types";
 
-const RankBox = ({ rank }: BookProps) => {
-  return <div className="text-xl w-9 h-9">{rank}</div>;
+const RankBox = ({ children }: BookProps) => {
+  return <div className="text-xl w-9 h-9">{children}</div>;
 };
-const BookTitle = ({ title, className }: BookProps) => {
-  return (
-    <div className={`font-Pretendard font-Medium ${className}`}>{title}</div>
-  );
+const BookTitle = ({ className, children }: BookProps) => {
+  return <div className={`font-bold ${className}`}>{children}</div>;
 };
-const Author = ({ author }: BookProps) => {
-  return <div>{author}</div>;
+const ImageBox = ({ children }: BookProps) => {
+  return <div className="w-full h-full bg-gray-50">{children}</div>;
 };
-const Publisher = ({ publisher }: BookProps) => {
-  return <div>{publisher}</div>;
+const Author = ({ children }: BookProps) => {
+  return <div>{children}</div>;
 };
-const Year = ({ year }: BookProps) => {
-  return <div>{year}</div>;
+const Publisher = ({ children }: BookProps) => {
+  return <div>{children}</div>;
 };
-const StarRating = ({ starRating }: BookProps) => {
-  return <div>{starRating}</div>;
+const Year = ({ children }: BookProps) => {
+  return <div>{children}</div>;
+};
+const StarRating = ({ children }: BookProps) => {
+  return <div className="text-gray-80">{children}</div>;
 };
 
 const RankBoxType = (<RankBox rank={0} />).type;

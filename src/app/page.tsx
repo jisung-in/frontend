@@ -11,7 +11,6 @@ const page = () => {
     <>
       <div>swiper들어갈 곳</div>
       <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme theme={"토크해요"} />
         <div className="flex">
           <CardMain.CardWrapper className="w-[547px] h-[230px] bg-[#FFF]  border border-solid rounded-[17px]">
             <div className="mt-[26px] ml-[26px]">
@@ -26,7 +25,7 @@ const page = () => {
                     priority
                   />
                   <CardHeaderMain.Name
-                    className="text-[17px]  ml-[6px]"
+                    className="text-[17px] ml-[6px]"
                     name="이름"
                   ></CardHeaderMain.Name>
                 </div>
@@ -39,6 +38,11 @@ const page = () => {
                 </div>
               </div>
               <div className="flex w-auto h-[135px]">
+                <div className="w-[100px] h-full bg-gray-30">
+                  <BookMain>
+                    <BookMain.ImageBox></BookMain.ImageBox>
+                  </BookMain>
+                </div>
                 <div className="w-[95px] h-[135px] mr-[26px]"></div>
                 <div className="flex flex-col  text-[20px] w-auto">
                   <CardMain.OpinionTitle string={"토크방 제목"} />
