@@ -19,7 +19,7 @@ const LikeNumbers = ({ children }: CardHeaderProps) => {
 };
 const StarRating = ({ children }: CardHeaderProps) => {
   return (
-    <div className="w-full h-full border border-[#AFAFAF] border-solid rounded-[16px]">
+    <div className="w-full h-full border border-[#624E45] border-solid rounded-[16px] bg-[#FBF7F0] mr-[26px]">
       {children}
     </div>
   );
@@ -78,10 +78,8 @@ const CardHeader = ({ children }: CardHeaderProps) => {
           {hoursAgo && <>{hoursAgo}</>}
         </div>
       </div>
-      <div className="flex flex-col">
-        {likeNumbers && <>{likeNumbers}</>}
-        {starRating && <>{starRating}</>}
-      </div>
+      <div className="flex flex-col">{likeNumbers && <>{likeNumbers}</>}</div>
+      <div className="flex">{starRating && <>{starRating}</>}</div>
     </div>
   );
 };
