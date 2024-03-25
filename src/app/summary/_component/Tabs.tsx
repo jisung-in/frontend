@@ -6,7 +6,6 @@ import { usePathname, useRouter } from "next/navigation";
 const Tabs = () => {
   const router = useRouter();
   const path = usePathname();
-  console.log(path.includes("/star"));
   return (
     <div className="flex flex-col w-full">
       <div className="flex items-center bg-white h-[70px] mb-[20px] px-[5%] shadow-[inset_0_-1px_0_0,0_1px_0_0] shadow-ivory-50">
