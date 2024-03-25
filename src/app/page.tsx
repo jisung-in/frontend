@@ -104,12 +104,15 @@ const page = () => {
                 <div className="text-[20px]">토크방 제목</div>
               </CardMain.OpinionTitle>
               <CardMain.BookTitle>책 제목</CardMain.BookTitle>
-              <CardMain.AttendCondition />
-              <CardMain.Status>읽고 싶은</CardMain.Status>
-              <CardMain.Status>읽는 중</CardMain.Status>
-              <CardMain.Status>읽음</CardMain.Status>
-              <CardMain.Status>잠시 멈춘</CardMain.Status>
-              <CardMain.Status>중단</CardMain.Status>
+              <CardMain.AttendCondition>
+                <div className="flex flex-row">
+                  <CardMain.Status>읽고 싶은</CardMain.Status>
+                  <CardMain.Status>읽는 중</CardMain.Status>
+                  <CardMain.Status>읽음</CardMain.Status>
+                  <CardMain.Status>잠시 멈춘</CardMain.Status>
+                  <CardMain.Status>중단</CardMain.Status>
+                </div>
+              </CardMain.AttendCondition>
             </CardMain>
           </div>
         </div>

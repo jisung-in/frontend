@@ -4,10 +4,10 @@ import { BookMain } from "../Book/Book";
 import { CardHeaderMain } from "../CardHeader/CardHeader";
 import { CardProps } from "./Card.types";
 
-const AttendCondition = () => {
+const AttendCondition = ({ children }: CardProps) => {
   return (
-    <div className="font-Pretendard font-Medium text-[19px] text-[#FF6363]">
-      참가 조건
+    <div className="flex font-Pretendard font-Medium text-[19px] text-[#FF6363]">
+      참가 조건 {children}
     </div>
   );
 };
@@ -209,13 +209,13 @@ const Card = ({ children }: CardProps) => {
           {opinionTitle && <>{opinionTitle}</>}
           {bookTitle && <>{bookTitle}</>}
           {attendCondition && <>{attendCondition}</>}
+          <div className="flex flex-row"> {status && <>{status}</>}</div>
           {question && <>{question}</>}
           {evaluation && <>{evaluation}</>}
           {opinion && <>{opinion}</>}
           {review && <>{review}</>}
           {myReview && <>{myReview}</>}
           {createDay && <>{createDay}</>}
-          <div className="flex flex-row"> {status && <>{status}</>}</div>
         </div>
         {likeNumbers && <>{likeNumbers}</>}
         {attribute && <>{attribute}</>}
