@@ -3,6 +3,7 @@ import { CardMain } from "@/app/components/Card/Card";
 import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import Like from "@/assets/img/like.svg";
+import Star from "@/assets/img/star.svg";
 import Profile from "@/assets/img/profile.png";
 import Image from "next/image";
 
@@ -51,6 +52,38 @@ const page = () => {
               <CardMain.Status>읽음</CardMain.Status>
               <CardMain.Status>잠시 멈춘</CardMain.Status>
               <CardMain.Status>중단</CardMain.Status>
+            </CardMain>
+          </div>
+        </div>
+
+        {/* 여기서부터 다른 컴포넌트 */}
+        <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px]">
+          <div className="mt-[26px] ml-[26px] w-[520px] h-[24px]">
+            <CardMain>
+              <CardHeaderMain>
+                <CardHeaderMain.Profile>
+                  <Image
+                    src={Profile}
+                    alt="프로필"
+                    width={24}
+                    height={24}
+                    priority
+                  />
+                </CardHeaderMain.Profile>
+                <CardHeaderMain.Name>
+                  <div className="text-[17px] ml-[6px]">이름</div>
+                </CardHeaderMain.Name>
+                <CardHeaderMain.StarRating>
+                  <Star width={24} height={22} />
+                </CardHeaderMain.StarRating>
+              </CardHeaderMain>
+              <CardMain.OpinionTitle>
+                <div className="text-[20px]">토크방 제목</div>
+              </CardMain.OpinionTitle>
+              <CardMain.Review>
+                내 평가 내 평가 내 평가 내 평가 내 평가 내 평가 내 평가 내 평가
+                내 평가 내 평가{" "}
+              </CardMain.Review>
             </CardMain>
           </div>
         </div>

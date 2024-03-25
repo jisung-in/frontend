@@ -18,19 +18,23 @@ const userData = {
 const data = [
   {
     title: "별점",
-    path: <Star />,
+    icon: <Star />,
+    path: "/summary/star",
   },
   {
     title: "서평",
-    path: <Answer />,
+    icon: <Answer />,
+    path: "/summary/review",
   },
   {
     title: "생성방",
-    path: <Create />,
+    icon: <Create />,
+    path: "/summary/room",
   },
   {
     title: "답변방",
-    path: <Review />,
+    icon: <Review />,
+    path: "/summary/state",
   },
 ];
 
@@ -69,7 +73,7 @@ const MyPage = () => {
         <h2 className="text-[27px] font-[700]">내 정보 요약</h2>
         <div className="flex justify-between px-[5%] pt-[5%]">
           {data.map((item) => (
-            <SummaryCard path={item.path} title={item.title} />
+            <SummaryCard data={item} />
           ))}
         </div>
       </div>
