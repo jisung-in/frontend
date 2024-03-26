@@ -11,13 +11,22 @@ import { useState } from "react";
 import { CardFooterMain } from "./components/CardFooter/CardFooter";
 import CommentHeartButton from "./components/CommentHeartButton/CommentHeartButton";
 import HeartButton from "./components/HeartButton/HeartButton";
+import LikeButton from "./components/LikeButton/LikeButton";
 import { TalkCommentMain } from "./components/TalkComment/TalkComment";
 
 const page = () => {
   const [isLike, setIsLike] = useState<Boolean>(false);
+  const [isHeart, setIsHeart] = useState<Boolean>(false);
+  const [isCommentHeart, setIsCommentHeart] = useState<Boolean>(false);
 
-  const changeLike = () => {
+  const changeisLike = () => {
     setIsLike(!isLike);
+  };
+  const changeisHeart = () => {
+    setIsHeart(!isHeart);
+  };
+  const changeisCommentHeart = () => {
+    setIsCommentHeart(!isCommentHeart);
   };
 
   return (
@@ -42,8 +51,8 @@ const page = () => {
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
                   <HeartButton
-                    isLike={isLike}
-                    onClick={changeLike}
+                    isHeart={isHeart}
+                    onClick={changeisHeart}
                     width={21}
                     height={19}
                   />
@@ -160,8 +169,8 @@ const page = () => {
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
                   <HeartButton
-                    isLike={isLike}
-                    onClick={changeLike}
+                    isHeart={isHeart}
+                    onClick={changeisHeart}
                     width={26}
                     height={24}
                   />
@@ -197,9 +206,7 @@ const page = () => {
                 <CardFooterMain.Line>
                   <hr className="mt-[5px] mb-[10px] mr-[26px]" />
                 </CardFooterMain.Line>
-                <CardFooterMain.LikeButton>
-                  <div>좋아요</div>
-                </CardFooterMain.LikeButton>
+                <LikeButton isLike={isLike} onClick={changeisLike} />
               </CardFooterMain>
             </CardMain>
           </div>
@@ -238,16 +245,14 @@ const page = () => {
                 <CardFooterMain.LikeNumbers>
                   <div className="flex grow items-center">
                     <CommentHeartButton
-                      isLike={isLike}
-                      onClick={changeLike}
+                      isCommentHeart={isCommentHeart}
+                      onClick={changeisCommentHeart}
                       width={16}
                       height={15}
                     />
                     <div className="ml-[5px]">23</div>
                     <div className="ml-[11px]">
-                      <CardFooterMain.LikeButton>
-                        좋아요
-                      </CardFooterMain.LikeButton>
+                      <LikeButton isLike={isLike} onClick={changeisLike} />
                     </div>
                   </div>
                   <div className="mr-[26px]">

@@ -1,5 +1,5 @@
 export interface HeartButtonProps {
-  isLike?: Boolean;
+  isHeart?: Boolean;
   onClick?: () => void;
   width: number;
   height: number;

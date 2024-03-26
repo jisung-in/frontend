@@ -1,4 +1,5 @@
 import { Children, ReactNode, isValidElement } from "react";
+import LikeButton from "../LikeButton/LikeButton";
 import { CardFooterProps } from "./CartFooter.types";
 
 const LikeNumbers = ({ children, className }: CardFooterProps) => {
@@ -12,13 +13,6 @@ const LikeNumbers = ({ children, className }: CardFooterProps) => {
 };
 const Line = ({ children }: CardFooterProps) => {
   return <div className="border-solid border-[#E3E3E3]">{children}</div>;
-};
-const LikeButton = ({ children }: CardFooterProps) => {
-  return (
-    <div className="flex items-center justify-center w-[76px] h-[32px] font-Pretendard font-Medium text-[21px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[3px] hover:bg-[#FBFBFB] cursor-pointer">
-      {children}
-    </div>
-  );
 };
 const DeleteButton = ({ children }: CardFooterProps) => {
   return (
@@ -77,6 +71,5 @@ const CardFooter = ({ children }: CardFooterProps) => {
 export const CardFooterMain = Object.assign(CardFooter, {
   LikeNumbers,
   Line,
-  LikeButton,
   DeleteButton,
 });

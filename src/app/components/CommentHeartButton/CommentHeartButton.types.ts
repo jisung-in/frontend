@@ -1,5 +1,5 @@
 export interface CommentHeartButtonProps {
-  isLike?: Boolean;
+  isCommentHeart?: Boolean;
   onClick?: () => void;
   width: number;
   height: number;

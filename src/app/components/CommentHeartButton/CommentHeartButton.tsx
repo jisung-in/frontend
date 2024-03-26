@@ -1,16 +1,16 @@
 import CommentLike from "@/assets/img/comment-like.svg";
 import NotLike from "@/assets/img/not-like.svg";
-import { CommentLikeHeartButtonProps } from "./CommentLikeHeartButton.types";
+import { CommentHeartButtonProps } from "./CommentHeartButton.types";
 
-const CommentLikeHeartButton = ({
-  isLike,
+const CommentHeartButton = ({
+  isCommentHeart,
   onClick,
   width,
   height,
-}: CommentLikeHeartButtonProps) => {
-  const CommentLikeHeartButtonComponent = isLike ? CommentLike : NotLike;
+}: CommentHeartButtonProps) => {
+  const CommentHeartButton = isCommentHeart ? CommentLike : NotLike;
   return (
-    <CommentLikeHeartButtonComponent
+    <CommentHeartButton
       width={width}
       height={height}
       className="cursor-pointer"
@@ -19,4 +19,4 @@ const CommentLikeHeartButton = ({
   );
 };
 
-export default CommentLikeHeartButton;
+export default CommentHeartButton;
