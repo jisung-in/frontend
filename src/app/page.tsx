@@ -1,15 +1,25 @@
+"use client";
+
 import { BookMain } from "@/app/components/Book/Book";
 import { CardMain } from "@/app/components/Card/Card";
 import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
 import { ThemeMain } from "@/app/components/Theme/Theme";
-import Like from "@/assets/img/like.svg";
 import Profile from "@/assets/img/profile.png";
 import Star from "@/assets/img/star.svg";
 import Image from "next/image";
+import { useState } from "react";
 import { CardFooterMain } from "./components/CardFooter/CardFooter";
+import CommentLikeButton from "./components/CommentLikeButton/CommentLikeButton";
+import LikeButton from "./components/LikeButton/LikeButton";
 import { TalkCommentMain } from "./components/TalkComment/TalkComment";
 
 const page = () => {
+  const [isLike, setIsLike] = useState<Boolean>(false);
+
+  const changeLike = () => {
+    setIsLike(!isLike);
+  };
+
   return (
     <>
       <div className="mt-[55px] ml-[120px]">
@@ -31,7 +41,12 @@ const page = () => {
                   <div className="text-[17px] ml-[6px]">이름</div>
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
-                  <Like width={21} height={19} />
+                  <LikeButton
+                    isLike={isLike}
+                    onClick={changeLike}
+                    width={21}
+                    height={19}
+                  />
                   <div className="w-[50px] h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
                     999+
                   </div>
@@ -144,7 +159,12 @@ const page = () => {
                   <div className="text-[20px] ml-[6px]">이름</div>
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
-                  <Like width={24} height={22} />
+                  <LikeButton
+                    isLike={isLike}
+                    onClick={changeLike}
+                    width={26}
+                    height={24}
+                  />
                   <div className="w-[50px] h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
                     999+
                   </div>
@@ -217,7 +237,12 @@ const page = () => {
               <CardFooterMain className="flex flex-row">
                 <CardFooterMain.LikeNumbers>
                   <div className="flex grow items-center">
-                    <Like width={18} height={17} />
+                    <CommentLikeButton
+                      isLike={isLike}
+                      onClick={changeLike}
+                      width={16}
+                      height={15}
+                    />
                     <div className="ml-[5px]">23</div>
                     <div className="ml-[11px]">
                       <CardFooterMain.LikeButton>

@@ -15,14 +15,14 @@ const Line = ({ children }: CardFooterProps) => {
 };
 const LikeButton = ({ children }: CardFooterProps) => {
   return (
-    <div className="flex items-center justify-center w-[76px] h-[32px] font-Pretendard font-Medium text-[21px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[3px]">
+    <div className="flex items-center justify-center w-[76px] h-[32px] font-Pretendard font-Medium text-[21px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[3px] hover:bg-[#FBFBFB] cursor-pointer">
       {children}
     </div>
   );
 };
 const DeleteButton = ({ children }: CardFooterProps) => {
   return (
-    <div className="flex items-center justify-center w-[61px] h-[32px] font-Pretendard font-Medium text-[21px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[3px]">
+    <div className="flex items-center justify-center w-[61px] h-[32px] font-Pretendard font-Medium text-[21px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[3px] cursor-pointer">
       {children}
     </div>
   );
