@@ -9,8 +9,8 @@ import Star from "@/assets/img/star.svg";
 import Image from "next/image";
 import { useState } from "react";
 import { CardFooterMain } from "./components/CardFooter/CardFooter";
-import CommentLikeButton from "./components/CommentLikeButton/CommentLikeButton";
-import LikeButton from "./components/LikeButton/LikeButton";
+import CommentHeartButton from "./components/CommentHeartButton/CommentHeartButton";
+import HeartButton from "./components/HeartButton/HeartButton";
 import { TalkCommentMain } from "./components/TalkComment/TalkComment";
 
 const page = () => {
@@ -41,7 +41,7 @@ const page = () => {
                   <div className="text-[17px] ml-[6px]">이름</div>
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
-                  <LikeButton
+                  <HeartButton
                     isLike={isLike}
                     onClick={changeLike}
                     width={21}
@@ -159,7 +159,7 @@ const page = () => {
                   <div className="text-[20px] ml-[6px]">이름</div>
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
-                  <LikeButton
+                  <HeartButton
                     isLike={isLike}
                     onClick={changeLike}
                     width={26}
@@ -237,7 +237,7 @@ const page = () => {
               <CardFooterMain className="flex flex-row">
                 <CardFooterMain.LikeNumbers>
                   <div className="flex grow items-center">
-                    <CommentLikeButton
+                    <CommentHeartButton
                       isLike={isLike}
                       onClick={changeLike}
                       width={16}

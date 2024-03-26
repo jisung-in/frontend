@@ -1,4 +1,4 @@
-export interface LikeButtonProps {
+export interface CommentHeartButtonProps {
   isLike?: Boolean;
   onClick?: () => void;
   width: number;
