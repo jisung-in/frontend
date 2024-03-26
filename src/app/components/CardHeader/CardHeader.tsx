@@ -70,8 +70,8 @@ const CardHeader = ({ children }: CardHeaderProps) => {
   const starRating = getStarRating(children);
 
   return (
-    <div className="flex w-full">
-      <div className="flex flex-grow w-full h-full">
+    <div className="flex items-center w-full">
+      <div className="flex flex-grow w-full h-full items-center">
         {profile && <>{profile}</>}
         <div className="flex flex-col">
           {name && <>{name}</>}

@@ -2,6 +2,7 @@ import { Children, ReactNode, isValidElement } from "react";
 import { BookMain } from "../Book/Book";
 import { CardFooterMain } from "../CardFooter/CardFooter";
 import { CardHeaderMain } from "../CardHeader/CardHeader";
+import { TalkCommentMain } from "../TalkComment/TalkComment";
 import { CardProps } from "./Card.types";
 
 const AttendCondition = ({ children }: CardProps) => {
@@ -24,7 +25,11 @@ const Evaluation = ({ children }: CardProps) => {
   return <div>{children}</div>;
 };
 const Opinion = ({ children }: CardProps) => {
-  return <div>{children}</div>;
+  return (
+    <div className="font-Pretendard font-Regular text-[20px] mt-[20px] mb-[10px]">
+      {children}
+    </div>
+  );
 };
 const Review = ({ children }: CardProps) => {
   return <div>{children}</div>;
@@ -69,6 +74,7 @@ const BookMainType = (<BookMain />).type;
 const CardHeaderMainType = (<CardHeaderMain />).type;
 const BookTitleType = (<BookTitle />).type;
 const CardFooterMainType = (<CardFooterMain />).type;
+const TalkCommentMainType = (<TalkCommentMain />).type;
 
 const getAttendCondition = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -162,6 +168,14 @@ const getCardFooterMain = (children: ReactNode) => {
     )
     .slice(0, 1);
 };
+const getTalkCommentMain = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  return childrenArray
+    .filter(
+      (child) => isValidElement(child) && child.type === TalkCommentMainType,
+    )
+    .slice(0, 1);
+};
 
 const Card = ({ children }: CardProps) => {
   const attendCondition = getAttendCondition(children);
@@ -178,9 +192,11 @@ const Card = ({ children }: CardProps) => {
   const cardHeaderMain = getCardHeaderMain(children);
   const bookTitle = getBookTitle(children);
   const cardFooterMain = getCardFooterMain(children);
+  const talkCommentMain = getTalkCommentMain(children);
 
   return (
     <div className="flex flex-col w-full h-full">
+      {talkCommentMain && <>{talkCommentMain}</>}
       {cardHeaderMain && <>{cardHeaderMain}</>}
       <div className="flex flex-grow">
         {bookMain && <>{bookMain}</>}
