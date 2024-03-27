@@ -30,7 +30,91 @@ const page = () => {
   };
 
   return (
-    <>
+    <div className="bg-[#FFF]">
+      <div className="mt-[55px] ml-[120px]">
+        <ThemeMain.MainTheme theme={"최근 의견달린 토크방"} />
+        <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px]">
+          <div className="mt-[22px] ml-[26px] w-auto">
+            <CardMain>
+              <CardHeaderMain>
+                <CardHeaderMain.Profile>
+                  <Image
+                    src={Profile}
+                    alt="프로필"
+                    width={24}
+                    height={24}
+                    priority
+                  />
+                </CardHeaderMain.Profile>
+                <CardHeaderMain.Name>
+                  <div className="text-[17px] ml-[6px]">이름</div>
+                </CardHeaderMain.Name>
+                <CardHeaderMain.LikeNumbers>
+                  <HeartButton
+                    isHeart={isHeart}
+                    onClick={changeisHeart}
+                    width={21}
+                    height={19}
+                  />
+                  <div className="w-[50px] h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
+                    999+
+                  </div>
+                </CardHeaderMain.LikeNumbers>
+              </CardHeaderMain>
+              <BookMain>
+                <BookMain.BookCover>
+                  <div className="w-[95px] h-[135px] mt-[14px] mr-[26px] bg-[#000]"></div>
+                </BookMain.BookCover>
+              </BookMain>
+              <CardMain.OpinionTitle>
+                <div className="text-[20px] mt-[14px]">토크방 제목</div>
+              </CardMain.OpinionTitle>
+              <CardMain.BookTitle>책 제목</CardMain.BookTitle>
+              <CardMain.AttendCondition>
+                <div className="mb-[5px]">참가조건</div>
+              </CardMain.AttendCondition>
+              <CardMain.Status>읽고 싶은</CardMain.Status>
+              <CardMain.Status>읽는 중</CardMain.Status>
+              <CardMain.Status>읽음</CardMain.Status>
+              <CardMain.Status>잠시 멈춘</CardMain.Status>
+              <CardMain.Status>중단</CardMain.Status>
+            </CardMain>
+          </div>
+        </div>
+
+        {/* 여기서부터 다른 컴포넌트 */}
+        <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px]">
+          <div className="mt-[26px] ml-[26px] w-[520px] h-[24px]">
+            <CardMain>
+              <CardHeaderMain>
+                <CardHeaderMain.Profile>
+                  <Image
+                    src={Profile}
+                    alt="프로필"
+                    width={24}
+                    height={24}
+                    priority
+                  />
+                </CardHeaderMain.Profile>
+                <CardHeaderMain.Name>
+                  <div className="text-[17px] ml-[6px]">이름</div>
+                </CardHeaderMain.Name>
+                <CardHeaderMain.StarRating>
+                  <Star width={24} height={22} />
+                </CardHeaderMain.StarRating>
+              </CardHeaderMain>
+              <CardMain.OpinionTitle>
+                <div className="text-[20px]">토크방 제목</div>
+              </CardMain.OpinionTitle>
+              <CardMain.Review>
+                내 평가 내 평가 내 평가 내 평가 내 평가 내 평가 내 평가 내 평가
+                내 평가 내 평가{" "}
+              </CardMain.Review>
+            </CardMain>
+          </div>
+        </div>
+      </div>
+
       <div className="mt-[55px] ml-[120px]">
         <BookMain>
           <BookMain.BookCover>
@@ -214,7 +298,7 @@ const page = () => {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
