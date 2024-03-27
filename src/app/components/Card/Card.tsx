@@ -12,6 +12,7 @@ const AttendCondition = ({ children }: CardProps) => {
     </div>
   );
 };
+
 const QuestionTitle = ({ children }: CardProps) => {
   return <div>{children}</div>;
 };
