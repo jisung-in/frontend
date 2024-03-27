@@ -9,7 +9,7 @@ export const Header = () => {
   const router = useRouter();
 
   return (
-    <div className="flex sticky z-20 top-0 items-center w-full px-[7%] h-[85px] bg-brown-60">
+    <div className="flex sticky z-20 top-0 items-center w-full px-[5%] h-[85px] bg-brown-60">
       <div
         onClick={() => router.push("/")}
         className="flex font-SpoqaHanSansNeo font-[500] items-center text-white text-4xl flex-1"
