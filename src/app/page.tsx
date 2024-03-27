@@ -32,7 +32,7 @@ const page = () => {
   return (
     <div className="bg-[#FFF]">
       <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme theme={"최근 의견달린 토크방"} />
+        <ThemeMain.MainTheme>최근 의견 달린 토크방</ThemeMain.MainTheme>
         <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px]">
           <div className="mt-[22px] ml-[26px] w-auto">
             <CardMain>
@@ -128,7 +128,7 @@ const page = () => {
       </div>
 
       <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme theme={"토크해요"} />
+        <ThemeMain.MainTheme>최근 의견 달린 토크방</ThemeMain.MainTheme>
         <div className="w-[830px] h-[380px] bg-[#FFF] border border-solid rounded-[17px]">
           <div className="mt-[26px] ml-[26px] w-auto">
             <CardMain>
@@ -182,7 +182,7 @@ const page = () => {
       </div>
 
       <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme theme={"토크해요"} />
+        <ThemeMain.MainTheme>최근 의견 달린 토크방</ThemeMain.MainTheme>
         <div className="w-[830px] h-[380px] bg-[#FFF] border border-solid rounded-[17px]">
           <div className="mt-[24px] ml-[26px] w-auto">
             <CardMain>
@@ -246,7 +246,7 @@ const page = () => {
       </div>
 
       <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme theme={"의견작성"} />
+        <ThemeMain.MainTheme>최근 의견 달린 토크방</ThemeMain.MainTheme>
         <div className="w-[1418px] h-[213px] bg-[#EFEFEF] border border-solid rounded-[13px]">
           <div className="mt-[26px] ml-[26px] w-auto">
             <CardMain>

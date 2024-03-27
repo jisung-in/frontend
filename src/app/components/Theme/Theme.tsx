@@ -1,21 +1,21 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { ThemeProps } from "./Theme.types";
 
-const MainTheme = ({ theme }: ThemeProps) => {
+const MainTheme = ({ children }: ThemeProps) => {
   return (
     <div className="text-[28px] font-SpoqaHanSansNeo font-Medium flex-grow">
-      {theme}
+      {children}
     </div>
   );
 };
-const ShowAll = () => {
+const ShowAll = ({ children }: ThemeProps) => {
   return (
-    <div className="text-[20px] text-[#B1B1B1] mr-[116px]">전체보기 {">"} </div>
+    <div className="text-[20px] text-[#B1B1B1] mr-[116px]">{children}</div>
   );
 };
-const ShowMore = () => {
+const ShowMore = ({ children }: ThemeProps) => {
   return (
-    <div className="text-[20px] text-[#B1B1B1] mr-[116px]">더보기 {">"} </div>
+    <div className="text-[20px] text-[#B1B1B1] mr-[116px]">{children}</div>
   );
 };
 
