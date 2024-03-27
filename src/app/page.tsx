@@ -1,16 +1,34 @@
+"use client";
+
 import { BookMain } from "@/app/components/Book/Book";
 import { CardMain } from "@/app/components/Card/Card";
 import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
 import { ThemeMain } from "@/app/components/Theme/Theme";
-import Like from "@/assets/img/like.svg";
-import Star from "@/assets/img/star.svg";
 import Profile from "@/assets/img/profile.png";
 import Star from "@/assets/img/star.svg";
 import Image from "next/image";
+import { useState } from "react";
 import { CardFooterMain } from "./components/CardFooter/CardFooter";
+import CommentHeartButton from "./components/CommentHeartButton/CommentHeartButton";
+import HeartButton from "./components/HeartButton/HeartButton";
+import LikeButton from "./components/LikeButton/LikeButton";
 import { TalkCommentMain } from "./components/TalkComment/TalkComment";
 
 const page = () => {
+  const [isLike, setIsLike] = useState<Boolean>(false);
+  const [isHeart, setIsHeart] = useState<Boolean>(false);
+  const [isCommentHeart, setIsCommentHeart] = useState<Boolean>(false);
+
+  const changeisLike = () => {
+    setIsLike(!isLike);
+  };
+  const changeisHeart = () => {
+    setIsHeart(!isHeart);
+  };
+  const changeisCommentHeart = () => {
+    setIsCommentHeart(!isCommentHeart);
+  };
+
   return (
     <>
       <div className="mt-[55px] ml-[120px]">
@@ -32,7 +50,12 @@ const page = () => {
                   <div className="text-[17px] ml-[6px]">이름</div>
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
-                  <Like width={21} height={19} />
+                  <HeartButton
+                    isHeart={isHeart}
+                    onClick={changeisHeart}
+                    width={21}
+                    height={19}
+                  />
                   <div className="w-[50px] h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
                     999+
                   </div>
@@ -177,7 +200,12 @@ const page = () => {
                   <div className="text-[20px] ml-[6px]">이름</div>
                 </CardHeaderMain.Name>
                 <CardHeaderMain.LikeNumbers>
-                  <Like width={24} height={22} />
+                  <HeartButton
+                    isHeart={isHeart}
+                    onClick={changeisHeart}
+                    width={26}
+                    height={24}
+                  />
                   <div className="w-[50px] h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
                     999+
                   </div>
@@ -210,9 +238,7 @@ const page = () => {
                 <CardFooterMain.Line>
                   <hr className="mt-[5px] mb-[10px] mr-[26px]" />
                 </CardFooterMain.Line>
-                <CardFooterMain.LikeButton>
-                  <div>좋아요</div>
-                </CardFooterMain.LikeButton>
+                <LikeButton isLike={isLike} onClick={changeisLike} />
               </CardFooterMain>
             </CardMain>
           </div>
@@ -250,12 +276,15 @@ const page = () => {
               <CardFooterMain className="flex flex-row">
                 <CardFooterMain.LikeNumbers>
                   <div className="flex grow items-center">
-                    <Like width={18} height={17} />
+                    <CommentHeartButton
+                      isCommentHeart={isCommentHeart}
+                      onClick={changeisCommentHeart}
+                      width={16}
+                      height={15}
+                    />
                     <div className="ml-[5px]">23</div>
                     <div className="ml-[11px]">
-                      <CardFooterMain.LikeButton>
-                        좋아요
-                      </CardFooterMain.LikeButton>
+                      <LikeButton isLike={isLike} onClick={changeisLike} />
                     </div>
                   </div>
                   <div className="mr-[26px]">
