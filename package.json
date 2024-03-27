@@ -12,6 +12,7 @@
     "chromatic": "npx chromatic --project-token=chpt_426798b9b815aba"
   },
   "dependencies": {
+    "@radix-ui/themes": "^2.0.3",
     "@reduxjs/toolkit": "^2.2.1",
     "@svgr/webpack": "^8.1.0",
     "@types/react-redux": "^7.1.33",

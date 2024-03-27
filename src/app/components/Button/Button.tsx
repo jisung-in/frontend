@@ -10,6 +10,7 @@ const buttonVariants = cva(
         empty: "bg-white text-gray-50 border-2 border-gray-40",
         none: "text-white",
         gray: "text-gray-80 font-[500] border-2",
+        ivory: "bg-ivory-40 text-brown-50",
       },
       rounded: {
         none: "rounded-none",
@@ -22,8 +23,9 @@ const buttonVariants = cva(
         full: "w-full",
       },
       height: {
-        big: "h-[58px]",
-        mid: "h-[40px]",
+        xl: "h-[58px]",
+        lg: "h-[48px]",
+        md: "h-[40px]",
         sm: "h-[35px]",
       },
       weight: {
@@ -37,7 +39,7 @@ const buttonVariants = cva(
       rounded: "lg",
       width: "full",
       weight: "md",
-      height: "big",
+      height: "lg",
     },
   },
 );
