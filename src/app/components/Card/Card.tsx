@@ -1,5 +1,6 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { BookMain } from "../Book/Book";
+import { Button } from "../Button/Button";
 import { CardFooterMain } from "../CardFooter/CardFooter";
 import { CardHeaderMain } from "../CardHeader/CardHeader";
 import { TalkCommentMain } from "../TalkComment/TalkComment";
@@ -38,10 +39,20 @@ const Review = ({ children }: CardProps) => {
 const MyReview = ({ children }: CardProps) => {
   return <div>{children}</div>;
 };
-const Status = ({ children }: CardProps) => {
+const Status = ({ children, className }: CardProps) => {
   return (
-    <div className="font-Pretendard font-Medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#F3F3F3] px-[8px] py-[4.5px] mr-[8px] border border-solid rounded-[4px]">
-      {children}
+    <div>
+      {className ? (
+        <div
+          className={`font-Pretendard font-Medium flex justify-center items-center w-auto text-[20px] text-[#656565] bg-[#F3F3F3] px-[13px] py-[6px] mr-[8px] border border-solid rounded-[4px] ${className}`}
+        >
+          {children}
+        </div>
+      ) : (
+        <div className="font-Pretendard font-Medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#F3F3F3] px-[8px] py-[4.5px] mr-[8px] border border-solid rounded-[4px]">
+          {children}
+        </div>
+      )}
     </div>
   );
 };
@@ -76,6 +87,7 @@ const CardHeaderMainType = (<CardHeaderMain />).type;
 const BookTitleType = (<BookTitle />).type;
 const CardFooterMainType = (<CardFooterMain />).type;
 const TalkCommentMainType = (<TalkCommentMain />).type;
+const ButtonType = (<Button />).type;
 
 const getAttendCondition = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -177,6 +189,12 @@ const getTalkCommentMain = (children: ReactNode) => {
     )
     .slice(0, 1);
 };
+const getButton = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  return childrenArray
+    .filter((child) => isValidElement(child) && child.type === ButtonType)
+    .slice(0, 1);
+};
 
 const Card = ({ children }: CardProps) => {
   const attendCondition = getAttendCondition(children);
@@ -194,12 +212,13 @@ const Card = ({ children }: CardProps) => {
   const bookTitle = getBookTitle(children);
   const cardFooterMain = getCardFooterMain(children);
   const talkCommentMain = getTalkCommentMain(children);
+  const button = getButton(children);
 
   return (
     <div className="flex flex-col w-full h-full">
       {talkCommentMain && <>{talkCommentMain}</>}
       {cardHeaderMain && <>{cardHeaderMain}</>}
-      <div className="flex flex-grow">
+      <div className="flex">
         {bookMain && <>{bookMain}</>}
         <div className="flex flex-col w-auto">
           {questionTitle && <>{questionTitle}</>}
@@ -207,6 +226,11 @@ const Card = ({ children }: CardProps) => {
           {bookTitle && <>{bookTitle}</>}
           {attendCondition && <>{attendCondition}</>}
           <div className="flex flex-row"> {status && <>{status}</>}</div>
+          <div className="flex justify-end w-full ml-[40px]">
+            <div className="w-[194px] h-[58px] font-Pretendard font-SemiBold text-[21px]">
+              {button && <>{button}</>}
+            </div>
+          </div>
           {question && <>{question}</>}
           {evaluation && <>{evaluation}</>}
           {opinion && <>{opinion}</>}
