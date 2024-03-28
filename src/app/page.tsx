@@ -14,6 +14,7 @@ import { Button } from "./components/Button/Button";
 import { CardMain } from "./components/Card/Card";
 import { CardHeaderMain } from "./components/CardHeader/CardHeader";
 import HeartButton from "./components/HeartButton/HeartButton";
+import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
@@ -158,20 +159,64 @@ const page = () => {
             </div>
           </div>
         </ThemeMain.MainTheme>
-        <BookMain>
-          <BookMain.BookCover>
-            <div className="w-[320px] h-[460px] bg-black rounded-[10px]" />
-          </BookMain.BookCover>
-          <BookMain.RankBox>1</BookMain.RankBox>
-          <BookMain.BookTitle>
-            <div className="font-SemiBold mt-[12px] text-[#000] text-[21px]">
-              책 제목
-            </div>
-          </BookMain.BookTitle>
-          <BookMain.Publisher>출판사</BookMain.Publisher>
-          <BookMain.Author>&nbsp;• 저자 •&nbsp;</BookMain.Author>
-          <BookMain.Year>2024</BookMain.Year>
-        </BookMain>
+        <Swiper
+          data={[
+            {
+              id: 1,
+              rank: 1,
+              image: "",
+              title: "책 제목1",
+              publisher: "출판사1",
+              author: "저자1",
+              year: 2024,
+            },
+            {
+              id: 2,
+              rank: 2,
+              image: "",
+              title: "책 제목2",
+              publisher: "출판사2",
+              author: "저자2",
+              year: 2024,
+            },
+            {
+              id: 3,
+              rank: 3,
+              image: "",
+              title: "책 제목3",
+              publisher: "출판사2",
+              author: "저자3",
+              year: 2024,
+            },
+            {
+              id: 4,
+              rank: 4,
+              image: "",
+              title: "책 제목4",
+              publisher: "출판사4",
+              author: "저자4",
+              year: 2024,
+            },
+            {
+              id: 5,
+              rank: 5,
+              image: "",
+              title: "책 제목5",
+              publisher: "출판사5",
+              author: "저자5",
+              year: 2024,
+            },
+            {
+              id: 6,
+              rank: 6,
+              image: "",
+              title: "책 제목6",
+              publisher: "출판사6",
+              author: "저자6",
+              year: 2024,
+            },
+          ]}
+        />
       </div>
 
       <div className="bg-[#FBF7F0] h-[675px] mt-[89px] mb-[48px]">
@@ -257,19 +302,58 @@ const page = () => {
             </div>
           </div>
         </ThemeMain.MainTheme>
-        <BookMain>
-          <BookMain.BookCover>
-            <div className="w-[320px] h-[460px] bg-black rounded-[10px]" />
-          </BookMain.BookCover>
-          <BookMain.BookTitle>
-            <div className="font-SemiBold mt-[12px] text-[#000] text-[21px]">
-              책 제목
-            </div>
-          </BookMain.BookTitle>
-          <BookMain.Publisher>출판사</BookMain.Publisher>
-          <BookMain.Author>&nbsp;• 저자 •&nbsp;</BookMain.Author>
-          <BookMain.Year>2024</BookMain.Year>
-        </BookMain>
+        <Swiper
+          data={[
+            {
+              id: 1,
+              image: "",
+              title: "책 제목1",
+              publisher: "출판사1",
+              author: "저자1",
+              year: 2024,
+            },
+            {
+              id: 2,
+              image: "",
+              title: "책 제목2",
+              publisher: "출판사2",
+              author: "저자2",
+              year: 2024,
+            },
+            {
+              id: 3,
+              image: "",
+              title: "책 제목3",
+              publisher: "출판사2",
+              author: "저자3",
+              year: 2024,
+            },
+            {
+              id: 4,
+              image: "",
+              title: "책 제목4",
+              publisher: "출판사4",
+              author: "저자4",
+              year: 2024,
+            },
+            {
+              id: 5,
+              image: "",
+              title: "책 제목5",
+              publisher: "출판사5",
+              author: "저자5",
+              year: 2024,
+            },
+            {
+              id: 6,
+              image: "",
+              title: "책 제목6",
+              publisher: "출판사6",
+              author: "저자6",
+              year: 2024,
+            },
+          ]}
+        />
       </div>
 
       <div className="bg-[#FBF7F0] h-[675px] mt-[73px]">
