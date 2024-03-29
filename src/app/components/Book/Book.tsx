@@ -43,9 +43,10 @@ const getBookCover = (children: ReactNode) => {
 };
 const getRankBox = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === RankBoxType)
-    .slice(0, 1);
+  const ranBox = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === RankBoxType,
+  );
+  return ranBox.length > 0 ? ranBox.slice(0, 1) : [];
 };
 const getBookTitle = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -61,9 +62,10 @@ const getAuthor = (children: ReactNode) => {
 };
 const getPublisher = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === PublisherType)
-    .slice(0, 1);
+  const publisher = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === PublisherType,
+  );
+  return publisher.length > 0 ? publisher.slice(0, 1) : [];
 };
 const getYear = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -91,16 +93,22 @@ const Book = ({ children }: BookProps) => {
     <div className="flex flex-col">
       <div className="relative">
         {bookCover && <>{bookCover}</>}
-        {rankBox && (
+        {rankBox.length > 0 ? (
           <div className="absolute top-[10px] left-[10px]">{rankBox} </div>
+        ) : (
+          <></>
         )}
       </div>
       {bookTitle && <>{bookTitle}</>}
-      <div className="flex items-center font-Pretendard font-normal text-[18px] text-[#656565]">
-        {publisher && <>{publisher}</>}
-        {author && <>{author}</>}
-        {year && <>{year}</>}
-      </div>
+      {publisher.length > 0 ? (
+        <div className="flex items-center font-Pretendard font-normal text-[18px] text-[#656565]">
+          {publisher && <>{publisher}</>}
+          {author && <>{author}</>}
+          {year && <>{year}</>}
+        </div>
+      ) : (
+        <></>
+      )}
       {starRating && <>{starRating}</>}
     </div>
   );

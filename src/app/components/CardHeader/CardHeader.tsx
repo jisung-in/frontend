@@ -5,7 +5,7 @@ const Profile = ({ children }: CardHeaderProps) => {
   return <div className="rounded-[50%]">{children}</div>;
 };
 const Name = ({ children }: CardHeaderProps) => {
-  return <div className="font-Pretendard font-Medium">{children}</div>;
+  return <div className="font-Pretendard font-medium">{children}</div>;
 };
 const HoursAgo = ({ children }: CardHeaderProps) => {
   return (

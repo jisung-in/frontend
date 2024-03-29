@@ -28,9 +28,7 @@ const Evaluation = ({ children }: CardProps) => {
 };
 const Opinion = ({ children }: CardProps) => {
   return (
-    <div className="font-Pretendard font-normal text-[20px] mt-[20px] mb-[10px]">
-      {children}
-    </div>
+    <div className="font-Pretendard font-normal text-[20px]">{children}</div>
   );
 };
 const Review = ({ children }: CardProps) => {
@@ -143,9 +141,10 @@ const getMyReview = (children: ReactNode) => {
 };
 const getStatus = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === StatusType)
-    .slice(0);
+  const status = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === StatusType,
+  );
+  return status.length > 0 ? status.slice(0) : [];
 };
 const getCreateDay = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -191,9 +190,10 @@ const getTalkCommentMain = (children: ReactNode) => {
 };
 const getButton = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === ButtonType)
-    .slice(0, 1);
+  const button = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === ButtonType,
+  );
+  return button.length > 0 ? button.slice(0, 1) : [];
 };
 
 const Card = ({ children }: CardProps) => {
@@ -214,6 +214,7 @@ const Card = ({ children }: CardProps) => {
   const talkCommentMain = getTalkCommentMain(children);
   const button = getButton(children);
 
+  console.log(button);
   return (
     <div className="flex flex-col w-full h-full">
       {talkCommentMain && <>{talkCommentMain}</>}
@@ -225,18 +226,26 @@ const Card = ({ children }: CardProps) => {
           {opinionTitle && <>{opinionTitle}</>}
           {bookTitle && <>{bookTitle}</>}
           {attendCondition && <>{attendCondition}</>}
-          <div className="flex flex-row"> {status && <>{status}</>}</div>
-          <div className="flex justify-end w-full ml-[40px]">
-            <div className="w-[194px] h-[58px] font-Pretendard font-semibold text-[21px]">
-              {button && <>{button}</>}
-            </div>
-          </div>
+          {status.length > 0 ? (
+            <div className="flex flex-row"> {status && <>{status}</>}</div>
+          ) : (
+            <></>
+          )}
           {question && <>{question}</>}
           {evaluation && <>{evaluation}</>}
           {opinion && <>{opinion}</>}
           {review && <>{review}</>}
           {myReview && <>{myReview}</>}
           {createDay && <>{createDay}</>}
+          {button.length > 0 ? (
+            <div className="flex justify-end w-full ml-[40px]">
+              <div className="w-[194px] h-[58px] font-Pretendard font-semibold text-[21px]">
+                {button && <>{button}</>}
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
       {cardFooterMain && <>{cardFooterMain}</>}
