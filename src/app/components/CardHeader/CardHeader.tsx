@@ -9,9 +9,7 @@ const Name = ({ children }: CardHeaderProps) => {
 };
 const HoursAgo = ({ children }: CardHeaderProps) => {
   return (
-    <div className="font-Pretendard font-Regular text-[#949494]">
-      {children}
-    </div>
+    <div className="font-Pretendard font-normal text-[#949494]">{children}</div>
   );
 };
 const LikeNumbers = ({ children }: CardHeaderProps) => {

@@ -4,7 +4,7 @@ import { TalkCommentProps } from "./TalkComment.types";
 
 const Numbering = ({ children }: TalkCommentProps) => {
   return (
-    <div className="font-Poppins font-SemiBold text-[#16px] text-[#000] flex items-center mb-[16px]">
+    <div className="font-Poppins font-semibold text-[#16px] text-[#000] flex items-center mb-[16px]">
       <NumberingImg />
       <div className="ml-[5px]">{children}</div>
     </div>
@@ -12,7 +12,7 @@ const Numbering = ({ children }: TalkCommentProps) => {
 };
 const TimesAgo = ({ children }: TalkCommentProps) => {
   return (
-    <div className="font-Pretendard font-Regular text-[#17px] text-[#7E7E7E]">
+    <div className="font-Pretendard font-normal text-[#17px] text-[#7E7E7E]">
       {children}
     </div>
   );

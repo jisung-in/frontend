@@ -46,7 +46,7 @@ const DemoSlider: React.FC<BookSliderProps> = ({ data }) => {
                 </BookMain.BookCover>
                 {rank ? <BookMain.RankBox>{rank}</BookMain.RankBox> : <></>}
                 <BookMain.BookTitle>
-                  <div className="font-SemiBold mt-[12px] text-[#000] text-[21px]">
+                  <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
                     {title}
                   </div>
                 </BookMain.BookTitle>

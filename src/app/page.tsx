@@ -60,7 +60,7 @@ const page = () => {
                       width={21}
                       height={19}
                     />
-                    <div className="h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
+                    <div className="h-[16px] font-Pretendard font-normal text-[13px] text-[#656565]">
                       999+
                     </div>
                   </div>
@@ -122,7 +122,7 @@ const page = () => {
                       width={21}
                       height={19}
                     />
-                    <div className="h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
+                    <div className="h-[16px] font-Pretendard font-normal text-[13px] text-[#656565]">
                       999+
                     </div>
                   </div>
@@ -254,7 +254,7 @@ const page = () => {
                         width={36}
                         height={32}
                       />
-                      <div className="h-[22px] font-Pretendard font-Regular text-[18px] text-[#656565]">
+                      <div className="h-[22px] font-Pretendard font-normal text-[18px] text-[#656565]">
                         999+
                       </div>
                     </div>
@@ -267,7 +267,7 @@ const page = () => {
                   </BookMain.BookCover>
                 </BookMain>
                 <CardMain.OpinionTitle>
-                  <div className="font-SemiBold text-[28px] mt-[28px] mb-[20px]">
+                  <div className="font-semibold text-[28px] mt-[28px] mb-[20px]">
                     토크방 제목
                   </div>
                 </CardMain.OpinionTitle>
@@ -372,7 +372,7 @@ const page = () => {
               <div className="w-[320px] h-[460px] bg-black rounded-[10px]" />
             </BookMain.BookCover>
             <BookMain.BookTitle>
-              <div className="font-SemiBold mt-[12px] text-[#000] text-[21px]">
+              <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
                 책 제목
               </div>
             </BookMain.BookTitle>

@@ -8,7 +8,7 @@ import { CardProps } from "./Card.types";
 
 const AttendCondition = ({ children }: CardProps) => {
   return (
-    <div className="flex font-Pretendard font-Medium text-[19px] text-[#FF6363]">
+    <div className="flex font-Pretendard font-medium text-[19px] text-[#FF6363]">
       {children}
     </div>
   );
@@ -18,7 +18,7 @@ const QuestionTitle = ({ children }: CardProps) => {
   return <div>{children}</div>;
 };
 const OpinionTitle = ({ children }: CardProps) => {
-  return <div className="font-Pretendard font-Medium">{children}</div>;
+  return <div className="font-Pretendard font-semibold">{children}</div>;
 };
 const Question = ({ children }: CardProps) => {
   return <div>{children}</div>;
@@ -28,7 +28,7 @@ const Evaluation = ({ children }: CardProps) => {
 };
 const Opinion = ({ children }: CardProps) => {
   return (
-    <div className="font-Pretendard font-Regular text-[20px] mt-[20px] mb-[10px]">
+    <div className="font-Pretendard font-normal text-[20px] mt-[20px] mb-[10px]">
       {children}
     </div>
   );
@@ -44,12 +44,12 @@ const Status = ({ children, className }: CardProps) => {
     <div>
       {className ? (
         <div
-          className={`font-Pretendard font-Medium flex justify-center items-center w-auto text-[20px] text-[#656565] bg-[#F3F3F3] px-[13px] py-[6px] mr-[8px] border border-solid rounded-[4px] ${className}`}
+          className={`font-Pretendard font-medium flex justify-center items-center w-auto text-[20px] text-[#656565] bg-[#F3F3F3] px-[13px] py-[6px] mr-[8px] border border-solid rounded-[4px] ${className}`}
         >
           {children}
         </div>
       ) : (
-        <div className="font-Pretendard font-Medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#F3F3F3] px-[8px] py-[4.5px] mr-[8px] border border-solid rounded-[4px]">
+        <div className="font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#F3F3F3] px-[8px] py-[4.5px] mr-[8px] border border-solid rounded-[4px]">
           {children}
         </div>
       )}
@@ -58,7 +58,7 @@ const Status = ({ children, className }: CardProps) => {
 };
 const CreateDay = ({ children }: CardProps) => {
   return (
-    <div className="flex flex-row font-Pretendard font-Medium text-[18px] text-[#AEAEAE]">
+    <div className="flex flex-row font-Pretendard font-medium text-[18px] text-[#AEAEAE]">
       <div className="mr-[18px]">생성일</div>
       <div>{children}</div>
     </div>
@@ -66,7 +66,7 @@ const CreateDay = ({ children }: CardProps) => {
 };
 const BookTitle = ({ children }: CardProps) => {
   return (
-    <div className="font-Pretendard font-Medium text-[20px] text-[#656565]">
+    <div className="font-Pretendard font-medium text-[20px] text-[#656565]">
       {children}
     </div>
   );
@@ -227,7 +227,7 @@ const Card = ({ children }: CardProps) => {
           {attendCondition && <>{attendCondition}</>}
           <div className="flex flex-row"> {status && <>{status}</>}</div>
           <div className="flex justify-end w-full ml-[40px]">
-            <div className="w-[194px] h-[58px] font-Pretendard font-SemiBold text-[21px]">
+            <div className="w-[194px] h-[58px] font-Pretendard font-semibold text-[21px]">
               {button && <>{button}</>}
             </div>
           </div>

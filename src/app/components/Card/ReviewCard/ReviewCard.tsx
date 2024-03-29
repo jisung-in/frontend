@@ -1,10 +1,9 @@
+import Like from "@/assets/img/like.svg";
+import Profile from "@/assets/img/profile.png";
+import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 import { CardHeaderMain } from "../../CardHeader/CardHeader";
 import { CardMain } from "../Card";
-import Like from "@/assets/img/like.svg";
-import Star from "@/assets/img/star.svg";
-import Image from "next/image";
-import Profile from "@/assets/img/profile.png";
 
 const ReviewCard = () => {
   return (
@@ -19,7 +18,7 @@ const ReviewCard = () => {
           </CardHeaderMain.Name>
           <CardHeaderMain.LikeNumbers>
             <Like width={24} height={22} />
-            <div className="w-[50px] h-[16px] font-Pretendard font-Regular text-[13px] text-[#656565]">
+            <div className="w-[50px] h-[16px] font-Pretendard font-regular text-[13px] text-[#656565]">
               999+
             </div>
           </CardHeaderMain.LikeNumbers>

@@ -12,7 +12,7 @@ const RankBox = ({ children }: BookProps) => {
   );
 };
 const BookTitle = ({ children }: BookProps) => {
-  return <div className="font-Pretendard font-Medium">{children}</div>;
+  return <div className="font-Pretendard font-medium">{children}</div>;
 };
 const Author = ({ children }: BookProps) => {
   return <div>{children}</div>;
@@ -96,7 +96,7 @@ const Book = ({ children }: BookProps) => {
         )}
       </div>
       {bookTitle && <>{bookTitle}</>}
-      <div className="flex items-center font-Pretendard font-Regular text-[18px] text-[#656565]">
+      <div className="flex items-center font-Pretendard font-normal text-[18px] text-[#656565]">
         {publisher && <>{publisher}</>}
         {author && <>{author}</>}
         {year && <>{year}</>}
