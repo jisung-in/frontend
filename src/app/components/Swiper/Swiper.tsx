@@ -5,73 +5,59 @@ import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-
-import SliderButtons from "./SliderButton";
+import { BookMain } from "../Book/Book";
 
 interface Slide {
   id: number;
+  rank?: number;
   title: string;
-  tagline: string;
   image: string;
-  buttons: ButtonProps[];
+  publisher: string;
+  author: string;
+  year: number;
 }
 
-interface ButtonProps {
-  id: number;
-  text: string;
-  link: string;
-  type: string;
-}
-
-interface DemoSliderProps {
+interface BookSliderProps {
   data: Slide[];
 }
 
-const DemoSlider: React.FC<DemoSliderProps> = ({ data }) => {
+const DemoSlider: React.FC<BookSliderProps> = ({ data }) => {
   return (
-    <section className="w-full">
-      <div className=" h-screen">
-        <ul className="h-full w-full">
-          <Swiper
-            navigation
-            pagination={{ type: "bullets", clickable: true }}
-            autoplay={true}
-            loop={true}
-            modules={[Autoplay, Navigation, Pagination]}
-          >
-            {data.map(({ id, image, tagline, title, buttons }) => (
-              <SwiperSlide key={id}>
-                <div
-                  className="h-full w-full absolute left-0 top-0"
-                  style={{
-                    background: `url(${image}) center center / cover scroll no-repeat`,
-                  }}
-                ></div>
-                <div className="h-full w-full absolute left-0 top-0 bg-black opacity-20"></div>
-                <div className="relative z-10 h-full flex items-center justify-center">
-                  <div className="text-center">
-                    {tagline && (
-                      <p className="text-md sm:text-xl lg:text-3xl font-semibold text-white">
-                        {tagline}
-                      </p>
-                    )}
-                    <p className="text-3xl sm:text-6xl lg:text-8xl font-bold text-white">
-                      {title}
-                    </p>
-                    {buttons.length > 0 ? (
-                      <p className=" bg-gray-800 inline-block px-9 py-2 rounded-full text-white mt-10 lg:mt-20">
-                        <SliderButtons buttons={buttons} />
-                      </p>
-                    ) : null}
+    <section className="w-[1688px] h-[523px]">
+      <ul className="h-full w-full">
+        <Swiper
+          navigation
+          pagination={{ type: "custom", clickable: true }}
+          autoplay={true}
+          loop={false}
+          modules={[Navigation, Pagination]}
+          spaceBetween={10}
+          slidesPerView={5}
+        >
+          {data.map(({ id, rank, image, title, publisher, author, year }) => (
+            <SwiperSlide key={id}>
+              <BookMain>
+                <BookMain.BookCover>
+                  <div className="w-[320px] h-[460px] bg-black rounded-[10px]">
+                    {image}
                   </div>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </ul>
-      </div>
+                </BookMain.BookCover>
+                {rank ? <BookMain.RankBox>{rank}</BookMain.RankBox> : <></>}
+                <BookMain.BookTitle>
+                  <div className="font-SemiBold mt-[12px] text-[#000] text-[21px]">
+                    {title}
+                  </div>
+                </BookMain.BookTitle>
+                <BookMain.Publisher>{publisher}</BookMain.Publisher>
+                <BookMain.Author>&nbsp;• {author} •&nbsp;</BookMain.Author>
+                <BookMain.Year>{year}</BookMain.Year>
+              </BookMain>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </ul>
     </section>
   );
 };
