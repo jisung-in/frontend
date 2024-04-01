@@ -6,16 +6,19 @@ import { CardMain } from "@/app/components/Card/Card";
 import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
 import HeartButton from "@/app/components/HeartButton/HeartButton";
 import { Input } from "@/app/components/Input/Input";
+import Pagination from "@/app/components/Pagination/Pagination";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import Profile from "@/assets/img/profile.png";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useInput } from "@/hook/useInput";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import StatusButton from "../_component/StatusBurtton";
 
 const page = () => {
+  const pathName = usePathname();
   const [isStatus, setIsStatus] = useState<boolean>(false);
   const [isHeart, setIsHeart] = useState<Boolean>(false);
   const { value, handleChange, reset } = useInput("");
@@ -135,6 +138,12 @@ const page = () => {
           </CardMain>
         </div>
       </div>
+      <Pagination
+        totalItems={120}
+        pageCount={12}
+        postPage={10}
+        link={pathName + "?"}
+      />
     </div>
   );
 };

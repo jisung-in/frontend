@@ -214,7 +214,6 @@ const Card = ({ children }: CardProps) => {
   const talkCommentMain = getTalkCommentMain(children);
   const button = getButton(children);
 
-  console.log(button);
   return (
     <div className="flex flex-col w-full h-full">
       {talkCommentMain && <>{talkCommentMain}</>}
