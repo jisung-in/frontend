@@ -5,7 +5,7 @@ import Profile from "@/assets/img/profile.png";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useInput } from "@/hook/useInput";
 import Image from "next/image";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { BookMain } from "../components/Book/Book";
 import { Button } from "../components/Button/Button";
@@ -19,9 +19,7 @@ import StatusButton from "./_component/StatusBurtton";
 
 const page = () => {
   const pathName = usePathname();
-  const searchParams = useSearchParams();
 
-  const search = searchParams.get("page");
   const [isStatus, setIsStatus] = useState<boolean>(false);
   const [isHeart, setIsHeart] = useState<Boolean>(false);
   const { value, handleChange, reset } = useInput("");
