@@ -7,7 +7,7 @@ import { CardHeaderMain } from "../CardHeader/CardHeader";
 import { TalkCommentMain } from "../TalkComment/TalkComment";
 import { CardProps } from "./Card.types";
 
-const TitleTheme = ({ children, className }: CardProps) => {
+const TitleTheme = ({ children, className = "" }: CardProps) => {
   return (
     <div
       className={`flex items-center font-Pretendard font-semibold text-[22px] text-[#000] ${className}`}
@@ -19,7 +19,7 @@ const TitleTheme = ({ children, className }: CardProps) => {
     </div>
   );
 };
-const BookTitle = ({ children, className }: CardProps) => {
+const BookTitle = ({ children, className = "" }: CardProps) => {
   return (
     <div
       className={`flex items-center font-Pretendard font-medium text-[20px] text-[#656565] ${className}`}
@@ -31,19 +31,21 @@ const BookTitle = ({ children, className }: CardProps) => {
     </div>
   );
 };
-const AttendCondition = ({ children }: CardProps) => {
+const AttendCondition = ({ children, className = "" }: CardProps) => {
   return (
-    <div className="flex font-Pretendard font-medium text-[18px] text-[#FF6363]">
+    <div
+      className={`flex font-Pretendard font-medium text-[18px] text-[#FF6363] ${className}`}
+    >
       {children}
     </div>
   );
 };
-const Status = ({ children, className }: CardProps) => {
+const Status = ({ children, className = "" }: CardProps) => {
   return (
     <div>
       {className ? (
         <div
-          className={`font-Pretendard font-medium flex justify-center items-center w-auto text-[20px] text-[#656565] bg-[#FBF7F0] px-[13px] py-[6px] mr-[8px] border border-[#F4E4CE] border-solid rounded-[4px] ${className}`}
+          className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#FFFFFF] px-[8px] py-[4.5px] mr-[8px] border border-[#F4E4CE] border-solid rounded-[4px] ${className}`}
         >
           {children}
         </div>
@@ -150,7 +152,7 @@ const getTalkCommentMain = (children: ReactNode) => {
     .slice(0, 1);
 };
 
-const Card = ({ children }: CardProps) => {
+const Card = ({ children, className }: CardProps) => {
   const titleTheme = getTitleTheme(children);
   const attendCondition = getAttendCondition(children);
   const status = getStatus(children);
@@ -166,7 +168,7 @@ const Card = ({ children }: CardProps) => {
     <div className="flex flex-col w-full h-full">
       {talkCommentMain && <>{talkCommentMain}</>}
       {cardHeaderMain && <>{cardHeaderMain}</>}
-      <div className="flex">
+      <div className={`flex ${className}`}>
         {bookMain && <>{bookMain}</>}
         <div className="flex flex-col w-auto">
           {titleTheme && <>{titleTheme}</>}

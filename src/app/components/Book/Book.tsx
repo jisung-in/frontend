@@ -1,7 +1,7 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { BookProps } from "./Book.types";
 
-const BookCover = ({ children, className }: BookProps) => {
+const BookCover = ({ children, className = "" }: BookProps) => {
   return (
     <div className={`w-full h-full bg-origin-padding ${className}`}>
       {children}
@@ -84,7 +84,7 @@ const getStarRating = (children: ReactNode) => {
     .slice(0, 1);
 };
 
-const Book = ({ children }: BookProps) => {
+const Book = ({ children, className }: BookProps) => {
   const author = getAuthor(children);
   const bookCover = getBookCover(children);
   const bookTitle = getBookTitle(children);
@@ -94,13 +94,15 @@ const Book = ({ children }: BookProps) => {
   const starRating = getStarRating(children);
 
   return (
-    <div className="flex flex-col">
-      <div className="relative">
-        {bookCover && <>{bookCover}</>}
-        {rankBox.length > 0 && (
+    <div className={`flex flex-col ${className}`}>
+      {rankBox.length > 0 ? (
+        <div className="relative">
+          {bookCover && <>{bookCover}</>}
           <div className="absolute top-[10px] left-[10px]">{rankBox}</div>
-        )}
-      </div>
+        </div>
+      ) : (
+        <>{bookCover}</>
+      )}
       {bookTitle && <>{bookTitle}</>}
       {publisher.length > 0 && (
         <div className="flex items-center font-Pretendard font-normal text-[18px] text-[#656565]">

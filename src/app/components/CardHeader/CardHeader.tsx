@@ -2,11 +2,13 @@ import TalkRoomTitle from "@/assets/img/talkroom-title.svg";
 import { Children, ReactNode, isValidElement } from "react";
 import { CardHeaderProps } from "./CardHeader.types";
 
-const Title = ({ children }: CardHeaderProps) => {
+const Title = ({ children, className = "" }: CardHeaderProps) => {
   return (
-    <div className="flex items-center font-Pretendard font-semibold text-[21px] text-[#fff] ml-[2px]">
+    <div
+      className={`flex items-center font-Pretendard font-semibold text-[21px] text-[#fff] ${className}`}
+    >
       <TalkRoomTitle />
-      <div>{children}</div>
+      <div className="ml-[9px]">{children}</div>
     </div>
   );
 };
@@ -80,7 +82,7 @@ const getStarRating = (children: ReactNode) => {
   return starRating.length > 0 ? starRating.slice(0, 1) : [];
 };
 
-const CardHeader = ({ children }: CardHeaderProps) => {
+const CardHeader = ({ children, className }: CardHeaderProps) => {
   const profile = getProfile(children);
   const name = getName(children);
   const hoursAgo = getHoursAgo(children);
@@ -89,7 +91,7 @@ const CardHeader = ({ children }: CardHeaderProps) => {
   const starRating = getStarRating(children);
 
   return (
-    <div className="flex items-center w-full">
+    <div className={`flex items-center w-full ${className}`}>
       {title.length > 0 ? (
         <div className="flex flex-grow w-full h-full items-center">
           {title}

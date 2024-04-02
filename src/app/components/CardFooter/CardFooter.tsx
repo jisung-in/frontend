@@ -2,7 +2,7 @@ import { Children, ReactNode, isValidElement } from "react";
 import LikeButton from "../LikeButton/LikeButton";
 import { CardFooterProps } from "./CartFooter.types";
 
-const LikeNumbers = ({ children, className }: CardFooterProps) => {
+const LikeNumbers = ({ children, className = "" }: CardFooterProps) => {
   return (
     <div
       className={`flex flex-grow items-center font-medium text-[17px] text-[#656565] ${className}`}
