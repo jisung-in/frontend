@@ -435,7 +435,7 @@ const page = () => {
         />
       </div>
 
-      <div className="bg-[#FBF7F0] h-[675px] mt-[36px] pt-[36px]">
+      <div className="bg-[#FBF7F0] mt-[36px] pt-[36px]">
         <div className="mt-[23px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-[20px]">
@@ -446,59 +446,223 @@ const page = () => {
               <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
             </div>
           </ThemeMain.MainTheme>
-          <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px]">
-            <CardMain className="flex flex-col items-center">
-              <CardHeaderMain className="pt-[21px] pb-[12px] mb-[25px] bg-[#624E45] rounded-t-[20px] w-auto">
-                <CardHeaderMain.Title className="ml-[23px]">
-                  토크방 제목
-                </CardHeaderMain.Title>
-                <CardHeaderMain.LikeNumbers>
-                  <div className="mr-[25px]">
-                    <HeartButton
-                      isHeart={isHeart}
-                      onClick={changeisHeart}
-                      width={21}
-                      height={19}
-                    />
-                    <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
-                      999+
+          <div className="flex flex-row flex-wrap">
+            <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px] mr-[18px] mb-[65px]">
+              <CardMain className="flex flex-col items-center">
+                <CardHeaderMain className="pt-[21px] pb-[12px] mb-[25px] bg-[#624E45] rounded-t-[20px] w-auto">
+                  <CardHeaderMain.Title className="ml-[23px]">
+                    토크방 제목
+                  </CardHeaderMain.Title>
+                  <CardHeaderMain.LikeNumbers>
+                    <div className="mr-[25px]">
+                      <HeartButton
+                        isHeart={isHeart}
+                        onClick={changeisHeart}
+                        width={21}
+                        height={19}
+                      />
+                      <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
+                        999+
+                      </div>
+                    </div>
+                  </CardHeaderMain.LikeNumbers>
+                </CardHeaderMain>
+                <BookMain className="mb-[26px]">
+                  <BookMain.BookCover>
+                    <div className="flex items-center border border-solid border-[#F4E4CE] w-[170px] h-[245px]"></div>
+                  </BookMain.BookCover>
+                </BookMain>
+                <CardMain.AttendCondition className="w-[360px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">
+                  <div className="pl-[18px]">
+                    <CardMain.BookTitle className="my-[16px]">
+                      책 제목
+                    </CardMain.BookTitle>
+                    <div className="flex flex-row">
+                      <div className="w-[100px] mr-[15px]">참가조건</div>
+                      <div className="flex flex-row flex-wrap">
+                        <CardMain.Status className="mb-[10px]">
+                          읽고 싶은
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽는 중
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽음
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          잠시 멈춘
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          중단
+                        </CardMain.Status>
+                      </div>
                     </div>
                   </div>
-                </CardHeaderMain.LikeNumbers>
-              </CardHeaderMain>
-              <BookMain className="mb-[26px]">
-                <BookMain.BookCover>
-                  <div className="flex items-center border border-solid border-[#F4E4CE] w-[170px] h-[245px]"></div>
-                </BookMain.BookCover>
-              </BookMain>
-              <CardMain.AttendCondition className="w-[360px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">
-                <div className="pl-[18px]">
-                  <CardMain.BookTitle className="my-[16px]">
-                    책 제목
-                  </CardMain.BookTitle>
-                  <div className="flex flex-row">
-                    <div className="w-[100px] mr-[15px]">참가조건</div>
-                    <div className="flex flex-row flex-wrap">
-                      <CardMain.Status className="mb-[10px]">
-                        읽고 싶은
-                      </CardMain.Status>
-                      <CardMain.Status className="mb-[10px]">
-                        읽는 중
-                      </CardMain.Status>
-                      <CardMain.Status className="mb-[10px]">
-                        읽음
-                      </CardMain.Status>
-                      <CardMain.Status className="mb-[16px]">
-                        잠시 멈춘
-                      </CardMain.Status>
-                      <CardMain.Status className="mb-[16px]">
-                        중단
-                      </CardMain.Status>
+                </CardMain.AttendCondition>
+              </CardMain>
+            </div>
+            <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px] mr-[18px] mb-[65px]">
+              <CardMain className="flex flex-col items-center">
+                <CardHeaderMain className="pt-[21px] pb-[12px] mb-[25px] bg-[#624E45] rounded-t-[20px] w-auto">
+                  <CardHeaderMain.Title className="ml-[23px]">
+                    토크방 제목
+                  </CardHeaderMain.Title>
+                  <CardHeaderMain.LikeNumbers>
+                    <div className="mr-[25px]">
+                      <HeartButton
+                        isHeart={isHeart}
+                        onClick={changeisHeart}
+                        width={21}
+                        height={19}
+                      />
+                      <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
+                        999+
+                      </div>
+                    </div>
+                  </CardHeaderMain.LikeNumbers>
+                </CardHeaderMain>
+                <BookMain className="mb-[26px]">
+                  <BookMain.BookCover>
+                    <div className="flex items-center border border-solid border-[#F4E4CE] w-[170px] h-[245px]"></div>
+                  </BookMain.BookCover>
+                </BookMain>
+                <CardMain.AttendCondition className="w-[360px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">
+                  <div className="pl-[18px]">
+                    <CardMain.BookTitle className="my-[16px]">
+                      책 제목
+                    </CardMain.BookTitle>
+                    <div className="flex flex-row">
+                      <div className="w-[100px] mr-[15px]">참가조건</div>
+                      <div className="flex flex-row flex-wrap">
+                        <CardMain.Status className="mb-[10px]">
+                          읽고 싶은
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽는 중
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽음
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          잠시 멈춘
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          중단
+                        </CardMain.Status>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </CardMain.AttendCondition>
-            </CardMain>
+                </CardMain.AttendCondition>
+              </CardMain>
+            </div>
+            <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px] mr-[18px] mb-[65px]">
+              <CardMain className="flex flex-col items-center">
+                <CardHeaderMain className="pt-[21px] pb-[12px] mb-[25px] bg-[#624E45] rounded-t-[20px] w-auto">
+                  <CardHeaderMain.Title className="ml-[23px]">
+                    토크방 제목
+                  </CardHeaderMain.Title>
+                  <CardHeaderMain.LikeNumbers>
+                    <div className="mr-[25px]">
+                      <HeartButton
+                        isHeart={isHeart}
+                        onClick={changeisHeart}
+                        width={21}
+                        height={19}
+                      />
+                      <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
+                        999+
+                      </div>
+                    </div>
+                  </CardHeaderMain.LikeNumbers>
+                </CardHeaderMain>
+                <BookMain className="mb-[26px]">
+                  <BookMain.BookCover>
+                    <div className="flex items-center border border-solid border-[#F4E4CE] w-[170px] h-[245px]"></div>
+                  </BookMain.BookCover>
+                </BookMain>
+                <CardMain.AttendCondition className="w-[360px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">
+                  <div className="pl-[18px]">
+                    <CardMain.BookTitle className="my-[16px]">
+                      책 제목
+                    </CardMain.BookTitle>
+                    <div className="flex flex-row">
+                      <div className="w-[100px] mr-[15px]">참가조건</div>
+                      <div className="flex flex-row flex-wrap">
+                        <CardMain.Status className="mb-[10px]">
+                          읽고 싶은
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽는 중
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽음
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          잠시 멈춘
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          중단
+                        </CardMain.Status>
+                      </div>
+                    </div>
+                  </div>
+                </CardMain.AttendCondition>
+              </CardMain>
+            </div>
+            <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px] mr-[18px] mb-[65px]">
+              <CardMain className="flex flex-col items-center">
+                <CardHeaderMain className="pt-[21px] pb-[12px] mb-[25px] bg-[#624E45] rounded-t-[20px] w-auto">
+                  <CardHeaderMain.Title className="ml-[23px]">
+                    토크방 제목
+                  </CardHeaderMain.Title>
+                  <CardHeaderMain.LikeNumbers>
+                    <div className="mr-[25px]">
+                      <HeartButton
+                        isHeart={isHeart}
+                        onClick={changeisHeart}
+                        width={21}
+                        height={19}
+                      />
+                      <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
+                        999+
+                      </div>
+                    </div>
+                  </CardHeaderMain.LikeNumbers>
+                </CardHeaderMain>
+                <BookMain className="mb-[26px]">
+                  <BookMain.BookCover>
+                    <div className="flex items-center border border-solid border-[#F4E4CE] w-[170px] h-[245px]"></div>
+                  </BookMain.BookCover>
+                </BookMain>
+                <CardMain.AttendCondition className="w-[360px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">
+                  <div className="pl-[18px]">
+                    <CardMain.BookTitle className="my-[16px]">
+                      책 제목
+                    </CardMain.BookTitle>
+                    <div className="flex flex-row">
+                      <div className="w-[100px] mr-[15px]">참가조건</div>
+                      <div className="flex flex-row flex-wrap">
+                        <CardMain.Status className="mb-[10px]">
+                          읽고 싶은
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽는 중
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[10px]">
+                          읽음
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          잠시 멈춘
+                        </CardMain.Status>
+                        <CardMain.Status className="mb-[16px]">
+                          중단
+                        </CardMain.Status>
+                      </div>
+                    </div>
+                  </div>
+                </CardMain.AttendCondition>
+              </CardMain>
+            </div>
           </div>
         </div>
       </div>
@@ -566,7 +730,7 @@ const page = () => {
         />
       </div>
 
-      <div className="bg-[#FBF7F0] h-[675px] mt-[73px]">
+      <div className="bg-[#FBF7F0] mt-[73px]">
         <div className="pt-[77px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-[20px]">
@@ -580,100 +744,100 @@ const page = () => {
           <div className="flex flew-row flex-wrap">
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
             </BookMain>
             <BookMain>
               <BookMain.BookCover>
-                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]" />
+                <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px] mr-[17px]" />
               </BookMain.BookCover>
               <BookMain.BookTitle>
-                <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+                <div className="font-semibold mt-[12px] text-[#000] text-[21px] mb-[29px]">
                   책 제목
                 </div>
               </BookMain.BookTitle>
