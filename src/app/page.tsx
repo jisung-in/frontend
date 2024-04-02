@@ -460,6 +460,7 @@ const page = () => {
                         onClick={changeisHeart}
                         width={21}
                         height={19}
+                        color="#FFF"
                       />
                       <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
                         999+
@@ -514,6 +515,7 @@ const page = () => {
                         onClick={changeisHeart}
                         width={21}
                         height={19}
+                        color="#FFF"
                       />
                       <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
                         999+
@@ -568,6 +570,7 @@ const page = () => {
                         onClick={changeisHeart}
                         width={21}
                         height={19}
+                        color="#FFF"
                       />
                       <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
                         999+
@@ -622,6 +625,7 @@ const page = () => {
                         onClick={changeisHeart}
                         width={21}
                         height={19}
+                        color="#FFF"
                       />
                       <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
                         999+
