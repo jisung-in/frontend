@@ -3,4 +3,5 @@ export interface HeartButtonProps {
   onClick?: () => void;
   width: number;
   height: number;
+  color?: string;
 }

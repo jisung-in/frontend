@@ -11,8 +11,8 @@ const LikeNumbers = ({ children, className }: CardFooterProps) => {
     </div>
   );
 };
-const Line = ({ children }: CardFooterProps) => {
-  return <div className="border-solid border-[#E3E3E3]">{children}</div>;
+const Line = ({ className }: CardFooterProps) => {
+  return <hr className={`border-solid ${className}`} />;
 };
 const DeleteButton = ({ children }: CardFooterProps) => {
   return (

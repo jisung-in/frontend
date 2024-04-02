@@ -40,11 +40,11 @@ const DemoSlider: React.FC<BookSliderProps> = ({ data }) => {
             <SwiperSlide key={id}>
               <BookMain>
                 <BookMain.BookCover>
-                  <div className="w-[320px] h-[460px] bg-black rounded-[10px]">
+                  <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]">
                     {image}
                   </div>
                 </BookMain.BookCover>
-                {rank ? <BookMain.RankBox>{rank}</BookMain.RankBox> : <></>}
+                {rank && <BookMain.RankBox>{rank}</BookMain.RankBox>}
                 <BookMain.BookTitle>
                   <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
                     {title}
