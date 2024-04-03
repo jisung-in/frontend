@@ -12,7 +12,7 @@ const TalkRoomCard = () => {
     setIsHeart(!isHeart);
   };
   return (
-    <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px] mr-[20px]">
+    <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px]">
       <div className="mt-[22px] ml-[26px] w-auto">
         <CardMain>
           <CardHeaderMain>
@@ -52,13 +52,17 @@ const TalkRoomCard = () => {
           </CardMain.TitleTheme>
           <CardMain.BookTitle className="mb-[6px]">책 제목</CardMain.BookTitle>
           <CardMain.AttendCondition>
-            <div className="mb-[4px]">참가조건</div>
+            <div className="flex flex-col">
+              <div className="mb-[4px]">참가조건</div>
+              <div className="flex flex-row gap-x-2">
+                <CardMain.Status color="FBF7F0">읽고 싶은</CardMain.Status>
+                <CardMain.Status color="FBF7F0">읽는 중</CardMain.Status>
+                <CardMain.Status color="FBF7F0">읽음</CardMain.Status>
+                <CardMain.Status color="FBF7F0">잠시 멈춘</CardMain.Status>
+                <CardMain.Status color="FBF7F0">중단</CardMain.Status>
+              </div>
+            </div>
           </CardMain.AttendCondition>
-          <CardMain.Status>읽고 싶은</CardMain.Status>
-          <CardMain.Status>읽는 중</CardMain.Status>
-          <CardMain.Status>읽음</CardMain.Status>
-          <CardMain.Status>잠시 멈춘</CardMain.Status>
-          <CardMain.Status>중단</CardMain.Status>
         </CardMain>
       </div>
     </div>

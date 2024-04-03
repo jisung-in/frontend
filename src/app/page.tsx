@@ -105,7 +105,7 @@ const page = () => {
             <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
           </div>
         </ThemeMain.MainTheme>
-        <div className="flex flex-row flex-wrap">
+        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
           {new Array(3).fill(1).map((index: number) => (
             <TalkRoomCard key={index} />
           ))}
@@ -123,7 +123,7 @@ const page = () => {
           </div>
         </ThemeMain.MainTheme>
 
-        <div className="flex flex-row flex-wrap">
+        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
           {new Array(3).fill(1).map((index: number) => (
             <TalkRoomCard key={index} />
           ))}
@@ -142,7 +142,7 @@ const page = () => {
         <Swiper data={BestSellerData} />
       </div>
 
-      <div className="bg-[#FBF7F0] mt-[36px] pt-[36px]">
+      <div className="bg-[#FBF7F0] mt-[36px] pt-[36px] pb-[65px]">
         <div className="mt-[23px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-[20px]">
@@ -153,7 +153,7 @@ const page = () => {
               <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
             </div>
           </ThemeMain.MainTheme>
-          <div className="flex flex-row flex-wrap">
+          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px">
             {new Array(4).fill(1).map((index: number) => (
               <PopularTalkRoomCard key={index} />
             ))}
@@ -173,7 +173,7 @@ const page = () => {
         <Swiper data={RecentlyRegisterData} />
       </div>
 
-      <div className="bg-[#FBF7F0] mt-[73px]">
+      <div className="bg-[#FBF7F0] mt-[73px] pb-[91px]">
         <div className="pt-[77px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-[20px]">
@@ -184,7 +184,7 @@ const page = () => {
               <ThemeMain.Show>더보기 {">"}</ThemeMain.Show>
             </div>
           </ThemeMain.MainTheme>
-          <div className="flex flew-row flex-wrap">
+          <div className="flex flew-row flex-wrap gap-x-[17px] gap-y-[29px]">
             {new Array(10).fill(1).map((index: number) => (
               <ManyTalkRoomBookCard key={index} />
             ))}

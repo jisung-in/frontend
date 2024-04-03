@@ -1,17 +1,12 @@
 "use client";
 
 import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
-import Profile from "@/assets/img/profile.png";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useInput } from "@/hook/useInput";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { BookMain } from "../components/Book/Book";
 import { Button } from "../components/Button/Button";
-import { CardMain } from "../components/Card/Card";
-import { CardHeaderMain } from "../components/CardHeader/CardHeader";
-import HeartButton from "../components/HeartButton/HeartButton";
+import TalkRoomCard from "../components/Card/TalkRoomCard/TalkRoomCard";
 import { Input } from "../components/Input/Input";
 import Pagination from "../components/Pagination/Pagination";
 import { ThemeMain } from "../components/Theme/Theme";
@@ -21,14 +16,10 @@ const page = () => {
   const pathName = usePathname();
 
   const [isStatus, setIsStatus] = useState<boolean>(false);
-  const [isHeart, setIsHeart] = useState<Boolean>(false);
   const { value, handleChange, reset } = useInput("");
 
   const changeIsStatus = () => {
     setIsStatus(!isStatus);
-  };
-  const changeisHeart = () => {
-    setIsHeart(!isHeart);
   };
 
   return (
@@ -46,7 +37,7 @@ const page = () => {
           <StatusButton isStatus={isStatus} onClick={changeIsStatus} />
         </div>
         <div className="flex h-[40px]">
-          <div className="w-[404px] mr-[9px]">
+          <div className="w-[567px] mr-[11px]">
             <Input
               className="font-Pretendard font-[400]"
               variant="empty"
@@ -65,72 +56,11 @@ const page = () => {
         </div>
       </div>
 
-      <div className="w-[910px] h-[325px] bg-[#FFF] border border-solid rounded-[18px]">
-        <div className="mt-[24px] ml-[26px] w-auto">
-          <CardMain>
-            <CardHeaderMain>
-              <CardHeaderMain.Profile>
-                <Image
-                  src={Profile}
-                  alt="프로필"
-                  width={46}
-                  height={46}
-                  priority
-                />
-              </CardHeaderMain.Profile>
-              <CardHeaderMain.Name>
-                <div className="text-[19px] ml-[8px]">이름</div>
-              </CardHeaderMain.Name>
-              <CardHeaderMain.HoursAgo>
-                <div className="text-[15px] ml-[8px]">23시간 전 (날짜)</div>
-              </CardHeaderMain.HoursAgo>
-              <CardHeaderMain.LikeNumbers>
-                <div className="mr-[27px]">
-                  <HeartButton
-                    isHeart={isHeart}
-                    onClick={changeisHeart}
-                    width={26}
-                    height={24}
-                  />
-                  <div className="h-[22px] font-Pretendard font-Regular text-[16px] text-[#656565]">
-                    999+
-                  </div>
-                </div>
-              </CardHeaderMain.LikeNumbers>
-            </CardHeaderMain>
-
-            <BookMain>
-              <BookMain.BookCover>
-                <div className="w-[140px] h-[200px] mt-[14px] mb-[12px] mr-[26px] bg-[#000]"></div>
-              </BookMain.BookCover>
-            </BookMain>
-            <CardMain.TitleTheme>
-              <div className="text-[20px] mt-[14px] mb-[8px]">토크방 제목</div>
-            </CardMain.TitleTheme>
-            <CardMain.BookTitle>
-              <div className="mb-[8px]">책 제목</div>
-            </CardMain.BookTitle>
-            <CardMain.AttendCondition>
-              참가조건
-              <div className="flex flex-row ml-[15px]">
-                <CardMain.Status>읽고 싶은</CardMain.Status>
-                <CardMain.Status>읽는 중</CardMain.Status>
-                <CardMain.Status>읽음</CardMain.Status>
-                <CardMain.Status>잠시 멈춘</CardMain.Status>
-                <CardMain.Status>중단</CardMain.Status>
-              </div>
-            </CardMain.AttendCondition>
-            <CardMain.Opinion>
-              <div className="w-[653px] h-[90px] mt-[10px] text-[#656565]">
-                토론내용 토론내용 토론내용 토론내용 토론내용 토론내용 토론내용
-                토론내용 토론내용 토론내용 토론내용 토론내용 토론내용 토론내용
-                토론내용 토론내용 토론내용 토론내용 토론내용 토론내용
-              </div>
-            </CardMain.Opinion>
-          </CardMain>
-        </div>
+      <div className="flex flex-row flex-wrap gap-x-5 gap-y-[30px]">
+        {new Array(12).fill(1).map((index: number) => (
+          <TalkRoomCard key={index} />
+        ))}
       </div>
-
       <Pagination
         totalItems={120}
         pageCount={12}

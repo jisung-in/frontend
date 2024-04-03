@@ -10,7 +10,7 @@ const PopularTalkRoomCard = () => {
     setIsHeart(!isHeart);
   };
   return (
-    <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px] mr-[18px] mb-[65px]">
+    <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px]">
       <CardMain className="flex flex-col items-center">
         <CardHeaderMain className="pt-[21px] pb-[12px] mb-[25px] bg-[#624E45] rounded-t-[20px] w-auto">
           <CardHeaderMain.Title className="ml-[23px]">
@@ -36,23 +36,19 @@ const PopularTalkRoomCard = () => {
             <div className="flex items-center border border-solid border-[#F4E4CE] w-[170px] h-[245px]"></div>
           </BookMain.BookCover>
         </BookMain>
-        <CardMain.AttendCondition className="w-[360px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">
+        <CardMain.AttendCondition className="w-[360px] h-[142px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">
           <div className="pl-[18px]">
             <CardMain.BookTitle className="my-[16px]">
               책 제목
             </CardMain.BookTitle>
             <div className="flex flex-row">
               <div className="w-[100px] mr-[15px]">참가조건</div>
-              <div className="flex flex-row flex-wrap">
-                <CardMain.Status className="mb-[10px]">
-                  읽고 싶은
-                </CardMain.Status>
-                <CardMain.Status className="mb-[10px]">읽는 중</CardMain.Status>
-                <CardMain.Status className="mb-[10px]">읽음</CardMain.Status>
-                <CardMain.Status className="mb-[16px]">
-                  잠시 멈춘
-                </CardMain.Status>
-                <CardMain.Status className="mb-[16px]">중단</CardMain.Status>
+              <div className="flex flex-row flex-wrap gap-x-2 gap-y-2.5">
+                <CardMain.Status color="FFF">읽고 싶은</CardMain.Status>
+                <CardMain.Status color="FFF">읽는 중</CardMain.Status>
+                <CardMain.Status color="FFF">읽음</CardMain.Status>
+                <CardMain.Status color="FFF">잠시 멈춘</CardMain.Status>
+                <CardMain.Status color="FFF">중단</CardMain.Status>
               </div>
             </div>
           </div>

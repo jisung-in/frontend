@@ -11,8 +11,17 @@ const LikeNumbers = ({ children, className = "" }: CardFooterProps) => {
     </div>
   );
 };
-const Line = ({ className }: CardFooterProps) => {
+const Line = ({ className = "" }: CardFooterProps) => {
   return <hr className={`border-solid ${className}`} />;
+};
+const TalkContent = ({ children, className = "" }: CardFooterProps) => {
+  return (
+    <div
+      className={`flex flex-col font-Pretendard rounded-[8px] bg-[#FBF7F0] ${className}`}
+    >
+      {children}
+    </div>
+  );
 };
 const DeleteButton = ({ children }: CardFooterProps) => {
   return (
@@ -24,6 +33,7 @@ const DeleteButton = ({ children }: CardFooterProps) => {
 
 const LikeNumbersType = (<LikeNumbers children={""} />).type;
 const LineType = (<Line />).type;
+const TalkContentType = (<TalkContent />).type;
 const LikeButtonType = (<LikeButton />).type;
 const DeleteButtonType = (<DeleteButton />).type;
 
@@ -38,6 +48,13 @@ const getLine = (children: ReactNode) => {
   return childrenArray
     .filter((child) => isValidElement(child) && child.type === LineType)
     .slice(0, 1);
+};
+const getTalkContentType = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  const talkContent = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === TalkContentType,
+  );
+  return talkContent.length > 0 ? talkContent.slice(0, 1) : [];
 };
 const getLikeButton = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -55,6 +72,7 @@ const getDeleteButton = (children: ReactNode) => {
 const CardFooter = ({ children }: CardFooterProps) => {
   const likeNumbers = getLikeNumbers(children);
   const line = getLine(children);
+  const talkContent = getTalkContentType(children);
   const likeButton = getLikeButton(children);
   const deleteButton = getDeleteButton(children);
 
@@ -62,6 +80,7 @@ const CardFooter = ({ children }: CardFooterProps) => {
     <>
       {likeNumbers && <>{likeNumbers}</>}
       {line && <>{line}</>}
+      {talkContent.length > 0 && <>{talkContent}</>}
       {likeButton && <>{likeButton}</>}
       {deleteButton && <>{deleteButton}</>}
     </>
@@ -71,5 +90,6 @@ const CardFooter = ({ children }: CardFooterProps) => {
 export const CardFooterMain = Object.assign(CardFooter, {
   LikeNumbers,
   Line,
+  TalkContent,
   DeleteButton,
 });

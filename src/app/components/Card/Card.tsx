@@ -40,28 +40,12 @@ const AttendCondition = ({ children, className = "" }: CardProps) => {
     </div>
   );
 };
-const Status = ({ children, className = "" }: CardProps) => {
+const Status = ({ children, color = "" }: CardProps) => {
   return (
-    <div>
-      {className ? (
-        <div
-          className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#FFFFFF] px-[8px] py-[4.5px] mr-[8px] border border-[#F4E4CE] border-solid rounded-[4px] ${className}`}
-        >
-          {children}
-        </div>
-      ) : (
-        <div className="font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#FBF7F0] px-[8px] py-[4.5px] mr-[8px] border border-[#F4E4CE] border-solid rounded-[4px]">
-          {children}
-        </div>
-      )}
-    </div>
-  );
-};
-const TalkContent = ({ children }: CardProps) => {
-  return (
-    <div className="flex flex-col font-Pretendard">
-      <div className="font-medium text-[20px] text-[#000]">토크내용</div>
-      <div className="font-regular text-[18px] text-[#6C6C6C]">{children}</div>
+    <div
+      className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#${color}] px-[8px] py-[4.5px] border border-[#F4E4CE] border-solid rounded-[4px]`}
+    >
+      {children}
     </div>
   );
 };
@@ -94,7 +78,6 @@ const CardHeaderMainType = (<CardHeaderMain />).type;
 const BookTitleType = (<BookTitle />).type;
 const CardFooterMainType = (<CardFooterMain />).type;
 const TalkCommentHeaderMainType = (<TalkCommentHeaderMain />).type;
-const TalkContentType = (<TalkContent />).type;
 const OpinionType = (<Opinion />).type;
 
 const getTitleTheme = (children: ReactNode) => {
@@ -170,13 +153,6 @@ const getTalkCommentHeaderMain = (children: ReactNode) => {
     ? talkCommentHeaderMain.slice(0, 1)
     : [];
 };
-const getTalkContentType = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  const talkContent = childrenArray.filter(
-    (child) => isValidElement(child) && child.type === TalkContentType,
-  );
-  return talkContent.length > 0 ? talkContent.slice(0, 1) : [];
-};
 const getOpinionType = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   const opinion = childrenArray.filter(
@@ -196,7 +172,6 @@ const Card = ({ children, className = "" }: CardProps) => {
   const bookTitle = getBookTitle(children);
   const cardFooterMain = getCardFooterMain(children);
   const talkCommentHeaderMain = getTalkCommentHeaderMain(children);
-  const talkContent = getTalkContentType(children);
   const opinion = getOpinionType(children);
 
   return (
@@ -212,7 +187,6 @@ const Card = ({ children, className = "" }: CardProps) => {
           {status.length > 0 && <div className="flex flex-row">{status}</div>}
           {review.length > 0 && <>{review}</>}
           {createDay.length > 0 && <>{createDay}</>}
-          {talkContent.length > 0 && <>{talkContent}</>}
           {opinion.length > 0 && <>{opinion}</>}
         </div>
       </div>
@@ -228,6 +202,5 @@ export const CardMain = Object.assign(Card, {
   Status,
   Review,
   CreateDay,
-  TalkContent,
   Opinion,
 });
