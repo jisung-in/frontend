@@ -25,11 +25,11 @@
   background-repeat: no-repeat;
 }
 .swiper-button-next {
-  right: 15px !important;
+  right: 5px !important;
   background-image: url("../assets/img//swiper-next-button.png") !important;
 }
 .swiper-button-prev {
-  left: 5px !important;
+  left: -3px !important;
   background-image: url("../assets/img//swiper-prev-button.png") !important;
 }
 .swiper-button-prev::after,
