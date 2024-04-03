@@ -4,7 +4,7 @@ import { Children, ReactNode, isValidElement } from "react";
 import { BookMain } from "../Book/Book";
 import { CardFooterMain } from "../CardFooter/CardFooter";
 import { CardHeaderMain } from "../CardHeader/CardHeader";
-import { TalkCommentMain } from "../TalkComment/TalkComment";
+import { TalkCommentHeaderMain } from "../TalkCommentHeader/TalkCommentHeader";
 import { CardProps } from "./Card.types";
 
 const TitleTheme = ({ children, className = "" }: CardProps) => {
@@ -57,6 +57,21 @@ const Status = ({ children, className = "" }: CardProps) => {
     </div>
   );
 };
+const TalkContent = ({ children }: CardProps) => {
+  return (
+    <div className="flex flex-col font-Pretendard">
+      <div className="font-medium text-[20px] text-[#000]">토크내용</div>
+      <div className="font-regular text-[18px] text-[#6C6C6C]">{children}</div>
+    </div>
+  );
+};
+const Opinion = ({ children }: CardProps) => {
+  return (
+    <div className="font-Pretendard font-regular text-[20px] text-[#000]">
+      {children}
+    </div>
+  );
+};
 const Review = ({ children }: CardProps) => {
   return <div>{children}</div>;
 };
@@ -78,7 +93,9 @@ const BookMainType = (<BookMain />).type;
 const CardHeaderMainType = (<CardHeaderMain />).type;
 const BookTitleType = (<BookTitle />).type;
 const CardFooterMainType = (<CardFooterMain />).type;
-const TalkCommentMainType = (<TalkCommentMain />).type;
+const TalkCommentHeaderMainType = (<TalkCommentHeaderMain />).type;
+const TalkContentType = (<TalkContent />).type;
+const OpinionType = (<Opinion />).type;
 
 const getTitleTheme = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -143,16 +160,32 @@ const getCardFooterMain = (children: ReactNode) => {
     )
     .slice(0, 1);
 };
-const getTalkCommentMain = (children: ReactNode) => {
+const getTalkCommentHeaderMain = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter(
-      (child) => isValidElement(child) && child.type === TalkCommentMainType,
-    )
-    .slice(0, 1);
+  const talkCommentHeaderMain = childrenArray.filter(
+    (child) =>
+      isValidElement(child) && child.type === TalkCommentHeaderMainType,
+  );
+  return talkCommentHeaderMain.length > 0
+    ? talkCommentHeaderMain.slice(0, 1)
+    : [];
+};
+const getTalkContentType = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  const talkContent = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === TalkContentType,
+  );
+  return talkContent.length > 0 ? talkContent.slice(0, 1) : [];
+};
+const getOpinionType = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  const opinion = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === OpinionType,
+  );
+  return opinion.length > 0 ? opinion.slice(0, 1) : [];
 };
 
-const Card = ({ children, className }: CardProps) => {
+const Card = ({ children, className = "" }: CardProps) => {
   const titleTheme = getTitleTheme(children);
   const attendCondition = getAttendCondition(children);
   const status = getStatus(children);
@@ -162,11 +195,13 @@ const Card = ({ children, className }: CardProps) => {
   const cardHeaderMain = getCardHeaderMain(children);
   const bookTitle = getBookTitle(children);
   const cardFooterMain = getCardFooterMain(children);
-  const talkCommentMain = getTalkCommentMain(children);
+  const talkCommentHeaderMain = getTalkCommentHeaderMain(children);
+  const talkContent = getTalkContentType(children);
+  const opinion = getOpinionType(children);
 
   return (
     <div className="flex flex-col w-full h-full">
-      {talkCommentMain && <>{talkCommentMain}</>}
+      {talkCommentHeaderMain.length > 0 && <>{talkCommentHeaderMain}</>}
       {cardHeaderMain && <>{cardHeaderMain}</>}
       <div className={`flex ${className}`}>
         {bookMain && <>{bookMain}</>}
@@ -177,6 +212,8 @@ const Card = ({ children, className }: CardProps) => {
           {status.length > 0 && <div className="flex flex-row">{status}</div>}
           {review.length > 0 && <>{review}</>}
           {createDay.length > 0 && <>{createDay}</>}
+          {talkContent.length > 0 && <>{talkContent}</>}
+          {opinion.length > 0 && <>{opinion}</>}
         </div>
       </div>
       {cardFooterMain && <>{cardFooterMain}</>}
@@ -191,4 +228,6 @@ export const CardMain = Object.assign(Card, {
   Status,
   Review,
   CreateDay,
+  TalkContent,
+  Opinion,
 });

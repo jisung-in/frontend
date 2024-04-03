@@ -84,7 +84,7 @@ const getStarRating = (children: ReactNode) => {
     .slice(0, 1);
 };
 
-const Book = ({ children, className }: BookProps) => {
+const Book = ({ children, className = "" }: BookProps) => {
   const author = getAuthor(children);
   const bookCover = getBookCover(children);
   const bookTitle = getBookTitle(children);

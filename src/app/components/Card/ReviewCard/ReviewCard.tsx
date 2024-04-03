@@ -29,9 +29,9 @@ const ReviewCard = () => {
             <div className="w-[95px] h-[135px] mr-[26px] bg-[#000]"></div>
           </BookMain.BookCover>
         </BookMain>
-        <CardMain.OpinionTitle>
+        <CardMain.TitleTheme>
           <div className="text-[20px]">책 제목</div>
-        </CardMain.OpinionTitle>
+        </CardMain.TitleTheme>
         <CardMain.BookTitle>
           <div className="flex gap-[20px]">
             <div>저자</div>

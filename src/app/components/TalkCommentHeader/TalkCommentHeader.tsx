@@ -1,8 +1,8 @@
 import NumberingImg from "@/assets/img/numbering.svg";
 import { Children, ReactNode, isValidElement } from "react";
-import { TalkCommentProps } from "./TalkComment.types";
+import { TalkCommentHeaderProps } from "./TalkCommentHeader.types";
 
-const Numbering = ({ children }: TalkCommentProps) => {
+const Numbering = ({ children }: TalkCommentHeaderProps) => {
   return (
     <div className="font-Poppins font-semibold text-[#16px] text-[#000] flex items-center mb-[16px]">
       <NumberingImg />
@@ -10,7 +10,7 @@ const Numbering = ({ children }: TalkCommentProps) => {
     </div>
   );
 };
-const TimesAgo = ({ children }: TalkCommentProps) => {
+const TimesAgo = ({ children }: TalkCommentHeaderProps) => {
   return (
     <div className="font-Pretendard font-normal text-[#17px] text-[#7E7E7E]">
       {children}
@@ -34,7 +34,7 @@ const getTimesAgo = (children: ReactNode) => {
     .slice(0, 1);
 };
 
-const TalkComment = ({ children }: TalkCommentProps) => {
+const TalkCommentHeader = ({ children }: TalkCommentHeaderProps) => {
   const numbering = getNumbering(children);
   const timesAgo = getTimesAgo(children);
 
@@ -46,7 +46,7 @@ const TalkComment = ({ children }: TalkCommentProps) => {
   );
 };
 
-export const TalkCommentMain = Object.assign(TalkComment, {
+export const TalkCommentHeaderMain = Object.assign(TalkCommentHeader, {
   Numbering,
   TimesAgo,
 });

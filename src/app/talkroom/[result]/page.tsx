@@ -112,9 +112,9 @@ const page = () => {
                 <div className="w-[140px] h-[200px] mt-[14px] mb-[12px] mr-[26px] bg-[#000]"></div>
               </BookMain.BookCover>
             </BookMain>
-            <CardMain.OpinionTitle>
+            <CardMain.TitleTheme>
               <div className="text-[20px] mt-[14px] mb-[8px]">토크방 제목</div>
-            </CardMain.OpinionTitle>
+            </CardMain.TitleTheme>
             <CardMain.BookTitle>
               <div className="mb-[8px]">책 제목</div>
             </CardMain.BookTitle>

@@ -82,7 +82,7 @@ const getStarRating = (children: ReactNode) => {
   return starRating.length > 0 ? starRating.slice(0, 1) : [];
 };
 
-const CardHeader = ({ children, className }: CardHeaderProps) => {
+const CardHeader = ({ children, className = "" }: CardHeaderProps) => {
   const profile = getProfile(children);
   const name = getName(children);
   const hoursAgo = getHoursAgo(children);
