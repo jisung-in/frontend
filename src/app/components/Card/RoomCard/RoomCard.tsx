@@ -25,9 +25,9 @@ const RoomCard = () => {
             <div className="w-[95px] h-[135px] mr-[26px] bg-[#000]"></div>
           </BookMain.BookCover>
         </BookMain>
-        <CardMain.OpinionTitle>
+        <CardMain.TitleTheme>
           <div className="text-[20px]">토크방 제목</div>
-        </CardMain.OpinionTitle>
+        </CardMain.TitleTheme>
         <CardMain.BookTitle>책 제목</CardMain.BookTitle>
         <CardMain.AttendCondition />
         <CardMain.Status>읽고 싶은</CardMain.Status>

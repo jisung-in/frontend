@@ -1,58 +1,63 @@
+import BookTitleImg from "@/assets/img/book-title.svg";
+import TitleThemeImg from "@/assets/img/theme-title.svg";
 import { Children, ReactNode, isValidElement } from "react";
 import { BookMain } from "../Book/Book";
-import { Button } from "../Button/Button";
 import { CardFooterMain } from "../CardFooter/CardFooter";
 import { CardHeaderMain } from "../CardHeader/CardHeader";
-import { TalkCommentMain } from "../TalkComment/TalkComment";
+import { TalkCommentHeaderMain } from "../TalkCommentHeader/TalkCommentHeader";
 import { CardProps } from "./Card.types";
 
-const AttendCondition = ({ children }: CardProps) => {
+const TitleTheme = ({ children, className = "" }: CardProps) => {
   return (
-    <div className="flex font-Pretendard font-medium text-[19px] text-[#FF6363]">
+    <div
+      className={`flex items-center font-Pretendard font-semibold text-[22px] text-[#000] ${className}`}
+    >
+      <div className="mr-[7px]">
+        <TitleThemeImg />
+      </div>
       {children}
     </div>
   );
 };
-
-const QuestionTitle = ({ children }: CardProps) => {
-  return <div>{children}</div>;
+const BookTitle = ({ children, className = "" }: CardProps) => {
+  return (
+    <div
+      className={`flex items-center font-Pretendard font-medium text-[20px] text-[#656565] ${className}`}
+    >
+      <div className="mr-[7px]">
+        <BookTitleImg />
+      </div>
+      {children}
+    </div>
+  );
 };
-const OpinionTitle = ({ children }: CardProps) => {
-  return <div className="font-Pretendard font-semibold">{children}</div>;
+const AttendCondition = ({ children, className = "" }: CardProps) => {
+  return (
+    <div
+      className={`flex font-Pretendard font-medium text-[18px] text-[#FF6363] ${className}`}
+    >
+      {children}
+    </div>
+  );
 };
-const Question = ({ children }: CardProps) => {
-  return <div>{children}</div>;
-};
-const Evaluation = ({ children }: CardProps) => {
-  return <div>{children}</div>;
+const Status = ({ children, color = "" }: CardProps) => {
+  return (
+    <div
+      className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#${color}] px-[8px] py-[4.5px] border border-[#F4E4CE] border-solid rounded-[4px]`}
+    >
+      {children}
+    </div>
+  );
 };
 const Opinion = ({ children }: CardProps) => {
   return (
-    <div className="font-Pretendard font-normal text-[20px]">{children}</div>
+    <div className="font-Pretendard font-regular text-[20px] text-[#000]">
+      {children}
+    </div>
   );
 };
 const Review = ({ children }: CardProps) => {
   return <div>{children}</div>;
-};
-const MyReview = ({ children }: CardProps) => {
-  return <div>{children}</div>;
-};
-const Status = ({ children, className }: CardProps) => {
-  return (
-    <div>
-      {className ? (
-        <div
-          className={`font-Pretendard font-medium flex justify-center items-center w-auto text-[20px] text-[#656565] bg-[#F3F3F3] px-[13px] py-[6px] mr-[8px] border border-solid rounded-[4px] ${className}`}
-        >
-          {children}
-        </div>
-      ) : (
-        <div className="font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#F3F3F3] px-[8px] py-[4.5px] mr-[8px] border border-solid rounded-[4px]">
-          {children}
-        </div>
-      )}
-    </div>
-  );
 };
 const CreateDay = ({ children }: CardProps) => {
   return (
@@ -62,81 +67,31 @@ const CreateDay = ({ children }: CardProps) => {
     </div>
   );
 };
-const BookTitle = ({ children }: CardProps) => {
-  return (
-    <div className="font-Pretendard font-medium text-[20px] text-[#656565]">
-      {children}
-    </div>
-  );
-};
 
+const TitleThemeType = (<TitleTheme />).type;
 const AttendConditionType = (<AttendCondition />).type;
-const QuestionTitleType = (<QuestionTitle children={""} />).type;
-const OpinionTitleType = (<OpinionTitle children={""} />).type;
-const QuestionType = (<Question children={""} />).type;
-const EvaluationType = (<Evaluation children={""} />).type;
-const OpinionType = (<Opinion children={""} />).type;
-const ReviewType = (<Review children={""} />).type;
-const MyReviewType = (<MyReview children={""} />).type;
-const StatusType = (<Status children={""} />).type;
-const CreateDayType = (<CreateDay children={""} />).type;
+const StatusType = (<Status />).type;
+const CreateDayType = (<CreateDay />).type;
+const ReviewType = (<Review />).type;
 const BookMainType = (<BookMain />).type;
 const CardHeaderMainType = (<CardHeaderMain />).type;
 const BookTitleType = (<BookTitle />).type;
 const CardFooterMainType = (<CardFooterMain />).type;
-const TalkCommentMainType = (<TalkCommentMain />).type;
-const ButtonType = (<Button />).type;
+const TalkCommentHeaderMainType = (<TalkCommentHeaderMain />).type;
+const OpinionType = (<Opinion />).type;
 
+const getTitleTheme = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  return childrenArray
+    .filter((child) => isValidElement(child) && child.type === TitleThemeType)
+    .slice(0, 1);
+};
 const getAttendCondition = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   return childrenArray
     .filter(
       (child) => isValidElement(child) && child.type === AttendConditionType,
     )
-    .slice(0, 1);
-};
-const getQuestionTitle = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter(
-      (child) => isValidElement(child) && child.type === QuestionTitleType,
-    )
-    .slice(0, 1);
-};
-const getOpinionTitle = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === OpinionTitleType)
-    .slice(0, 1);
-};
-const getQuestion = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === QuestionType)
-    .slice(0, 1);
-};
-const getEvaluation = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === EvaluationType)
-    .slice(0, 1);
-};
-const getOpinion = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === OpinionType)
-    .slice(0, 1);
-};
-const getReview = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === ReviewType)
-    .slice(0, 1);
-};
-const getMyReview = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === MyReviewType)
     .slice(0, 1);
 };
 const getStatus = (children: ReactNode) => {
@@ -148,9 +103,17 @@ const getStatus = (children: ReactNode) => {
 };
 const getCreateDay = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === CreateDayType)
-    .slice(0, 1);
+  const createDay = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === CreateDayType,
+  );
+  return createDay.length > 0 ? createDay.slice(0, 1) : [];
+};
+const getReview = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  const review = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === ReviewType,
+  );
+  return review.length > 0 ? review.slice(0, 1) : [];
 };
 const getBookMain = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -180,71 +143,51 @@ const getCardFooterMain = (children: ReactNode) => {
     )
     .slice(0, 1);
 };
-const getTalkCommentMain = (children: ReactNode) => {
+const getTalkCommentHeaderMain = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter(
-      (child) => isValidElement(child) && child.type === TalkCommentMainType,
-    )
-    .slice(0, 1);
-};
-const getButton = (children: ReactNode) => {
-  const childrenArray = Children.toArray(children);
-  const button = childrenArray.filter(
-    (child) => isValidElement(child) && child.type === ButtonType,
+  const talkCommentHeaderMain = childrenArray.filter(
+    (child) =>
+      isValidElement(child) && child.type === TalkCommentHeaderMainType,
   );
-  return button.length > 0 ? button.slice(0, 1) : [];
+  return talkCommentHeaderMain.length > 0
+    ? talkCommentHeaderMain.slice(0, 1)
+    : [];
+};
+const getOpinionType = (children: ReactNode) => {
+  const childrenArray = Children.toArray(children);
+  const opinion = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === OpinionType,
+  );
+  return opinion.length > 0 ? opinion.slice(0, 1) : [];
 };
 
-const Card = ({ children }: CardProps) => {
+const Card = ({ children, className = "" }: CardProps) => {
+  const titleTheme = getTitleTheme(children);
   const attendCondition = getAttendCondition(children);
-  const questionTitle = getQuestionTitle(children);
-  const opinionTitle = getOpinionTitle(children);
-  const question = getQuestion(children);
-  const evaluation = getEvaluation(children);
-  const opinion = getOpinion(children);
-  const review = getReview(children);
-  const myReview = getMyReview(children);
   const status = getStatus(children);
   const createDay = getCreateDay(children);
+  const review = getReview(children);
   const bookMain = getBookMain(children);
   const cardHeaderMain = getCardHeaderMain(children);
   const bookTitle = getBookTitle(children);
   const cardFooterMain = getCardFooterMain(children);
-  const talkCommentMain = getTalkCommentMain(children);
-  const button = getButton(children);
+  const talkCommentHeaderMain = getTalkCommentHeaderMain(children);
+  const opinion = getOpinionType(children);
 
   return (
     <div className="flex flex-col w-full h-full">
-      {talkCommentMain && <>{talkCommentMain}</>}
+      {talkCommentHeaderMain.length > 0 && <>{talkCommentHeaderMain}</>}
       {cardHeaderMain && <>{cardHeaderMain}</>}
-      <div className="flex">
+      <div className={`flex ${className}`}>
         {bookMain && <>{bookMain}</>}
         <div className="flex flex-col w-auto">
-          {questionTitle && <>{questionTitle}</>}
-          {opinionTitle && <>{opinionTitle}</>}
+          {titleTheme && <>{titleTheme}</>}
           {bookTitle && <>{bookTitle}</>}
           {attendCondition && <>{attendCondition}</>}
-          {status.length > 0 ? (
-            <div className="flex flex-row"> {status && <>{status}</>}</div>
-          ) : (
-            <></>
-          )}
-          {question && <>{question}</>}
-          {evaluation && <>{evaluation}</>}
-          {opinion && <>{opinion}</>}
-          {review && <>{review}</>}
-          {myReview && <>{myReview}</>}
-          {createDay && <>{createDay}</>}
-          {button.length > 0 ? (
-            <div className="flex justify-end w-full ml-[40px]">
-              <div className="w-[194px] h-[58px] font-Pretendard font-semibold text-[21px]">
-                {button && <>{button}</>}
-              </div>
-            </div>
-          ) : (
-            <></>
-          )}
+          {status.length > 0 && <div className="flex flex-row">{status}</div>}
+          {review.length > 0 && <>{review}</>}
+          {createDay.length > 0 && <>{createDay}</>}
+          {opinion.length > 0 && <>{opinion}</>}
         </div>
       </div>
       {cardFooterMain && <>{cardFooterMain}</>}
@@ -253,15 +196,11 @@ const Card = ({ children }: CardProps) => {
 };
 
 export const CardMain = Object.assign(Card, {
-  AttendCondition,
+  TitleTheme,
   BookTitle,
-  CreateDay,
-  Evaluation,
-  Review,
-  MyReview,
-  Opinion,
-  OpinionTitle,
-  QuestionTitle,
-  Question,
+  AttendCondition,
   Status,
+  Review,
+  CreateDay,
+  Opinion,
 });

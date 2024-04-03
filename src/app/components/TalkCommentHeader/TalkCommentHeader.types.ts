@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export interface TalkCommentProps {
+export interface TalkCommentHeaderProps {
   children?: ReactNode;
   className?: string;
 }

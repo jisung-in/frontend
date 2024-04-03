@@ -1,8 +1,12 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { BookProps } from "./Book.types";
 
-const BookCover = ({ children }: BookProps) => {
-  return <div className="w-full h-full">{children}</div>;
+const BookCover = ({ children, className = "" }: BookProps) => {
+  return (
+    <div className={`w-full h-full bg-origin-padding ${className}`}>
+      {children}
+    </div>
+  );
 };
 const RankBox = ({ children }: BookProps) => {
   return (
@@ -27,13 +31,13 @@ const StarRating = ({ children }: BookProps) => {
   return <div>{children}</div>;
 };
 
-const BookCoverType = (<BookCover children={""} />).type;
-const RankBoxType = (<RankBox children={""} />).type;
-const BookTitleType = (<BookTitle children={""} />).type;
-const AuthorType = (<Author children={""} />).type;
-const PublisherType = (<Publisher children={""} />).type;
-const YearType = (<Year children={""} />).type;
-const StarRatingType = (<StarRating children={""} />).type;
+const BookCoverType = (<BookCover />).type;
+const RankBoxType = (<RankBox />).type;
+const BookTitleType = (<BookTitle />).type;
+const AuthorType = (<Author />).type;
+const PublisherType = (<Publisher />).type;
+const YearType = (<Year />).type;
+const StarRatingType = (<StarRating />).type;
 
 const getBookCover = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -80,7 +84,7 @@ const getStarRating = (children: ReactNode) => {
     .slice(0, 1);
 };
 
-const Book = ({ children }: BookProps) => {
+const Book = ({ children, className = "" }: BookProps) => {
   const author = getAuthor(children);
   const bookCover = getBookCover(children);
   const bookTitle = getBookTitle(children);
@@ -90,24 +94,22 @@ const Book = ({ children }: BookProps) => {
   const starRating = getStarRating(children);
 
   return (
-    <div className="flex flex-col">
-      <div className="relative">
-        {bookCover && <>{bookCover}</>}
-        {rankBox.length > 0 ? (
-          <div className="absolute top-[10px] left-[10px]">{rankBox} </div>
-        ) : (
-          <></>
-        )}
-      </div>
-      {bookTitle && <>{bookTitle}</>}
-      {publisher.length > 0 ? (
-        <div className="flex items-center font-Pretendard font-normal text-[18px] text-[#656565]">
-          {publisher && <>{publisher}</>}
-          {author && <>{author}</>}
-          {year && <>{year}</>}
+    <div className={`flex flex-col ${className}`}>
+      {rankBox.length > 0 ? (
+        <div className="relative">
+          {bookCover && <>{bookCover}</>}
+          <div className="absolute top-[10px] left-[10px]">{rankBox}</div>
         </div>
       ) : (
-        <></>
+        <>{bookCover}</>
+      )}
+      {bookTitle && <>{bookTitle}</>}
+      {publisher.length > 0 && (
+        <div className="flex items-center font-Pretendard font-normal text-[18px] text-[#656565]">
+          {publisher}
+          {author}
+          {year}
+        </div>
       )}
       {starRating && <>{starRating}</>}
     </div>
