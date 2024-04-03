@@ -29,7 +29,7 @@ const TalkRoomCard = () => {
               <div className="text-[17px] ml-[6px]">이름</div>
             </CardHeaderMain.Name>
             <CardHeaderMain.LikeNumbers>
-              <div className="flex flex-col items-center mr-[26px]">
+              <div className="flex flex-col items-center mr-[24px]">
                 <HeartButton
                   isHeart={isHeart}
                   onClick={changeisHeart}
@@ -44,7 +44,7 @@ const TalkRoomCard = () => {
           </CardHeaderMain>
           <BookMain>
             <BookMain.BookCover className="mt-[5px] mr-[20px]">
-              <div className="w-[95px] h-[135px] border border-solid border-[#F4E4CE]" />
+              <div className="w-[95px] h-[135px] border border-solid border-[#FBF7F0]" />
             </BookMain.BookCover>
           </BookMain>
           <CardMain.TitleTheme className="mt-[4px]">

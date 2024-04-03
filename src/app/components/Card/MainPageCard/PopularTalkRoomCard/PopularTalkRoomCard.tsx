@@ -33,7 +33,7 @@ const PopularTalkRoomCard = () => {
         </CardHeaderMain>
         <BookMain className="mb-[26px]">
           <BookMain.BookCover>
-            <div className="flex items-center border border-solid border-[#F4E4CE] w-[170px] h-[245px]"></div>
+            <div className="flex items-center border border-solid border-[#FBF7F0] w-[170px] h-[245px]"></div>
           </BookMain.BookCover>
         </BookMain>
         <CardMain.AttendCondition className="w-[360px] h-[142px] flex flex-col text-[19px] bg-[#FBF7F0] rounded-[8px]">

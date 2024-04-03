@@ -153,7 +153,7 @@ const page = () => {
               <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
             </div>
           </ThemeMain.MainTheme>
-          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px">
+          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
             {new Array(4).fill(1).map((index: number) => (
               <PopularTalkRoomCard key={index} />
             ))}
