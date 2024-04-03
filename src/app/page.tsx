@@ -3,26 +3,95 @@
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
-import Profile from "@/assets/img/profile.png";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import RecentOpinionTalkRoom from "@/assets/img/recent-opinion-talk-room.svg";
 import RegisteRecentBook from "@/assets/img/register-recent-book.svg";
-import Image from "next/image";
-import { useState } from "react";
-import { BookMain } from "./components/Book/Book";
-import { Button } from "./components/Button/Button";
-import { CardMain } from "./components/Card/Card";
-import { CardHeaderMain } from "./components/CardHeader/CardHeader";
-import HeartButton from "./components/HeartButton/HeartButton";
+import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
+import PopularTalkRoomCard from "./components/Card/MainPageCard/PopularTalkRoomCard/PopularTalkRoomCard";
+import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard/TalkRoomCard";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
-  const [isHeart, setIsHeart] = useState<Boolean>(false);
+  // swiper 임시 데이터
+  const data = [
+    {
+      id: 1,
+      rank: 1,
+      image: "",
+      title: "책 제목1",
+      publisher: "출판사1",
+      author: "저자1",
+      year: 2024,
+    },
+    {
+      id: 2,
+      rank: 2,
+      image: "",
+      title: "책 제목2",
+      publisher: "출판사2",
+      author: "저자2",
+      year: 2024,
+    },
+    {
+      id: 3,
+      rank: 3,
+      image: "",
+      title: "책 제목3",
+      publisher: "출판사2",
+      author: "저자3",
+      year: 2024,
+    },
+    {
+      id: 4,
+      rank: 4,
+      image: "",
+      title: "책 제목4",
+      publisher: "출판사4",
+      author: "저자4",
+      year: 2024,
+    },
+    {
+      id: 5,
+      rank: 5,
+      image: "",
+      title: "책 제목5",
+      publisher: "출판사5",
+      author: "저자5",
+      year: 2024,
+    },
+    {
+      id: 6,
+      rank: 6,
+      image: "",
+      title: "책 제목6",
+      publisher: "출판사6",
+      author: "저자6",
+      year: 2024,
+    },
+  ];
 
-  const changeisHeart = () => {
-    setIsHeart(!isHeart);
-  };
+  const BestSellerData = data.map((item) => {
+    return {
+      id: item.id,
+      rank: item.rank,
+      image: item.image,
+      title: item.title,
+      publisher: item.publisher,
+      author: item.author,
+      year: item.year,
+    };
+  });
+  const RecentlyRegisterData = data.map((item) => {
+    return {
+      id: item.id,
+      image: item.image,
+      title: item.title,
+      publisher: item.publisher,
+      author: item.author,
+      year: item.year,
+    };
+  });
 
   return (
     <div className="bg-[#FFF]">
@@ -36,55 +105,10 @@ const page = () => {
             <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
           </div>
         </ThemeMain.MainTheme>
-        <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px] mr-[20px]">
-          <div className="mt-[22px] ml-[26px] w-auto">
-            <CardMain>
-              <CardHeaderMain>
-                <CardHeaderMain.Profile>
-                  <Image
-                    src={Profile}
-                    alt="프로필"
-                    width={24}
-                    height={24}
-                    priority
-                  />
-                </CardHeaderMain.Profile>
-                <CardHeaderMain.Name>
-                  <div className="text-[17px] ml-[6px]">이름</div>
-                </CardHeaderMain.Name>
-                <CardHeaderMain.LikeNumbers>
-                  <div className="mr-[18px]">
-                    <HeartButton
-                      isHeart={isHeart}
-                      onClick={changeisHeart}
-                      width={21}
-                      height={19}
-                    />
-                    <div className="h-[16px] font-Pretendard font-normal text-[13px] text-[#656565]">
-                      999+
-                    </div>
-                  </div>
-                </CardHeaderMain.LikeNumbers>
-              </CardHeaderMain>
-              <BookMain>
-                <BookMain.BookCover>
-                  <div className="w-[95px] h-[135px] mt-[14px] mr-[26px] bg-[#000]"></div>
-                </BookMain.BookCover>
-              </BookMain>
-              <CardMain.OpinionTitle>
-                <div className="text-[20px] mt-[14px]">토크방 제목</div>
-              </CardMain.OpinionTitle>
-              <CardMain.BookTitle>책 제목</CardMain.BookTitle>
-              <CardMain.AttendCondition>
-                <div className="mb-[5px]">참가조건</div>
-              </CardMain.AttendCondition>
-              <CardMain.Status>읽고 싶은</CardMain.Status>
-              <CardMain.Status>읽는 중</CardMain.Status>
-              <CardMain.Status>읽음</CardMain.Status>
-              <CardMain.Status>잠시 멈춘</CardMain.Status>
-              <CardMain.Status>중단</CardMain.Status>
-            </CardMain>
-          </div>
+        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
+          {new Array(3).fill(1).map((index: number) => (
+            <TalkRoomCard key={index} />
+          ))}
         </div>
       </div>
 
@@ -98,55 +122,11 @@ const page = () => {
             <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
           </div>
         </ThemeMain.MainTheme>
-        <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px] mr-[20px]">
-          <div className="mt-[22px] ml-[26px] w-auto">
-            <CardMain>
-              <CardHeaderMain>
-                <CardHeaderMain.Profile>
-                  <Image
-                    src={Profile}
-                    alt="프로필"
-                    width={24}
-                    height={24}
-                    priority
-                  />
-                </CardHeaderMain.Profile>
-                <CardHeaderMain.Name>
-                  <div className="text-[17px] ml-[6px]">이름</div>
-                </CardHeaderMain.Name>
-                <CardHeaderMain.LikeNumbers>
-                  <div className="mr-[18px]">
-                    <HeartButton
-                      isHeart={isHeart}
-                      onClick={changeisHeart}
-                      width={21}
-                      height={19}
-                    />
-                    <div className="h-[16px] font-Pretendard font-normal text-[13px] text-[#656565]">
-                      999+
-                    </div>
-                  </div>
-                </CardHeaderMain.LikeNumbers>
-              </CardHeaderMain>
-              <BookMain>
-                <BookMain.BookCover>
-                  <div className="w-[95px] h-[135px] mt-[14px] mr-[26px] bg-[#000]"></div>
-                </BookMain.BookCover>
-              </BookMain>
-              <CardMain.OpinionTitle>
-                <div className="text-[20px] mt-[14px]">토크방 제목</div>
-              </CardMain.OpinionTitle>
-              <CardMain.BookTitle>책 제목</CardMain.BookTitle>
-              <CardMain.AttendCondition>
-                <div className="mb-[5px]">참가조건</div>
-              </CardMain.AttendCondition>
-              <CardMain.Status>읽고 싶은</CardMain.Status>
-              <CardMain.Status>읽는 중</CardMain.Status>
-              <CardMain.Status>읽음</CardMain.Status>
-              <CardMain.Status>잠시 멈춘</CardMain.Status>
-              <CardMain.Status>중단</CardMain.Status>
-            </CardMain>
-          </div>
+
+        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
+          {new Array(3).fill(1).map((index: number) => (
+            <TalkRoomCard key={index} />
+          ))}
         </div>
       </div>
 
@@ -159,68 +139,11 @@ const page = () => {
             </div>
           </div>
         </ThemeMain.MainTheme>
-        <Swiper
-          data={[
-            {
-              id: 1,
-              rank: 1,
-              image: "",
-              title: "책 제목1",
-              publisher: "출판사1",
-              author: "저자1",
-              year: 2024,
-            },
-            {
-              id: 2,
-              rank: 2,
-              image: "",
-              title: "책 제목2",
-              publisher: "출판사2",
-              author: "저자2",
-              year: 2024,
-            },
-            {
-              id: 3,
-              rank: 3,
-              image: "",
-              title: "책 제목3",
-              publisher: "출판사2",
-              author: "저자3",
-              year: 2024,
-            },
-            {
-              id: 4,
-              rank: 4,
-              image: "",
-              title: "책 제목4",
-              publisher: "출판사4",
-              author: "저자4",
-              year: 2024,
-            },
-            {
-              id: 5,
-              rank: 5,
-              image: "",
-              title: "책 제목5",
-              publisher: "출판사5",
-              author: "저자5",
-              year: 2024,
-            },
-            {
-              id: 6,
-              rank: 6,
-              image: "",
-              title: "책 제목6",
-              publisher: "출판사6",
-              author: "저자6",
-              year: 2024,
-            },
-          ]}
-        />
+        <Swiper data={BestSellerData} />
       </div>
 
-      <div className="bg-[#FBF7F0] h-[675px] mt-[89px] mb-[48px]">
-        <div className="pt-[43px] ml-[120px]">
+      <div className="bg-[#FBF7F0] mt-[36px] pt-[36px] pb-[65px]">
+        <div className="mt-[23px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-[20px]">
               <div className="flex grow items-center">
@@ -230,70 +153,15 @@ const page = () => {
               <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
             </div>
           </ThemeMain.MainTheme>
-          <div className="w-[830px] h-[480px] bg-[#FFF] border border-solid rounded-[17px]">
-            <div className="mt-[33px] ml-[39px] w-auto">
-              <CardMain>
-                <CardHeaderMain>
-                  <CardHeaderMain.Profile>
-                    <Image
-                      src={Profile}
-                      alt="프로필"
-                      width={40}
-                      height={40}
-                      priority
-                    />
-                  </CardHeaderMain.Profile>
-                  <CardHeaderMain.Name>
-                    <div className="text-[22px] ml-[10px]">이름</div>
-                  </CardHeaderMain.Name>
-                  <CardHeaderMain.LikeNumbers>
-                    <div className="mr-[27px]">
-                      <HeartButton
-                        isHeart={isHeart}
-                        onClick={changeisHeart}
-                        width={36}
-                        height={32}
-                      />
-                      <div className="h-[22px] font-Pretendard font-normal text-[18px] text-[#656565]">
-                        999+
-                      </div>
-                    </div>
-                  </CardHeaderMain.LikeNumbers>
-                </CardHeaderMain>
-
-                <BookMain>
-                  <BookMain.BookCover>
-                    <div className="w-[231px] h-[320px] mt-[19px] mr-[26px] bg-[#000]"></div>
-                  </BookMain.BookCover>
-                </BookMain>
-                <CardMain.OpinionTitle>
-                  <div className="font-semibold text-[28px] mt-[28px] mb-[20px]">
-                    토크방 제목
-                  </div>
-                </CardMain.OpinionTitle>
-                <CardMain.BookTitle>
-                  <div className="text-[28px] mb-[20px]">책 제목</div>
-                </CardMain.BookTitle>
-                <CardMain.AttendCondition>
-                  <div className="text-[24px] mb-[20px]">참가조건</div>
-                </CardMain.AttendCondition>
-                <CardMain.Status className="h-[36px] mb-[35px]">
-                  읽고 싶은
-                </CardMain.Status>
-                <CardMain.Status className="h-[36px]">읽는 중</CardMain.Status>
-                <CardMain.Status className="h-[36px]">읽음</CardMain.Status>
-                <CardMain.Status className="h-[36px]">
-                  잠시 멈춘
-                </CardMain.Status>
-                <CardMain.Status className="h-[36px]">중단</CardMain.Status>
-                <Button>입장하기</Button>
-              </CardMain>
-            </div>
+          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
+            {new Array(4).fill(1).map((index: number) => (
+              <PopularTalkRoomCard key={index} />
+            ))}
           </div>
         </div>
       </div>
 
-      <div className="mt-[55px] ml-[120px]">
+      <div className="mt-[22px] ml-[120px]">
         <ThemeMain.MainTheme>
           <div className="flex mb-[13px]">
             <div className="flex grow items-center">
@@ -302,62 +170,11 @@ const page = () => {
             </div>
           </div>
         </ThemeMain.MainTheme>
-        <Swiper
-          data={[
-            {
-              id: 1,
-              image: "",
-              title: "책 제목1",
-              publisher: "출판사1",
-              author: "저자1",
-              year: 2024,
-            },
-            {
-              id: 2,
-              image: "",
-              title: "책 제목2",
-              publisher: "출판사2",
-              author: "저자2",
-              year: 2024,
-            },
-            {
-              id: 3,
-              image: "",
-              title: "책 제목3",
-              publisher: "출판사2",
-              author: "저자3",
-              year: 2024,
-            },
-            {
-              id: 4,
-              image: "",
-              title: "책 제목4",
-              publisher: "출판사4",
-              author: "저자4",
-              year: 2024,
-            },
-            {
-              id: 5,
-              image: "",
-              title: "책 제목5",
-              publisher: "출판사5",
-              author: "저자5",
-              year: 2024,
-            },
-            {
-              id: 6,
-              image: "",
-              title: "책 제목6",
-              publisher: "출판사6",
-              author: "저자6",
-              year: 2024,
-            },
-          ]}
-        />
+        <Swiper data={RecentlyRegisterData} />
       </div>
 
-      <div className="bg-[#FBF7F0] h-[675px] mt-[73px]">
-        <div className="pt-[43px] ml-[120px]">
+      <div className="bg-[#FBF7F0] mt-[73px] pb-[91px]">
+        <div className="pt-[77px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-[20px]">
               <div className="flex grow items-center">
@@ -367,16 +184,11 @@ const page = () => {
               <ThemeMain.Show>더보기 {">"}</ThemeMain.Show>
             </div>
           </ThemeMain.MainTheme>
-          <BookMain>
-            <BookMain.BookCover>
-              <div className="w-[320px] h-[460px] bg-black rounded-[10px]" />
-            </BookMain.BookCover>
-            <BookMain.BookTitle>
-              <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
-                책 제목
-              </div>
-            </BookMain.BookTitle>
-          </BookMain>
+          <div className="flex flew-row flex-wrap gap-x-[17px] gap-y-[29px]">
+            {new Array(10).fill(1).map((index: number) => (
+              <ManyTalkRoomBookCard key={index} />
+            ))}
+          </div>
         </div>
       </div>
     </div>

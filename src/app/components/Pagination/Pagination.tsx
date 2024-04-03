@@ -37,7 +37,7 @@ const Pagination = ({
   }
 
   return (
-    <div className="flex items-center justify-center mt-[193px] mb-[93px]">
+    <div className="flex items-center justify-center mt-[59px] mb-[70px]">
       <div className="mr-[17px]">
         {pageCount > 1 && currentPage !== 1 && (
           <Link
