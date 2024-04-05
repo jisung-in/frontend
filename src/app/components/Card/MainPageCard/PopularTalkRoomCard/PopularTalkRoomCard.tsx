@@ -1,13 +1,15 @@
 import { BookMain } from "@/app/components/Book/Book";
 import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
-import HeartButton from "@/app/components/HeartButton/HeartButton";
+import IconButton from "@/app/components/IconButton/IconButton";
+import Like from "@/assets/img/like.svg";
+import NotLikeWhite from "@/assets/img/not-like-white.svg";
 import { useState } from "react";
 import { CardMain } from "../../Card";
 
 const PopularTalkRoomCard = () => {
-  const [isHeart, setIsHeart] = useState<Boolean>(false);
-  const changeisHeart = () => {
-    setIsHeart(!isHeart);
+  const [isLike, setIsLike] = useState<boolean>(false);
+  const changeIsLike = (isLike: boolean) => {
+    setIsLike(!isLike);
   };
   return (
     <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px]">
@@ -18,13 +20,13 @@ const PopularTalkRoomCard = () => {
           </CardHeaderMain.Title>
           <CardHeaderMain.LikeNumbers>
             <div className="mr-[25px]">
-              <HeartButton
-                isHeart={isHeart}
-                onClick={changeisHeart}
-                width={21}
-                height={19}
-                color="#FFF"
-              />
+              <IconButton onClick={() => changeIsLike(isLike)}>
+                {isLike ? (
+                  <Like width={22} height={19} />
+                ) : (
+                  <NotLikeWhite width={22} height={19} />
+                )}
+              </IconButton>
               <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
                 999+
               </div>

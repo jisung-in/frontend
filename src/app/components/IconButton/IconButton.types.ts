@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 
-export interface CardFooterProps {
+export interface IconButtonProps {
+  onClick?: () => void;
   children?: ReactNode;
   className?: string;
-  color?: string;
 }

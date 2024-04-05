@@ -14,10 +14,14 @@ const LikeNumbers = ({ children, className = "" }: CardFooterProps) => {
 const Line = ({ className = "" }: CardFooterProps) => {
   return <hr className={`border-solid ${className}`} />;
 };
-const TalkContent = ({ children, className = "" }: CardFooterProps) => {
+const TalkContent = ({
+  children,
+  className = "",
+  color = "#FBF7F0",
+}: CardFooterProps) => {
   return (
     <div
-      className={`flex flex-col font-Pretendard rounded-[8px] bg-[#FBF7F0] ${className}`}
+      className={`flex flex-col font-Pretendard rounded-[8px] bg-[#${color}] ${className}`}
     >
       {children}
     </div>

@@ -1,4 +1,6 @@
+import BookTitleBihImg from "@/assets/img/book-title-big.svg";
 import BookTitleImg from "@/assets/img/book-title.svg";
+import TitleThemeBigImg from "@/assets/img/theme-title-big.svg";
 import TitleThemeImg from "@/assets/img/theme-title.svg";
 import { Children, ReactNode, isValidElement } from "react";
 import { BookMain } from "../Book/Book";
@@ -7,25 +9,25 @@ import { CardHeaderMain } from "../CardHeader/CardHeader";
 import { TalkCommentHeaderMain } from "../TalkCommentHeader/TalkCommentHeader";
 import { CardProps } from "./Card.types";
 
-const TitleTheme = ({ children, className = "" }: CardProps) => {
+const TitleTheme = ({ children, className = "", bigImg }: CardProps) => {
   return (
     <div
       className={`flex items-center font-Pretendard font-semibold text-[22px] text-[#000] ${className}`}
     >
       <div className="mr-[7px]">
-        <TitleThemeImg />
+        {bigImg ? <TitleThemeBigImg /> : <TitleThemeImg />}
       </div>
       {children}
     </div>
   );
 };
-const BookTitle = ({ children, className = "" }: CardProps) => {
+const BookTitle = ({ children, className = "", bigImg }: CardProps) => {
   return (
     <div
       className={`flex items-center font-Pretendard font-medium text-[20px] text-[#656565] ${className}`}
     >
       <div className="mr-[7px]">
-        <BookTitleImg />
+        {bigImg ? <BookTitleBihImg /> : <BookTitleImg />}
       </div>
       {children}
     </div>
@@ -40,10 +42,16 @@ const AttendCondition = ({ children, className = "" }: CardProps) => {
     </div>
   );
 };
-const Status = ({ children, color = "" }: CardProps) => {
+const Status = ({
+  children,
+  color = "",
+  height = 30,
+  px = 8,
+  py = 4.5,
+}: CardProps) => {
   return (
     <div
-      className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[30px] text-[18px] text-[#656565] bg-[#${color}] px-[8px] py-[4.5px] border border-[#F4E4CE] border-solid rounded-[4px]`}
+      className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[${height}px] text-[18px] text-[#656565] bg-[#${color}] px-[${px}px] py-[${py}px] border border-[#F4E4CE] border-solid rounded-[4px]`}
     >
       {children}
     </div>
