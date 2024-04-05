@@ -6,6 +6,4 @@ export interface CardProps {
   color?: string;
   bigImg?: boolean;
   height?: number;
-  px?: number;
-  py?: number;
 }

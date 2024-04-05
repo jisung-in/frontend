@@ -13,6 +13,13 @@ const TalkRoomCard = () => {
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
   };
+  const statuses: string[] = [
+    "읽고 싶은",
+    "읽는 중",
+    "읽음",
+    "잠시 멈춘",
+    "중단",
+  ];
   return (
     <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px]">
       <div className="mt-[22px] ml-[26px] w-auto">
@@ -58,11 +65,15 @@ const TalkRoomCard = () => {
             <div className="flex flex-col">
               <div className="mb-[4px]">참가조건</div>
               <div className="flex flex-row gap-x-2">
-                <CardMain.Status color="FBF7F0">읽고 싶은</CardMain.Status>
-                <CardMain.Status color="FBF7F0">읽는 중</CardMain.Status>
-                <CardMain.Status color="FBF7F0">읽음</CardMain.Status>
-                <CardMain.Status color="FBF7F0">잠시 멈춘</CardMain.Status>
-                <CardMain.Status color="FBF7F0">중단</CardMain.Status>
+                {statuses.map((status, index) => (
+                  <CardMain.Status
+                    key={index}
+                    color="FBF7F0"
+                    className="px-[8px] py-[4.5px]"
+                  >
+                    {status}
+                  </CardMain.Status>
+                ))}
               </div>
             </div>
           </CardMain.AttendCondition>

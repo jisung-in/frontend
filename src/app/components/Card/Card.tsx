@@ -44,14 +44,13 @@ const AttendCondition = ({ children, className = "" }: CardProps) => {
 };
 const Status = ({
   children,
+  className = "",
   color = "",
   height = 30,
-  px = 8,
-  py = 4.5,
 }: CardProps) => {
   return (
     <div
-      className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[${height}px] text-[18px] text-[#656565] bg-[#${color}] px-[${px}px] py-[${py}px] border border-[#F4E4CE] border-solid rounded-[4px]`}
+      className={`font-Pretendard font-medium flex justify-center items-center w-auto h-[${height}px] text-[18px] text-[#656565] bg-[#${color}] border border-[#F4E4CE] border-solid rounded-[4px] ${className}`}
     >
       {children}
     </div>

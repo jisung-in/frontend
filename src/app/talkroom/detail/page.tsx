@@ -18,6 +18,13 @@ const Page = () => {
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
   };
+  const statuses: string[] = [
+    "읽고 싶은",
+    "읽는 중",
+    "읽음",
+    "잠시 멈춘",
+    "중단",
+  ];
   return (
     <div className="mt-[50px]">
       <BackButton />
@@ -57,46 +64,16 @@ const Page = () => {
                   <div className="flex flex-col">
                     <div className="text-[24px] mb-[7px]">참가조건</div>
                     <div className="flex flex-row gap-x-2 h-[30px]">
-                      <CardMain.Status
-                        color="FBF7F0"
-                        height={35}
-                        px={10}
-                        py={7}
-                      >
-                        읽고 싶은
-                      </CardMain.Status>
-                      <CardMain.Status
-                        color="FBF7F0"
-                        height={35}
-                        px={10}
-                        py={7}
-                      >
-                        읽는 중
-                      </CardMain.Status>
-                      <CardMain.Status
-                        color="FBF7F0"
-                        height={35}
-                        px={10}
-                        py={7}
-                      >
-                        읽음
-                      </CardMain.Status>
-                      <CardMain.Status
-                        color="FBF7F0"
-                        height={35}
-                        px={10}
-                        py={7}
-                      >
-                        잠시 멈춘
-                      </CardMain.Status>
-                      <CardMain.Status
-                        color="FBF7F0"
-                        height={35}
-                        px={10}
-                        py={7}
-                      >
-                        중단
-                      </CardMain.Status>
+                      {statuses.map((status, index) => (
+                        <CardMain.Status
+                          key={index}
+                          color="FBF7F0"
+                          height={35}
+                          className="px-[10px] py-[7px]"
+                        >
+                          {status}
+                        </CardMain.Status>
+                      ))}
                     </div>
                   </div>
                 </CardMain.AttendCondition>
