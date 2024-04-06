@@ -160,7 +160,7 @@ const getTalkCommentHeaderMain = (children: ReactNode) => {
     ? talkCommentHeaderMain.slice(0, 1)
     : [];
 };
-const getOpinionType = (children: ReactNode) => {
+const getOpinion = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
   const opinion = childrenArray.filter(
     (child) => isValidElement(child) && child.type === OpinionType,
@@ -179,7 +179,7 @@ const Card = ({ children, className = "" }: CardProps) => {
   const bookTitle = getBookTitle(children);
   const cardFooterMain = getCardFooterMain(children);
   const talkCommentHeaderMain = getTalkCommentHeaderMain(children);
-  const opinion = getOpinionType(children);
+  const opinion = getOpinion(children);
 
   return (
     <div className="flex flex-col w-full h-full">

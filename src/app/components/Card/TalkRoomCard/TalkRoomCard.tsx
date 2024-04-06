@@ -11,9 +11,12 @@ import { CardHeaderMain } from "../../CardHeader/CardHeader";
 import { CardMain } from "../Card";
 
 const TalkRoomCard = () => {
+  const [count, setCount] = useState<number>(0);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
+    setCount(count + 1);
+    if (isLike) setCount(count - 1);
   };
   const statuses: string[] = [
     "읽고 싶은",
@@ -52,7 +55,7 @@ const TalkRoomCard = () => {
                   )}
                 </IconButton>
                 <div className="h-[22px] font-Pretendard font-Regular text-[16px] text-[#656565]">
-                  999+
+                  {count}
                 </div>
               </div>
             </CardHeaderMain.LikeNumbers>

@@ -7,9 +7,12 @@ import { useState } from "react";
 import { CardMain } from "../../Card";
 
 const PopularTalkRoomCard = () => {
+  const [count, setCount] = useState<number>(0);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
+    setCount(count + 1);
+    if (isLike) setCount(count - 1);
   };
   const statuses: string[] = [
     "읽고 싶은",
@@ -26,7 +29,7 @@ const PopularTalkRoomCard = () => {
             토크방 제목
           </CardHeaderMain.Title>
           <CardHeaderMain.LikeNumbers>
-            <div className="mr-[25px]">
+            <div className="flex flex-col items-center mr-[25px]">
               <IconButton onClick={() => changeIsLike(isLike)}>
                 {isLike ? (
                   <Like width={22} height={19} />
@@ -35,7 +38,7 @@ const PopularTalkRoomCard = () => {
                 )}
               </IconButton>
               <div className="h-[22px] font-Pretendard font-normal text-[13px] text-[#fff]">
-                999+
+                {count}
               </div>
             </div>
           </CardHeaderMain.LikeNumbers>
