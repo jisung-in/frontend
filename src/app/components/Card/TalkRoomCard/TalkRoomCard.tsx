@@ -64,7 +64,7 @@ const TalkRoomCard = () => {
             </BookMain.BookCover>
           </BookMain>
           <CardMain.TitleTheme className="mt-[20px] mb-[4px]">
-            <Link href={"talkroom/detail"}>
+            <Link href={"/talkroom/detail"}>
               <div className="text-[20px]">토크방 제목</div>
             </Link>
           </CardMain.TitleTheme>
@@ -88,7 +88,7 @@ const TalkRoomCard = () => {
           <CardFooterMain>
             <CardFooterMain.Line className="border-[#F4E4CE] mt-[18px] mb-[16px] mr-[27px]" />
             <CardFooterMain.TalkContent className="mr-[27px] h-[104px]">
-              <Link href={"talkroom/detail"}>
+              <Link href={"/talkroom/detail"}>
                 <div className="mt-[9px] mx-[18px]">
                   <div className="font-medium text-[20px] text-[#000]">
                     토크내용

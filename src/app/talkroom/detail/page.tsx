@@ -4,6 +4,7 @@ import { BookMain } from "@/app/components/Book/Book";
 import { CardMain } from "@/app/components/Card/Card";
 import { CardFooterMain } from "@/app/components/CardFooter/CardFooter";
 import IconButton from "@/app/components/IconButton/IconButton";
+import SpeechBubble from "@/app/components/SpeechBubble/SpeechBubble";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import BackButton from "@/app/summary/_component/BackButton";
 import LikeBlack from "@/assets/img/like-black.svg";
@@ -152,6 +153,7 @@ const Page = () => {
       </div>
 
       <hr className="border-[6px] border-[#F5EFE5] mt-[47px] mb-[42px]" />
+      <SpeechBubble />
     </div>
   );
 };
