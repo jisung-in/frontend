@@ -1,5 +1,4 @@
 import BestNumberingImg from "@/assets/img/best-numbering.svg";
-import Crown from "@/assets/img/crown.svg";
 import NumberingImg from "@/assets/img/numbering.svg";
 import { Children, ReactNode, isValidElement } from "react";
 import { TalkCommentHeaderProps } from "./TalkCommentHeader.types";
@@ -7,12 +6,11 @@ import { TalkCommentHeaderProps } from "./TalkCommentHeader.types";
 const Best = ({ children }: TalkCommentHeaderProps) => {
   return (
     <div className="font-Poppins font-semibold text-[#16px] text-[#000] flex items-center cursor-pointer">
-      <div className="flex flex-col items-center">
-        <Crown />
-        <BestNumberingImg />
-      </div>
+      <BestNumberingImg />
       <div className="ml-[5px]">{children}</div>
-      <div className="ml-[12px] text-[#F24D4D] ">BEST</div>
+      <div className="ml-[12px] flex items-center bg-transparent leading-tight text-[18px] text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7.5px] h-[21px]">
+        BEST
+      </div>
     </div>
   );
 };
@@ -63,7 +61,7 @@ const TalkCommentHeader = ({ children }: TalkCommentHeaderProps) => {
 
   return (
     <div className="flex w-full">
-      {best.length > 0 && <>{best}</>}
+      {best.length > 0 && <div className="flex grow mb-[8px]">{best}</div>}
       <div className="flex grow mb-[8px]">{numbering && <>{numbering}</>}</div>
       <div className="flex">{timesAgo && <>{timesAgo}</>}</div>
     </div>
@@ -71,6 +69,7 @@ const TalkCommentHeader = ({ children }: TalkCommentHeaderProps) => {
 };
 
 export const TalkCommentHeaderMain = Object.assign(TalkCommentHeader, {
+  Best,
   Numbering,
   TimesAgo,
 });

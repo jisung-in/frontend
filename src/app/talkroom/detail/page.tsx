@@ -3,6 +3,7 @@
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import BackButton from "@/app/summary/_component/BackButton";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
+import BestSpeechBubble from "../_component/SpeechBubble/BestSpeechBubble";
 import MySpeechBubble from "../_component/SpeechBubble/MySpeechBubble";
 import SpeechBubble from "../_component/SpeechBubble/SpeechBubble";
 import TalkRoomDetailMain from "../_component/talkroomDetailMain";
@@ -28,6 +29,7 @@ const Page = () => {
         의견 999+
       </div>
 
+      <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} />
       {new Array(10).fill(1).map((content: string, index: number) => (
         <SpeechBubble
           key={index}
