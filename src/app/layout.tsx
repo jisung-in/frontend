@@ -3,6 +3,7 @@ import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
 import { GurmukhiMN, Pretendard, SpoqaHanSansNeo } from "./font";
 import "./globals.css";
+import AuthSession from "./components/AuthSession/AuthSession";
 
 export const metadata: Metadata = {
   title: "지성인",
@@ -20,8 +21,10 @@ export default function RootLayout({
         className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${GurmukhiMN.variable}`}
       >
         <div className="flex flex-col min-h-screen">
-          <Header />
-          <div className="flex flex-grow flex-col w-[100%]">{children}</div>
+          <AuthSession>
+            <Header />
+            <div className="flex flex-grow flex-col w-[100%]">{children}</div>
+          </AuthSession>
           <Footer />
         </div>
       </body>
