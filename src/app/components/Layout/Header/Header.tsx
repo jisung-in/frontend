@@ -1,13 +1,14 @@
 "use client";
 import { useInput } from "@/hook/useInput";
-import { Button } from "../../Button/Button";
 import { Input } from "../../Input/Input";
 import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import { LoginComponent } from "./LoginComponents";
 
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
   const router = useRouter();
-
+  const { data: me } = useSession();
   return (
     <div className="flex sticky z-20 top-0 items-center w-full px-[5%] h-[85px] bg-brown-60">
       <div
@@ -25,19 +26,7 @@ export const Header = () => {
             placeholder="이곳에 검색해보세요."
           />
         </div>
-        <div className="w-[100px]">
-          <Button
-            variant="ivory"
-            height="md"
-            onClick={() =>
-              router.push(
-                "https://kauth.kakao.com/oauth/authorize?client_id={REST_API_KEY}&redirect_uri={REDIRECT_URI}&response_type=code",
-              )
-            }
-          >
-            로그인
-          </Button>
-        </div>
+        <LoginComponent me={me} />
       </div>
     </div>
   );
