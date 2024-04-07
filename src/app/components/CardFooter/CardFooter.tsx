@@ -14,10 +14,14 @@ const LikeNumbers = ({ children, className = "" }: CardFooterProps) => {
 const Line = ({ className = "" }: CardFooterProps) => {
   return <hr className={`border-solid ${className}`} />;
 };
-const TalkContent = ({ children, className = "" }: CardFooterProps) => {
+const TalkContent = ({
+  children,
+  className = "",
+  color = "#FBF7F0",
+}: CardFooterProps) => {
   return (
     <div
-      className={`flex flex-col font-Pretendard rounded-[8px] bg-[#FBF7F0] ${className}`}
+      className={`flex flex-col font-Pretendard rounded-[8px] bg-[#${color}] ${className}`}
     >
       {children}
     </div>
@@ -25,7 +29,7 @@ const TalkContent = ({ children, className = "" }: CardFooterProps) => {
 };
 const DeleteButton = ({ children }: CardFooterProps) => {
   return (
-    <div className="flex items-center justify-center w-[61px] h-[32px] font-Pretendard font-medium text-[21px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[3px] cursor-pointer">
+    <div className="flex items-center justify-center font-Pretendard font-medium text-[18px] text-[#624E45] border-[#D9D9D9] border border-solid rounded-[3px] px-[12px] py-[3px] cursor-pointer">
       {children}
     </div>
   );
@@ -78,8 +82,8 @@ const CardFooter = ({ children }: CardFooterProps) => {
 
   return (
     <>
-      {likeNumbers && <>{likeNumbers}</>}
       {line && <>{line}</>}
+      {likeNumbers && <>{likeNumbers}</>}
       {talkContent.length > 0 && <>{talkContent}</>}
       {likeButton && <>{likeButton}</>}
       {deleteButton && <>{deleteButton}</>}
