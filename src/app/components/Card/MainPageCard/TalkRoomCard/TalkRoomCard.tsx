@@ -22,9 +22,10 @@ const TalkRoomCard = () => {
     "읽음",
     "잠시 멈춘",
     "중단",
+    "상관없음",
   ];
   return (
-    <div className="w-[547px] h-[230px] bg-[#FFF] border border-solid rounded-[17px]">
+    <div className="w-[547px] h-[256px] bg-[#FFF] border border-solid rounded-[17px]">
       <div className="mt-[22px] ml-[26px] w-auto">
         <CardMain>
           <CardHeaderMain>
@@ -67,7 +68,7 @@ const TalkRoomCard = () => {
           <CardMain.AttendCondition>
             <div className="flex flex-col">
               <div className="mb-[4px]">참가조건</div>
-              <div className="flex flex-row gap-x-2">
+              <div className="flex flex-row flex-wrap gap-x-2 gap-y-[9px]">
                 {statuses.map((status, index) => (
                   <CardMain.Status
                     key={index}

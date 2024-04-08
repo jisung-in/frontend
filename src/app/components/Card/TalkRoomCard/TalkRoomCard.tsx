@@ -24,6 +24,7 @@ const TalkRoomCard = () => {
     "읽음",
     "잠시 멈춘",
     "중단",
+    "상관없음",
   ];
   return (
     <div className="w-[546px] h-[430px] bg-[#FFF] border border-solid rounded-[18px]">
@@ -90,7 +91,7 @@ const TalkRoomCard = () => {
           </CardMain.AttendCondition>
           <CardFooterMain>
             <CardFooterMain.Line className="border-[#F4E4CE] mt-[18px] mb-[16px] mr-[27px]" />
-            <CardFooterMain.TalkContent className="mr-[27px] h-[104px]">
+            <CardFooterMain.TalkContent className="mr-[27px] h-[104px] bg-[#FBF7F0]">
               <Link href={"/talkroom/detail"}>
                 <div className="mt-[9px] mx-[18px]">
                   <div className="font-medium text-[20px] text-[#000]">

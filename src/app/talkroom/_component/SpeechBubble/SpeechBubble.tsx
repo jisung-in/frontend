@@ -54,6 +54,12 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
           <CardFooterMain.Line className="border-2 border-[#FBF7F0] mb-[9px] mr-[22px]" />
           <CardFooterMain.LikeNumbers>
             <div className="flex grow items-center">
+              <div className="mr-[13px]">
+                <LikeButton
+                  isLike={isLike}
+                  onClick={() => changeIsLike(isLike)}
+                />
+              </div>
               <IconButton onClick={() => changeIsLike(isLike)}>
                 {isLike ? (
                   <LikeSpeechBubble width={16} height={15} />
@@ -61,15 +67,7 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
                   <NotLike width={16} height={15} />
                 )}
               </IconButton>
-              <div className="ml-[5px]  basis-[40px]">
-                {count > 999 ? "999+" : count}
-              </div>
-              <div className="ml-[11px]">
-                <LikeButton
-                  isLike={isLike}
-                  onClick={() => changeIsLike(isLike)}
-                />
-              </div>
+              <div className="ml-[5px]">{count > 999 ? "999+" : count}</div>
             </div>
           </CardFooterMain.LikeNumbers>
         </CardFooterMain>
