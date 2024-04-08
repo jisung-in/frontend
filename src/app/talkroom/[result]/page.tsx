@@ -28,12 +28,11 @@ const page = () => {
   const changeIsStatus = () => {
     setIsStatus(!isStatus);
   };
-
   return (
     <div>
       <ThemeMain.MainTheme>
-        <div className="flex mt-[78px] mb-[23px]">
-          <div className="flex items-center mb-[23px]">
+        <div className="flex mt-[78px] mb-[16px]">
+          <div className="flex items-center">
             <div className="text-[30px] mr-[16px]">토크해요</div>
             <RecentMakeTalkRoom />
           </div>
@@ -81,7 +80,9 @@ const page = () => {
                       <DropdownMenu.Item
                         key={index}
                         onClick={() => changeIsDate(date)}
-                        className="w-full h-[60px] flex items-center px-[5%] border-b-[1px] hover:font-semibold hover:text-black cursor-pointer"
+                        className={`w-full h-[60px] flex items-center px-[5%] hover:font-semibold hover:text-black cursor-pointer ${
+                          date === "하루 전" ? "" : "border-b-[1px]"
+                        }`}
                       >
                         {date}
                       </DropdownMenu.Item>
