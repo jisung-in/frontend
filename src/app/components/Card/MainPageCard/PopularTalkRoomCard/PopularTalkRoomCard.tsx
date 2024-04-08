@@ -20,6 +20,7 @@ const PopularTalkRoomCard = () => {
     "읽음",
     "잠시 멈춘",
     "중단",
+    "상관없음",
   ];
   return (
     <div className="w-[405px] h-[532px] bg-[#fff] border border-solid rounded-[20px]">
