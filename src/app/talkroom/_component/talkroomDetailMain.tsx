@@ -1,10 +1,9 @@
 import { BookMain } from "@/app/components/Book/Book";
 import { CardMain } from "@/app/components/Card/Card";
+import { CardHeaderMain } from "@/app/components/CardHeader/CardHeader";
 import IconButton from "@/app/components/IconButton/IconButton";
-import LikeBlack from "@/assets/img/like-black.svg";
+import Like from "@/assets/img/like.svg";
 import NotLike from "@/assets/img/not-like.svg";
-import OutRoom from "@/assets/img/out-room.svg";
-import WriteOpinion from "@/assets/img/write-opinion.svg";
 import { useEffect, useState } from "react";
 const talkroomDetailMain = () => {
   const [count, setCount] = useState<number>(0);
@@ -20,6 +19,7 @@ const talkroomDetailMain = () => {
     "읽음",
     "잠시 멈춘",
     "중단",
+    "상관없음",
   ];
   const goBack = () => {
     window.history.back();
@@ -43,7 +43,7 @@ const talkroomDetailMain = () => {
     }
   }, []);
   return (
-    <div className="w-full min-h-[975px] bg-white border-2 border-[#F4E4CE] rounded-[12px] flex flex-col">
+    <div className="w-full min-h-[831px] bg-white border-2 border-[#F4E4CE] rounded-[12px] flex flex-col">
       <div className="ml-[46px] mt-[44px] mr-[35px]">
         <div className="flex flex-row">
           <div className="flex grow">
@@ -85,8 +85,24 @@ const talkroomDetailMain = () => {
               </CardMain.AttendCondition>
             </CardMain>
           </div>
-          <div className="flex font-Pretendard font-regular text-[18px] text-[#7E7E7E] mt-[-13px]">
-            생성일: 20시간 전
+          <div className="flex flex-col items-end">
+            <CardHeaderMain.LikeNumbers>
+              <div className="flex flex-col items-center">
+                <IconButton onClick={() => changeIsLike(isLike)}>
+                  {isLike ? (
+                    <Like width={26} height={24} />
+                  ) : (
+                    <NotLike width={26} height={24} />
+                  )}
+                </IconButton>
+                <div className="h-[16px] font-Pretendard font-normal text-[13px] text-[#656565]">
+                  {count}
+                </div>
+              </div>
+            </CardHeaderMain.LikeNumbers>
+            <div className="flex font-Pretendard font-regular text-[18px] text-[#7E7E7E] mt-[225px]">
+              생성일: 20시간 전
+            </div>
           </div>
         </div>
 
@@ -104,53 +120,13 @@ const talkroomDetailMain = () => {
         <div className="font-Pretendard font-semibold text-[24px] mb-[18px]">
           이미지
         </div>
-        <div className="flex gap-x-[23px] mb-[38px]">
+        <div className="flex gap-x-[23px] mb-[51px]">
           {new Array(3).fill(1).map((index: number) => (
             <div
               key={index}
               className="bg-[#D9D9D9] w-[160px] h-[160px] border border-solid border-[#FBF7F0] rounded-[4px]"
             />
           ))}
-        </div>
-
-        <div className="flex flex-row gap-x-[15px] font-Pretendard font-regular text-[18px] text-[#818181] mb-[20px]">
-          <div className="flex flex-row basis-[100px]">
-            <div className="mr-[6px]">좋아요</div>
-            <div>{count > 999 ? "999+" : count}</div>
-          </div>
-          <div className="flex flex-row basis-[100px]">
-            <div className="mr-[6px]">의견</div>
-            <div>999+</div>
-          </div>
-        </div>
-      </div>
-
-      <hr className="border-solid border-[#F5EFE5]" />
-
-      <div className="flex flex-row font-Pretendard font-semibold text-[19px]">
-        <div
-          className="border-r-[1px] border-[#F4E4CE] flex grow justify-center items-center py-[18px] cursor-pointer"
-          onClick={() => changeIsLike(isLike)}
-        >
-          <IconButton className="flex flex-row items-center">
-            {isLike ? (
-              <LikeBlack width={19} height={18} className="mr-[5px]" />
-            ) : (
-              <NotLike width={19} height={18} className="mr-[5px]" />
-            )}
-            좋아요
-          </IconButton>
-        </div>
-        <div className="border-r-[1px] border-[#F4E4CE] flex grow justify-center items-center py-[18px] cursor-pointer">
-          <WriteOpinion className="mr-[5px]" />
-          의견쓰기
-        </div>
-        <div
-          className="flex grow justify-center items-center py-[18px] cursor-pointer"
-          onClick={goBack}
-        >
-          <OutRoom className="mr-[5px]" />
-          나가기
         </div>
       </div>
     </div>
