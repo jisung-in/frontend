@@ -57,8 +57,8 @@ const TalkRoomCard = () => {
             </CardHeaderMain.LikeNumbers>
           </CardHeaderMain>
           <BookMain>
-            <BookMain.BookCover className="mt-[5px] mr-[20px]">
-              <div className="w-[95px] h-[135px] border border-solid border-[#FBF7F0]" />
+            <BookMain.BookCover>
+              <div className="w-[95px] h-[135px] border border-solid border-[#FBF7F0] mt-[5px] mr-[20px]" />
             </BookMain.BookCover>
           </BookMain>
           <CardMain.TitleTheme className="mt-[4px]">

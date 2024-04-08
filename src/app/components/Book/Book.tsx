@@ -1,8 +1,8 @@
 import { Children, ReactNode, isValidElement } from "react";
 import { BookProps } from "./Book.types";
 
-const BookCover = ({ children, className = "" }: BookProps) => {
-  return <div className={`${className}`}>{children}</div>;
+const BookCover = ({ children }: BookProps) => {
+  return <div>{children}</div>;
 };
 const RankBox = ({ children }: BookProps) => {
   return (

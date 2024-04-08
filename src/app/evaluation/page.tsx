@@ -76,8 +76,8 @@ const page = () => {
 
       <div className="flex items-center justify-center font-Pretendard font-medium mt-[42px] mb-[69px]">
         <div className="flex justify-start w-[910px] h-[288px] ">
-          <BookMain.BookCover className="mr-[53px] w-auto">
-            <div className="border border-[#F4E4CE] w-[214px] h-[288px]"></div>
+          <BookMain.BookCover>
+            <div className="border border-[#F4E4CE] w-[214px] h-[288px] mr-[53px]"></div>
           </BookMain.BookCover>
           <BookMain className="mt-[12px]">
             <BookMain.BookTitle>
