@@ -15,7 +15,17 @@ import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
   // swiper 임시 데이터
-  const data = [
+  interface Book {
+    id: number;
+    rank: number;
+    image: string;
+    title: string;
+    publisher: string;
+    author: string;
+    year: number;
+  }
+
+  const data: Book[] = [
     {
       id: 1,
       rank: 1,
