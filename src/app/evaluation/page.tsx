@@ -74,9 +74,11 @@ const page = () => {
         </DropdownMenu.Root>
       </div>
 
-      <div className="flex flex-col items-center font-Pretendard font-medium mt-[42px] mb-[69px]">
-        <div className="flex flex-row">
-          <BookMain.BookCover className="border border-[#F4E4CE] w-[214px] h-[288px] mr-[53px]" />
+      <div className="flex items-center justify-center font-Pretendard font-medium mt-[42px] mb-[69px]">
+        <div className="flex justify-start w-[910px] h-[288px] ">
+          <BookMain.BookCover className="mr-[53px] w-auto">
+            <div className="border border-[#F4E4CE] w-[214px] h-[288px]"></div>
+          </BookMain.BookCover>
           <BookMain className="mt-[12px]">
             <BookMain.BookTitle>
               <div className="font-semibold text-[40px] text-[#000] mb-[11px]">
@@ -97,7 +99,12 @@ const page = () => {
       </div>
 
       <div className="flex flex-col items-center">
-        <EvaluationCard content="유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유저 평가유저 평가 유저 평가" />
+        {new Array(12).fill(1).map((index: number) => (
+          <EvaluationCard
+            key={index}
+            content="유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유유저 평가유저 평가 유저 평가유저 평가 유저 평가"
+          />
+        ))}
       </div>
     </div>
   );

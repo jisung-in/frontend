@@ -2,11 +2,7 @@ import { Children, ReactNode, isValidElement } from "react";
 import { BookProps } from "./Book.types";
 
 const BookCover = ({ children, className = "" }: BookProps) => {
-  return (
-    <div className={`w-full h-full bg-origin-padding ${className}`}>
-      {children}
-    </div>
-  );
+  return <div className={`${className}`}>{children}</div>;
 };
 const RankBox = ({ children }: BookProps) => {
   return (
