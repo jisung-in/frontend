@@ -1,7 +1,6 @@
 "use client";
 
-import { ThemeMain } from "@/app/components/Theme/Theme";
-import BackButton from "@/app/summary/_component/BackButton";
+import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import BestSpeechBubble from "../_component/SpeechBubble/BestSpeechBubble";
 import MySpeechBubble from "../_component/SpeechBubble/MySpeechBubble";
@@ -11,15 +10,9 @@ import TalkRoomDetailMain from "../_component/talkroomDetailMain";
 const Page = () => {
   return (
     <div className="mt-[50px]">
-      <BackButton />
-      <ThemeMain.MainTheme>
-        <div className="flex mt-[18px] mb-[23px]">
-          <div className="flex items-center mb-[23px]">
-            <div className="text-[30px] mr-[16px]">토크해요</div>
-            <PopularTalkRoom />
-          </div>
-        </div>
-      </ThemeMain.MainTheme>
+      <MainThemeTitle title="토크해요">
+        <PopularTalkRoom />
+      </MainThemeTitle>
 
       <TalkRoomDetailMain />
 

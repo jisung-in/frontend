@@ -49,8 +49,8 @@ const talkroomDetailMain = () => {
           <div className="flex grow">
             <CardMain>
               <BookMain>
-                <BookMain.BookCover className="mt-[5px] mr-[40px]">
-                  <div className="w-[223px] h-[291px] border border-solid border-[#F4E4CE]" />
+                <BookMain.BookCover>
+                  <div className="w-[223px] h-[291px] border border-solid border-[#F4E4CE] mt-[5px] mr-[40px]" />
                 </BookMain.BookCover>
               </BookMain>
               책제목

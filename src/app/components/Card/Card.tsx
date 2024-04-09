@@ -64,7 +64,9 @@ const Opinion = ({ children }: CardProps) => {
   );
 };
 const Review = ({ children }: CardProps) => {
-  return <div>{children}</div>;
+  return (
+    <div className="font-Pretendard font-regular text-[20px]">{children}</div>
+  );
 };
 const CreateDay = ({ children }: CardProps) => {
   return (
