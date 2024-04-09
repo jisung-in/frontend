@@ -28,7 +28,7 @@ const LikeNumbers = ({ children }: CardHeaderProps) => {
 };
 const StarRating = ({ children }: CardHeaderProps) => {
   return (
-    <div className="w-full h-full border border-[#624E45] border-solid rounded-[16px] bg-[#FBF7F0] mr-[26px]">
+    <div className="w-full h-full border border-[#624E45] border-solid rounded-[16px] bg-[#FBF7F0]">
       {children}
     </div>
   );

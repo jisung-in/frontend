@@ -6,6 +6,7 @@ import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import RecentOpinionTalkRoom from "@/assets/img/recent-opinion-talk-room.svg";
 import RegisteRecentBook from "@/assets/img/register-recent-book.svg";
+import Link from "next/link";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
 import PopularTalkRoomCard from "./components/Card/MainPageCard/PopularTalkRoomCard/PopularTalkRoomCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard/TalkRoomCard";
@@ -14,7 +15,17 @@ import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
   // swiper 임시 데이터
-  const data = [
+  interface Book {
+    id: number;
+    rank: number;
+    image: string;
+    title: string;
+    publisher: string;
+    author: string;
+    year: number;
+  }
+
+  const data: Book[] = [
     {
       id: 1,
       rank: 1,
@@ -119,7 +130,9 @@ const page = () => {
               <div className="mr-[10px]">최근 생성된 토크방</div>
               <RecentMakeTalkRoom />
             </div>
-            <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
+            <Link href={"/talkroom"}>
+              <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
+            </Link>
           </div>
         </ThemeMain.MainTheme>
 
@@ -150,10 +163,12 @@ const page = () => {
                 <div className="mr-[10px]">인기있는 토크방</div>
                 <PopularTalkRoom />
               </div>
-              <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
+              <Link href={"/talkroom"}>
+                <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
+              </Link>
             </div>
           </ThemeMain.MainTheme>
-          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px">
+          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
             {new Array(4).fill(1).map((index: number) => (
               <PopularTalkRoomCard key={index} />
             ))}

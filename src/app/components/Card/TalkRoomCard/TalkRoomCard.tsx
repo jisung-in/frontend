@@ -1,20 +1,34 @@
+import IconButton from "@/app/components/IconButton/IconButton";
+import Like from "@/assets/img/like.svg";
+import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { BookMain } from "../../Book/Book";
 import { CardFooterMain } from "../../CardFooter/CardFooter";
 import { CardHeaderMain } from "../../CardHeader/CardHeader";
-import HeartButton from "../../HeartButton/HeartButton";
 import { CardMain } from "../Card";
 
 const TalkRoomCard = () => {
-  const [isHeart, setIsHeart] = useState<Boolean>(false);
-  const changeisHeart = () => {
-    setIsHeart(!isHeart);
+  const [count, setCount] = useState<number>(0);
+  const [isLike, setIsLike] = useState<boolean>(false);
+  const changeIsLike = (isLike: boolean) => {
+    setIsLike(!isLike);
+    setCount(count + 1);
+    if (isLike) setCount(count - 1);
   };
+  const statuses: string[] = [
+    "읽고 싶은",
+    "읽는 중",
+    "읽음",
+    "잠시 멈춘",
+    "중단",
+    "상관없음",
+  ];
   return (
     <div className="w-[546px] h-[430px] bg-[#FFF] border border-solid rounded-[18px]">
-      <div className="mt-[20px] ml-[27px] w-auto">
+      <div className="mt-[16px] ml-[27px] w-auto">
         <CardMain>
           <CardHeaderMain>
             <CardHeaderMain.Profile>
@@ -33,57 +47,63 @@ const TalkRoomCard = () => {
               <div className="text-[12px] ml-[8px]">23시간 전 (날짜)</div>
             </CardHeaderMain.HoursAgo>
             <CardHeaderMain.LikeNumbers>
-              <div className="mr-[25px]">
-                <HeartButton
-                  isHeart={isHeart}
-                  onClick={changeisHeart}
-                  width={26}
-                  height={24}
-                />
+              <div className="flex flex-col items-center mr-[25px]">
+                <IconButton onClick={() => changeIsLike(isLike)}>
+                  {isLike ? (
+                    <Like width={22} height={19} />
+                  ) : (
+                    <NotLike width={22} height={19} />
+                  )}
+                </IconButton>
                 <div className="h-[22px] font-Pretendard font-Regular text-[16px] text-[#656565]">
-                  999+
+                  {count}
                 </div>
               </div>
             </CardHeaderMain.LikeNumbers>
           </CardHeaderMain>
 
-          <BookMain className="mt-[15px] mr-[27px]">
+          <BookMain className="mt-[11px] mr-[27px]">
             <BookMain.BookCover>
               <div className="flex items-center border border-solid border-[#F4E4CE] w-[140px] h-[200px]"></div>
             </BookMain.BookCover>
           </BookMain>
-          <CardMain.TitleTheme className="mt-[25px] mb-[8px]">
-            <div className="text-[20px]">토크방 제목</div>
+          <CardMain.TitleTheme className="mt-[20px] mb-[4px]">
+            <Link href={"/talkroom/detail"}>
+              <div className="text-[20px]">토크방 제목</div>
+            </Link>
           </CardMain.TitleTheme>
-          <CardMain.BookTitle>
-            <div className="mb-[8px]">책 제목</div>
-          </CardMain.BookTitle>
+          <CardMain.BookTitle>책 제목</CardMain.BookTitle>
           <CardMain.AttendCondition>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-[10px] text-[20px]">
               참가조건
-              <div className="flex flex-row flex-wrap gap-x-2.5 gap-y-2.5">
-                <CardMain.Status color="FBF7F0">읽고 싶은</CardMain.Status>
-                <CardMain.Status color="FBF7F0">읽는 중</CardMain.Status>
-                <CardMain.Status color="FBF7F0">읽음</CardMain.Status>
-                <CardMain.Status color="FBF7F0">잠시 멈춘</CardMain.Status>
-                <CardMain.Status color="FBF7F0">중단</CardMain.Status>
-                <CardMain.Status color="FBF7F0">상관 없음</CardMain.Status>
+              <div className="flex flex-row mt-[5px] flex-wrap gap-x-2.5 gap-y-2.5">
+                {statuses.map((status, index) => (
+                  <CardMain.Status
+                    key={index}
+                    color="FBF7F0"
+                    className="px-[8px] py-[4.5px]"
+                  >
+                    {status}
+                  </CardMain.Status>
+                ))}
               </div>
             </div>
           </CardMain.AttendCondition>
           <CardFooterMain>
-            <CardFooterMain.Line className="border-[#F4E4CE] mt-[18px] mb-[14px] mr-[27px]"></CardFooterMain.Line>
-            <CardFooterMain.TalkContent className="mr-[27px] h-[96px]">
-              <div className="mt-[9px] mx-[18px]">
-                <div className="font-medium text-[20px] text-[#000]">
-                  토크내용
+            <CardFooterMain.Line className="border-[#F4E4CE] mt-[18px] mb-[16px] mr-[27px]" />
+            <CardFooterMain.TalkContent className="mr-[27px] h-[104px] bg-[#FBF7F0]">
+              <Link href={"/talkroom/detail"}>
+                <div className="mt-[9px] mx-[18px]">
+                  <div className="font-medium text-[20px] text-[#000]">
+                    토크내용
+                  </div>
+                  <div className="font-regular text-[18px] text-[#6C6C6C]">
+                    토크내용 들어갈 곳 토크내용 들어갈 곳 토크내용 들어갈 곳
+                    토크내용 들어갈 곳 토크내용 들어갈 곳 토크내용 들어갈 곳
+                    토크내용
+                  </div>
                 </div>
-                <div className="font-regular text-[18px] text-[#6C6C6C]">
-                  토크내용 들어갈 곳 토크내용 들어갈 곳 토크내용 들어갈 곳
-                  토크내용 들어갈 곳 토크내용 들어갈 곳 토크내용 들어갈 곳
-                  토크내용
-                </div>
-              </div>
+              </Link>
             </CardFooterMain.TalkContent>
           </CardFooterMain>
         </CardMain>
