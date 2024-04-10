@@ -21,10 +21,8 @@ export default function RootLayout({
         className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${GurmukhiMN.variable}`}
       >
         <div className="flex flex-col min-h-screen">
-          <AuthSession>
-            <Header />
-            <div className="flex flex-grow flex-col w-[100%]">{children}</div>
-          </AuthSession>
+          <Header />
+          <div className="flex flex-grow flex-col w-[100%]">{children}</div>
           <Footer />
         </div>
       </body>
