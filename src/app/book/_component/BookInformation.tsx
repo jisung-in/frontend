@@ -7,10 +7,10 @@ import WantToRead from "@/assets/img/want-to-read.svg";
 
 const BookInformation = () => {
   return (
-    <div className="flex flex-row mt-[22px] mb-[96px]">
+    <div className="flex flex-row mt-[22px] mb-[96px] w-[1680px]">
       <div className="min-w-[363px] min-h-[469px] mr-[37px] bg-[#D9D9D9]" />
 
-      <div className="flex flex-col justify-start font-Pretendard font-medium">
+      <div className="flex flex-col flex-grow justify-start font-Pretendard font-medium">
         <div className="flex flex-row items-center mt-[30px] gap-x-[220px]">
           <div className="flex flex-row">
             {new Array(5).fill(1).map(() => (
@@ -37,13 +37,13 @@ const BookInformation = () => {
           <div>2024</div>
         </div>
 
-        <div className="text-[20px] text-[#656565]">
+        <div className="text-[20px] text-[#656565] w-[680px]">
           책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리
-          책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리{" "}
+          책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리
         </div>
       </div>
 
-      <div className="flex flex-row gap-x-[26px]">
+      <div className="w-full flex flex-row gap-x-[26px]y justify-end">
         <WantToRead />
         <Reading />
         <Read />
