@@ -3,7 +3,8 @@ import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
 import { GurmukhiMN, Pretendard, SpoqaHanSansNeo } from "./font";
 import "./globals.css";
-import AuthSession from "./components/AuthSession/AuthSession";
+import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
+import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "지성인",
@@ -21,9 +22,13 @@ export default function RootLayout({
         className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${GurmukhiMN.variable}`}
       >
         <div className="flex flex-col min-h-screen">
-          <Header />
-          <div className="flex flex-grow flex-col w-[100%]">{children}</div>
-          <Footer />
+          <ReactQueryProvider>
+            <ReduxProvider>
+              <Header />
+              <div className="flex flex-grow flex-col w-[100%]">{children}</div>
+              <Footer />
+            </ReduxProvider>
+          </ReactQueryProvider>
         </div>
       </body>
     </html>
