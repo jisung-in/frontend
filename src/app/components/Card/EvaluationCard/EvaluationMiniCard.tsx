@@ -21,9 +21,9 @@ const EvaluationCard = ({ content }: EvaluationProps) => {
   };
   return (
     <div className="w-[405px] min-h-[290px] bg-[#FFF] border border-solid rounded-[18px] mb-[30px] font-Pretendard font-medium">
-      <div className="mt-[25px] ml-[14px] mr-[12px] w-auto">
-        <div className="mb-[14px]">
-          <div className="flex ">
+      <div className="mt-[18px] ml-[15px] mr-[13px] w-auto">
+        <div className="mb-[16px]">
+          <div className="flex flex-row">
             <div className="flex flex-row items-center flex-grow gap-x-[10px]">
               <Image
                 src={Profile}
@@ -40,7 +40,6 @@ const EvaluationCard = ({ content }: EvaluationProps) => {
             </div>
           </div>
         </div>
-        <hr className="w-full border border-[#E4E4E4] mt-[8px] mb-[16px]" />
         <div className="font-regular text-[20px] min-h-[112px]">{content}</div>
         <div className="flex flex-row">
           <div>
@@ -60,7 +59,7 @@ const EvaluationCard = ({ content }: EvaluationProps) => {
             </div>
           </div>
         </div>
-        <hr className="w-full border border-[#E3E3E3] mt-[5px] mb-[10px]" />
+        <hr className="w-full border border-[#F4E4CE] mt-[5px] mb-[10px]" />
         <div className="flex justify-start mb-[11px]">
           <LikeButton isLike={isLike} onClick={() => changeIsLike(isLike)} />
         </div>

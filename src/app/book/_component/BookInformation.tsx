@@ -10,6 +10,8 @@ import { useState } from "react";
 
 const BookInformation = () => {
   const [starRate, setStarRate] = useState<number>(0);
+  const [myStarRate, setMyStarRate] = useState<number>(0);
+  const [previousRate, setPreviousRate] = useState<number>(0);
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -17,19 +19,26 @@ const BookInformation = () => {
   ) => {
     const half = e.nativeEvent.offsetX + index < 27.5;
     setStarRate(index + (half ? 0.5 : 1));
+    setMyStarRate(index + (half ? 0.5 : 1));
+  };
+
+  const saveMyStarRate = () => {
+    setMyStarRate(starRate);
+    setPreviousRate(starRate);
   };
 
   const handleMouseLeave = () => {
     setStarRate(0);
+    setMyStarRate(previousRate);
   };
 
   const calculateStarImage = (index: number) => {
-    if (starRate >= index + 1) {
-      return <BigStar width={55} height={55} />;
-    } else if (starRate >= index + 0.5) {
-      return <HalfStar width={55} height={55} />;
+    if (myStarRate >= index + 1) {
+      return <BigStar />;
+    } else if (myStarRate >= index + 0.5) {
+      return <HalfStar />;
     } else {
-      return <EmptyStar width={55} height={55} />;
+      return <EmptyStar />;
     }
   };
   return (
@@ -43,9 +52,10 @@ const BookInformation = () => {
               {new Array(5).fill(1).map((_, index: number) => (
                 <div
                   key={index}
-                  className="relative"
+                  className="cursor-pointer"
                   onMouseLeave={handleMouseLeave}
                   onMouseMove={(e) => handleMouseMove(e, index)}
+                  onClick={saveMyStarRate}
                 >
                   {calculateStarImage(index)}
                 </div>

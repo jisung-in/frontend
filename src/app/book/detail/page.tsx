@@ -31,8 +31,8 @@ const page = () => {
               placeholder="한줄평을 자유롭게 작성해보세요."
             />
             <div className="absolute bottom-[26px] right-[36px]">
-              <Button className="font-Pretendard font-medium text-[21px] w-[124px] h-[48px]">
-                등록하기
+              <Button className="font-Pretendard font-medium text-[21px]">
+                <div className="px-[25px] my-[8px]">등록하기</div>
               </Button>
             </div>
           </div>
