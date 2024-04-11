@@ -8,7 +8,7 @@ import { LoginComponent } from "./LoginComponents";
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
   const router = useRouter();
-  const { data: me } = useSession();
+
   return (
     <div className="flex sticky z-20 top-0 items-center w-full px-[5%] h-[85px] bg-brown-60">
       <div
@@ -26,7 +26,7 @@ export const Header = () => {
             placeholder="이곳에 검색해보세요."
           />
         </div>
-        <LoginComponent me={me} />
+        {/* <LoginComponent /> */}
       </div>
     </div>
   );
