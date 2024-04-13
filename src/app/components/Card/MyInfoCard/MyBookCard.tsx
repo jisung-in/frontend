@@ -2,10 +2,10 @@ import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 
 type ImageProps = {
-  postId: number;
-  title: string;
-  image: string;
-  starRate: string;
+  postId?: number;
+  title?: string;
+  image?: string;
+  starRate?: string;
 };
 
 const MyBookCard = ({ title, image, starRate }: ImageProps) => {
