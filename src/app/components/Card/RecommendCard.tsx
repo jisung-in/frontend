@@ -1,3 +1,4 @@
+import BookTitle from "@/assets/img/book-title.svg";
 import Like from "@/assets/img/like.svg";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
@@ -37,23 +38,20 @@ const RecommendCard: React.FC<RecommendCardProps> = ({
   return (
     <div
       key={id}
-      className="relative w-[405px] h-[330px] rounded-[17px] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden"
+      className="relative w-[320px] mb-[20px] h-[430px] rounded-[17px] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden"
     >
-      <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#FBF7F0] top-[-30%]"></div>
+      <div className="absolute inset-0 transform -skew-y-[17deg] h-[250px] bg-[#FFF5E7] top-[55%]"></div>
       <div className="absolute inset-0 flex justify-center items-center">
-        <div className="flex flex-col m-[26px]">
+        <div className="flex flex-col mt-[21px] mx-[26px]">
           <div className="flex flex-row">
-            <div className="relative w-[100px] h-[140px]">
-              <Image
-                className="border border-[#F4E4CE]"
-                src={faker.image.urlLoremFlickr()}
-                alt="책 표지"
-                fill
-              />
+            <div className="mt-1">
+              <BookTitle />
             </div>
-            <div className="mt-4 ml-4 flex-grow">
-              <div className="font-semibold mb-1">{title}</div>
-              <div className="text-sm text-[#656565]">{author}</div>
+            <div className="ml-3 flex-grow text-[#656565]">
+              <div className="font-semibold overflow-hidden line-clamp-1">
+                책 제목
+              </div>
+              <div className="text-sm">저자</div>
             </div>
             <div className="flex flex-col items-center">
               <IconButton onClick={() => changeIsLike(isLike)}>
@@ -68,21 +66,30 @@ const RecommendCard: React.FC<RecommendCardProps> = ({
               </div>
             </div>
           </div>
-          <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">
+          <div className="flex justify-center mt-7">
+            <div className="relative w-[125px] h-[170px]">
+              <Image
+                className="border border-[#F4E4CE]"
+                src={faker.image.urlLoremFlickr()}
+                alt="책 표지"
+                fill
+              />
+            </div>
+          </div>
+          <div className="flex flex-row mt-3 font-semibold items-center gap-x-[7px] mb-3">
             <ThemeTitle />
-            <div className="flex flex-row">{talkTitle}</div>
-            <div className="flex items-center bg-transparent leading-tight text-sm text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7px]">
-              BEST
+            <div className="flex flex-row text-[20px] overflow-hidden line-clamp-1">
+              {talkTitle}
             </div>
           </div>
 
-          <div className="font-medium text-base text-[#656565] max-h-10 mb-4">
+          <div className="font-medium text-base text-[#656565] max-h-12 overflow-hidden mb-4 line-clamp-2">
             {comment}
           </div>
 
           <hr className="w-full border border-[#F4E4CE] mb-3" />
 
-          <div className="flex flex-row gap-x-[9px] items-center">
+          <div className="flex flex-row gap-x-2 mb-3 items-center">
             <div>
               <Image
                 src={Profile}

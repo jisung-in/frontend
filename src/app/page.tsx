@@ -52,7 +52,7 @@ const page = () => {
         <Swiper data={dataRecommend} slidesPerView={5} />
       </div>
 
-      <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[69px]">
+      <div className="bg-[#FBF7F0] pt-[1px]">
         <div className="mt-[55px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-7">
