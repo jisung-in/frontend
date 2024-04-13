@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
-import { GurmukhiMN, Pretendard, SpoqaHanSansNeo } from "./font";
+import { GurmukhiMN, Inter, Pretendard, SpoqaHanSansNeo } from "./font";
 import "./globals.css";
 import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${GurmukhiMN.variable}`}
+        className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${Inter.variable} ${GurmukhiMN.variable}`}
       >
         <MSWProvider />
         <div className="flex flex-col min-h-screen">
