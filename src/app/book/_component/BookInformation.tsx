@@ -1,17 +1,27 @@
 import BigStar from "@/assets/img/big-star.svg";
 import EmptyStar from "@/assets/img/empty-star.svg";
 import HalfStar from "@/assets/img/half-star.svg";
-import Pasue from "@/assets/img/pause.svg";
-import ReadStop from "@/assets/img/read-stop.svg";
-import Read from "@/assets/img/read.svg";
-import Reading from "@/assets/img/reading.svg";
-import WantToRead from "@/assets/img/want-to-read.svg";
+import PasueOn from "@/assets/img/pasue-on.svg";
+import PasueOff from "@/assets/img/pause-off.svg";
+import ReadOff from "@/assets/img/read-off.svg";
+import ReadOn from "@/assets/img/read-on.svg";
+import ReadStopOff from "@/assets/img/read-stop-off.svg";
+import ReadStopOn from "@/assets/img/read-stop-on.svg";
+import ReadingOff from "@/assets/img/reading-off.svg";
+import ReadingOn from "@/assets/img/reading-on.svg";
+import WantToReadOff from "@/assets/img/want-to-read-off.svg";
+import WantToReadOn from "@/assets/img/want-to-read-on.svg";
 import { useState } from "react";
 
 const BookInformation = () => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [previousRate, setPreviousRate] = useState<number>(0);
+  const [status, setStatus] = useState<string>("");
+
+  const changeStatus = (statusName: string) => {
+    setStatus(statusName === status ? "" : statusName);
+  };
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -87,12 +97,28 @@ const BookInformation = () => {
         </div>
       </div>
 
-      <div className="w-full flex flex-row gap-x-[26px]y justify-end">
-        <WantToRead />
-        <Reading />
-        <Read />
-        <Pasue />
-        <ReadStop />
+      <div className="w-full flex flex-row gap-x-[26px] justify-end">
+        <div
+          className="cursor-pointer"
+          onClick={() => changeStatus("wantToRead")}
+        >
+          {status === "wantToRead" ? <WantToReadOn /> : <WantToReadOff />}
+        </div>
+        <div className="cursor-pointer" onClick={() => changeStatus("reading")}>
+          {status === "reading" ? <ReadingOn /> : <ReadingOff />}
+        </div>
+        <div className="cursor-pointer" onClick={() => changeStatus("read")}>
+          {status === "read" ? <ReadOn /> : <ReadOff />}
+        </div>
+        <div className="cursor-pointer" onClick={() => changeStatus("pause")}>
+          {status === "pause" ? <PasueOn /> : <PasueOff />}
+        </div>
+        <div
+          className="cursor-pointer"
+          onClick={() => changeStatus("readStop")}
+        >
+          {status === "readStop" ? <ReadStopOn /> : <ReadStopOff />}
+        </div>
       </div>
     </div>
   );
