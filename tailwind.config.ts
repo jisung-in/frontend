@@ -15,7 +15,7 @@ const config: Config = {
       fontFamily: {
         Pretendard: ["var(--font-Pretendard)"],
         SpoqaHanSansNeo: ["var(--font-SpoqaHanSansNeo)"],
-        GurmukhiMN: ["var(--font-GurmukhiMN)"],
+        Inter: ["var(--font-Inter)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
