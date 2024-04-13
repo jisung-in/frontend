@@ -7,8 +7,6 @@ import RecommendTalkRoom from "@/assets/img/recommend-talk-room.svg";
 import Link from "next/link";
 import MainCard from "./components/Card/MainCard";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
-import PopularTalkRoomCard from "./components/Card/MainPageCard/PopularTalkRoomCard/PopularTalkRoomCard";
-import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard/TalkRoomCard";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
@@ -22,6 +20,15 @@ const page = () => {
     publisher: string;
     author: string;
     year: number;
+  }
+  interface Recommend {
+    id: number;
+    image: string;
+    title: string;
+    author: string;
+    talkTitle: string;
+    userName: string;
+    comment: string;
   }
 
   const data: Book[] = [
@@ -79,29 +86,107 @@ const page = () => {
       author: "저자6",
       year: 2024,
     },
+    {
+      id: 7,
+      rank: 7,
+      image: "",
+      title: "책 제목7",
+      publisher: "출판사7",
+      author: "저자7",
+      year: 2024,
+    },
+    {
+      id: 8,
+      rank: 8,
+      image: "",
+      title: "책 제목8",
+      publisher: "출판사8",
+      author: "저자8",
+      year: 2024,
+    },
   ];
-
-  const BestSellerData = data.map((item) => {
-    return {
-      id: item.id,
-      rank: item.rank,
-      image: item.image,
-      title: item.title,
-      publisher: item.publisher,
-      author: item.author,
-      year: item.year,
-    };
-  });
-  const RecentlyRegisterData = data.map((item) => {
-    return {
-      id: item.id,
-      image: item.image,
-      title: item.title,
-      publisher: item.publisher,
-      author: item.author,
-      year: item.year,
-    };
-  });
+  const dataRecommend: Recommend[] = [
+    {
+      id: 1,
+      image: "",
+      title: "책 제목1",
+      author: "저자1",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+    {
+      id: 2,
+      image: "",
+      title: "책 제목2",
+      author: "저자2",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+    {
+      id: 3,
+      image: "",
+      title: "책 제목3",
+      author: "저자3",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+    {
+      id: 4,
+      image: "",
+      title: "책 제목4",
+      author: "저자4",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+    {
+      id: 5,
+      image: "",
+      title: "책 제목5",
+      author: "저자5",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+    {
+      id: 6,
+      image: "",
+      title: "책 제목6",
+      author: "저자6",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+    {
+      id: 7,
+      image: "",
+      title: "책 제목7",
+      author: "저자7",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+    {
+      id: 8,
+      image: "",
+      title: "책 제목8",
+      author: "저자8",
+      talkTitle: "토크해요",
+      userName: "응애",
+      comment:
+        "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+    },
+  ];
 
   return (
     <div className="bg-[#FFF]">
@@ -136,11 +221,7 @@ const page = () => {
           </div>
         </ThemeMain.MainTheme>
 
-        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
-          {new Array(5).fill(1).map((index: number) => (
-            <TalkRoomCard key={index} />
-          ))}
-        </div>
+        <Swiper data={dataRecommend} slidesPerView={5} />
       </div>
 
       <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[69px]">
@@ -153,7 +234,7 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          <Swiper data={BestSellerData} />
+          <Swiper data={data} slidesPerView={6} />
         </div>
       </div>
 
@@ -168,7 +249,7 @@ const page = () => {
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
           {new Array(4).fill(1).map((index: number) => (
-            <PopularTalkRoomCard key={index} />
+            <MainCard key={index} />
           ))}
         </div>
       </div>
