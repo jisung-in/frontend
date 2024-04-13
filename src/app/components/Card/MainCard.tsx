@@ -22,8 +22,13 @@ const MainCard = () => {
       <div className="absolute inset-0 flex justify-center items-center">
         <div className="flex flex-col m-[26px]">
           <div className="flex flex-row">
-            <div className="relative w-[100px] h-[140px] border border-[#F4E4CE]">
-              <Image src={faker.image.urlLoremFlickr()} alt="책 표지" fill />
+            <div className="relative w-[100px] h-[140px]">
+              <Image
+                className="border border-[#F4E4CE]"
+                src={faker.image.urlLoremFlickr()}
+                alt="책 표지"
+                fill
+              />
             </div>
             <div className="mt-4 ml-4 flex-grow">
               <div className="font-semibold mb-1">책 제목</div>

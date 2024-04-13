@@ -2,6 +2,8 @@
 
 import React from "react";
 
+import { faker } from "@faker-js/faker";
+import Image from "next/image";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -40,8 +42,13 @@ const DemoSlider: React.FC<BookSliderProps> = ({ data }) => {
             <SwiperSlide key={id}>
               <BookMain>
                 <BookMain.BookCover>
-                  <div className="w-[320px] h-[460px] border border-solid border-[#F4E4CE] rounded-[10px]">
-                    {image}
+                  <div className="w-[320px] h-[460px]">
+                    <Image
+                      className="border border-[#F4E4CE] rounded-[10px]"
+                      src={faker.image.urlLoremFlickr()}
+                      alt="책 표지"
+                      fill
+                    />
                   </div>
                 </BookMain.BookCover>
                 {rank && <BookMain.RankBox>{rank}</BookMain.RankBox>}
