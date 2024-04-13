@@ -1,15 +1,19 @@
+"use client";
+
 import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
+import { useMyStarRate } from "@/hook/reactQuery/my/useMyStarRate";
 
 const StatePage = () => {
+  const { data: stateData } = useMyStarRate();
   return (
     <div className="grid grid-cols-5 gap-[20px] w-[80%]">
-      {new Array(50).fill(1).map((_, index) => (
-        <MyBookCard key={index}>
-          {/* <Image src={""} alt={""}>
-
-          </Image> */}
-          <div className="w-full h-[380px] bg-gray-40"></div>
-        </MyBookCard>
+      {stateData?.map((book: any) => (
+        <MyBookCard
+          postId={book.postId}
+          title={book.title}
+          image={book.image}
+          starRate={book.starRate}
+        />
       ))}
     </div>
   );

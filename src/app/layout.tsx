@@ -5,6 +5,7 @@ import { GurmukhiMN, Pretendard, SpoqaHanSansNeo } from "./font";
 import "./globals.css";
 import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
+import { MSWProvider } from "./components/Provider/MSWProvider/MSWProvider";
 
 export const metadata: Metadata = {
   title: "지성인",
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body
         className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${GurmukhiMN.variable}`}
       >
+        <MSWProvider />
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
             <ReduxProvider>
