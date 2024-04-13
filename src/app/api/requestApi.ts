@@ -20,11 +20,11 @@ const onRequestRejected = (error: AxiosError) => {
 };
 
 const onRequestFulfilled = (config: InternalAxiosRequestConfig) => {
-  const accessToken = localStorage.getItem("token");
+  // const accessToken = localStorage.getItem("token");
 
-  if (accessToken) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
-  }
+  // if (accessToken) {
+  //   config.headers.Authorization = `Bearer ${accessToken}`;
+  // }
 
   return config;
 };
