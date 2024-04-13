@@ -76,7 +76,7 @@ const BookInformation = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="font-intel text-[44px]">4.2</div>
+            <div className="font-Inter text-[44px]">4.2</div>
             <div className="text-[16px] text-[#B1B1B1] mt-[6px] mb-[27px]">
               평균별점
             </div>
@@ -85,7 +85,7 @@ const BookInformation = () => {
 
         <div className="mb-[9px] font-semibold text-[40px]">책 제목</div>
 
-        <div className="font-intel flex flex-row gap-x-[29px] text-[24px] text-[#656565] mb-[41px]">
+        <div className="font-Inter flex flex-row gap-x-[29px] text-[24px] text-[#656565] mb-[41px]">
           <div>출판사</div>
           <div>저자</div>
           <div>2024</div>

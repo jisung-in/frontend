@@ -10,7 +10,7 @@ const MainTheme = ({ children }: ThemeProps) => {
 };
 const Show = ({ children }: ThemeProps) => {
   return (
-    <div className="text-[20px] text-[#B1B1B1] mr-[116px] font-Pretendard font-normal flex items-center">
+    <div className="text-[20px] text-[#B1B1B1] mr-[115px] font-Pretendard font-regular flex items-center">
       {children}
     </div>
   );
@@ -37,10 +37,12 @@ const Theme = ({ children }: ThemeProps) => {
   const show = getShow(children);
 
   return (
-    <>
-      {mainTheme && <>{mainTheme}</>}
-      {show && <>{show}</>}
-    </>
+    <div className="flex flex-row">
+      <div className="flex flex-row flex-grow items-center">
+        {mainTheme && <>{mainTheme}</>}
+      </div>
+      <div className="flex">{show && <>{show}</>}</div>
+    </div>
   );
 };
 

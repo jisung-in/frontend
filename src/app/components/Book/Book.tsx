@@ -21,7 +21,7 @@ const Publisher = ({ children }: BookProps) => {
   return <div>{children}</div>;
 };
 const Year = ({ children }: BookProps) => {
-  return <div>{children}</div>;
+  return <div className="font-Inter">{children}</div>;
 };
 const StarRating = ({ children }: BookProps) => {
   return <div>{children}</div>;
@@ -56,16 +56,16 @@ const getBookTitle = (children: ReactNode) => {
 };
 const getAuthor = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  return childrenArray
-    .filter((child) => isValidElement(child) && child.type === AuthorType)
-    .slice(0, 1);
+  const author = childrenArray.filter(
+    (child) => isValidElement(child) && child.type === AuthorType,
+  );
+  return author.length > 0 ? author.slice(0, 1) : [];
 };
 const getPublisher = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
-  const publisher = childrenArray.filter(
-    (child) => isValidElement(child) && child.type === PublisherType,
-  );
-  return publisher.length > 0 ? publisher.slice(0, 1) : [];
+  return childrenArray
+    .filter((child) => isValidElement(child) && child.type === PublisherType)
+    .slice(0, 1);
 };
 const getYear = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);
@@ -100,8 +100,8 @@ const Book = ({ children, className = "" }: BookProps) => {
         <>{bookCover}</>
       )}
       {bookTitle && <>{bookTitle}</>}
-      {publisher.length > 0 && (
-        <div className="flex items-center font-Pretendard font-normal text-[18px] text-[#656565]">
+      {author.length > 0 && (
+        <div className="flex items-center text-[#656565]">
           {publisher}
           {author}
           {year}

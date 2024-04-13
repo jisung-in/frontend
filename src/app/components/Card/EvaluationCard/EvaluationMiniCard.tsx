@@ -34,7 +34,7 @@ const EvaluationCard = ({ content }: EvaluationProps) => {
               />
               <div className="font-medium text-[20px]">이름</div>
             </div>
-            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Intel font-medium text-[18px] text-[#80685D]">
+            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D]">
               <Star />
               <div className="ml-[3px]">4.5</div>
             </div>
@@ -52,7 +52,7 @@ const EvaluationCard = ({ content }: EvaluationProps) => {
                     <NotLike width={16} height={15} />
                   )}
                 </IconButton>
-                <div className="font-Intel font-medium text-[17px] ml-[5px]">
+                <div className="font-Inter font-medium text-[17px] ml-[5px]">
                   {count > 999 ? "999+" : count}
                 </div>
               </div>

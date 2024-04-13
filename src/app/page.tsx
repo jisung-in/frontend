@@ -3,10 +3,9 @@
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
-import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
-import RecentOpinionTalkRoom from "@/assets/img/recent-opinion-talk-room.svg";
-import RegisteRecentBook from "@/assets/img/register-recent-book.svg";
+import RecommendTalkRoom from "@/assets/img/recommend-talk-room.svg";
 import Link from "next/link";
+import MainCard from "./components/Card/MainCard";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
 import PopularTalkRoomCard from "./components/Card/MainPageCard/PopularTalkRoomCard/PopularTalkRoomCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard/TalkRoomCard";
@@ -106,101 +105,86 @@ const page = () => {
 
   return (
     <div className="bg-[#FFF]">
-      <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme>
-          <div className="flex mb-[13px]">
-            <div className="flex grow items-center">
-              <div className="mr-[10px]">최근 의견달린 토크방</div>
-              <RecentOpinionTalkRoom />
-            </div>
-            <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
-          </div>
-        </ThemeMain.MainTheme>
-        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
-          {new Array(3).fill(1).map((index: number) => (
-            <TalkRoomCard key={index} />
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme>
-          <div className="flex mb-[13px]">
-            <div className="flex grow items-center">
-              <div className="mr-[10px]">최근 생성된 토크방</div>
-              <RecentMakeTalkRoom />
-            </div>
-            <Link href={"/talkroom"}>
-              <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
-            </Link>
-          </div>
-        </ThemeMain.MainTheme>
-
-        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
-          {new Array(3).fill(1).map((index: number) => (
-            <TalkRoomCard key={index} />
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-[55px] ml-[120px]">
-        <ThemeMain.MainTheme>
-          <div className="flex mb-[13px]">
-            <div className="flex grow items-center">
-              <div className="mr-[10px]">베스트 셀러</div>
-              <BestSeller />
-            </div>
-          </div>
-        </ThemeMain.MainTheme>
-        <Swiper data={BestSellerData} />
-      </div>
-
-      <div className="bg-[#FBF7F0] mt-[36px] pt-[36px] pb-[65px]">
-        <div className="mt-[23px] ml-[120px]">
-          <ThemeMain.MainTheme>
-            <div className="flex mb-[20px]">
-              <div className="flex grow items-center">
-                <div className="mr-[10px]">인기있는 토크방</div>
+      <div className="mt-[51px] ml-[115px]">
+        <div className="mb-7">
+          <ThemeMain>
+            <ThemeMain.MainTheme>
+              <div className="flex gap-x-3 grow items-center">
+                <div>인기있는 토크방</div>
                 <PopularTalkRoom />
               </div>
-              <Link href={"/talkroom"}>
-                <ThemeMain.Show>전체보기 {">"}</ThemeMain.Show>
-              </Link>
-            </div>
-          </ThemeMain.MainTheme>
-          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-            {new Array(4).fill(1).map((index: number) => (
-              <PopularTalkRoomCard key={index} />
-            ))}
-          </div>
+            </ThemeMain.MainTheme>
+            <ThemeMain.Show>
+              <Link href={"/talkroom"}>전체보기 {">"}</Link>
+            </ThemeMain.Show>
+          </ThemeMain>
+        </div>
+        <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
+          {new Array(4).fill(1).map((index: number) => (
+            <MainCard key={index} />
+          ))}
         </div>
       </div>
 
-      <div className="mt-[22px] ml-[120px]">
+      <div className="mt-[51px] ml-[120px]">
         <ThemeMain.MainTheme>
-          <div className="flex mb-[13px]">
-            <div className="flex grow items-center">
-              <div className="mr-[10px]">최근 등록된 책</div>
-              <RegisteRecentBook />
+          <div className="flex mb-7">
+            <div className="flex  gap-x-3 grow items-center">
+              <div>추천 토크방</div>
+              <RecommendTalkRoom />
             </div>
           </div>
         </ThemeMain.MainTheme>
-        <Swiper data={RecentlyRegisterData} />
+
+        <div className="flex flex-row flex-wrap gap-x-5 gap-y-5">
+          {new Array(5).fill(1).map((index: number) => (
+            <TalkRoomCard key={index} />
+          ))}
+        </div>
       </div>
 
-      <div className="bg-[#FBF7F0] mt-[73px] pb-[91px]">
-        <div className="pt-[77px] ml-[120px]">
+      <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[69px]">
+        <div className="mt-[55px] ml-[120px]">
           <ThemeMain.MainTheme>
-            <div className="flex mb-[20px]">
-              <div className="flex grow items-center">
-                <div className="mr-[10px]">토크 많은 책</div>
-                <ManyTalkRoomBook />
+            <div className="flex mb-7">
+              <div className="flex gap-x-3 grow items-center">
+                <div>베스트 셀러</div>
+                <BestSeller />
               </div>
-              <ThemeMain.Show>더보기 {">"}</ThemeMain.Show>
             </div>
           </ThemeMain.MainTheme>
-          <div className="flex flew-row flex-wrap gap-x-[17px] gap-y-[29px]">
-            {new Array(10).fill(1).map((index: number) => (
+          <Swiper data={BestSellerData} />
+        </div>
+      </div>
+
+      <div className="mt-[51px] ml-[120px]">
+        <ThemeMain>
+          <ThemeMain.MainTheme>
+            <div className="flex gap-x-3 grow items-center mb-7">
+              <div>최근 생성된 토크방</div>
+              <PopularTalkRoom />
+            </div>
+          </ThemeMain.MainTheme>
+        </ThemeMain>
+        <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
+          {new Array(4).fill(1).map((index: number) => (
+            <PopularTalkRoomCard key={index} />
+          ))}
+        </div>
+      </div>
+
+      <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
+        <div className="pt-[77px] ml-[120px]">
+          <ThemeMain>
+            <ThemeMain.MainTheme>
+              <div className="flex gap-x-3 mb-7 items-center">
+                <div>토크 많은 책</div>
+                <ManyTalkRoomBook />
+              </div>
+            </ThemeMain.MainTheme>
+          </ThemeMain>
+          <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
+            {new Array(14).fill(1).map((index: number) => (
               <ManyTalkRoomBookCard key={index} />
             ))}
           </div>
