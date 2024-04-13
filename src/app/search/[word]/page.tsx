@@ -17,7 +17,7 @@ const SearchingWordPage = () => {
           <Preface />
         </div>
         <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))]">
-          {bookData.map((data: any) => (
+          {bookData?.map((data: any) => (
             <MyBookCard
               key={data.postId}
               title={data.title}
