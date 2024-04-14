@@ -8,7 +8,19 @@ import Image from "next/image";
 import { useState } from "react";
 import IconButton from "../IconButton/IconButton";
 
-const MainCard = () => {
+interface TalkRoomCardProps {
+  data: {
+    id: number;
+    title: string;
+    image: string;
+    author: string;
+    talkTitle?: string;
+    userName?: string;
+    comment?: string;
+  };
+}
+
+const MainCard: React.FC<TalkRoomCardProps> = ({ data }) => {
   const [count, setCount] = useState<number>(0);
   const [isLike, setIsLike] = useState<boolean>(false);
 
@@ -18,7 +30,10 @@ const MainCard = () => {
   };
 
   return (
-    <div className="relative w-[405px] h-[330px] rounded-[17px] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden">
+    <div
+      key={data.id}
+      className="relative w-[405px] h-[330px] rounded-[17px] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden"
+    >
       <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#FBF7F0] top-[-30%]"></div>
       <div className="absolute inset-0 flex justify-center items-center">
         <div className="flex flex-col m-[26px]">
@@ -36,9 +51,9 @@ const MainCard = () => {
             </div>
             <div className="mt-4 ml-[9px] flex-grow text-[#656565]">
               <div className="font-semibold mb-1 overflow-hidden line-clamp-1">
-                책 제목
+                {data.title}
               </div>
-              <div className="text-sm">저자</div>
+              <div className="text-sm">{data.author}</div>
             </div>
             <div className="flex flex-col items-center">
               <IconButton onClick={() => changeIsLike(isLike)}>
@@ -56,7 +71,7 @@ const MainCard = () => {
           <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">
             <ThemeTitle />
             <div className="flex flex-row overflow-hidden line-clamp-1">
-              토크방 제목
+              {data.talkTitle}
             </div>
             <div className="flex items-center bg-transparent leading-tight text-sm text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7px]">
               BEST
@@ -64,8 +79,7 @@ const MainCard = () => {
           </div>
 
           <div className="font-medium text-base text-[#656565] max-h-12 overflow-hidden mb-4 line-clamp-2">
-            토크 내용 토크 내용 토크 내용 토크 내용 토크 내용 토크 내용 토크
-            내용 토크 내용 토크 내용 토크 내용 토크 내용 토크 내용
+            {data.comment}
           </div>
 
           <hr className="w-full border border-[#F4E4CE] mb-3" />
@@ -80,7 +94,7 @@ const MainCard = () => {
                 priority
               />
             </div>
-            <div className="font-medium text-base">이름</div>
+            <div className="font-medium text-base">{data.userName}</div>
           </div>
         </div>
       </div>

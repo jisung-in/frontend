@@ -5,8 +5,8 @@ import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecommendTalkRoom from "@/assets/img/recommend-talk-room.svg";
 import Link from "next/link";
-import { books, recommend } from "../../public/data.json";
-import { Book, Recommend } from "../../public/dataType";
+import { books, recommend, talkRoom } from "../../public/data.json";
+import { Book, Recommend, TalkRoom } from "../../public/dataType";
 import MainCard from "./components/Card/MainCard";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
 import Swiper from "./components/Swiper/Swiper";
@@ -15,6 +15,7 @@ import { ThemeMain } from "./components/Theme/Theme";
 const page = () => {
   const data: Book[] = books;
   const dataRecommend: Recommend[] = recommend;
+  const dataTalkRoom: TalkRoom[] = talkRoom;
 
   return (
     <div className="bg-[#FFF]">
@@ -33,8 +34,8 @@ const page = () => {
           </ThemeMain>
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {new Array(4).fill(1).map((index: number) => (
-            <MainCard key={index} />
+          {dataTalkRoom.map((talkRoomData) => (
+            <MainCard data={talkRoomData} />
           ))}
         </div>
       </div>
@@ -76,8 +77,8 @@ const page = () => {
           </ThemeMain.MainTheme>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {new Array(4).fill(1).map((index: number) => (
-            <MainCard key={index} />
+          {dataTalkRoom.map((talkRoomData) => (
+            <MainCard data={talkRoomData} />
           ))}
         </div>
       </div>

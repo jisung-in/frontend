@@ -49,9 +49,9 @@ const RecommendCard: React.FC<RecommendCardProps> = ({
             </div>
             <div className="ml-3 flex-grow text-[#656565]">
               <div className="font-semibold overflow-hidden line-clamp-1">
-                책 제목
+                {title}
               </div>
-              <div className="text-sm">저자</div>
+              <div className="text-sm">{author}</div>
             </div>
             <div className="flex flex-col items-center">
               <IconButton onClick={() => changeIsLike(isLike)}>
