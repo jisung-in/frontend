@@ -116,14 +116,14 @@ const BookInformation = () => {
         <div className="cursor-pointer" onClick={() => changeStatus("read")}>
           {status === "read" ? <ReadOn /> : <ReadOff />}
         </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("pause")}>
-          {status === "pause" ? <PasueOn /> : <PasueOff />}
-        </div>
         <div
           className="cursor-pointer"
           onClick={() => changeStatus("readStop")}
         >
           {status === "readStop" ? <ReadStopOn /> : <ReadStopOff />}
+        </div>
+        <div className="cursor-pointer" onClick={() => changeStatus("pause")}>
+          {status === "pause" ? <PasueOn /> : <PasueOff />}
         </div>
       </div>
     </div>
