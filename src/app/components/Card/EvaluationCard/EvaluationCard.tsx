@@ -40,7 +40,7 @@ const EvaluationCard = ({ content }: EvaluationProps) => {
               <div className="text-[20px] ml-[10px]">이름</div>
             </CardHeaderMain.Name>
             <CardHeaderMain.StarRating>
-              <div className="w-[51px] h-[24px] mx-[8px] my-[4px] flex items-center font-Intel font-medium text-[18px] text-[#80685D]">
+              <div className="w-[51px] h-[24px] mx-[8px] my-[4px] flex items-center font-Inter font-medium text-[18px] text-[#80685D]">
                 <Star />
                 <div className="ml-[3px]">4.5</div>
               </div>
