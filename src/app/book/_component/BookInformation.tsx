@@ -16,8 +16,8 @@ import { useState } from "react";
 const BookInformation = () => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
-  const [previousRate, setPreviousRate] = useState<number>(0);
   const [status, setStatus] = useState<string>("");
+  const [averageStarRate, setAverageStarRate] = useState<number>(4.2);
 
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
@@ -29,20 +29,26 @@ const BookInformation = () => {
   ) => {
     const half = e.nativeEvent.offsetX + index < 27.5;
     setStarRate(index + (half ? 0.5 : 1));
-    setMyStarRate(index + (half ? 0.5 : 1));
   };
 
   const saveMyStarRate = () => {
     setMyStarRate(starRate);
-    setPreviousRate(starRate);
   };
 
   const handleMouseLeave = () => {
     setStarRate(0);
-    setMyStarRate(previousRate);
   };
 
-  const calculateStarImage = (index: number) => {
+  const noneMyStarRate = (index: number) => {
+    if (starRate >= index + 1) {
+      return <BigStar />;
+    } else if (starRate >= index + 0.5) {
+      return <HalfStar />;
+    } else {
+      return <EmptyStar />;
+    }
+  };
+  const isMyStarRate = (index: number) => {
     if (myStarRate >= index + 1) {
       return <BigStar />;
     } else if (myStarRate >= index + 0.5) {
@@ -67,7 +73,7 @@ const BookInformation = () => {
                   onMouseMove={(e) => handleMouseMove(e, index)}
                   onClick={saveMyStarRate}
                 >
-                  {calculateStarImage(index)}
+                  {myStarRate ? isMyStarRate(index) : noneMyStarRate(index)}
                 </div>
               ))}
             </div>
@@ -76,7 +82,7 @@ const BookInformation = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="font-Inter text-[44px]">4.2</div>
+            <div className="font-Inter text-[44px]">{averageStarRate}</div>
             <div className="text-[16px] text-[#B1B1B1] mt-[6px] mb-[27px]">
               평균별점
             </div>

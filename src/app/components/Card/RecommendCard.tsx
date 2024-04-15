@@ -99,7 +99,7 @@ const RecommendCard: React.FC<RecommendCardProps> = ({
                 priority
               />
             </div>
-            <div className="font-medium text-base">{userName}</div>
+            <div className="font-medium text-[15px]">{userName}</div>
           </div>
         </div>
       </div>
