@@ -32,7 +32,10 @@ const BookInformation = () => {
   };
 
   const saveMyStarRate = () => {
-    setMyStarRate(starRate);
+    if (myStarRate === starRate) {
+      return setMyStarRate(0);
+    }
+    return setMyStarRate(starRate);
   };
 
   const handleMouseLeave = () => {
