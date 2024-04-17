@@ -11,6 +11,13 @@ function generateDate() {
 }
 
 export const handlers = [
+  http.post("/v1/talk-rooms", () => {
+    console.log("토크방 생성");
+    return HttpResponse.json({
+      bookIsbn: "1111111",
+    });
+  }),
+
   http.get("/api/my/star", ({ request }) => {
     // const url = new URL(request.url);
     // const cursor = parseInt(url.searchParams.get("cursor") as string) || 0;
@@ -19,29 +26,29 @@ export const handlers = [
         postId: 1,
         title: "정의란 무엇인가?",
         image: faker.image.urlLoremFlickr(),
-        starRate: "★★★★★",
+        starRate: "★★★★",
       },
       {
         postId: 2,
-        title: "정의란 무엇인가?",
+        title: "사랑이란 무엇인가?",
         image: faker.image.urlLoremFlickr(),
-        starRate: "★★★★★",
+        starRate: "★★★",
       },
       {
         postId: 3,
-        title: "정의란 무엇인가?",
+        title: "행복이란 무엇인가?",
         image: faker.image.urlLoremFlickr(),
         starRate: "★★★★★",
       },
       {
         postId: 4,
-        title: "정의란 무엇인가?",
+        title: "삶이란 무엇인가?",
         image: faker.image.urlLoremFlickr(),
         starRate: "★★★★★",
       },
       {
         postId: 5,
-        title: "정의란 무엇인가?",
+        title: "허망함이란 무엇인인가?",
         image: faker.image.urlLoremFlickr(),
         starRate: "★★★★★",
       },

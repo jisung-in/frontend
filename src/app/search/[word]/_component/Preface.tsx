@@ -1,10 +1,10 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 
 type Props = { content?: "도서" | "토론방" };
 const Preface = ({ content = "도서" }: Props) => {
-  const { word } = useParams();
-
+  const params = useSearchParams();
+  const word = params.get("name");
   return (
     <div className="flex flex-col gap-[20px]">
       <span className="text-[30px] font-bold">{content} 정보</span>
