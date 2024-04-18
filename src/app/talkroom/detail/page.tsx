@@ -25,7 +25,7 @@ const Page = () => {
       <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} />
       {new Array(10).fill(1).map((content: string, index: number) => (
         <SpeechBubble
-          key={index}
+          key={"username" + index}
           content={"토크 의견 내용 들어갈 곳 입니다."}
         />
       ))}
