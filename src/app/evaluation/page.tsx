@@ -3,16 +3,15 @@
 import Arrow from "@/assets/img/arrow.svg";
 import BookTitle from "@/assets/img/book-title-evaluation.svg";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
+import { useEvaluationUser } from "@/hook/reactQuery/evaluation/useEvaluationUser";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
-import { recommend } from "../../../public/data.json";
-import { Recommend } from "../../../public/dataType";
 import { BookMain } from "../components/Book/Book";
 import EvaluationCard from "../components/Card/EvaluationCard/EvaluationCard";
 import MainThemeTitle from "../components/MainThemeTitle/MainThemeTitle";
 
 const page = () => {
-  const dataRecommend: Recommend[] = recommend;
+  const { data: evaluationUser } = useEvaluationUser();
 
   const [likeStandard, setLikeStandard] = useState<string>("좋아요 순");
   const standardType: string[] = [
@@ -109,17 +108,8 @@ const page = () => {
       </div>
 
       <div className="flex flex-col items-center">
-        {dataRecommend.map((data) => (
-          <EvaluationCard
-            key={data.id}
-            id={data.id}
-            image={data.image}
-            title={data.title}
-            author={data.author}
-            talkTitle={data.talkTitle}
-            userName={data.userName}
-            comment={data.comment}
-          />
+        {evaluationUser?.map((data: any) => (
+          <EvaluationCard key={data.id} data={data} />
         ))}
       </div>
     </div>

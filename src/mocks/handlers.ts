@@ -295,6 +295,8 @@ export const handlers = [
     return HttpResponse.json([
       {
         id: 1,
+        image: "",
+        userName: "응애",
         starRate: 4.5,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -302,7 +304,8 @@ export const handlers = [
       },
       {
         id: 2,
-        image: faker.image.urlLoremFlickr(),
+        image: "",
+        userName: "응애",
         starRate: 5,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -310,6 +313,8 @@ export const handlers = [
       },
       {
         id: 3,
+        image: "",
+        userName: "응애",
         starRate: 3,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -317,6 +322,8 @@ export const handlers = [
       },
       {
         id: 4,
+        image: "",
+        userName: "응애",
         starRate: 3,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -324,6 +331,8 @@ export const handlers = [
       },
       {
         id: 5,
+        image: "",
+        userName: "응애",
         starRate: 3.5,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -331,6 +340,8 @@ export const handlers = [
       },
       {
         id: 6,
+        image: "",
+        userName: "응애",
         starRate: 4,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -338,6 +349,8 @@ export const handlers = [
       },
       {
         id: 7,
+        image: "",
+        userName: "응애",
         starRate: 3.5,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -345,6 +358,8 @@ export const handlers = [
       },
       {
         id: 8,
+        image: "",
+        userName: "응애",
         starRate: 3,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -352,6 +367,8 @@ export const handlers = [
       },
       {
         id: 9,
+        image: "",
+        userName: "응애",
         starRate: 3,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -359,6 +376,8 @@ export const handlers = [
       },
       {
         id: 10,
+        image: "",
+        userName: "응애",
         starRate: 3.5,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -366,6 +385,8 @@ export const handlers = [
       },
       {
         id: 11,
+        image: "",
+        userName: "응애",
         starRate: 3,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -373,6 +394,8 @@ export const handlers = [
       },
       {
         id: 12,
+        image: "",
+        userName: "응애",
         starRate: 3,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -380,6 +403,8 @@ export const handlers = [
       },
       {
         id: 13,
+        image: "",
+        userName: "응애",
         starRate: 4,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
@@ -387,6 +412,8 @@ export const handlers = [
       },
       {
         id: 14,
+        image: "",
+        userName: "응애",
         starRate: 3,
         comment:
           "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
