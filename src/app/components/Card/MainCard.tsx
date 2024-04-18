@@ -94,7 +94,7 @@ const MainCard: React.FC<TalkRoomCardProps> = ({ data }) => {
                 priority
               />
             </div>
-            <div className="font-medium text-base">{data.userName}</div>
+            <div className="font-medium text-[15px]">{data.userName}</div>
           </div>
         </div>
       </div>
