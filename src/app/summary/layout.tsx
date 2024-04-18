@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import Tabs from "./_component/Tabs";
+import Tabs from "../components/Tabs/Tabs";
 import { TAB_INDEX } from "@/constants/tabIndex";
 import Preface from "./_component/Preface";
 import BackButton from "./_component/BackButton";
@@ -13,7 +13,7 @@ export default function SummaryLayout({ children }: Props) {
         <Preface />
       </div>
 
-      <Tabs />
+      <Tabs tabs={TAB_INDEX} />
 
       <div className="flex flex-col items-center justify-center w-full">
         {children}

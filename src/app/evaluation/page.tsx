@@ -59,7 +59,9 @@ const page = () => {
             >
               <div className="flex text-[21px] font-bold relative border-b-[1px] border-[#D5D5D5] justify-center items-center h-[52px]">
                 정렬 기준
-                <div className="absolute right-[5%] cursor-pointer">X</div>
+                <DropdownMenu.Item asChild>
+                  <div className="absolute right-[5%] cursor-pointer">X</div>
+                </DropdownMenu.Item>
               </div>
               <div className="font-Pretendard font-medium px-[5%] text-[#767676] text-[19px]">
                 {standardType.map((likeStandard, index) => (
