@@ -5,7 +5,9 @@ import { useGetMyStarRate } from "@/hook/reactQuery/my/useGetMyStarRate";
 
 const RoomCards = () => {
   const { data: bookData } = useGetMyStarRate();
-  return <>{bookData?.map((data: any) => <RoomCard />)}</>;
+  return (
+    <>{(bookData as any)?.map((data: any) => <RoomCard key={data.id} />)}</>
+  );
 };
 
 export default RoomCards;

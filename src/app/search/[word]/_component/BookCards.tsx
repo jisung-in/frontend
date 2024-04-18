@@ -5,10 +5,10 @@ import { useGetMyStarRate } from "@/hook/reactQuery/my/useGetMyStarRate";
 
 const BookCards = () => {
   const { data: bookData } = useGetMyStarRate();
-  console.log(bookData);
+
   return (
     <>
-      {bookData?.map((data: any) => (
+      {(bookData as any)?.map((data: any) => (
         <MyBookCard
           key={data.postId}
           title={data.title}
