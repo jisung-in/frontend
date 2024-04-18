@@ -1,9 +1,9 @@
 "use client";
 import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
-import { useMyStarRate } from "@/hook/reactQuery/my/useMyStarRate";
+import { useGetMyStarRate } from "@/hook/reactQuery/my/useGetMyStarRate";
 
 const StarPage = () => {
-  const { data: starData } = useMyStarRate();
+  const { data: starData } = useGetMyStarRate();
   return (
     <div className="grid grid-cols-6 gap-[20px] w-[90%]">
       {starData?.map((book: any) => (

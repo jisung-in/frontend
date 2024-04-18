@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 type Prop = { username: string };
 
-export const useMyStarRate = () => {
+export const useGetMyStarRate = () => {
   return useQuery<any>({
     queryKey: ["myStarRate"],
     queryFn: () => axiosInstance.get("http://localhost:9090/api/my/star"),

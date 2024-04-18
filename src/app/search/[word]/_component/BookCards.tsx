@@ -1,10 +1,10 @@
 "use client";
 
 import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
-import { useMyStarRate } from "@/hook/reactQuery/my/useMyStarRate";
+import { useGetMyStarRate } from "@/hook/reactQuery/my/useGetMyStarRate";
 
 const BookCards = () => {
-  const { data: bookData } = useMyStarRate();
+  const { data: bookData } = useGetMyStarRate();
   console.log(bookData);
   return (
     <>

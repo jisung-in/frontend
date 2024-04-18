@@ -1,10 +1,10 @@
 "use client";
 
 import RoomCard from "@/app/components/Card/RoomCard/RoomCard";
-import { useMyStarRate } from "@/hook/reactQuery/my/useMyStarRate";
+import { useGetMyStarRate } from "@/hook/reactQuery/my/useGetMyStarRate";
 
 const RoomCards = () => {
-  const { data: bookData } = useMyStarRate();
+  const { data: bookData } = useGetMyStarRate();
   return <>{bookData?.map((data: any) => <RoomCard />)}</>;
 };
 
