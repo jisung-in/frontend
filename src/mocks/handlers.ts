@@ -492,6 +492,95 @@ export const handlers = [
       },
     ]);
   }),
+  http.get("/api/talkroom/many", ({ request }) => {
+    // const url = new URL(request.url);
+    // const cursor = parseInt(url.searchParams.get("cursor") as string) || 0;
+    return HttpResponse.json([
+      {
+        id: 1,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목1",
+        author: "저자1",
+      },
+      {
+        id: 2,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목2",
+        author: "저자2",
+      },
+      {
+        id: 3,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목3",
+        author: "저자3",
+      },
+      {
+        id: 4,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목4",
+        author: "저자4",
+      },
+      {
+        id: 5,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목5",
+        author: "저자5",
+      },
+      {
+        id: 6,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목6",
+        author: "저자6",
+      },
+      {
+        id: 7,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목7",
+      },
+      {
+        id: 8,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목8",
+        author: "저자8",
+      },
+      {
+        id: 9,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목9",
+        author: "저자9",
+      },
+      {
+        id: 10,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목10",
+        author: "저자10",
+      },
+      {
+        id: 11,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목11",
+        author: "저자11",
+      },
+      {
+        id: 12,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목12",
+        author: "저자12",
+      },
+      {
+        id: 13,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목13",
+        author: "저자13",
+      },
+      {
+        id: 14,
+        image: faker.image.urlLoremFlickr(),
+        title: "책 제목14",
+        author: "저자14",
+      },
+    ]);
+  }),
   http.get("/api/evaluation/user", ({ request }) => {
     // const url = new URL(request.url);
     // const cursor = parseInt(url.searchParams.get("cursor") as string) || 0;
@@ -624,92 +713,81 @@ export const handlers = [
       },
     ]);
   }),
-  http.get("/api/talkroom/many", ({ request }) => {
+  http.get("/api/book/evaluation/user", ({ request }) => {
     // const url = new URL(request.url);
     // const cursor = parseInt(url.searchParams.get("cursor") as string) || 0;
     return HttpResponse.json([
       {
         id: 1,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목1",
-        author: "저자1",
+        image: "",
+        userName: "응애",
+        starRate: 4.5,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 20,
       },
       {
         id: 2,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목2",
-        author: "저자2",
+        image: "",
+        userName: "응애",
+        starRate: 5,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 25,
       },
       {
         id: 3,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목3",
-        author: "저자3",
+        image: "",
+        userName: "응애",
+        starRate: 3,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 40,
       },
       {
         id: 4,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목4",
-        author: "저자4",
+        image: "",
+        userName: "응애",
+        starRate: 3,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 30,
       },
       {
         id: 5,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목5",
-        author: "저자5",
+        image: "",
+        userName: "응애",
+        starRate: 3.5,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 60,
       },
       {
         id: 6,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목6",
-        author: "저자6",
+        image: "",
+        userName: "응애",
+        starRate: 4,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 90,
       },
       {
         id: 7,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목7",
+        image: "",
+        userName: "응애",
+        starRate: 3.5,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 80,
       },
       {
         id: 8,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목8",
-        author: "저자8",
-      },
-      {
-        id: 9,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목9",
-        author: "저자9",
-      },
-      {
-        id: 10,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목10",
-        author: "저자10",
-      },
-      {
-        id: 11,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목11",
-        author: "저자11",
-      },
-      {
-        id: 12,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목12",
-        author: "저자12",
-      },
-      {
-        id: 13,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목13",
-        author: "저자13",
-      },
-      {
-        id: 14,
-        image: faker.image.urlLoremFlickr(),
-        title: "책 제목14",
-        author: "저자14",
+        image: "",
+        userName: "응애",
+        starRate: 3,
+        comment:
+          "토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요 토크 해요",
+        like: 210,
       },
     ]);
   }),

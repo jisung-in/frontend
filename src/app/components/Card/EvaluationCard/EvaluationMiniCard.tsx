@@ -39,9 +39,11 @@ const EvaluationCard: React.FC<{ data: EvaluationMiniProps }> = ({ data }) => {
               />
               <div className="font-medium text-[20px]">{data.userName}</div>
             </div>
-            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px]">
+            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px] justify-center">
               <Star />
-              <div className="flex grow justify-center">{data.starRate}</div>
+              <div className="flex grow justify-center items-center">
+                {data.starRate}
+              </div>
             </div>
           </div>
         </div>
