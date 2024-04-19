@@ -13,23 +13,14 @@ import { CardMain } from "../Card";
 interface EvaluationProps {
   id: number;
   image: string;
-  title: string;
-  author: string;
-  talkTitle: string;
+  starRate: number;
   userName: string;
   comment: string;
+  like: number;
 }
 
-const EvaluationCard = ({
-  id,
-  image,
-  title,
-  author,
-  talkTitle,
-  userName,
-  comment,
-}: EvaluationProps) => {
-  const [count, setCount] = useState<number>(0);
+const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
+  const [count, setCount] = useState<number>(data.like);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
@@ -38,7 +29,7 @@ const EvaluationCard = ({
   };
   return (
     <div
-      key={id}
+      key={data.id}
       className="w-[910px] min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] shadow-lg shadow-[#E7E7E7]"
     >
       <div className="mt-[20px] ml-[30px] mr-[26px] w-auto">
@@ -54,17 +45,19 @@ const EvaluationCard = ({
               />
             </CardHeaderMain.Profile>
             <CardHeaderMain.Name>
-              <div className="text-[20px] ml-[10px]">{userName}</div>
+              <div className="text-[20px] ml-[10px]">{data.userName}</div>
             </CardHeaderMain.Name>
             <CardHeaderMain.StarRating>
-              <div className="w-[51px] h-[24px] mx-[8px] my-[4px] flex items-center font-Inter font-medium text-[18px] text-[#80685D]">
+              <div className="w-[51px] h-[24px] mx-[8px] my-[4px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px] justify-center">
                 <Star />
-                <div className="ml-[3px]">4.5</div>
+                <div className="flex grow justify-center items-center">
+                  {data.starRate}
+                </div>
               </div>
             </CardHeaderMain.StarRating>
           </CardHeaderMain>
           <CardMain.Review>
-            <div className="min-h-[112px]">{comment}</div>
+            <div className="min-h-[112px]">{data.comment}</div>
           </CardMain.Review>
           <CardFooterMain className="flex flex-row">
             <CardFooterMain.LikeNumbers>

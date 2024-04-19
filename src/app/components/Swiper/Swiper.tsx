@@ -36,44 +36,31 @@ const DemoSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
           spaceBetween={20}
           slidesPerView={slidesPerView}
         >
-          {data.map(
-            ({
-              id,
-              rank,
-              image,
-              title,
-              publisher,
-              author,
-              year,
-              talkTitle,
-              userName,
-              comment,
-            }) => (
-              <SwiperSlide key={id}>
-                {rank ? (
-                  <BestSellerCard
-                    id={id}
-                    rank={rank as number}
-                    image={image}
-                    title={title}
-                    publisher={publisher as string}
-                    author={author}
-                    year={year as number}
-                  />
-                ) : (
-                  <RecommendCard
-                    id={id}
-                    image={image}
-                    title={title}
-                    author={author}
-                    talkTitle={talkTitle as string}
-                    userName={userName as string}
-                    comment={comment as string}
-                  />
-                )}
-              </SwiperSlide>
-            ),
-          )}
+          {data?.map((data) => (
+            <SwiperSlide key={`slide_${data.id}`}>
+              {data.rank ? (
+                <BestSellerCard
+                  id={data.id}
+                  rank={data.rank as number}
+                  image={data.image}
+                  title={data.title}
+                  publisher={data.publisher as string}
+                  author={data.author}
+                  year={data.year as number}
+                />
+              ) : (
+                <RecommendCard
+                  id={data.id}
+                  image={data.image}
+                  title={data.title}
+                  author={data.author}
+                  talkTitle={data.talkTitle as string}
+                  userName={data.userName as string}
+                  comment={data.comment as string}
+                />
+              )}
+            </SwiperSlide>
+          ))}
         </Swiper>
       </ul>
     </section>
