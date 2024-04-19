@@ -4,11 +4,13 @@ import EvaluationMiniCard from "@/app/components/Card/EvaluationCard/EvaluationM
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
+import { useEvaluationUser } from "@/hook/reactQuery/evaluation/useEvaluationUser";
 import { useInput } from "@/hook/useInput";
 import BookInformation from "../_component/BookInformation";
 
 const page = () => {
   const { value: name, handleChange: onNameChange } = useInput("");
+  const { data: evaluationUser } = useEvaluationUser();
 
   return (
     <div>
@@ -50,11 +52,8 @@ const page = () => {
           </div>
 
           <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
-            {new Array(8).fill(1).map((index: number) => (
-              <EvaluationMiniCard
-                key={index}
-                content="책에 대한 평가 책에 대한 평가 책에 대한 평가 책에 대한 평가 책에 대한 평가 책에 대한 평가 책에 대한 평가 책에 대한 평가 책에 대한 평가"
-              />
+            {evaluationUser?.map((data: any) => (
+              <EvaluationMiniCard key={data.id} data={data} />
             ))}
           </div>
         </div>

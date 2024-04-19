@@ -49,9 +49,7 @@ const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
             </CardHeaderMain.Name>
             <CardHeaderMain.StarRating>
               <div className="w-[51px] h-[24px] mx-[8px] my-[4px] flex items-center font-Inter font-medium text-[18px] text-[#80685D]">
-                <div className="flex">
-                  <Star />
-                </div>
+                <Star />
                 <div className="flex grow justify-center">{data.starRate}</div>
               </div>
             </CardHeaderMain.StarRating>
