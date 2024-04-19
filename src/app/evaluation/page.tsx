@@ -10,6 +10,7 @@ import { Recommend } from "../../../public/dataType";
 import { BookMain } from "../components/Book/Book";
 import EvaluationCard from "../components/Card/EvaluationCard/EvaluationCard";
 import MainThemeTitle from "../components/MainThemeTitle/MainThemeTitle";
+import DropDown from "../components/DropDown/DropDown";
 
 const page = () => {
   const dataRecommend: Recommend[] = recommend;
@@ -37,48 +38,11 @@ const page = () => {
       <div className="w-full h-[6px] bg-[#F5EFE5]" />
 
       <div className="h-[60px] flex items-center justify-end bg-white pr-[114px]">
-        <DropdownMenu.Root>
-          <DropdownMenu.Trigger asChild>
-            <button
-              className="IconButton flex align-center"
-              aria-label="Customise options"
-            >
-              <div className="flex items-center font-Pretendard font-medium text-[#74747B] text-[19px]">
-                {likeStandard}
-                <div className="ml-2">
-                  <Arrow />
-                </div>
-              </div>
-            </button>
-          </DropdownMenu.Trigger>
-
-          <DropdownMenu.Portal>
-            <DropdownMenu.Content
-              className="bg-white w-[358px] h-[301px] border border-[#BBB] rounded-[9px] absolute right-[-50px]"
-              sideOffset={5}
-            >
-              <div className="flex text-[21px] font-bold relative border-b-[1px] border-[#D5D5D5] justify-center items-center h-[52px]">
-                정렬 기준
-                <DropdownMenu.Item asChild>
-                  <div className="absolute right-[5%] cursor-pointer">X</div>
-                </DropdownMenu.Item>
-              </div>
-              <div className="font-Pretendard font-medium px-[5%] text-[#767676] text-[19px]">
-                {standardType.map((likeStandard, index) => (
-                  <DropdownMenu.Item
-                    key={index}
-                    onClick={() => changeLikeStandard(likeStandard)}
-                    className={`w-full h-[60px] flex items-center px-[5%] hover:font-semibold hover:text-black cursor-pointer ${
-                      likeStandard === "작성 순" ? "" : "border-b-[1px]"
-                    }`}
-                  >
-                    {likeStandard}
-                  </DropdownMenu.Item>
-                ))}
-              </div>
-            </DropdownMenu.Content>
-          </DropdownMenu.Portal>
-        </DropdownMenu.Root>
+        <DropDown
+          items={standardType}
+          selectedItem={likeStandard}
+          setSelectedItem={setLikeStandard}
+        />
       </div>
 
       <div className="flex items-center justify-center font-Pretendard font-medium mt-[42px] mb-[69px]">
