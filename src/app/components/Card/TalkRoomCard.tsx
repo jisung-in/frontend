@@ -20,7 +20,7 @@ interface TalkRoomCardProps {
   };
 }
 
-const MainCard: React.FC<TalkRoomCardProps> = ({ data }) => {
+const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
   const [count, setCount] = useState<number>(0);
   const [isLike, setIsLike] = useState<boolean>(false);
 
@@ -99,4 +99,4 @@ const MainCard: React.FC<TalkRoomCardProps> = ({ data }) => {
   );
 };
 
-export default MainCard;
+export default TalkRoomCard;

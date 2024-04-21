@@ -9,8 +9,8 @@ import { useTalkRoomMany } from "@/hook/reactQuery/main/useTalkRoomMany";
 import { useTalkRoomPopular } from "@/hook/reactQuery/main/useTalkRoomPopular";
 import { useTalkRoomRecommend } from "@/hook/reactQuery/main/useTalkRoomRecommend";
 import Link from "next/link";
-import MainCard from "./components/Card/MainCard";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
+import TalkRoomCard from "./components/Card/TalkRoomCard";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
@@ -38,7 +38,7 @@ const page = () => {
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
           {talkRoomPopular?.map((data: any) => (
-            <MainCard key={data.id} data={data} />
+            <TalkRoomCard key={data.id} data={data} />
           ))}
         </div>
       </div>
@@ -81,7 +81,7 @@ const page = () => {
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
           {talkRoomPopular?.map((data: any) => (
-            <MainCard key={data.id} data={data} />
+            <TalkRoomCard key={data.id} data={data} />
           ))}
         </div>
       </div>
