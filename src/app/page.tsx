@@ -78,6 +78,9 @@ const page = () => {
               <PopularTalkRoom />
             </div>
           </ThemeMain.MainTheme>
+          <ThemeMain.Show>
+            <Link href={"/talkroom"}>전체보기 {">"}</Link>
+          </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
           {talkRoomPopular?.map((data: any) => (
