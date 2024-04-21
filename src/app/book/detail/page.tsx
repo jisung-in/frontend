@@ -1,17 +1,20 @@
 "use client";
 import { Button } from "@/app/components/Button/Button";
 import EvaluationMiniCard from "@/app/components/Card/EvaluationCard/EvaluationMiniCard";
+import RelatedTalkRoomCard from "@/app/components/Card/RelatedTalkRoomCard";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useBookEvaluationUser } from "@/hook/reactQuery/evaluation/useBookEvaluationUser";
+import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 import { useInput } from "@/hook/useInput";
+import Link from "next/link";
 import BookInformation from "../_component/BookInformation";
 
 const page = () => {
   const { value: name, handleChange: onNameChange } = useInput("");
   const { data: bookEvaluationUser } = useBookEvaluationUser();
-
+  const { data: talkRoomPopular } = useGetTalkRoomPopular();
   return (
     <div>
       <div className="mx-[120px]">
@@ -46,9 +49,11 @@ const page = () => {
                 3000+
               </div>
             </div>
-            <div className="text-[20px] text-[#74747B] font-Pretendard font-refular flex items-center">
-              더보기 {">"}
-            </div>
+            <Link href={"/evaluation"}>
+              <div className="text-[20px] text-[#74747B] font-Pretendard font-refular flex items-center">
+                더보기 {">"}
+              </div>
+            </Link>
           </div>
 
           <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
@@ -64,9 +69,16 @@ const page = () => {
           <div className="font-SpoqaHanSansNeo font-bold text-[30px] flex flex-row flex-grow">
             <div>연관된 토크방 보기</div>
           </div>
-          <div className="text-[20px] text-[#74747B] font-Pretendard font-refular flex items-center">
-            더보기 {">"}
-          </div>
+          <Link href={"/talkroom"}>
+            <div className="text-[20px] text-[#74747B] font-Pretendard font-refular flex items-center">
+              더보기 {">"}
+            </div>
+          </Link>
+        </div>
+        <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+          {talkRoomPopular?.map((data: any) => (
+            <RelatedTalkRoomCard key={data.id} data={data} />
+          ))}
         </div>
       </div>
     </div>
