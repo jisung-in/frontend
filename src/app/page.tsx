@@ -4,21 +4,21 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecommendTalkRoom from "@/assets/img/recommend-talk-room.svg";
-import { useBookRank } from "@/hook/reactQuery/main/useBookRank";
-import { useTalkRoomMany } from "@/hook/reactQuery/main/useTalkRoomMany";
-import { useTalkRoomPopular } from "@/hook/reactQuery/main/useTalkRoomPopular";
-import { useTalkRoomRecommend } from "@/hook/reactQuery/main/useTalkRoomRecommend";
+import { useGetBookRank } from "@/hook/reactQuery/main/useGetBookRank";
+import { useGetTalkRoomMany } from "@/hook/reactQuery/main/useGetTalkRoomMany";
+import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
+import { useGetTalkRoomRecommend } from "@/hook/reactQuery/main/useGetTalkRoomRecommend";
 import Link from "next/link";
-import MainCard from "./components/Card/MainCard";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
+import TalkRoomCard from "./components/Card/TalkRoomCard";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
-  const { data: bookRank } = useBookRank();
-  const { data: talkRoomPopular } = useTalkRoomPopular();
-  const { data: talkRoomRecommend } = useTalkRoomRecommend();
-  const { data: talkRoomMany } = useTalkRoomMany();
+  const { data: bookRank } = useGetBookRank();
+  const { data: talkRoomPopular } = useGetTalkRoomPopular();
+  const { data: talkRoomRecommend } = useGetTalkRoomRecommend();
+  const { data: talkRoomMany } = useGetTalkRoomMany();
 
   return (
     <div className="bg-[#FFF]">
@@ -38,7 +38,7 @@ const page = () => {
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
           {talkRoomPopular?.map((data: any) => (
-            <MainCard key={data.id} data={data} />
+            <TalkRoomCard key={data.id} data={data} />
           ))}
         </div>
       </div>
@@ -78,10 +78,13 @@ const page = () => {
               <PopularTalkRoom />
             </div>
           </ThemeMain.MainTheme>
+          <ThemeMain.Show>
+            <Link href={"/talkroom"}>전체보기 {">"}</Link>
+          </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
           {talkRoomPopular?.map((data: any) => (
-            <MainCard key={data.id} data={data} />
+            <TalkRoomCard key={data.id} data={data} />
           ))}
         </div>
       </div>
