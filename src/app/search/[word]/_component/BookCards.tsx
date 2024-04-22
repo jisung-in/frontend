@@ -1,19 +1,24 @@
 "use client";
 
 import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
-import { useGetMyStarRate } from "@/hook/reactQuery/my/useGetMyStarRate";
+import { useGetKakaoResults } from "@/hook/reactQuery/search/useGetKakaoResults";
+import { useSearchParams } from "next/navigation";
 
 const BookCards = () => {
-  const { data: bookData } = useGetMyStarRate();
+  const params = useSearchParams();
+  const { data: bookData } = useGetKakaoResults({
+    target: params.get("name") ?? "",
+  });
 
+  console.log(bookData);
   return (
     <>
-      {(bookData as any)?.map((data: any) => (
+      {(bookData as any)?.documents?.map((data: any) => (
         <MyBookCard
-          key={data.postId}
+          key={data.isbn}
           title={data.title}
-          image={data.image}
-          starRate={data.starRate}
+          image={data.thumbnail}
+          starRate={"★★★★"}
         />
       ))}
     </>

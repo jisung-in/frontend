@@ -4,6 +4,7 @@ import { Input } from "../../Input/Input";
 import { useRouter } from "next/navigation";
 import { LoginComponent } from "./LoginComponents";
 import { useEffect } from "react";
+import SearchedList from "../../molecules/SearchedList/SearchedList";
 
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
@@ -24,13 +25,14 @@ export const Header = () => {
       </div>
       <div className="flex gap-[46px] items-center">
         <form onSubmit={(e) => onSubmit(e)}>
-          <div className="w-[414px]">
+          <div className="relative w-[414px]">
             <Input
               value={value}
               onChange={handleChange}
               reset={reset}
               placeholder="이곳에 검색해보세요."
             />
+            {value.length > 0 && <SearchedList value={value} reset={reset} />}
           </div>
         </form>
         {/* <LoginComponent /> */}
