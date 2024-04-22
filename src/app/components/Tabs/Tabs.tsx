@@ -1,7 +1,7 @@
 "use client";
 import { TAB_INDEX } from "@/constants/tabIndex";
 import clsx from "clsx";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 type Tab = {
   path: string;
