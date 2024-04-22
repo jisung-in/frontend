@@ -1,9 +1,9 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-export const useBookRank = () => {
+export const useGetBookRank = () => {
   return useQuery<any>({
-    queryKey: ["bookRank"],
+    queryKey: ["book", "rank"],
     queryFn: () => axiosInstance.get("http://localhost:9090/api/book/rank"),
     throwOnError: true,
   });

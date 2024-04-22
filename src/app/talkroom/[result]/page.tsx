@@ -49,7 +49,7 @@ const page = () => {
 
       <div className="flex mb-[37px] grow">
         <div className="flex grow">
-          <StatusButton isStatus={isStatus} onClick={changeIsStatus} />
+          <StatusButton status={isStatus} onClick={changeIsStatus} />
           <div className="flex items-center ml-[26px]">
             <DropdownMenu.Root>
               <DropdownMenu.Trigger asChild>
