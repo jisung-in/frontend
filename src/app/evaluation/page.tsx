@@ -1,15 +1,14 @@
 "use client";
 
-import Arrow from "@/assets/img/arrow.svg";
 import BookTitle from "@/assets/img/book-title-evaluation.svg";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
 import { useEvaluationUser } from "@/hook/reactQuery/evaluation/useEvaluationUser";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 import { BookMain } from "../components/Book/Book";
 import EvaluationCard from "../components/Card/EvaluationCard/EvaluationCard";
-import MainThemeTitle from "../components/MainThemeTitle/MainThemeTitle";
+import MyEvaluationCard from "../components/Card/EvaluationCard/MyEvaluationCard";
 import DropDown from "../components/DropDown/DropDown";
+import MainThemeTitle from "../components/MainThemeTitle/MainThemeTitle";
 
 const page = () => {
   const { data: evaluationUser } = useEvaluationUser();
@@ -21,10 +20,6 @@ const page = () => {
     "낮은 평가 순",
     "작성 순",
   ];
-
-  const changeLikeStandard = (likeStandard: string) => {
-    setLikeStandard(likeStandard);
-  };
 
   return (
     <div>
@@ -71,6 +66,11 @@ const page = () => {
         </div>
       </div>
 
+      <div className="flex flex-col items-center">
+        {evaluationUser?.map((data: any) => (
+          <MyEvaluationCard key={data.id} data={data} />
+        ))}
+      </div>
       <div className="flex flex-col items-center">
         {evaluationUser?.map((data: any) => (
           <EvaluationCard key={data.id} data={data} />
