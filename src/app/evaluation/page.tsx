@@ -6,7 +6,6 @@ import { useEvaluationUser } from "@/hook/reactQuery/evaluation/useEvaluationUse
 import { useState } from "react";
 import { BookMain } from "../components/Book/Book";
 import EvaluationCard from "../components/Card/EvaluationCard/EvaluationCard";
-import MyEvaluationCard from "../components/Card/EvaluationCard/MyEvaluationCard";
 import DropDown from "../components/DropDown/DropDown";
 import MainThemeTitle from "../components/MainThemeTitle/MainThemeTitle";
 
@@ -66,11 +65,6 @@ const page = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center">
-        {evaluationUser?.map((data: any) => (
-          <MyEvaluationCard key={data.id} data={data} />
-        ))}
-      </div>
       <div className="flex flex-col items-center">
         {evaluationUser?.map((data: any) => (
           <EvaluationCard key={data.id} data={data} />
