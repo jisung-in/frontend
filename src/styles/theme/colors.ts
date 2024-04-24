@@ -20,4 +20,5 @@ export const colors = {
   red: {
     40: "#FF4444",
   },
+  white: "#F5F5F7",
 };

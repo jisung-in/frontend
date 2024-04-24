@@ -1,6 +1,6 @@
 "use client";
 
-import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
+import { BookMain } from "@/app/components/Book/Book";
 import { useGetKakaoResults } from "@/hook/reactQuery/search/useGetKakaoResults";
 import { useSearchParams } from "next/navigation";
 
@@ -14,12 +14,19 @@ const BookCards = () => {
   return (
     <>
       {(bookData as any)?.documents?.map((data: any) => (
-        <MyBookCard
-          key={data.isbn}
-          title={data.title}
-          image={data.thumbnail}
-          starRate={"★★★★"}
-        />
+        <BookMain key={data.isbn}>
+          <BookMain.BookCover className="h-[300px]">
+            <img
+              src={data.thumbnail}
+              className="w-full h-[300px] max-w-[260px]"
+              alt="bookImage"
+            />
+          </BookMain.BookCover>
+          <BookMain.BookTitle>{data.title}</BookMain.BookTitle>
+          <BookMain.Publisher>{data.publisher}</BookMain.Publisher>
+          <BookMain.Author>{data.authors[0]}</BookMain.Author>
+          <BookMain.Year>{data.datetime.slice(0, 4)}</BookMain.Year>
+        </BookMain>
       ))}
     </>
   );

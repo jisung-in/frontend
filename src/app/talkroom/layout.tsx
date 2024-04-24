@@ -4,8 +4,8 @@ type Props = { children: ReactNode };
 
 export default function TalkRoomLayout({ children }: Props) {
   return (
-    <div className="bg-[#fff] flex justify-center items-center w-full h-full">
-      <div className="flex flex-col w-[1295px] h-auto">{children}</div>
+    <div className="flex justify-center items-center w-full h-full">
+      {children}
     </div>
   );
 }
