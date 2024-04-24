@@ -7,7 +7,7 @@ const BackButton = () => {
   const router = useRouter();
 
   return (
-    <button onClick={() => router.push("/")}>
+    <button onClick={() => router.back()}>
       <BackArrow />
     </button>
   );
