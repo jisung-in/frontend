@@ -5,13 +5,7 @@ import MyButton from "../_component/MyButton";
 import { Button } from "@/app/components/Button/Button";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import { useInput } from "@/hook/useInput";
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  InputHTMLAttributes,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, useRef, useState } from "react";
 
 const EditPage = () => {
   const { value: name, handleChange: onNameChange } = useInput("");
