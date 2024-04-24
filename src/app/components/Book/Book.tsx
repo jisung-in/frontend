@@ -101,10 +101,8 @@ const Book = ({ children, className = "" }: BookProps) => {
       )}
       {bookTitle && <>{bookTitle}</>}
       {author.length > 0 && (
-        <div className="flex items-center text-[#656565]">
-          {publisher}
-          {author}
-          {year}
+        <div className="flex gap-[1%] items-center text-[#656565]">
+          {publisher}·{author}·{year}
         </div>
       )}
       {starRating && <>{starRating}</>}
