@@ -7,12 +7,17 @@ import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
-interface EvaluationProps {
-  content?: string;
+interface EvaluationMiniProps {
+  id: number;
+  image: string;
+  starRate: number;
+  userName: string;
+  comment: string;
+  like: number;
 }
 
-const EvaluationCard = ({ content }: EvaluationProps) => {
-  const [count, setCount] = useState<number>(0);
+const EvaluationCard: React.FC<{ data: EvaluationMiniProps }> = ({ data }) => {
+  const [count, setCount] = useState<number>(data.like);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
@@ -32,15 +37,19 @@ const EvaluationCard = ({ content }: EvaluationProps) => {
                 height={40}
                 priority
               />
-              <div className="font-medium text-[20px]">이름</div>
+              <div className="font-medium text-[20px]">{data.userName}</div>
             </div>
-            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D]">
+            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px] justify-center">
               <Star />
-              <div className="ml-[3px]">4.5</div>
+              <div className="flex grow justify-center items-center">
+                {data.starRate}
+              </div>
             </div>
           </div>
         </div>
-        <div className="font-regular text-[20px] min-h-[112px]">{content}</div>
+        <div className="font-regular text-[20px] min-h-[112px]">
+          {data.comment}
+        </div>
         <div className="flex flex-row">
           <div>
             <div className="flex flex-col justify-start">

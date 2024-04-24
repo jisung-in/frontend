@@ -36,10 +36,7 @@ const RecommendCard: React.FC<RecommendCardProps> = ({
   };
 
   return (
-    <div
-      key={id}
-      className="relative w-[320px] mb-[20px] h-[430px] rounded-[17px] border border-[#F4E4CE] font-Pretendard overflow-hidden"
-    >
+    <div className="relative w-[320px] mb-[20px] h-[430px] rounded-[17px] bg-[#fff] border border-[#F4E4CE] font-Pretendard overflow-hidden">
       <div className="absolute inset-0 transform -skew-y-[17deg] h-[250px] bg-[#FFF5E7] top-[55%]"></div>
       <div className="absolute inset-0 flex justify-center items-center">
         <div className="flex flex-col mt-[21px] mx-[26px]">
@@ -68,12 +65,14 @@ const RecommendCard: React.FC<RecommendCardProps> = ({
           </div>
           <div className="flex justify-center mt-7">
             <div className="relative w-[125px] h-[170px]">
-              <Image
-                className="border border-[#F4E4CE]"
-                src={faker.image.urlLoremFlickr()}
-                alt="책 표지"
-                fill
-              />
+              {image && (
+                <Image
+                  className="border border-[#F4E4CE]"
+                  src={faker.image.urlLoremFlickr()}
+                  alt="책 표지"
+                  fill
+                />
+              )}
             </div>
           </div>
           <div className="flex flex-row mt-3 font-semibold items-center gap-x-[7px] mb-3">
