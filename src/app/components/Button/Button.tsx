@@ -1,5 +1,5 @@
-import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef, type ButtonHTMLAttributes } from "react";
 
 const buttonVariants = cva(
   "inline-flex px-[3px] gap-[6px] items-center justify-center word-break:keep-all disabled:pointer-events-none disabled:opacity-30 transition-colors duration-200 font-medium",
@@ -11,6 +11,7 @@ const buttonVariants = cva(
         none: "text-white",
         gray: "text-gray-80 font-[500] border-2",
         ivory: "bg-ivory-40 text-brown-50",
+        notCondition: "bg-[#E7E7E7]",
       },
       rounded: {
         none: "rounded-none",
@@ -23,6 +24,7 @@ const buttonVariants = cva(
         full: "w-full",
       },
       height: {
+        xl2: "h-[70px]",
         xl: "h-[58px]",
         lg: "h-[48px]",
         md: "h-[40px]",

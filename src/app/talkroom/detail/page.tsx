@@ -1,7 +1,9 @@
 "use client";
 
+import { Button } from "@/app/components/Button/Button";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
+import Link from "next/link";
 import BestSpeechBubble from "../_component/SpeechBubble/BestSpeechBubble";
 import MySpeechBubble from "../_component/SpeechBubble/MySpeechBubble";
 import SpeechBubble from "../_component/SpeechBubble/SpeechBubble";
@@ -31,8 +33,31 @@ const Page = () => {
       ))}
       <MySpeechBubble content={"나의 의견 내용 들어갈 곳 입니다."} />
 
-      <div className="font-SpoqaHanSansNeo font-bold text-[30px] mt-[37px] mb-[16px]">
-        같이 토크해요
+      <div className="flex flex-col items-center mt-[37px] mb-[140px]">
+        <div className="font-SpoqaHanSansNeo font-bold text-[#80685D] text-[30px] mb-[43px]">
+          참가 조건에 부합하여 의견 작성이 가능합니다
+        </div>
+        <Button
+          height="xl2"
+          className="font-Pretendard font-semibold text-[28px]"
+        >
+          <Link className="w-full" href={"/talkroom/comment"}>
+            등록하기
+          </Link>
+        </Button>
+      </div>
+
+      <div className="flex flex-col items-center mt-[37px] mb-[140px]">
+        <div className="font-SpoqaHanSansNeo font-bold text-[#656565] text-[30px] mb-[43px]">
+          참가 조건에 부합하지 않습니다
+        </div>
+        <Button
+          height="xl2"
+          variant={"notCondition"}
+          className="font-Pretendard font-semibold text-[28px] text-[#828282] pointer-events-none"
+        >
+          등록하기
+        </Button>
       </div>
     </div>
   );
