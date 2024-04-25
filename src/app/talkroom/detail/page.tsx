@@ -9,7 +9,7 @@ import TalkRoomDetailMain from "../_component/talkroomDetailMain";
 
 const Page = () => {
   return (
-    <div className="mt-[50px]">
+    <div>
       <MainThemeTitle title="토크해요">
         <PopularTalkRoom />
       </MainThemeTitle>

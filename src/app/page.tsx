@@ -9,8 +9,8 @@ import { useGetTalkRoomMany } from "@/hook/reactQuery/main/useGetTalkRoomMany";
 import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 import { useGetTalkRoomRecommend } from "@/hook/reactQuery/main/useGetTalkRoomRecommend";
 import Link from "next/link";
-import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard/ManyTalkRoomBookCard";
-import TalkRoomCard from "./components/Card/TalkRoomCard";
+import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
+import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 

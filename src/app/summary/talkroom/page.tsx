@@ -1,6 +1,6 @@
 "use client";
 
-import TalkRoomCard from "@/app/components/Card/TalkRoomCard";
+import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 
 const StarPage = () => {

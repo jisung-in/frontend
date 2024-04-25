@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/app/components/Button/Button";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
-import RelatedTalkRoomCard from "@/app/components/Card/RelatedTalkRoomCard";
+import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";

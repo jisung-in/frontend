@@ -7,7 +7,7 @@ import { useInput } from "@/hook/useInput";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../../components/Button/Button";
-import TalkRoomCard from "../../components/Card/TalkRoomCard";
+import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
 import { Input } from "../../components/Input/Input";
 import Pagination from "../../components/Pagination/Pagination";
 import { ThemeMain } from "../../components/Theme/Theme";
