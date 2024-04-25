@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
-import { BookMain } from "../Book/Book";
+import { BookMain } from "../../Book/Book";
 
 interface BestSellerCardProps {
   id: number;

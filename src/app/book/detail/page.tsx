@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/app/components/Button/Button";
-import EvaluationMiniCard from "@/app/components/Card/EvaluationCard/EvaluationMiniCard";
-import RelatedTalkRoomCard from "@/app/components/Card/RelatedTalkRoomCard";
+import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
+import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
@@ -58,7 +58,7 @@ const page = () => {
 
           <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
             {bookEvaluationUser?.map((data: any) => (
-              <EvaluationMiniCard key={data.id} data={data} />
+              <MiniEvaluationCard key={data.id} data={data} />
             ))}
           </div>
         </div>

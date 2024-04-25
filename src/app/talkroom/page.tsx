@@ -7,7 +7,7 @@ import { useInput } from "@/hook/useInput";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../components/Button/Button";
-import TalkRoomCard from "../components/Card/TalkRoomCard";
+import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
 import { Input } from "../components/Input/Input";
 import Pagination from "../components/Pagination/Pagination";
 import { ThemeMain } from "../components/Theme/Theme";
@@ -60,7 +60,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px]">
+      <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
         {talkRoomPopular?.map((data: any) => (
           <TalkRoomCard key={data.id} data={data} />
         ))}

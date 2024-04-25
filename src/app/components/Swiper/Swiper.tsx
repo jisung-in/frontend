@@ -4,8 +4,8 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import BestSellerCard from "../Card/BestSellerCard";
-import RecommendCard from "../Card/RecommendCard";
+import BestSellerCard from "../Card/MainPageCard/BestSellerCard";
+import RecommendCard from "../Card/MainPageCard/RecommendCard";
 
 interface BookSliderProps {
   data: {

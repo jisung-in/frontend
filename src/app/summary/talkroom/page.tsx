@@ -1,10 +1,14 @@
-import RoomCard from "@/app/components/Card/RoomCard/RoomCard";
+"use client";
+
+import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 
 const StarPage = () => {
+  const { data: talkRoomPopular } = useGetTalkRoomPopular();
   return (
-    <div className="grid grid-cols-2 gap-[20px] w-[80%]">
-      {new Array(20).fill(1).map((_, index) => (
-        <RoomCard />
+    <div className="grid grid-cols-3 gap-[20px] w-[80%]">
+      {talkRoomPopular?.map((data: any) => (
+        <TalkRoomCard key={data.id} data={data} />
       ))}
     </div>
   );

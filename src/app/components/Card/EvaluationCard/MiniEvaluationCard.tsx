@@ -7,7 +7,7 @@ import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
-interface EvaluationProps {
+interface MiniEvaluationProps {
   id: number;
   image: string;
   starRate: number;
@@ -16,7 +16,9 @@ interface EvaluationProps {
   like: number;
 }
 
-const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
+const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
+  data,
+}) => {
   const [count, setCount] = useState<number>(data.like);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
@@ -25,9 +27,9 @@ const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="w-[910px] min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] shadow-lg shadow-[#E7E7E7] font-Pretendard font-medium">
-      <div className="mt-[20px] ml-[30px] mr-[26px] w-auto">
-        <div className="flex flex-row mb-[23px]">
+    <div className="w-[405px] min-h-[290px] bg-[#FFF] shadow-lg shadow-[#E7E7E7] mb-[30px] rounded-[11px] font-Pretendard font-medium">
+      <div className="mt-[18px] ml-[15px] mr-[13px] w-auto">
+        <div className="flex flex-row mb-[16px]">
           <div className="flex flex-row items-center flex-grow gap-x-[10px]">
             <Image src={Profile} alt="프로필" width={40} height={40} priority />
             <div className="font-medium text-[20px]">{data.userName}</div>
@@ -39,25 +41,31 @@ const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
             </div>
           </div>
         </div>
+
         <div className="font-regular text-[20px] min-h-[112px]">
           {data.comment}
         </div>
+
         <div className="flex flex-row">
           <div className="flex flex-col justify-start">
-            <div className="flex flex-row mt-[18px]">
+            <div className="flex flex-row mt-[18px] ml-[7px]">
               <IconButton onClick={() => changeIsLike(isLike)}>
                 {isLike ? (
-                  <LikeSpeechBubble width={18} height={17} />
+                  <LikeSpeechBubble width={16} height={15} />
                 ) : (
-                  <NotLike width={18} height={17} />
+                  <NotLike width={16} height={15} />
                 )}
               </IconButton>
-              <div className="ml-[5px]">{count > 999 ? "999+" : count}</div>
+              <div className="font-Inter font-medium text-[17px] ml-[5px]">
+                {count > 999 ? "999+" : count}
+              </div>
             </div>
           </div>
         </div>
-        <hr className="w-full border border-[#F4E4CE] mt-[8px] mb-[16px]" />
-        <div className="flex justify-start mb-[19px]">
+
+        <hr className="w-full border border-[#F4E4CE] mt-[5px] mb-[10px]" />
+
+        <div className="flex justify-start mb-[11px]">
           <LikeButton isLike={isLike} onClick={() => changeIsLike(isLike)} />
         </div>
       </div>
@@ -65,4 +73,4 @@ const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
   );
 };
 
-export default EvaluationCard;
+export default MiniEvaluationCard;

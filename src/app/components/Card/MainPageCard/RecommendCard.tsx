@@ -6,7 +6,7 @@ import ThemeTitle from "@/assets/img/theme-title.svg";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import { useState } from "react";
-import IconButton from "../IconButton/IconButton";
+import IconButton from "../../IconButton/IconButton";
 
 interface RecommendCardProps {
   id: number;
