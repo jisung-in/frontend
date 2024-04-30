@@ -33,7 +33,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
     <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">
       <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#FBF7F0] top-[-15%]"></div>
       <div className="absolute inset-0 flex justify-center items-center">
-        <div className="flex flex-col mx-8 mt-[31px] mb-3">
+        <div className="flex flex-col mx-8 mt-[31px] mb-3 w-full">
           <div className="flex flex-row">
             <div className="relative w-[135px] h-[188px]">
               <Image

@@ -11,12 +11,15 @@ import IconButton from "../../IconButton/IconButton";
 interface TalkRoomCardProps {
   data: {
     id: number;
+    profileImage: string;
+    userName: string;
     title: string;
-    image: string;
-    author: string;
-    talkTitle?: string;
-    userName?: string;
-    comment?: string;
+    content: string;
+    bookName: string;
+    bookThumbnail: string;
+    likeCount: number;
+    readingStatus: [];
+    createTime: [];
   };
 }
 
@@ -33,25 +36,28 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
     <div className="relative w-[405px] h-[330px] rounded-[17px] bg-[#fff] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden">
       <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#FBF7F0] top-[-30%]"></div>
       <div className="absolute inset-0 flex justify-center items-center">
-        <div className="flex flex-col m-[26px]">
+        <div className="flex flex-col m-[26px] w-full">
           <div className="flex flex-row">
-            <div className="relative w-[100px] h-[140px]">
-              <Image
-                className="border border-[#F4E4CE]"
-                src={faker.image.urlLoremFlickr()}
-                alt="책 표지"
-                fill
-              />
-            </div>
-            <div className="ml-4 mt-5">
-              <BookTitle />
-            </div>
-            <div className="mt-4 ml-[9px] flex-grow text-[#656565]">
-              <div className="font-semibold mb-1 overflow-hidden line-clamp-1">
-                {data.title}
+            <div className="flex flex-grow">
+              <div className="relative w-[100px] h-[140px]">
+                <Image
+                  className="border border-[#F4E4CE]"
+                  src={faker.image.urlLoremFlickr()}
+                  alt="책 표지"
+                  fill
+                />
               </div>
-              <div className="text-sm">{data.author}</div>
+              <div className="ml-4 mt-5">
+                <BookTitle />
+              </div>
+              <div className="mt-4 ml-[9px] flex-grow text-[#656565]">
+                <div className="font-semibold mb-1 overflow-hidden line-clamp-1">
+                  {data.bookName}
+                </div>
+                <div className="text-sm">{data.bookName}</div>
+              </div>
             </div>
+
             <div className="flex flex-col items-center">
               <IconButton onClick={() => changeIsLike(isLike)}>
                 {isLike ? (
@@ -68,7 +74,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
           <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">
             <ThemeTitle />
             <div className="flex flex-row overflow-hidden line-clamp-1">
-              {data.talkTitle}
+              {data.title}
             </div>
             <div className="flex items-center bg-transparent leading-tight text-sm text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7px]">
               BEST
@@ -76,7 +82,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
           </div>
 
           <div className="font-medium text-base text-[#656565] max-h-12 overflow-hidden mb-4 line-clamp-2">
-            {data.comment}
+            {data.content}
           </div>
 
           <hr className="w-full border border-[#F4E4CE] mb-3" />

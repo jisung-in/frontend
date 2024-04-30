@@ -4,21 +4,26 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecommendTalkRoom from "@/assets/img/recommend-talk-room.svg";
-import { useGetBookRank } from "@/hook/reactQuery/main/useGetBookRank";
-import { useGetTalkRoomMany } from "@/hook/reactQuery/main/useGetTalkRoomMany";
 import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
-import { useGetTalkRoomRecommend } from "@/hook/reactQuery/main/useGetTalkRoomRecommend";
 import Link from "next/link";
-import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
-import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
-  const { data: bookRank } = useGetBookRank();
-  const { data: talkRoomPopular } = useGetTalkRoomPopular();
-  const { data: talkRoomRecommend } = useGetTalkRoomRecommend();
-  const { data: talkRoomMany } = useGetTalkRoomMany();
+  // const { data: bookRank } = useGetBookRank();
+  // const { data: talkRoomRecommend } = useGetTalkRoomRecommend();
+  // const { data: talkRoomMany } = useGetTalkRoomMany();
+
+  const { isLoading, error, data } = useGetTalkRoomPopular({
+    page: 1,
+    size: 4,
+    order: "RECOMMEND",
+    search: "",
+  });
+  // const { isLoading, error, data } = useGetTalkRoomPopular();
+  if (isLoading) return <div> 로딩중... </div>;
+  if (error) return <div> 에러: {error.message} </div>;
+  console.log(data.response);
 
   return (
     <div className="bg-[#FFF]">
@@ -37,7 +42,7 @@ const page = () => {
           </ThemeMain>
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {talkRoomPopular?.map((data: any) => (
+          {data.queryResponse?.map((data: any) => (
             <TalkRoomCard key={data.id} data={data} />
           ))}
         </div>
@@ -53,7 +58,7 @@ const page = () => {
           </div>
         </ThemeMain.MainTheme>
 
-        <Swiper data={talkRoomRecommend} slidesPerView={5} />
+        {/* <Swiper data={talkRoomRecommend} slidesPerView={5} /> */}
       </div>
 
       <div className="bg-[#FBF7F0] pt-[1px]">
@@ -66,7 +71,7 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          <Swiper data={bookRank} slidesPerView={6} />
+          {/* <Swiper data={bookRank} slidesPerView={6} /> */}
         </div>
       </div>
 
@@ -83,9 +88,7 @@ const page = () => {
           </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {talkRoomPopular?.map((data: any) => (
-            <TalkRoomCard key={data.id} data={data} />
-          ))}
+          {/* {data?.map((data: any) => <TalkRoomCard key={data.id} data={data} />)} */}
         </div>
       </div>
 
@@ -100,9 +103,9 @@ const page = () => {
             </ThemeMain.MainTheme>
           </ThemeMain>
           <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
-            {talkRoomMany?.map((data: any) => (
+            {/* {talkRoomMany?.map((data: any) => (
               <ManyTalkRoomBookCard key={data.id} data={data} />
-            ))}
+            ))} */}
           </div>
         </div>
       </div>
