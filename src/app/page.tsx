@@ -3,34 +3,39 @@
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
-import RecommendTalkRoom from "@/assets/img/recommend-talk-room.svg";
 import { useGetBookRank } from "@/hook/reactQuery/main/useGetBookRank";
+import { useGetTalkRoomBookOrder } from "@/hook/reactQuery/main/useGetTalkRoomBookOrder";
 import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 import Link from "next/link";
+import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
-  // const { data: talkRoomRecommend } = useGetTalkRoomRecommend();
-  // const { data: talkRoomMany } = useGetTalkRoomMany();
-
-  const { data: bookRank } = useGetBookRank();
   const { data: popularData } = useGetTalkRoomPopular({
     page: 1,
     size: 4,
-    order: "RECOMMEND",
+    order: "recommend",
     search: "",
+    sortbydate: "",
   });
+  const { data: bookRankData } = useGetBookRank();
   const { data: recentData } = useGetTalkRoomPopular({
     page: 1,
-    size: 5,
-    order: "RECENT-COMMENT",
+    size: 4,
+    order: "recent",
     search: "",
+    sortbydate: "",
+  });
+  const { data: talkRoomManyBookData } = useGetTalkRoomBookOrder({
+    page: 1,
+    size: 12,
+    order: "comment",
   });
   return (
     <div className="bg-[#FFF]">
-      <div className="mt-[51px] ml-[115px]">
+      <div className="mt-[51px] ml-[115px] mb-[78px]">
         <div className="mb-7">
           <ThemeMain>
             <ThemeMain.MainTheme>
@@ -51,22 +56,6 @@ const page = () => {
         </div>
       </div>
 
-      <div className="mt-[51px] ml-[120px]">
-        <ThemeMain.MainTheme>
-          <div className="flex mb-7">
-            <div className="flex  gap-x-3 grow items-center">
-              <div>추천 토크방</div>
-              <RecommendTalkRoom />
-            </div>
-          </div>
-        </ThemeMain.MainTheme>
-        <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px] mb-[78px]">
-          {popularData?.map((data: any) => (
-            <TalkRoomCard key={data.id} data={data} isBest={true} />
-          ))}
-        </div>
-      </div>
-
       <div className="bg-[#FBF7F0] pt-[1px]">
         <div className="mt-[55px] ml-[120px]">
           <ThemeMain.MainTheme>
@@ -77,7 +66,7 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {bookRank && <Swiper data={bookRank} slidesPerView={6} />}
+          {bookRankData && <Swiper data={bookRankData} slidesPerView={6} />}
         </div>
       </div>
 
@@ -111,9 +100,9 @@ const page = () => {
             </ThemeMain.MainTheme>
           </ThemeMain>
           <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
-            {/* {talkRoomMany?.map((data: any) => (
-              <ManyTalkRoomBookCard key={data.id} data={data} />
-            ))} */}
+            {talkRoomManyBookData?.map((data: any) => (
+              <ManyTalkRoomBookCard key={data.isbn} data={data} />
+            ))}
           </div>
         </div>
       </div>

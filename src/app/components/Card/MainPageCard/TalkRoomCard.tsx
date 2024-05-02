@@ -5,6 +5,7 @@ import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title.svg";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
@@ -42,12 +43,21 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
           <div className="flex flex-row">
             <div className="flex flex-grow">
               <div className="relative w-[100px] h-[140px]">
-                <Image
-                  className="border border-[#F4E4CE]"
-                  src={faker.image.urlLoremFlickr()}
-                  alt="책 표지"
-                  fill
-                />
+                {data.bookThumbnail ? (
+                  <Image
+                    className="border border-[#F4E4CE]"
+                    src={data.bookThumbnail}
+                    alt="책 표지"
+                    fill
+                  />
+                ) : (
+                  <Image
+                    className="border border-[#F4E4CE]"
+                    src={faker.image.urlLoremFlickr()}
+                    alt="책 표지"
+                    fill
+                  />
+                )}
               </div>
               <div className="ml-4 mt-5">
                 <BookTitle />
@@ -73,24 +83,25 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
               </div>
             </div>
           </div>
-          <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">
-            <ThemeTitle />
-            <div className="flex flex-row overflow-hidden line-clamp-1">
-              {data.title}
-            </div>
-            {isBest ? (
-              <div className="flex items-center bg-transparent leading-tight text-sm text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7px]">
-                BEST
+          <Link href={"/talkroom"}>
+            <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">
+              <ThemeTitle />
+              <div className="flex flex-row overflow-hidden line-clamp-1">
+                {data.title}
               </div>
-            ) : (
-              <></>
-            )}
-          </div>
+              {isBest ? (
+                <div className="flex items-center bg-transparent leading-tight text-sm text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7px]">
+                  BEST
+                </div>
+              ) : (
+                <></>
+              )}
+            </div>
 
-          <div className="font-medium text-base text-[#656565] max-h-12 overflow-hidden mb-4 line-clamp-2">
-            {data.content}
-          </div>
-
+            <div className="font-medium text-base text-[#656565] min-h-12 max-h-12 overflow-hidden mb-4 line-clamp-2">
+              {data.content}
+            </div>
+          </Link>
           <hr className="w-full border border-[#F4E4CE] mb-3" />
 
           <div className="flex flex-row gap-x-[9px] items-center">
