@@ -4,27 +4,30 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecommendTalkRoom from "@/assets/img/recommend-talk-room.svg";
+import { useGetBookRank } from "@/hook/reactQuery/main/useGetBookRank";
 import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 import Link from "next/link";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
+import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
 const page = () => {
-  // const { data: bookRank } = useGetBookRank();
   // const { data: talkRoomRecommend } = useGetTalkRoomRecommend();
   // const { data: talkRoomMany } = useGetTalkRoomMany();
 
-  const { isLoading, error, data } = useGetTalkRoomPopular({
+  const { data: bookRank } = useGetBookRank();
+  const { data: popularData } = useGetTalkRoomPopular({
     page: 1,
     size: 4,
     order: "RECOMMEND",
     search: "",
   });
-  // const { isLoading, error, data } = useGetTalkRoomPopular();
-  if (isLoading) return <div> 로딩중... </div>;
-  if (error) return <div> 에러: {error.message} </div>;
-  console.log(data.response);
-
+  const { data: recentData } = useGetTalkRoomPopular({
+    page: 1,
+    size: 5,
+    order: "RECENT-COMMENT",
+    search: "",
+  });
   return (
     <div className="bg-[#FFF]">
       <div className="mt-[51px] ml-[115px]">
@@ -42,8 +45,8 @@ const page = () => {
           </ThemeMain>
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {data.queryResponse?.map((data: any) => (
-            <TalkRoomCard key={data.id} data={data} />
+          {popularData?.map((data: any) => (
+            <TalkRoomCard key={data.id} data={data} isBest={true} />
           ))}
         </div>
       </div>
@@ -57,8 +60,11 @@ const page = () => {
             </div>
           </div>
         </ThemeMain.MainTheme>
-
-        {/* <Swiper data={talkRoomRecommend} slidesPerView={5} /> */}
+        <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px] mb-[78px]">
+          {popularData?.map((data: any) => (
+            <TalkRoomCard key={data.id} data={data} isBest={true} />
+          ))}
+        </div>
       </div>
 
       <div className="bg-[#FBF7F0] pt-[1px]">
@@ -71,7 +77,7 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {/* <Swiper data={bookRank} slidesPerView={6} /> */}
+          {bookRank && <Swiper data={bookRank} slidesPerView={6} />}
         </div>
       </div>
 
@@ -88,7 +94,9 @@ const page = () => {
           </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {/* {data?.map((data: any) => <TalkRoomCard key={data.id} data={data} />)} */}
+          {recentData?.map((data: any) => (
+            <TalkRoomCard key={data.id} data={data} isBest={false} />
+          ))}
         </div>
       </div>
 

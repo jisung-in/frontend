@@ -1,49 +1,53 @@
-import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 
 interface BestSellerCardProps {
-  id: number;
-  rank: number;
+  ranking: number;
   title: string;
-  image: string;
   publisher: string;
-  author: string;
-  year: number;
+  thumbnail: string;
+  authors: [];
+  dateTime: [];
 }
-
 const BestSellerCard: React.FC<BestSellerCardProps> = ({
-  id,
-  rank,
+  ranking,
   title,
-  image,
   publisher,
-  author,
-  year,
+  thumbnail,
+  authors,
+  dateTime,
 }) => {
   return (
     <BookMain>
       <BookMain.BookCover>
         <div className="w-[263px] h-[375px]">
-          {image && (
+          {thumbnail && (
             <Image
               className="border border-[#F4E4CE] rounded-[10px]"
-              src={faker.image.urlLoremFlickr()}
+              src={thumbnail}
               alt="책 표지"
               fill
             />
           )}
         </div>
       </BookMain.BookCover>
-      {rank && <BookMain.RankBox>{rank}</BookMain.RankBox>}
+      {ranking && <BookMain.RankBox>{ranking}</BookMain.RankBox>}
       <BookMain.BookTitle>
-        <div className="font-semibold mt-[12px] text-[#000] text-[21px]">
+        <div className="font-semibold mt-[12px] text-[#000] text-[21px] overflow-hidden line-clamp-1">
           {title}
         </div>
       </BookMain.BookTitle>
-      <BookMain.Publisher>{publisher}</BookMain.Publisher>
-      <BookMain.Author>&nbsp;• {author} •&nbsp;</BookMain.Author>
-      <BookMain.Year>{year}</BookMain.Year>
+      <BookMain.Publisher>
+        <div className="overflow-hidden line-clamp-1">{publisher}</div>
+      </BookMain.Publisher>
+      <BookMain.Author>
+        <div className="overflow-hidden line-clamp-1">{authors.join(", ")}</div>
+      </BookMain.Author>
+      <BookMain.Year>
+        <div className="overflow-hidden line-clamp-1">
+          {dateTime.slice(0, 4)}
+        </div>
+      </BookMain.Year>
     </BookMain>
   );
 };

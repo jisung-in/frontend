@@ -5,25 +5,21 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BestSellerCard from "../Card/MainPageCard/BestSellerCard";
-import RecommendCard from "../Card/MainPageCard/RecommendCard";
 
 interface BookSliderProps {
   data: {
-    id: number;
-    rank?: number;
+    ranking: number;
+    isbn: number;
     title: string;
-    image: string;
-    publisher?: string;
-    author: string;
-    year?: number;
-    talkTitle?: string;
-    userName?: string;
-    comment?: string;
+    publisher: string;
+    thumbnail: string;
+    authors: [];
+    dateTime: [];
   }[];
   slidesPerView: number;
 }
 
-const DemoSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
+const SwiperSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
   return (
     <section className="w-[1680px] h-[523px]">
       <ul className="h-full w-full">
@@ -37,28 +33,15 @@ const DemoSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
           slidesPerView={slidesPerView}
         >
           {data?.map((data) => (
-            <SwiperSlide key={`slide_${data.id}`}>
-              {data.rank ? (
-                <BestSellerCard
-                  id={data.id}
-                  rank={data.rank as number}
-                  image={data.image}
-                  title={data.title}
-                  publisher={data.publisher as string}
-                  author={data.author}
-                  year={data.year as number}
-                />
-              ) : (
-                <RecommendCard
-                  id={data.id}
-                  image={data.image}
-                  title={data.title}
-                  author={data.author}
-                  talkTitle={data.talkTitle as string}
-                  userName={data.userName as string}
-                  comment={data.comment as string}
-                />
-              )}
+            <SwiperSlide key={data.isbn} className="cursor-pointer">
+              <BestSellerCard
+                ranking={data.ranking}
+                thumbnail={data.thumbnail}
+                title={data.title}
+                publisher={data.publisher}
+                authors={data.authors}
+                dateTime={data.dateTime}
+              />
             </SwiperSlide>
           ))}
         </Swiper>
@@ -67,4 +50,4 @@ const DemoSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
   );
 };
 
-export default DemoSlider;
+export default SwiperSlider;

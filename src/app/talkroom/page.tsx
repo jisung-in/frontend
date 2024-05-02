@@ -16,7 +16,12 @@ import StatusButton from "./_component/StatusBurtton";
 const page = () => {
   const pathName = usePathname();
 
-  const { data: talkRoomPopular } = useGetTalkRoomPopular();
+  const { data: talkRoomPopular } = useGetTalkRoomPopular({
+    page: 1,
+    size: 10,
+    order: "RECENT",
+    search: "",
+  });
   const [status, setStatus] = useState<boolean>(false);
   const { value, handleChange, reset } = useInput("");
 
@@ -62,7 +67,7 @@ const page = () => {
 
       <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
         {talkRoomPopular?.map((data: any) => (
-          <TalkRoomCard key={data.id} data={data} />
+          <TalkRoomCard key={data.id} data={data} isBest={false} />
         ))}
       </div>
       <Pagination

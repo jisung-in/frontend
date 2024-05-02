@@ -12,18 +12,20 @@ interface TalkRoomCardProps {
   data: {
     id: number;
     profileImage: string;
-    userName: string;
+    username: string;
     title: string;
     content: string;
     bookName: string;
+    bookAuthor: string;
     bookThumbnail: string;
     likeCount: number;
     readingStatus: [];
-    createTime: [];
+    registeredDateTime: [];
   };
+  isBest: boolean;
 }
 
-const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
+const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
   const [count, setCount] = useState<number>(0);
   const [isLike, setIsLike] = useState<boolean>(false);
 
@@ -54,7 +56,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
                 <div className="font-semibold mb-1 overflow-hidden line-clamp-1">
                   {data.bookName}
                 </div>
-                <div className="text-sm">{data.bookName}</div>
+                <div className="text-sm">{data.bookAuthor}</div>
               </div>
             </div>
 
@@ -76,9 +78,13 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
             <div className="flex flex-row overflow-hidden line-clamp-1">
               {data.title}
             </div>
-            <div className="flex items-center bg-transparent leading-tight text-sm text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7px]">
-              BEST
-            </div>
+            {isBest ? (
+              <div className="flex items-center bg-transparent leading-tight text-sm text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[7px]">
+                BEST
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
 
           <div className="font-medium text-base text-[#656565] max-h-12 overflow-hidden mb-4 line-clamp-2">
@@ -97,7 +103,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
                 priority
               />
             </div>
-            <div className="font-medium text-[15px]">{data.userName}</div>
+            <div className="font-medium text-[15px]">{data.username}</div>
           </div>
         </div>
       </div>
