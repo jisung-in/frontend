@@ -6,22 +6,23 @@ import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopu
 import { useInput } from "@/hook/useInput";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Button } from "../../components/Button/Button";
-import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
-import { Input } from "../../components/Input/Input";
-import Pagination from "../../components/Pagination/Pagination";
-import { ThemeMain } from "../../components/Theme/Theme";
-import StatusButton from ".././_component/StatusBurtton";
+import { Button } from "../../../components/Button/Button";
+import TalkRoomCard from "../../../components/Card/MainPageCard/TalkRoomCard";
+import { Input } from "../../../components/Input/Input";
+import Pagination from "../../../components/Pagination/Pagination";
+import { ThemeMain } from "../../../components/Theme/Theme";
+import StatusButton from "../../_component/StatusBurtton";
 <hr className="border-solid border-[3px] border-[#F5EFE5] mb-[19px]" />;
 
-const page = () => {
+const page = ({ params }: { params: { status: string } }) => {
   const pathName = usePathname();
 
   const { data: talkRoomPopular } = useGetTalkRoomPopular({
     page: 1,
     size: 10,
-    order: "RECENT",
+    order: params.status,
     search: "",
+    sortbydate: "",
   });
   const [status, setStatus] = useState<boolean>(false);
   const { value, handleChange, reset } = useInput("");
@@ -74,16 +75,18 @@ const page = () => {
       </div>
 
       <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px]">
-        {talkRoomPopular instanceof Array &&
-          talkRoomPopular.map((data: any) => (
+        {talkRoomPopular?.queryResponse instanceof Array &&
+          talkRoomPopular?.queryResponse.map((data: any) => (
             <TalkRoomCard key={data.id} data={data} isBest={false} />
           ))}
       </div>
       <Pagination
-        totalItems={120}
-        pageCount={12}
-        postPage={10}
-        link={pathName + "?"}
+        totalItems={talkRoomPopular?.totalCount}
+        pageCount={Math.ceil(
+          (talkRoomPopular?.totalCount ?? 0) / (talkRoomPopular?.size ?? 1),
+        )}
+        postPage={talkRoomPopular?.size}
+        link={params.status + "?"}
       />
     </div>
   );

@@ -7,13 +7,13 @@ const StarPage = () => {
   const { data: talkRoomPopular } = useGetTalkRoomPopular({
     page: 1,
     size: 10,
-    order: "RECENT",
+    order: "recent",
     search: "",
   });
   return (
     <div className="grid grid-cols-3 gap-[20px] w-[80%]">
-      {talkRoomPopular instanceof Array &&
-        talkRoomPopular?.map((data: any) => (
+      {talkRoomPopular?.queryResponse instanceof Array &&
+        talkRoomPopular?.queryResponse.map((data: any) => (
           <TalkRoomCard key={data.id} data={data} isBest={false} />
         ))}
     </div>

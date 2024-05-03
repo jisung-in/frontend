@@ -68,13 +68,13 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
-              <Link href={"/talkroom"}>전체보기 {">"}</Link>
+              <Link href={"/talkroom/recommend"}>전체보기 {">"}</Link>
             </ThemeMain.Show>
           </ThemeMain>
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {popularData instanceof Array &&
-            popularData?.map((data: TalkRoom) => (
+          {popularData?.queryResponse instanceof Array &&
+            popularData?.queryResponse?.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={true} />
             ))}
         </div>
@@ -103,12 +103,12 @@ const page = () => {
             </div>
           </ThemeMain.MainTheme>
           <ThemeMain.Show>
-            <Link href={"/talkroom"}>전체보기 {">"}</Link>
+            <Link href={"/talkroom/recent"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {recentData instanceof Array &&
-            recentData?.map((data: TalkRoom) => (
+          {recentData?.queryResponse instanceof Array &&
+            recentData?.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={false} />
             ))}
         </div>

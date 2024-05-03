@@ -4,29 +4,33 @@ import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 import { useInput } from "@/hook/useInput";
-import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Button } from "../components/Button/Button";
-import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
-import { Input } from "../components/Input/Input";
-import Pagination from "../components/Pagination/Pagination";
-import { ThemeMain } from "../components/Theme/Theme";
-import StatusButton from "./_component/StatusBurtton";
+import { Button } from "../../components/Button/Button";
+import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
+import { Input } from "../../components/Input/Input";
+import Pagination from "../../components/Pagination/Pagination";
+import { ThemeMain } from "../../components/Theme/Theme";
+import StatusButton from "../_component/StatusBurtton";
 
-const page = () => {
-  const pathName = usePathname();
-
+const page = ({ params }: { params: { status: string } }) => {
+  const [orderStatus, setOrderStatus] = useState<string>(params.status);
+  const [status, setStatus] = useState<boolean>(false);
+  const { value, handleChange, reset } = useInput("");
   const { data: talkRoomPopular } = useGetTalkRoomPopular({
     page: 1,
     size: 10,
-    order: "RECENT",
+    order: orderStatus,
     search: "",
+    sortbydate: "",
   });
-  const [status, setStatus] = useState<boolean>(false);
-  const { value, handleChange, reset } = useInput("");
 
   const changeIsStatus = () => {
     setStatus(!status);
+    if (status) {
+      setOrderStatus("recent");
+    } else {
+      setOrderStatus("recommend");
+    }
   };
 
   return (
@@ -42,7 +46,7 @@ const page = () => {
         </ThemeMain.MainTheme>
         <div className="flex mb-[37px] grow">
           <div className="flex grow">
-            <StatusButton status={status} onClick={() => changeIsStatus()} />
+            <StatusButton status={status} onClick={changeIsStatus} />
           </div>
           <div className="flex h-[40px]">
             <div className="w-[567px] mr-[11px]">
@@ -66,16 +70,18 @@ const page = () => {
       </div>
 
       <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-        {talkRoomPopular instanceof Array &&
-          talkRoomPopular?.map((data) => (
+        {talkRoomPopular?.queryResponse instanceof Array &&
+          talkRoomPopular?.queryResponse.map((data) => (
             <TalkRoomCard key={data.id} data={data} isBest={false} />
           ))}
       </div>
       <Pagination
-        totalItems={120}
-        pageCount={12}
-        postPage={10}
-        link={pathName + "?"}
+        totalItems={talkRoomPopular?.totalCount}
+        pageCount={Math.ceil(
+          (talkRoomPopular?.totalCount ?? 0) / (talkRoomPopular?.size ?? 1),
+        )}
+        postPage={talkRoomPopular?.size}
+        link={params.status + "?"}
       />
     </div>
   );

@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 type TalkRoomRequest = {
   page: number;
   size: number;
-  order: "RECENT" | "RECOMMENDED";
+  order: "recent" | "recommend";
   search?: string;
 };
 

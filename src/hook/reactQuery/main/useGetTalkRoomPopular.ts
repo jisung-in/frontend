@@ -10,17 +10,21 @@ type param = {
 };
 
 type TalkRoomPopular = {
-  id: number;
-  profileImage: string;
-  username: string;
-  title: string;
-  content: string;
-  bookName: string;
-  bookAuthor: string;
-  bookThumbnail: string;
-  likeCount: number;
-  readingStatuses: string[];
-  registeredDateTime: number[];
+  queryResponse: {
+    id: number;
+    profileImage: string;
+    username: string;
+    title: string;
+    content: string;
+    bookName: string;
+    bookAuthor: string;
+    bookThumbnail: string;
+    likeCount: number;
+    readingStatuses: string[];
+    registeredDateTime: number[];
+  };
+  totalCount: number;
+  size: number;
 };
 
 export const useGetTalkRoomPopular = ({
@@ -37,7 +41,7 @@ export const useGetTalkRoomPopular = ({
         .get(
           `/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}&day=${sortbydate}`,
         )
-        .then(({ data }) => data.response.queryResponse),
+        .then(({ data }) => data.response),
     throwOnError: true,
   });
 };
