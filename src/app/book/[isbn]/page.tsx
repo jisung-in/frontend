@@ -1,17 +1,14 @@
 "use client";
 import { Button } from "@/app/components/Button/Button";
-import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
-import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
 import { useInput } from "@/hook/useInput";
 import Link from "next/link";
 import BookInformation from "../_component/BookInformation";
 
 const page = ({ params }: { params: { isbn: number } }) => {
   const { value: name, handleChange: onNameChange } = useInput("");
-  const { data: bookEvaluationUser } = useGetBookDetail({ isbn: params.isbn });
   return (
     <div>
       <div className="mx-[120px]">
@@ -54,10 +51,10 @@ const page = ({ params }: { params: { isbn: number } }) => {
           </div>
 
           <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
-            {bookEvaluationUser instanceof Array &&
+            {/* {bookEvaluationUser instanceof Array &&
               bookEvaluationUser?.map((data: any) => (
                 <MiniEvaluationCard key={data.id} data={data} />
-              ))}
+              ))} */}
           </div>
         </div>
       </div>

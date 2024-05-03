@@ -14,7 +14,6 @@ import WantToReadOn from "@/assets/img/want-to-read-on.svg";
 import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-
 interface ID {
   isbn: number;
 }
@@ -25,6 +24,18 @@ const BookInformation: React.FC<ID> = ({ isbn }) => {
   const [status, setStatus] = useState<string>("");
   const [evaluate, setEvaluate] = useState<string>("평가하기");
   const { data: bookDetailData } = useGetBookDetail({ isbn });
+
+  const [expanded, setExpanded] = useState(false);
+
+  const toggleExpand = () => {
+    setExpanded(!expanded);
+  };
+
+  const toggleContent = () => {
+    if (expanded) {
+      toggleExpand();
+    }
+  };
 
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
@@ -107,13 +118,16 @@ const BookInformation: React.FC<ID> = ({ isbn }) => {
     <>
       {bookDetailData && (
         <div className="flex flex-row mt-[22px] mb-[96px] w-[1680px]">
-          <Image
-            className="min-w-[363px] min-h-[469px] mr-[37px]"
-            src={bookDetailData.thumbnail}
-            alt="책표지"
-            fill
-          />
-          <div className="flex flex-col flex-grow justify-start font-Pretendard font-medium">
+          <div className="flex">
+            <Image
+              className="min-w-[363px] min-h-[469px] max-w-[363px] max-h-[469px] mr-[37px]"
+              src={bookDetailData.thumbnail}
+              alt="책표지"
+              width={363}
+              height={469}
+            />
+          </div>
+          <div className="flex flex-col grow justify-start font-Pretendard font-medium">
             <div className="flex flex-row items-center mt-[30px] gap-x-[220px]">
               <div className="flex flex-col">
                 <div className="flex flex-row">
@@ -172,9 +186,36 @@ const BookInformation: React.FC<ID> = ({ isbn }) => {
               <div>{bookDetailData.dateTime.slice(0, 4)}</div>
             </div>
 
-            <div className="text-xl text-[#656565] w-[680px]">
-              책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책
-              줄거리 책 줄거리 책 줄거리 책 줄거리
+            <div className="text-xl text-[#656565] w-[680px] overflow-hidden">
+              {expanded ? (
+                <>
+                  {bookDetailData.content}
+                  <div className="flex justify-end">
+                    <button className="font-semibold" onClick={toggleExpand}>
+                      접기
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {bookDetailData.content.length > 200 ? (
+                    <>
+                      {bookDetailData.content.slice(0, 200)}
+                      {"... "}
+                      <div className="flex justify-end">
+                        <button
+                          className="font-semibold"
+                          onClick={toggleExpand}
+                        >
+                          더 보기
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    bookDetailData.content
+                  )}
+                </>
+              )}
             </div>
           </div>
 
