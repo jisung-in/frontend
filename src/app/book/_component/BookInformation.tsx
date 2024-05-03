@@ -14,11 +14,12 @@ import WantToReadOn from "@/assets/img/want-to-read-on.svg";
 import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-interface ID {
+
+interface Isbn {
   isbn: number;
 }
 
-const BookInformation: React.FC<ID> = ({ isbn }) => {
+const BookInformation: React.FC<Isbn> = ({ isbn }) => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [status, setStatus] = useState<string>("");

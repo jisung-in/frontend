@@ -10,7 +10,6 @@ const BookCards = () => {
     target: params.get("name") ?? "",
   });
 
-  console.log(bookData);
   return (
     <>
       {(bookData as any)?.documents?.map((data: any) => (

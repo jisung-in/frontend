@@ -34,6 +34,7 @@ export const useGetTalkRoomPopular = ({
   search = "",
   sortbydate = "",
 }: param) => {
+  console.log(sortbydate);
   return useQuery<TalkRoomPopular>({
     queryKey: ["talkroom", "popular", page, size, order, search, sortbydate],
     queryFn: () =>
