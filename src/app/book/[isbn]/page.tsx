@@ -54,9 +54,10 @@ const page = ({ params }: { params: { id: number } }) => {
           </div>
 
           <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
-            {bookEvaluationUser?.map((data: any) => (
-              <MiniEvaluationCard key={data.id} data={data} />
-            ))}
+            {bookEvaluationUser instanceof Array &&
+              bookEvaluationUser?.map((data: any) => (
+                <MiniEvaluationCard key={data.id} data={data} />
+              ))}
           </div>
         </div>
       </div>

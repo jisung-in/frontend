@@ -84,7 +84,7 @@ const page = () => {
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
           {popularData instanceof Array &&
-            popularData.map((data: TalkRoom) => (
+            popularData?.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={true} />
             ))}
         </div>
@@ -118,7 +118,7 @@ const page = () => {
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
           {recentData instanceof Array &&
-            recentData.map((data: TalkRoom) => (
+            recentData?.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={false} />
             ))}
         </div>
@@ -135,7 +135,7 @@ const page = () => {
           </ThemeMain>
           <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
             {talkRoomManyBookData instanceof Array &&
-              talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
+              talkRoomManyBookData?.map((data: TalkRoomBookOrder) => (
                 <ManyTalkRoomBookCard key={data.isbn} data={data} />
               ))}
           </div>

@@ -12,9 +12,10 @@ const StarPage = () => {
   });
   return (
     <div className="grid grid-cols-3 gap-[20px] w-[80%]">
-      {talkRoomPopular?.map((data: any) => (
-        <TalkRoomCard key={data.id} data={data} isBest={false} />
-      ))}
+      {talkRoomPopular instanceof Array &&
+        talkRoomPopular?.map((data: any) => (
+          <TalkRoomCard key={data.id} data={data} isBest={false} />
+        ))}
     </div>
   );
 };

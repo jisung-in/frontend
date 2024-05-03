@@ -67,7 +67,7 @@ const page = () => {
 
       <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
         {talkRoomPopular instanceof Array &&
-          talkRoomPopular.map((data) => (
+          talkRoomPopular?.map((data) => (
             <TalkRoomCard key={data.id} data={data} isBest={false} />
           ))}
       </div>
