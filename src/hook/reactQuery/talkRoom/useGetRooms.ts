@@ -40,7 +40,7 @@ export const useGetRooms = ({
     queryKey: ["talkRoom", search, order],
     queryFn: () =>
       axiosInstance.get<TalkRoomResponse>(
-        `http://localhost:9090/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}`,
+        `/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}`,
       ),
     throwOnError: true,
   });
