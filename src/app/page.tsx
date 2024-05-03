@@ -26,16 +26,6 @@ type TalkRoom = {
   registeredDateTime: number[];
 };
 
-type BookRankResponse = {
-  ranking: number;
-  isbn: number;
-  title: string;
-  publisher: string;
-  thumbnail: string;
-  authors: string[];
-  dateTime: number[];
-};
-
 type TalkRoomBookOrder = {
   isbn: number;
   title: string;
@@ -136,7 +126,9 @@ const page = () => {
           <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
             {talkRoomManyBookData instanceof Array &&
               talkRoomManyBookData?.map((data: TalkRoomBookOrder) => (
-                <ManyTalkRoomBookCard key={data.isbn} data={data} />
+                <Link key={data.isbn} href={`/book/${data.isbn}`}>
+                  <ManyTalkRoomBookCard data={data} />
+                </Link>
               ))}
           </div>
         </div>

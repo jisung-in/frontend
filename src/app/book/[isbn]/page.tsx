@@ -4,21 +4,21 @@ import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluat
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
-import { useBookEvaluationUser } from "@/hook/reactQuery/evaluation/useBookEvaluationUser";
+import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
 import { useInput } from "@/hook/useInput";
 import Link from "next/link";
 import BookInformation from "../_component/BookInformation";
 
-const page = ({ params }: { params: { id: number } }) => {
+const page = ({ params }: { params: { isbn: number } }) => {
   const { value: name, handleChange: onNameChange } = useInput("");
-  const { data: bookEvaluationUser } = useBookEvaluationUser();
+  const { data: bookEvaluationUser } = useGetBookDetail({ isbn: params.isbn });
   return (
     <div>
       <div className="mx-[120px]">
         <MainThemeTitle title="책 상세보기">
           <BestSeller />
         </MainThemeTitle>
-        <BookInformation isbn={params.id} />
+        <BookInformation isbn={params.isbn} />
       </div>
 
       <div className="bg-white">

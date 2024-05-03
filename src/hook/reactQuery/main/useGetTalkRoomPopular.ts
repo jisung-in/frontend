@@ -31,7 +31,7 @@ export const useGetTalkRoomPopular = ({
   sortbydate = "",
 }: param) => {
   return useQuery<TalkRoomPopular>({
-    queryKey: ["talkroom", "popular"],
+    queryKey: ["talkroom", "popular", page, size, order, search, sortbydate],
     queryFn: () =>
       axiosInstance
         .get(

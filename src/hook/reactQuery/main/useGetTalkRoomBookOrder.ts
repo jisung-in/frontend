@@ -22,7 +22,7 @@ export const useGetTalkRoomBookOrder = ({
   order = "recent",
 }: param) => {
   return useQuery<TalkRoomBookOrder>({
-    queryKey: ["talkroom", "order"],
+    queryKey: ["talkroom", "order", page, size, order],
     queryFn: () =>
       axiosInstance
         .get(`/v1/books?page=${page}&size=${size}&order=${order}`)

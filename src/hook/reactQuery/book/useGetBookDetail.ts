@@ -1,10 +1,6 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-type param = {
-  isbn: number;
-};
-
 type BookDetail = {
   title: string;
   content: string;
@@ -17,11 +13,11 @@ type BookDetail = {
   dateTime: number[];
 };
 
-export const useGetBookDetail = (isbn: param) => {
+export const useGetBookDetail = ({ isbn }: { isbn: number }) => {
   return useQuery<BookDetail>({
-    queryKey: ["isbn", isbn],
+    queryKey: ["books", isbn.toString()],
     queryFn: () =>
-      axiosInstance.get(`/v1/books?page/${isbn}`).then(({ data }) => data.data),
+      axiosInstance.get(`/v1/books/${isbn}`).then(({ data }) => data),
     throwOnError: true,
   });
 };
