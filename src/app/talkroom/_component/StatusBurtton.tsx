@@ -1,11 +1,11 @@
-type StatusButtonProps = {
-  status: boolean;
-  onClick?: () => void;
-};
 import Arrow from "@/assets/img/arrow.svg";
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import { useState } from "react";
 
+type StatusButtonProps = {
+  status: boolean;
+  onClick?: () => void;
+};
 const StatusButton = ({ status, onClick }: StatusButtonProps) => {
   const [isDate, setIsDate] = useState<string>("날짜별");
   const dateType: string[] = ["~한달 전", "7일전", "하루 전"];

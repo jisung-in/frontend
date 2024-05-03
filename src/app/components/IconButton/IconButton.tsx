@@ -1,4 +1,10 @@
-import { IconButtonProps } from "./IconButton.types";
+import { ReactNode } from "react";
+
+export interface IconButtonProps {
+  onClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  children?: ReactNode;
+  className?: string;
+}
 
 const IconButton = ({ onClick, children, className = "" }: IconButtonProps) => {
   return (
