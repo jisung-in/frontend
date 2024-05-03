@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -33,15 +34,17 @@ const SwiperSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
           slidesPerView={slidesPerView}
         >
           {data?.map((data) => (
-            <SwiperSlide key={data.isbn} className="cursor-pointer">
-              <BestSellerCard
-                ranking={data.ranking}
-                thumbnail={data.thumbnail}
-                title={data.title}
-                publisher={data.publisher}
-                authors={data.authors}
-                dateTime={data.dateTime}
-              />
+            <SwiperSlide key={data.isbn}>
+              <Link href={`/book/${data.isbn}`}>
+                <BestSellerCard
+                  ranking={data.ranking}
+                  thumbnail={data.thumbnail}
+                  title={data.title}
+                  publisher={data.publisher}
+                  authors={data.authors}
+                  dateTime={data.dateTime}
+                />
+              </Link>
             </SwiperSlide>
           ))}
         </Swiper>
