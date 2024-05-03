@@ -4,10 +4,10 @@ import { Button } from "@/app/components/Button/Button";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import Link from "next/link";
-import BestSpeechBubble from "../_component/SpeechBubble/BestSpeechBubble";
-import MySpeechBubble from "../_component/SpeechBubble/MySpeechBubble";
-import SpeechBubble from "../_component/SpeechBubble/SpeechBubble";
-import TalkRoomDetailMain from "../_component/talkroomDetailMain";
+import BestSpeechBubble from "../../_component/SpeechBubble/BestSpeechBubble";
+import MySpeechBubble from "../../_component/SpeechBubble/MySpeechBubble";
+import SpeechBubble from "../../_component/SpeechBubble/SpeechBubble";
+import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
 
 const Page = () => {
   return (
