@@ -1,13 +1,28 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-interface param {
+type param = {
   page: number;
   size: number;
   order?: string;
   search?: string;
   sortbydate?: string;
-}
+};
+
+type TalkRoomPopular = {
+  id: number;
+  profileImage: string;
+  username: string;
+  title: string;
+  content: string;
+  bookName: string;
+  bookAuthor: string;
+  bookThumbnail: string;
+  likeCount: number;
+  readingStatuses: string[];
+  registeredDateTime: number[];
+};
+
 export const useGetTalkRoomPopular = ({
   page = 1,
   size = 10,
@@ -15,7 +30,7 @@ export const useGetTalkRoomPopular = ({
   search = "",
   sortbydate = "",
 }: param) => {
-  return useQuery<any>({
+  return useQuery<TalkRoomPopular>({
     queryKey: ["talkroom", "popular"],
     queryFn: () =>
       axiosInstance

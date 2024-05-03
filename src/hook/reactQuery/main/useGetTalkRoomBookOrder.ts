@@ -1,18 +1,27 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-interface param {
+type param = {
   page: number;
   size: number;
   order?: string;
-}
+};
+
+type TalkRoomBookOrder = {
+  isbn: number;
+  title: string;
+  publisher: string;
+  thumbnail: number;
+  authors: string[];
+  dateTime: number[];
+};
 
 export const useGetTalkRoomBookOrder = ({
   page = 1,
   size = 10,
   order = "recent",
 }: param) => {
-  return useQuery<any>({
+  return useQuery<TalkRoomBookOrder>({
     queryKey: ["talkroom", "order"],
     queryFn: () =>
       axiosInstance
