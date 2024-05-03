@@ -7,7 +7,7 @@ interface dataPrpos {
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: string[];
+  dateTime: number[];
 }
 
 const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {

@@ -13,8 +13,8 @@ interface BookSliderProps {
     title: string;
     publisher: string;
     thumbnail: string;
-    authors: [];
-    dateTime: [];
+    authors: string[];
+    dateTime: number[];
   }[];
   slidesPerView: number;
 }

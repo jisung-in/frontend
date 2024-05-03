@@ -12,6 +12,39 @@ import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
+type TalkRoom = {
+  id: number;
+  profileImage: string;
+  username: string;
+  title: string;
+  content: string;
+  bookName: string;
+  bookAuthor: string;
+  bookThumbnail: string;
+  likeCount: number;
+  readingStatuses: string[];
+  registeredDateTime: number[];
+};
+
+type BookRankResponse = {
+  ranking: number;
+  isbn: number;
+  title: string;
+  publisher: string;
+  thumbnail: string;
+  authors: string[];
+  dateTime: number[];
+};
+
+type TalkRoomBookOrder = {
+  isbn: number;
+  title: string;
+  publisher: string;
+  thumbnail: string;
+  authors: string[];
+  dateTime: number[];
+};
+
 const page = () => {
   const { data: popularData } = useGetTalkRoomPopular({
     page: 1,
@@ -50,12 +83,12 @@ const page = () => {
           </ThemeMain>
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {popularData?.map((data: any) => (
-            <TalkRoomCard key={data.id} data={data} isBest={true} />
-          ))}
+          {popularData instanceof Array &&
+            popularData.map((data: TalkRoom) => (
+              <TalkRoomCard key={data.id} data={data} isBest={true} />
+            ))}
         </div>
       </div>
-
       <div className="bg-[#FBF7F0] pt-[1px]">
         <div className="mt-[55px] ml-[120px]">
           <ThemeMain.MainTheme>
@@ -66,10 +99,11 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {bookRankData && <Swiper data={bookRankData} slidesPerView={6} />}
+          {bookRankData instanceof Array && (
+            <Swiper data={bookRankData} slidesPerView={6} />
+          )}
         </div>
       </div>
-
       <div className="mt-[51px] ml-[120px]">
         <ThemeMain>
           <ThemeMain.MainTheme>
@@ -83,12 +117,12 @@ const page = () => {
           </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {recentData?.map((data: any) => (
-            <TalkRoomCard key={data.id} data={data} isBest={false} />
-          ))}
+          {recentData instanceof Array &&
+            recentData.map((data: TalkRoom) => (
+              <TalkRoomCard key={data.id} data={data} isBest={false} />
+            ))}
         </div>
       </div>
-
       <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
         <div className="pt-[77px] ml-[120px]">
           <ThemeMain>
@@ -100,9 +134,10 @@ const page = () => {
             </ThemeMain.MainTheme>
           </ThemeMain>
           <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
-            {talkRoomManyBookData?.map((data: any) => (
-              <ManyTalkRoomBookCard key={data.isbn} data={data} />
-            ))}
+            {talkRoomManyBookData instanceof Array &&
+              talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
+                <ManyTalkRoomBookCard key={data.isbn} data={data} />
+              ))}
           </div>
         </div>
       </div>

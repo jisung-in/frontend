@@ -11,7 +11,7 @@ type TalkRoomBookOrder = {
   isbn: number;
   title: string;
   publisher: string;
-  thumbnail: number;
+  thumbnail: string;
   authors: string[];
   dateTime: number[];
 };

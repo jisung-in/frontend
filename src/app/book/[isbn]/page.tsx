@@ -1,27 +1,24 @@
 "use client";
 import { Button } from "@/app/components/Button/Button";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
-import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useBookEvaluationUser } from "@/hook/reactQuery/evaluation/useBookEvaluationUser";
-import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
 import { useInput } from "@/hook/useInput";
 import Link from "next/link";
 import BookInformation from "../_component/BookInformation";
 
-const page = () => {
+const page = ({ params }: { params: { id: number } }) => {
   const { value: name, handleChange: onNameChange } = useInput("");
   const { data: bookEvaluationUser } = useBookEvaluationUser();
-  const { data: talkRoomPopular } = useGetTalkRoomPopular();
   return (
     <div>
       <div className="mx-[120px]">
         <MainThemeTitle title="책 상세보기">
           <BestSeller />
         </MainThemeTitle>
-        <BookInformation />
+        <BookInformation isbn={params.id} />
       </div>
 
       <div className="bg-white">
@@ -75,11 +72,11 @@ const page = () => {
             </div>
           </Link>
         </div>
-        <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+        {/* <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
           {talkRoomPopular?.map((data: any) => (
             <RelatedTalkRoomCard key={data.id} data={data} />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

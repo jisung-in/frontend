@@ -20,8 +20,8 @@ interface TalkRoomCardProps {
     bookAuthor: string;
     bookThumbnail: string;
     likeCount: number;
-    readingStatus: string[];
-    registeredDateTime: string[];
+    readingStatuses: string[];
+    registeredDateTime: number[];
   };
   isBest: boolean;
 }

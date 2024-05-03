@@ -11,14 +11,20 @@ import ReadingOff from "@/assets/img/reading-off.svg";
 import ReadingOn from "@/assets/img/reading-on.svg";
 import WantToReadOff from "@/assets/img/want-to-read-off.svg";
 import WantToReadOn from "@/assets/img/want-to-read-on.svg";
+import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
-const BookInformation = () => {
+interface ID {
+  isbn: number;
+}
+
+const BookInformation: React.FC<ID> = ({ isbn }) => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [status, setStatus] = useState<string>("");
-  const [averageStarRate, setAverageStarRate] = useState<number>(4.2);
   const [evaluate, setEvaluate] = useState<string>("평가하기");
+  const { data: bookDetailData } = useGetBookDetail({ isbn });
 
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
@@ -98,92 +104,115 @@ const BookInformation = () => {
     }
   };
   return (
-    <div className="flex flex-row mt-[22px] mb-[96px] w-[1680px]">
-      <div className="min-w-[363px] min-h-[469px] mr-[37px] bg-[#D9D9D9]" />
-
-      <div className="flex flex-col flex-grow justify-start font-Pretendard font-medium">
-        <div className="flex flex-row items-center mt-[30px] gap-x-[220px]">
-          <div className="flex flex-col">
-            <div className="flex flex-row">
-              {Array(5)
-                .fill(1)
-                .map((_, index: number) => {
-                  const hoverValue = index + 1;
-                  const showBalloon =
-                    myStarRate !== 0 &&
-                    myStarRate === starRate &&
-                    hoverValue === Math.ceil(myStarRate);
-                  return (
-                    <div
-                      key={index}
-                      className="cursor-pointer relative"
-                      onMouseLeave={handleMouseLeave}
-                      onMouseMove={(e) => handleMouseMove(e, index)}
-                      onClick={saveMyStarRate}
-                    >
-                      {showBalloon && (
-                        <>
-                          <div className="absolute w-[65px] text-center bottom-full left-1/2 transform -translate-x-1/2 bg-[#624E45] text-white text-sm px-2 py-1 rounded-md">
-                            취소하기
-                          </div>
-                          <div className="absolute w-0 h-0 border-8 border-solid border-[#624E45] border-t-[10px] border-r-transparent border-b-transparent border-l-transparent left-[70%] transform -translate-x-1/2"></div>
-                        </>
-                      )}
-                      {myStarRate ? isMyStarRate(index) : noneMyStarRate(index)}
-                    </div>
-                  );
-                })}
+    <>
+      {bookDetailData && (
+        <div className="flex flex-row mt-[22px] mb-[96px] w-[1680px]">
+          <Image
+            className="min-w-[363px] min-h-[469px] mr-[37px]"
+            src={bookDetailData.thumbnail}
+            alt="책표지"
+            fill
+          />
+          <div className="flex flex-col flex-grow justify-start font-Pretendard font-medium">
+            <div className="flex flex-row items-center mt-[30px] gap-x-[220px]">
+              <div className="flex flex-col">
+                <div className="flex flex-row">
+                  {Array(5)
+                    .fill(1)
+                    .map((_, index: number) => {
+                      const hoverValue = index + 1;
+                      const showBalloon =
+                        myStarRate !== 0 &&
+                        myStarRate === starRate &&
+                        hoverValue === Math.ceil(myStarRate);
+                      return (
+                        <div
+                          key={index}
+                          className="cursor-pointer relative"
+                          onMouseLeave={handleMouseLeave}
+                          onMouseMove={(e) => handleMouseMove(e, index)}
+                          onClick={saveMyStarRate}
+                        >
+                          {showBalloon && (
+                            <>
+                              <div className="absolute w-[65px] text-center bottom-full left-1/2 transform -translate-x-1/2 bg-[#624E45] text-white text-sm px-2 py-1 rounded-md">
+                                취소하기
+                              </div>
+                              <div className="absolute w-0 h-0 border-8 border-solid border-[#624E45] border-t-[10px] border-r-transparent border-b-transparent border-l-transparent left-[70%] transform -translate-x-1/2"></div>
+                            </>
+                          )}
+                          {myStarRate
+                            ? isMyStarRate(index)
+                            : noneMyStarRate(index)}
+                        </div>
+                      );
+                    })}
+                </div>
+                <div className="text-base text-[#B1B1B1] mt-1.5 mb-[27px]">
+                  {evaluate}
+                </div>
+              </div>
+              <div className="flex flex-col items-center">
+                <div className="font-Inter text-[44px]">
+                  {bookDetailData.ratingAverage}
+                </div>
+                <div className="text-base text-[#B1B1B1] mt-1.5 mb-[27px]">
+                  평균별점
+                </div>
+              </div>
             </div>
-            <div className="text-base text-[#B1B1B1] mt-1.5 mb-[27px]">
-              {evaluate}
+
+            <div className="mb-[9px] font-semibold text-[40px]">
+              {bookDetailData.title}
+            </div>
+
+            <div className="font-Inter flex flex-row gap-x-[29px] text-2xl text-[#656565] mb-[41px]">
+              <div>{bookDetailData.publisher}</div>
+              <div>{bookDetailData.authors.join(", ")}</div>
+              <div>{bookDetailData.dateTime.slice(0, 4)}</div>
+            </div>
+
+            <div className="text-xl text-[#656565] w-[680px]">
+              책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책
+              줄거리 책 줄거리 책 줄거리 책 줄거리
             </div>
           </div>
-          <div className="flex flex-col items-center">
-            <div className="font-Inter text-[44px]">{averageStarRate}</div>
-            <div className="text-base text-[#B1B1B1] mt-1.5 mb-[27px]">
-              평균별점
+
+          <div className="w-full flex flex-row gap-x-[26px] justify-end">
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("wantToRead")}
+            >
+              {status === "wantToRead" ? <WantToReadOn /> : <WantToReadOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("reading")}
+            >
+              {status === "reading" ? <ReadingOn /> : <ReadingOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("read")}
+            >
+              {status === "read" ? <ReadOn /> : <ReadOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("readStop")}
+            >
+              {status === "readStop" ? <ReadStopOn /> : <ReadStopOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("pause")}
+            >
+              {status === "pause" ? <PasueOn /> : <PasueOff />}
             </div>
           </div>
         </div>
-
-        <div className="mb-[9px] font-semibold text-[40px]">책 제목</div>
-
-        <div className="font-Inter flex flex-row gap-x-[29px] text-2xl text-[#656565] mb-[41px]">
-          <div>출판사</div>
-          <div>저자</div>
-          <div>2024</div>
-        </div>
-
-        <div className="text-xl text-[#656565] w-[680px]">
-          책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리 책 줄거리
-          책 줄거리 책 줄거리 책 줄거리
-        </div>
-      </div>
-
-      <div className="w-full flex flex-row gap-x-[26px] justify-end">
-        <div
-          className="cursor-pointer"
-          onClick={() => changeStatus("wantToRead")}
-        >
-          {status === "wantToRead" ? <WantToReadOn /> : <WantToReadOff />}
-        </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("reading")}>
-          {status === "reading" ? <ReadingOn /> : <ReadingOff />}
-        </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("read")}>
-          {status === "read" ? <ReadOn /> : <ReadOff />}
-        </div>
-        <div
-          className="cursor-pointer"
-          onClick={() => changeStatus("readStop")}
-        >
-          {status === "readStop" ? <ReadStopOn /> : <ReadStopOff />}
-        </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("pause")}>
-          {status === "pause" ? <PasueOn /> : <PasueOff />}
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 

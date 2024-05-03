@@ -74,9 +74,10 @@ const page = () => {
       </div>
 
       <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px]">
-        {talkRoomPopular?.map((data: any) => (
-          <TalkRoomCard key={data.id} data={data} isBest={false} />
-        ))}
+        {talkRoomPopular instanceof Array &&
+          talkRoomPopular.map((data: any) => (
+            <TalkRoomCard key={data.id} data={data} isBest={false} />
+          ))}
       </div>
       <Pagination
         totalItems={120}
