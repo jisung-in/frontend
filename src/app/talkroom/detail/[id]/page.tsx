@@ -9,14 +9,14 @@ import MySpeechBubble from "../../_component/SpeechBubble/MySpeechBubble";
 import SpeechBubble from "../../_component/SpeechBubble/SpeechBubble";
 import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
 
-const Page = () => {
+const Page = ({ params }: { params: { id: number } }) => {
   return (
     <div>
       <MainThemeTitle title="토크해요">
         <PopularTalkRoom />
       </MainThemeTitle>
 
-      <TalkRoomDetailMain />
+      <TalkRoomDetailMain talkRoomId={params.id} />
 
       <hr className="border-[6px] border-[#F5EFE5] mt-[47px] mb-[42px]" />
 
