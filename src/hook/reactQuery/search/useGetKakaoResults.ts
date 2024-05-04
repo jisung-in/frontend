@@ -9,7 +9,7 @@ type SearchingResponse = {
   documents: BookInfo[];
 };
 
-type BookInfo = {
+export type BookInfo = {
   author: string[];
   contents: string;
   datetime: string;
