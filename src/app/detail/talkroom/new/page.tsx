@@ -1,23 +1,45 @@
+"use client";
+
 import { Button } from "@/app/components/Button/Button";
 import { Input } from "@/app/components/Input/Input";
 import BackButton from "@/app/summary/_component/BackButton";
-import Preface from "@/app/summary/_component/Preface";
-import ConditionButtons from "./_component/ConditionButtons";
 import { BUTTON_INDEX } from "@/constants/buttonIndex";
 import { Textarea } from "@/app/components/Textarea/Textarea";
+import { useInput } from "@/hook/useInput";
+import SearchedList from "./_component/SearchedList";
+import { useState } from "react";
+import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
+import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
 
 const NewTalkRoom = () => {
+  const [input, setInput] = useState({
+    value: "",
+    onClose: true,
+  });
+  const [bookInfo, setBookInfo] = useState<BookInfo>();
+
   return (
     <div className="flex flex-col w-full p-8">
       <BackButton />
-      <span className="text-[30px] font-bold py-4 border-b-[1px] ">
+      <span className="text-[30px] font-bold py-4 border-b-[1px]">
         토크방 생성
       </span>
 
       <span className="text-[25px] font-bold py-4">책 찾기</span>
 
-      <div className="flex gap-[10px]">
-        <Input />
+      <div className="flex relative gap-[10px]">
+        <Input
+          value={input.value}
+          onChange={(e) => setInput({ onClose: true, value: e.target.value })}
+          placeholder="이곳에 검색해보세요."
+        />
+        {input.value.length > 0 && input.onClose && (
+          <SearchedList
+            value={input.value}
+            handleChange={setInput}
+            setBookInfo={setBookInfo}
+          />
+        )}
         <div className="w-[130px]">
           <Button>찾아보기</Button>
         </div>
@@ -26,7 +48,15 @@ const NewTalkRoom = () => {
       <span className="text-[25px] font-bold py-4">토크방 조건 작성</span>
 
       <div className="flex gap-[5%]">
-        <div className="w-[200px] h-[inherit] bg-gray-40">{/* 이미지 */}</div>
+        {bookInfo?.thumbnail ? (
+          <img
+            src={bookInfo?.thumbnail}
+            alt="책 이미지"
+            className="w-[200px] "
+          />
+        ) : (
+          <div className="w-[200px] h-[inherit] bg-gray-40">{/* 이미지 */}</div>
+        )}
 
         <div className="flex flex-col">
           <span className="text-[25px] font-bold py-4">책 제목</span>
