@@ -1,13 +1,19 @@
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 import Arrow from "@/assets/img/arrow.svg";
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
 
 interface DropdownProps {
   items: string[];
   selectedItem: string;
+  className?: string;
   setSelectedItem: (item: string) => void;
 }
 
-const Dropdown = ({ items, selectedItem, setSelectedItem }: DropdownProps) => {
+const Dropdown = ({
+  items,
+  selectedItem,
+  className,
+  setSelectedItem,
+}: DropdownProps) => {
   const handleItemSelect = (item: string) => {
     setSelectedItem(item);
   };
@@ -30,7 +36,7 @@ const Dropdown = ({ items, selectedItem, setSelectedItem }: DropdownProps) => {
 
       <DropdownMenu.Portal>
         <DropdownMenu.Content
-          className="bg-white w-[358px] border border-[#BBB] rounded-[9px] absolute right-[-50px]"
+          className={`bg-white w-[358px] border border-[#BBB] rounded-[9px] absolute right-[-50px] ${className}`}
           sideOffset={5}
         >
           <div className="flex text-[21px] font-bold relative border-b-[1px] border-[#D5D5D5] justify-center items-center h-[52px]">

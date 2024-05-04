@@ -19,7 +19,6 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
     setCount(count + 1);
     if (isLike) setCount(count - 1);
   };
-  console.log(talkroomOneData);
   return (
     <>
       {talkroomOneData && (

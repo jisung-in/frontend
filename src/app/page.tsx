@@ -68,7 +68,9 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
-              <Link href={"/talkroom/recommend"}>전체보기 {">"}</Link>
+              <Link href={"/talkroom/?order=recommend&sortbydate="}>
+                전체보기 {">"}
+              </Link>
             </ThemeMain.Show>
           </ThemeMain>
         </div>
@@ -103,7 +105,7 @@ const page = () => {
             </div>
           </ThemeMain.MainTheme>
           <ThemeMain.Show>
-            <Link href={"/talkroom/recent"}>전체보기 {">"}</Link>
+            <Link href={"/talkroom/?order=recent"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
