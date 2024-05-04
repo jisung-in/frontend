@@ -39,7 +39,7 @@ const RecommendCard: React.FC<RecommendCardProps> = ({
     <div className="relative w-[320px] mb-[20px] h-[430px] rounded-[17px] bg-[#fff] border border-[#F4E4CE] font-Pretendard overflow-hidden">
       <div className="absolute inset-0 transform -skew-y-[17deg] h-[250px] bg-[#FFF5E7] top-[55%]"></div>
       <div className="absolute inset-0 flex justify-center items-center">
-        <div className="flex flex-col mt-[21px] mx-[26px]">
+        <div className="flex flex-col mt-[21px] mx-[26px] w-full">
           <div className="flex flex-row">
             <div className="mt-1">
               <BookTitle />

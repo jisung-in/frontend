@@ -10,7 +10,6 @@ const BookCards = () => {
     target: params.get("name") ?? "",
   });
 
-  console.log(bookData);
   return (
     <>
       {(bookData as any)?.documents?.map((data: any) => (
@@ -24,7 +23,7 @@ const BookCards = () => {
           </BookMain.BookCover>
           <BookMain.BookTitle>{data.title}</BookMain.BookTitle>
           <BookMain.Publisher>{data.publisher}</BookMain.Publisher>
-          <BookMain.Author>{data.authors[0]}</BookMain.Author>
+          <BookMain.Author>{data.authors.join(", ")}</BookMain.Author>
           <BookMain.Year>{data.datetime.slice(0, 4)}</BookMain.Year>
         </BookMain>
       ))}

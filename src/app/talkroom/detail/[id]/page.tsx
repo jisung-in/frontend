@@ -4,19 +4,19 @@ import { Button } from "@/app/components/Button/Button";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import Link from "next/link";
-import BestSpeechBubble from "../_component/SpeechBubble/BestSpeechBubble";
-import MySpeechBubble from "../_component/SpeechBubble/MySpeechBubble";
-import SpeechBubble from "../_component/SpeechBubble/SpeechBubble";
-import TalkRoomDetailMain from "../_component/talkroomDetailMain";
+import BestSpeechBubble from "../../_component/SpeechBubble/BestSpeechBubble";
+import MySpeechBubble from "../../_component/SpeechBubble/MySpeechBubble";
+import SpeechBubble from "../../_component/SpeechBubble/SpeechBubble";
+import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
 
-const Page = () => {
+const Page = ({ params }: { params: { id: number } }) => {
   return (
     <div>
       <MainThemeTitle title="토크해요">
         <PopularTalkRoom />
       </MainThemeTitle>
 
-      <TalkRoomDetailMain />
+      <TalkRoomDetailMain talkRoomId={params.id} />
 
       <hr className="border-[6px] border-[#F5EFE5] mt-[47px] mb-[42px]" />
 

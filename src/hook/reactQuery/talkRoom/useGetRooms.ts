@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 type TalkRoomRequest = {
   page: number;
   size: number;
-  order?: "RECENT" | "RECOMMENDED";
+  order?: "recent" | "recommend" | "recent-comment";
   search?: string;
 };
 
@@ -33,14 +33,14 @@ type TalkRoomInfo = {
 export const useGetRooms = ({
   page,
   size,
-  order = "RECENT",
+  order = "recent",
   search = "",
 }: TalkRoomRequest) => {
   return useQuery<any>({
     queryKey: ["talkRoom", search, order],
     queryFn: () =>
       axiosInstance.get<TalkRoomResponse>(
-        `${process.env.NEXT_PUBLIC_SERVER}/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}`,
+        `/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}`,
       ),
     throwOnError: true,
   });

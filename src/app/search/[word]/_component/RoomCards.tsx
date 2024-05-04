@@ -8,7 +8,7 @@ const RoomCards = () => {
   return (
     <>
       {(bookData as any)?.map((data: any) => (
-        <RoomCard key={data.id} data={data} />
+        <RoomCard key={data.id} data={data} isBest={false} />
       ))}
     </>
   );

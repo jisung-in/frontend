@@ -21,18 +21,19 @@ const buttonIndex = [
 ];
 
 const StarPage = () => {
-  const { data: talkRoomPopular } = useGetTalkRoomPopular();
+  const { data: talkRoomPopular } = useGetTalkRoomPopular({
+    page: 1,
+    size: 10,
+    order: "recent",
+    search: "",
+  });
   return (
-    <main className="flex flex-col items-center w-full gap-[20px]">
-      <div className="flex w-full gap-[10px] pl-[5%]">
-        <ConditionButtons conditions={buttonIndex} />
-      </div>
-      <div className="grid grid-cols-3 gap-[20px] w-[90%]">
-        {talkRoomPopular?.map((data: any) => (
-          <TalkRoomCard key={data.id} data={data} />
+    <div className="grid grid-cols-3 gap-[20px] w-[80%]">
+      {talkRoomPopular?.queryResponse instanceof Array &&
+        talkRoomPopular?.queryResponse.map((data: any) => (
+          <TalkRoomCard key={data.id} data={data} isBest={false} />
         ))}
-      </div>
-    </main>
+    </div>
   );
 };
 

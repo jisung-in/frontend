@@ -1,6 +1,6 @@
 module.exports = {
   images: {
-    domains: ["k.kakaocdn.net", "loremflickr.com"],
+    domains: ["k.kakaocdn.net", "loremflickr.com", "image.yes24.com"],
   },
   webpack: (config) => {
     config.module.rules.push({
