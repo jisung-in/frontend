@@ -27,7 +27,7 @@ const Tabs = ({ tabs, bgColor = "white" }: TabsProps) => {
           <button
             key={index}
             className={clsx(
-              "min-w-[220px] flex h-full items-center justify-center text-gray-60 hover:text-brown-50",
+              "min-w-[220px] md:min-w-[85px] flex h-full items-center justify-center text-gray-60 hover:text-brown-50",
               path.includes(item.path) &&
                 "shadow-brown-50 shadow-[inset_0_-1px_0_0,0_1px_0_0] shadow-brown-50",
             )}
@@ -35,10 +35,11 @@ const Tabs = ({ tabs, bgColor = "white" }: TabsProps) => {
           >
             <div
               className={clsx(
-                "text-[19px]",
+                "flex text-[19px] md:text-[13px]",
                 path.includes(item.path) && "text-brown-50",
               )}
             >
+              <span className="flex md:hidden pr-2">나의</span>
               {item.text}
             </div>
           </button>
