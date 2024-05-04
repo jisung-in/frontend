@@ -7,7 +7,10 @@ import axios, {
 
 const baseURL = `${process.env.NEXT_PUBLIC_SERVER}`;
 
-export const axiosInstance = axios.create({ baseURL, withCredentials: true });
+export const axiosInstance = axios.create({
+  baseURL,
+  withCredentials: true,
+});
 
 const onRequestRejected = (error: AxiosError) => {
   const response = error.response as AxiosResponse;
