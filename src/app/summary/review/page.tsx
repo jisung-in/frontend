@@ -6,10 +6,12 @@ import { useEvaluationUser } from "@/hook/reactQuery/evaluation/useEvaluationUse
 const ReviewPage = () => {
   const { data: evaluationUser } = useEvaluationUser();
   return (
-    <div className="grid grid-cols-2 gap-[20px] w-[80%]">
-      {evaluationUser?.map((data: any) => (
-        <MyEvaluationCard key={data.id} data={data} />
-      ))}
+    <div className="flex justify-center ">
+      <div className="grid grid-cols-2 gap-[20px] w-[100%]">
+        {evaluationUser?.map((data: any) => (
+          <MyEvaluationCard key={data.id} data={data} />
+        ))}
+      </div>
     </div>
   );
 };

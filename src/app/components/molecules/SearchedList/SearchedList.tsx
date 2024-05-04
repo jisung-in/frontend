@@ -19,7 +19,7 @@ const SearchedList = ({ value, reset }: Props) => {
   };
 
   return (
-    <div className="absolute flex flex-col w-full bg-[#F5F5F7] rounded-md p-4 gap-[10px]">
+    <div className="absolute flex flex-col w-full shadow-md bg-[#F5F5F7] rounded-md p-4 gap-[10px]">
       <span className="font-bold">인기 검색어</span>
       <div className="flex w-full gap-[3%]">
         <div className="max-w-[70px]">
