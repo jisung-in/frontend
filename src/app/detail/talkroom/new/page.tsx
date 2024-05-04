@@ -5,7 +5,6 @@ import { Input } from "@/app/components/Input/Input";
 import BackButton from "@/app/summary/_component/BackButton";
 import { BUTTON_INDEX } from "@/constants/buttonIndex";
 import { Textarea } from "@/app/components/Textarea/Textarea";
-import { useInput } from "@/hook/useInput";
 import SearchedList from "./_component/SearchedList";
 import { useState } from "react";
 import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
@@ -47,29 +46,27 @@ const NewTalkRoom = () => {
 
       <span className="text-[25px] font-bold py-4">토크방 조건 작성</span>
 
-      <div className="flex gap-[5%]">
+      <div className="flex gap-[5%] md:flex-col">
         {bookInfo?.thumbnail ? (
           <img
             src={bookInfo?.thumbnail}
             alt="책 이미지"
-            className="w-[200px] "
+            className="w-[200px] h-[300px]"
           />
         ) : (
-          <div className="w-[200px] h-[inherit] bg-gray-40">{/* 이미지 */}</div>
+          <div className="w-[200px] h-[300px] bg-gray-40">{/* 이미지 */}</div>
         )}
 
         <div className="flex flex-col">
-          <span className="text-[25px] font-bold py-4">책 제목</span>
+          <span className="text-[25px] font-bold py-4">
+            {bookInfo?.title || "책 제목"}
+          </span>
           <span className="text-[1rem] font-bold text-gray-50">
-            저자 출판사 2024
+            {bookInfo?.author} {bookInfo?.publisher}{" "}
+            {bookInfo?.datetime.slice(0, 4)}
           </span>
 
           <span className="text-[25px] font-bold py-4">참가 조건</span>
-          <div className="flex w-full">
-            <ConditionButtons conditions={BUTTON_INDEX} />
-          </div>
-
-          <span className="text-[25px] font-bold py-4">종료 조건</span>
           <div className="flex w-full">
             <ConditionButtons conditions={BUTTON_INDEX} />
           </div>
@@ -83,7 +80,7 @@ const NewTalkRoom = () => {
       <Textarea variant="white" />
 
       <div className="flex w-full justify-end pt-8">
-        <div className="w-[120px]">
+        <div className="w-[120px] md:w-full">
           <Button>생성하기</Button>
         </div>
       </div>

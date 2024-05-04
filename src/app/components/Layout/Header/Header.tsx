@@ -22,7 +22,7 @@ export const Header = () => {
       >
         <span className="cursor-pointer">JISUNGIN</span>
       </div>
-      <div className="flex gap-[46px] items-center">
+      <div className="flex gap-[46px] items-center sm:hidden">
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="relative w-[414px]">
             <Input

@@ -17,7 +17,7 @@ const ConditionButtons = ({ conditions }: { conditions: Props[] }) => {
   };
 
   return (
-    <div className="flex gap-[2%]">
+    <div className="flex gap-[2%] flex-wrap">
       {buttonState?.map((item: Props, index: number) => (
         <div className="w-[100px]">
           <Button
