@@ -8,9 +8,16 @@ import BackButton from "@/app/summary/_component/BackButton";
 import { useInput } from "@/hook/useInput";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
+import { useCreateComment } from "@/hook/reactQuery/talkRoom/useCreateComment";
+import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 
 const CommentPage = () => {
   const { value, handleChange } = useInput("");
+  const { mutate } = useCreateComment();
+  // const {data} = useGetComments();
+  const { data } = useGetRooms({ page: 1, size: 4 });
+  console.log("data", data);
   const [imageSrcs, setImageSrcs] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -33,6 +40,10 @@ const CommentPage = () => {
 
   const handleSubmitClick = () => {
     fileInputRef.current?.click();
+  };
+
+  const onSubmitClick = () => {
+    mutate({ content: value });
   };
 
   return (
@@ -81,7 +92,7 @@ const CommentPage = () => {
           </div>
           <div className="flex w-full justify-end relative">
             <div className="w-[180px]">
-              <Button>의견 등록</Button>
+              <Button onClick={onSubmitClick}>의견 등록</Button>
             </div>
           </div>
         </div>

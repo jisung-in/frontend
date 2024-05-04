@@ -1,5 +1,5 @@
 "use client";
-import { useParams, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 
 type Props = { content?: "도서" | "토론방" };
 const Preface = ({ content = "도서" }: Props) => {

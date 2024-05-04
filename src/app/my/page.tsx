@@ -7,7 +7,6 @@ import Create from "@/assets/img/create-room.svg";
 import Wheel from "@/assets/img/wheel.svg";
 import Image from "next/image";
 import MyButton from "./_component/MyButton";
-import { Button } from "../components/Button/Button";
 
 const userData = {
   id: "이름 (아이디)",
