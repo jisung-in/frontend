@@ -2,9 +2,8 @@
 import { useInput } from "@/hook/useInput";
 import { Input } from "../../Input/Input";
 import { useRouter } from "next/navigation";
-import { LoginComponent } from "./LoginComponents";
-import { useEffect } from "react";
 import SearchedList from "../../molecules/SearchedList/SearchedList";
+import { LoginComponent } from "./LoginComponents";
 
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
@@ -35,7 +34,7 @@ export const Header = () => {
             {value.length > 0 && <SearchedList value={value} reset={reset} />}
           </div>
         </form>
-        {/* <LoginComponent /> */}
+        <LoginComponent />
       </div>
     </div>
   );
