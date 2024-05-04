@@ -32,6 +32,7 @@ export const useGetKakaoResults = ({ target }: SearchingRequest) => {
           headers: {
             Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_REST_API}`,
           },
+          withCredentials: false,
         },
       ),
     throwOnError: true,
