@@ -9,6 +9,8 @@ import SearchedList from "./_component/SearchedList";
 import { useState } from "react";
 import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
 import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
+import { useCreateRoom } from "@/hook/reactQuery/talkRoom/useCreateRoom";
+import { useInput } from "@/hook/useInput";
 
 const NewTalkRoom = () => {
   const [input, setInput] = useState({
@@ -16,6 +18,24 @@ const NewTalkRoom = () => {
     onClose: true,
   });
   const [bookInfo, setBookInfo] = useState<BookInfo>();
+  const { value: title, handleChange: titleChange } = useInput("");
+  const { value: content, handleChange: contentChange } = useInput("");
+  const [buttonState, setButtonState] = useState(BUTTON_INDEX);
+  const { mutate } = useCreateRoom();
+
+  const onSubmitClicked = () => {
+    const splitedIsbn = bookInfo?.isbn.split(" ").at(1);
+    console.log(splitedIsbn);
+    if (!bookInfo || !splitedIsbn) return;
+    mutate({
+      bookIsbn: splitedIsbn,
+      title,
+      content,
+      readingStatus: buttonState
+        .filter((state) => state.actived)
+        .map((state) => state.content),
+    });
+  };
 
   return (
     <div className="flex flex-col w-full p-8">
@@ -68,20 +88,23 @@ const NewTalkRoom = () => {
 
           <span className="text-[25px] font-bold py-4">참가 조건</span>
           <div className="flex w-full">
-            <ConditionButtons conditions={BUTTON_INDEX} />
+            <ConditionButtons
+              buttonState={buttonState}
+              setButtonState={setButtonState}
+            />
           </div>
         </div>
       </div>
 
       <span className="text-[25px] font-bold py-4">토크방 제목</span>
-      <Textarea variant="white" />
+      <Textarea variant="white" value={title} onChange={titleChange} />
 
       <span className="text-[25px] font-bold py-4">토크방 주제 작성</span>
-      <Textarea variant="white" />
+      <Textarea variant="white" value={content} onChange={contentChange} />
 
       <div className="flex w-full justify-end pt-8">
         <div className="w-[120px] md:w-full">
-          <Button>생성하기</Button>
+          <Button onClick={onSubmitClicked}>생성하기</Button>
         </div>
       </div>
     </div>

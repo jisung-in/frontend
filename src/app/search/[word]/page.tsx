@@ -28,7 +28,7 @@ const SearchingWordPage = () => {
 
       <div className="w-full h-full px-[5%] py-[3%]">
         <Preface content="토론방" />
-        <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(700px,1fr))]">
+        <div className="grid gap-8 grid-cols-3">
           <RoomCards />
         </div>
       </div>

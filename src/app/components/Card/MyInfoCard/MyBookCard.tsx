@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 
 type ImageProps = {
@@ -12,11 +13,7 @@ const MyBookCard = ({ title, image, starRate }: ImageProps) => {
     <div>
       <BookMain>
         <BookMain.BookCover className="h-[300px]">
-          <img
-            src={image}
-            className="w-full h-[300px] max-w-[260px]"
-            alt="bookImage"
-          />
+          <Image src={image ?? ""} width={200} height={300} alt="bookImage" />
         </BookMain.BookCover>
         <BookMain.BookTitle>{title}</BookMain.BookTitle>
         <BookMain.StarRating>별점 {starRate}</BookMain.StarRating>

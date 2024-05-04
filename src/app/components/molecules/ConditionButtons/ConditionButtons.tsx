@@ -2,9 +2,12 @@
 import { Button } from "@/app/components/Button/Button";
 import { useState } from "react";
 
-type Props = { content: string; actived: boolean };
-const ConditionButtons = ({ conditions }: { conditions: Props[] }) => {
-  const [buttonState, setButtonState] = useState(conditions);
+type Props = {
+  buttonState: ButtonProps[];
+  setButtonState: (props: ButtonProps[]) => void;
+};
+type ButtonProps = { content: string; actived: boolean };
+const ConditionButtons = ({ buttonState, setButtonState }: Props) => {
   const onClicked = (idx: number) => {
     const newButtonState = buttonState.map((item, index) => {
       if (index === idx) {
@@ -18,7 +21,7 @@ const ConditionButtons = ({ conditions }: { conditions: Props[] }) => {
 
   return (
     <div className="flex gap-[2%] flex-wrap">
-      {buttonState?.map((item: Props, index: number) => (
+      {buttonState?.map((item: ButtonProps, index: number) => (
         <div className="w-[100px]">
           <Button
             key={index}
