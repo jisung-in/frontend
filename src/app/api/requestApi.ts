@@ -7,7 +7,7 @@ import axios, {
 
 const baseURL = `${process.env.NEXT_PUBLIC_SERVER}`;
 
-export const axiosInstance = axios.create({ baseURL });
+export const axiosInstance = axios.create({ baseURL, withCredentials: true });
 
 const onRequestRejected = (error: AxiosError) => {
   const response = error.response as AxiosResponse;
@@ -20,6 +20,7 @@ const onRequestRejected = (error: AxiosError) => {
 };
 
 const onRequestFulfilled = (config: InternalAxiosRequestConfig) => {
+  // 쿠키 방식
   // const accessToken = localStorage.getItem("token");
 
   // if (accessToken) {
