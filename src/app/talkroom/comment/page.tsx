@@ -1,22 +1,27 @@
 "use client";
 
-import TalkIcon from "@/assets/img/talk-icon.svg";
-import Camera from "@/assets/img/camera.svg";
 import { Button } from "@/app/components/Button/Button";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BackButton from "@/app/summary/_component/BackButton";
+import Camera from "@/assets/img/camera.svg";
+import TalkIcon from "@/assets/img/talk-icon.svg";
+import { useCreateComment } from "@/hook/reactQuery/talkRoom/useCreateComment";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useInput } from "@/hook/useInput";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
-import { useCreateComment } from "@/hook/reactQuery/talkRoom/useCreateComment";
-import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
-import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 
 const CommentPage = () => {
   const { value, handleChange } = useInput("");
   const { mutate } = useCreateComment();
   // const {data} = useGetComments();
-  const { data } = useGetRooms({ page: 1, size: 4 });
+  const { data } = useGetRooms({
+    page: 1,
+    size: 4,
+    order: "recent",
+    search: "",
+    sortbydate: "",
+  });
   console.log("data", data);
   const [imageSrcs, setImageSrcs] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
