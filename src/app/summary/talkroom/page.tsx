@@ -28,8 +28,8 @@ const StarPage = () => {
   });
   return (
     <div className="grid grid-cols-3 gap-[20px] w-[80%]">
-      {talkRoomPopular?.queryResponse instanceof Array &&
-        talkRoomPopular?.queryResponse.map((data: any) => (
+      {talkRoomPopular?.response.queryResponse instanceof Array &&
+        talkRoomPopular?.response.queryResponse.map((data: any) => (
           <TalkRoomCard key={data.id} data={data} isBest={false} />
         ))}
     </div>

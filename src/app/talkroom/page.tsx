@@ -13,6 +13,20 @@ import { Input } from "../components/Input/Input";
 import Pagination from "../components/Pagination/Pagination";
 import { ThemeMain } from "../components/Theme/Theme";
 
+type TalkRoom = {
+  id: number;
+  profileImage: string;
+  username: string;
+  title: string;
+  content: string;
+  bookName: string;
+  bookAuthor: string;
+  bookThumbnail: string;
+  likeCount: number;
+  readingStatuses: string[];
+  registeredDateTime: string;
+};
+
 const page = () => {
   const { value, handleChange, reset } = useInput("");
   const router = useRouter();
@@ -135,17 +149,18 @@ const page = () => {
       </div>
 
       <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-        {talkRoomPopular?.queryResponse instanceof Array &&
-          talkRoomPopular?.queryResponse.map((data) => (
+        {talkRoomPopular?.response.queryResponse instanceof Array &&
+          talkRoomPopular?.response.queryResponse.map((data: TalkRoom) => (
             <TalkRoomCard key={data.id} data={data} isBest={false} />
           ))}
       </div>
       <Pagination
-        totalItems={talkRoomPopular?.totalCount}
+        totalItems={talkRoomPopular?.response.totalCount}
         pageCount={Math.ceil(
-          (talkRoomPopular?.totalCount ?? 0) / (talkRoomPopular?.size ?? 1),
+          (talkRoomPopular?.response.totalCount ?? 0) /
+            (talkRoomPopular?.response.size ?? 1),
         )}
-        postPage={talkRoomPopular?.size}
+        postPage={talkRoomPopular?.response.size}
         link={orderStatus + "?"}
       />
     </div>

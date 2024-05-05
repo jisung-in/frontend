@@ -13,11 +13,26 @@ import { Input } from "../../components/Input/Input";
 import Pagination from "../../components/Pagination/Pagination";
 import { ThemeMain } from "../../components/Theme/Theme";
 
+type TalkRoom = {
+  id: number;
+  profileImage: string;
+  username: string;
+  title: string;
+  content: string;
+  bookName: string;
+  bookAuthor: string;
+  bookThumbnail: string;
+  likeCount: number;
+  readingStatuses: string[];
+  registeredDateTime: string;
+};
+
 const page = () => {
   const { value, handleChange, reset } = useInput("");
   const router = useRouter();
   const params = useSearchParams();
   const orderParam = params.get("order");
+  const searchParam: string = params.get("search") || "";
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
@@ -31,13 +46,19 @@ const page = () => {
     setIsDate(date);
     if (date === "~한달 전") {
       setSortByDate("1m");
-      router.push("/talkroom/?order=recommend&sortbydate=1m");
+      router.push(
+        `/talkroom/${searchParam}/${orderParam}?page=1&size=10&order=recommend&search=${searchParam}&sortbydate=1m`,
+      );
     } else if (date === "7일전") {
       setSortByDate("1w");
-      router.push("/talkroom/?order=recommend&sortbydate=1w");
+      router.push(
+        `/talkroom/${searchParam}/${orderParam}?page=1&size=10&order=recommend&search=${searchParam}&sortbydate=1w`,
+      );
     } else if (date === "하루 전") {
       setSortByDate("1d");
-      router.push("/talkroom/?order=recommend&sortbydate=1d");
+      router.push(
+        `/talkroom/${searchParam}/${orderParam}?page=1&size=10&order=recommend&search=${searchParam}&sortbydate=1d`,
+      );
     }
   };
   const [sortByDate, setSortByDate] = useState<string>("");
@@ -46,16 +67,19 @@ const page = () => {
     page: 1,
     size: 10,
     order: orderStatus,
-    search: "",
+    search: searchParam,
     sortbydate: sortByDate,
   });
-
   const changeIsStatus = (status: string) => {
     if (status === "recent") {
-      router.push("/talkroom/?order=recent");
+      router.push(
+        `/talkroom/${searchParam}/${orderParam}/?order=recent&search=${searchParam}`,
+      );
       setSortByDate("");
     } else if (status === "recommend") {
-      router.push("/talkroom/?order=recommend&sortbydate=");
+      router.push(
+        `/talkroom/${searchParam}/${orderParam}/?order=recommend&search=${searchParam}&sortbydate=`,
+      );
       setSortByDate("");
       setIsDate("날짜별");
     } else return router.push("/not-found");
@@ -140,17 +164,18 @@ const page = () => {
       </div>
 
       <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-        {talkRoomPopular?.queryResponse instanceof Array &&
-          talkRoomPopular?.queryResponse.map((data) => (
+        {talkRoomPopular?.response.queryResponse instanceof Array &&
+          talkRoomPopular?.response.queryResponse.map((data: TalkRoom) => (
             <TalkRoomCard key={data.id} data={data} isBest={false} />
           ))}
       </div>
       <Pagination
-        totalItems={talkRoomPopular?.totalCount}
+        totalItems={talkRoomPopular?.response.totalCount}
         pageCount={Math.ceil(
-          (talkRoomPopular?.totalCount ?? 0) / (talkRoomPopular?.size ?? 1),
+          (talkRoomPopular?.response.totalCount ?? 0) /
+            (talkRoomPopular?.response.size ?? 1),
         )}
-        postPage={talkRoomPopular?.size}
+        postPage={talkRoomPopular?.response.size}
         link={orderStatus + "?"}
       />
     </div>

@@ -43,7 +43,6 @@ const page = () => {
     search: "",
     sortbydate: "",
   });
-  const { data: bookRankData } = useGetBookRank();
   const { data: recentData } = useGetRooms({
     page: 1,
     size: 4,
@@ -51,6 +50,7 @@ const page = () => {
     search: "",
     sortbydate: "",
   });
+  const { data: bookRankData } = useGetBookRank();
   const { data: talkRoomManyBookData } = useGetRoomBookOrder({
     page: 1,
     size: 12,
@@ -75,8 +75,8 @@ const page = () => {
           </ThemeMain>
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {popularData?.queryResponse instanceof Array &&
-            popularData?.queryResponse?.map((data: TalkRoom) => (
+          {popularData?.response.queryResponse instanceof Array &&
+            popularData?.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={true} />
             ))}
         </div>
@@ -109,8 +109,8 @@ const page = () => {
           </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {recentData?.queryResponse instanceof Array &&
-            recentData?.queryResponse.map((data: TalkRoom) => (
+          {recentData?.response.queryResponse instanceof Array &&
+            recentData?.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={false} />
             ))}
         </div>

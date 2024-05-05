@@ -32,7 +32,6 @@ const page = ({ params }: { params: { isbn: string } }) => {
     page: 1,
     size: 12,
   });
-
   return (
     <div>
       <div className="mx-[120px]">
@@ -92,7 +91,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <div className="font-SpoqaHanSansNeo font-bold text-[30px] flex flex-row flex-grow">
             <div>연관된 토크방 보기</div>
           </div>
-          <Link href={"/talkroom/recent"}>
+          <Link
+            href={`/talkroom/${bookDetailData?.title}?page=1&size=10&order=recommend&search=${bookDetailData?.title}&sortbydate=`}
+          >
             <div className="text-[20px] text-[#74747B] font-Pretendard font-refular flex items-center">
               더보기 {">"}
             </div>
