@@ -14,13 +14,9 @@ type BookStateResponse = {
 
 export const useCreateBookState = (isbn: string) => {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (request: BookStateRequest) =>
-      axiosInstance.post(
-        `${process.env.NEXT_PUBLIC_SERVER}/v1/user-libraries`,
-        request,
-      ),
+      axiosInstance.post(`/v1/user-libraries`, request),
     onSuccess: () =>
       queryClient.invalidateQueries({ queryKey: ["book", "state", isbn] }),
   });

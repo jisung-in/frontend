@@ -22,25 +22,29 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
   const timeLapse = (createdDateTime: string): string => {
     const createdDate = new Date(createdDateTime);
     const currentDate = new Date();
-    const elapsedTimeInMs = currentDate.getTime() - createdDate.getTime();
+    const timeLapseInMs = currentDate.getTime() - createdDate.getTime();
+    const timeLapseInSeconds = timeLapseInMs / 1000;
 
-    // 시간 단위로 변환
-    const elapsedTimeInHours = elapsedTimeInMs / (1000 * 60 * 60);
-
-    // 24시간 이상 경과한 경우
-    if (elapsedTimeInHours >= 24) {
-      const elapsedTimeInDays = Math.floor(elapsedTimeInHours / 24);
-      return `${elapsedTimeInDays}일 전`;
+    // 초 단위로 경과한 시간 계산
+    if (timeLapseInSeconds < 60) {
+      return `${Math.floor(timeLapseInSeconds)}초 전`;
     }
 
-    // 1시간 이상 24시간 미만 경과한 경우
-    if (elapsedTimeInHours >= 1) {
-      return `${Math.floor(elapsedTimeInHours)}시간 전`;
+    // 분 단위로 경과한 시간 계산
+    const timeLapseInMinutes = timeLapseInSeconds / 60;
+    if (timeLapseInMinutes < 60) {
+      return `${Math.floor(timeLapseInMinutes)}분 전`;
     }
 
-    // 1시간 미만 경과한 경우
-    const elapsedTimeInMinutes = Math.floor(elapsedTimeInMs / (1000 * 60));
-    return `${elapsedTimeInMinutes}분 전`;
+    // 시간 단위로 경과한 시간 계산
+    const timeLapseInHours = timeLapseInMinutes / 60;
+    if (timeLapseInHours < 24) {
+      return `${Math.floor(timeLapseInHours)}시간 전`;
+    }
+
+    // 일 단위로 경과한 시간 계산
+    const timeLapseInDays = Math.floor(timeLapseInHours / 24);
+    return `${timeLapseInDays}일 전`;
   };
 
   if (!talkroomOneData) {

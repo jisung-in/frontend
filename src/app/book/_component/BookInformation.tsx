@@ -28,14 +28,12 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
   const { data: bookDetailData } = useGetBookInformation({ isbn });
   const { mutate } = useCreateBookState(String(isbn));
   const [expanded, setExpanded] = useState(false);
-
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
-
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
-    mutate({ isbn: String(isbn), readingStatus: "want" });
+    mutate({ isbn: String(isbn), readingStatus: status });
   };
 
   const handleMouseMove = (
@@ -87,7 +85,7 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
     if (myStarRate === 5.0) {
       setEvaluate("최고에요!");
     }
-  }, [myStarRate]);
+  }, [myStarRate, status]);
 
   const handleMouseLeave = () => {
     setStarRate(0);
@@ -219,9 +217,9 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
           <div className="w-full flex flex-row gap-x-[26px] justify-end">
             <div
               className="cursor-pointer"
-              onClick={() => changeStatus("wantToRead")}
+              onClick={() => changeStatus("want")}
             >
-              {status === "wantToRead" ? <WantToReadOn /> : <WantToReadOff />}
+              {status === "want" ? <WantToReadOn /> : <WantToReadOff />}
             </div>
             <div
               className="cursor-pointer"
@@ -237,15 +235,15 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
             </div>
             <div
               className="cursor-pointer"
-              onClick={() => changeStatus("readStop")}
+              onClick={() => changeStatus("pause")}
             >
-              {status === "readStop" ? <ReadStopOn /> : <ReadStopOff />}
+              {status === "pause" ? <ReadStopOn /> : <ReadStopOff />}
             </div>
             <div
               className="cursor-pointer"
-              onClick={() => changeStatus("pause")}
+              onClick={() => changeStatus("stop")}
             >
-              {status === "pause" ? <PasueOn /> : <PasueOff />}
+              {status === "stop" ? <PasueOn /> : <PasueOff />}
             </div>
           </div>
         </div>
