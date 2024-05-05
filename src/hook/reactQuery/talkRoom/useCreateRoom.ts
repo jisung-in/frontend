@@ -19,7 +19,7 @@ type TalkRoomResponse = {
   bookThumbnail: string;
   likeCount: number;
   readingStatuses: string[];
-  createTime: number[];
+  createTime: string;
   images: string[];
   likeTalkRoom: boolean;
 };

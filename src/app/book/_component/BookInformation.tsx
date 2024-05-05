@@ -12,12 +12,12 @@ import ReadingOn from "@/assets/img/reading-on.svg";
 import WantToReadOff from "@/assets/img/want-to-read-off.svg";
 import WantToReadOn from "@/assets/img/want-to-read-on.svg";
 import { useCreateBookState } from "@/hook/reactQuery/book/useCreateBookState";
-import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
+import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface Isbn {
-  isbn: number;
+  isbn: string;
 }
 
 const BookInformation: React.FC<Isbn> = ({ isbn }) => {
@@ -25,23 +25,15 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [status, setStatus] = useState<string>("");
   const [evaluate, setEvaluate] = useState<string>("평가하기");
-  const { data: bookDetailData } = useGetBookDetail({ isbn });
+  const { data: bookDetailData } = useGetBookInformation({ isbn });
   const { mutate } = useCreateBookState(String(isbn));
   const [expanded, setExpanded] = useState(false);
-
   const toggleExpand = () => {
     setExpanded(!expanded);
   };
-
-  const toggleContent = () => {
-    if (expanded) {
-      toggleExpand();
-    }
-  };
-
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
-    mutate({ isbn: String(isbn), readingStatus: "want" });
+    mutate({ isbn: String(isbn), readingStatus: status });
   };
 
   const handleMouseMove = (
@@ -93,7 +85,7 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
     if (myStarRate === 5.0) {
       setEvaluate("최고에요!");
     }
-  }, [myStarRate]);
+  }, [myStarRate, status]);
 
   const handleMouseLeave = () => {
     setStarRate(0);
@@ -225,9 +217,9 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
           <div className="w-full flex flex-row gap-x-[26px] justify-end">
             <div
               className="cursor-pointer"
-              onClick={() => changeStatus("wantToRead")}
+              onClick={() => changeStatus("want")}
             >
-              {status === "wantToRead" ? <WantToReadOn /> : <WantToReadOff />}
+              {status === "want" ? <WantToReadOn /> : <WantToReadOff />}
             </div>
             <div
               className="cursor-pointer"
@@ -243,15 +235,15 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
             </div>
             <div
               className="cursor-pointer"
-              onClick={() => changeStatus("readStop")}
+              onClick={() => changeStatus("pause")}
             >
-              {status === "readStop" ? <ReadStopOn /> : <ReadStopOff />}
+              {status === "pause" ? <ReadStopOn /> : <ReadStopOff />}
             </div>
             <div
               className="cursor-pointer"
-              onClick={() => changeStatus("pause")}
+              onClick={() => changeStatus("stop")}
             >
-              {status === "pause" ? <PasueOn /> : <PasueOff />}
+              {status === "stop" ? <PasueOn /> : <PasueOff />}
             </div>
           </div>
         </div>

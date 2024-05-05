@@ -2,12 +2,12 @@ import { faker } from "@faker-js/faker";
 import Image from "next/image";
 
 interface dataPrpos {
-  isbn: number;
+  isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: number[];
+  dateTime: string;
 }
 
 const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {

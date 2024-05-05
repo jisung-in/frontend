@@ -7,7 +7,7 @@ import { useInput } from "@/hook/useInput";
 import Link from "next/link";
 import BookInformation from "../_component/BookInformation";
 
-const page = ({ params }: { params: { isbn: number } }) => {
+const page = ({ params }: { params: { isbn: string } }) => {
   const { value: name, handleChange: onNameChange } = useInput("");
   return (
     <div>

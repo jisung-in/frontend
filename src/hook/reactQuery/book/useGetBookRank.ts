@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 
 type BookRankResponse = {
   ranking: number;
-  isbn: number;
+  isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: number[];
+  dateTime: string;
 };
 
 export const useGetBookRank = () => {

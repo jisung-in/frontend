@@ -10,12 +10,12 @@ import BestSellerCard from "../Card/MainPageCard/BestSellerCard";
 interface BookSliderProps {
   data: {
     ranking: number;
-    isbn: number;
+    isbn: string;
     title: string;
     publisher: string;
     thumbnail: string;
     authors: string[];
-    dateTime: number[];
+    dateTime: string;
   }[];
   slidesPerView: number;
 }

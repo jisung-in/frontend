@@ -8,15 +8,15 @@ type param = {
 };
 
 type TalkRoomBookOrder = {
-  isbn: number;
+  isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: number[];
+  dateTime: string;
 };
 
-export const useGetTalkRoomBookOrder = ({
+export const useGetRoomBookOrder = ({
   page = 1,
   size = 10,
   order = "recent",

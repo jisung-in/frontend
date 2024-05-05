@@ -5,13 +5,30 @@ type TalkRoomRequest = {
   talkRoomId: string;
 };
 
-type TalkRoomResponse = {};
+type TalkRoomResponse = {
+  response: {
+    queryResponse: [
+      {
+        commentId: number;
+        userName: string;
+        content: string;
+        commentLikeCount: number;
+        createTime: string;
+      },
+    ];
+    totalCount: number;
+    size: number;
+  };
+  userLikeCommentIds: number[];
+};
 
 export const useGetComments = ({ talkRoomId }: TalkRoomRequest) => {
-  return useQuery({
+  return useQuery<TalkRoomResponse>({
     queryKey: ["talkRoom", "comment", talkRoomId],
     queryFn: () =>
-      axiosInstance.get<any>(`${process.env.NEXT_PUBLIC_SERVER}/talkRoomId`),
+      axiosInstance
+        .get<any>(`v1/${talkRoomId}/comments`)
+        .then((data) => data.data),
     throwOnError: true,
   });
 };
