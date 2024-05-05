@@ -19,6 +19,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
     setCount(count + 1);
     if (isLike) setCount(count - 1);
   };
+  console.log(talkroomOneData);
   return (
     <>
       {talkroomOneData && (
@@ -27,7 +28,17 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
             <div className="flex flex-row">
               <div className="flex grow">
                 <div className="flex flex-row">
-                  <div className="w-[223px] h-[291px] border border-solid border-[#F4E4CE] mt-[5px] mr-[40px]" />
+                  <div className="flex">
+                    <div className="image-wrapper">
+                      <Image
+                        className="min-w-[223px] min-h-[291px] max-w-[223px] max-h-[291px]  border border-solid border-[#F4E4CE] mt-[5px] mr-[40px]"
+                        src={talkroomOneData?.bookThumbnail}
+                        alt={"책표지"}
+                        width={223}
+                        height={291}
+                      />
+                    </div>
+                  </div>
                   <div className="flex flex-col">
                     <div className="flex items-center text-[#000] mt-[20px] text-[30px] mb-4">
                       <div className="mr-[7px]">
@@ -42,7 +53,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
                       {talkroomOneData.bookName}
                     </div>
                     <div className="flex font-regular text-lg text-[#7E7E7E]">
-                      생성일: {talkroomOneData.createTime}
+                      생성일: {talkroomOneData.registeredDateTime}
                     </div>
                   </div>
                 </div>

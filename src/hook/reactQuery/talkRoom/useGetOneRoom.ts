@@ -13,9 +13,10 @@ type TalkRoomResponse = {
   content: string;
   bookName: string;
   bookThumbnail: string;
+  bookAuthor: string;
   likeCount: number;
   readingStatuses: string[];
-  createTime: number[];
+  registeredDateTime: number[];
   images: string[];
   likeTalkRoom: boolean;
 };
