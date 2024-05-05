@@ -7,7 +7,7 @@ interface BestSellerCardProps {
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: number[];
+  dateTime: string;
 }
 const BestSellerCard: React.FC<BestSellerCardProps> = ({
   ranking,

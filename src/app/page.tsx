@@ -3,9 +3,9 @@
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
-import { useGetBookRank } from "@/hook/reactQuery/main/useGetBookRank";
-import { useGetTalkRoomBookOrder } from "@/hook/reactQuery/main/useGetTalkRoomBookOrder";
-import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
+import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
+import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import Link from "next/link";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
@@ -23,20 +23,20 @@ type TalkRoom = {
   bookThumbnail: string;
   likeCount: number;
   readingStatuses: string[];
-  registeredDateTime: number[];
+  registeredDateTime: string;
 };
 
 type TalkRoomBookOrder = {
-  isbn: number;
+  isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: number[];
+  dateTime: string;
 };
 
 const page = () => {
-  const { data: popularData } = useGetTalkRoomPopular({
+  const { data: popularData } = useGetRooms({
     page: 1,
     size: 4,
     order: "recommend",
@@ -44,14 +44,14 @@ const page = () => {
     sortbydate: "",
   });
   const { data: bookRankData } = useGetBookRank();
-  const { data: recentData } = useGetTalkRoomPopular({
+  const { data: recentData } = useGetRooms({
     page: 1,
     size: 4,
     order: "recent",
     search: "",
     sortbydate: "",
   });
-  const { data: talkRoomManyBookData } = useGetTalkRoomBookOrder({
+  const { data: talkRoomManyBookData } = useGetRoomBookOrder({
     page: 1,
     size: 12,
     order: "comment",

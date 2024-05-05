@@ -13,19 +13,20 @@ type TalkRoomResponse = {
   content: string;
   bookName: string;
   bookThumbnail: string;
+  bookAuthor: string;
   likeCount: number;
   readingStatuses: string[];
-  createTime: number[];
+  registeredDateTime: string;
   images: string[];
   likeTalkRoom: boolean;
 };
 
 export const useGetOneRoom = ({ talkRoomId }: TalkRoomRequest) => {
-  return useQuery({
+  return useQuery<TalkRoomResponse>({
     queryKey: ["talkRoom", talkRoomId],
     queryFn: () =>
       axiosInstance
-        .get<TalkRoomResponse>(`/v1/talk-room/${talkRoomId}`)
+        .get(`/v1/talk-room/${talkRoomId}`)
         .then((data) => data.data),
     throwOnError: true,
   });
