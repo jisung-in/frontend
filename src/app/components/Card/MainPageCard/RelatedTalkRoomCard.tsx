@@ -1,9 +1,7 @@
 import BookTitleRelate from "@/assets/img/book-title-relate.svg";
 import Like from "@/assets/img/like.svg";
 import NotLike from "@/assets/img/not-like.svg";
-import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title-middle.svg";
-import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
@@ -11,12 +9,14 @@ import IconButton from "../../IconButton/IconButton";
 interface TalkRoomCardProps {
   data: {
     id: number;
+    profileImage: string;
+    username: string;
     title: string;
-    image: string;
-    author: string;
-    talkTitle?: string;
-    userName?: string;
-    comment?: string;
+    content: string;
+    bookName: string;
+    bookAuthor: string;
+    bookThumbnail: string;
+    likeCount: number;
   };
 }
 
@@ -38,7 +38,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
             <div className="relative w-[135px] h-[188px]">
               <Image
                 className="border border-[#F4E4CE]"
-                src={faker.image.urlLoremFlickr()}
+                src={data.bookThumbnail ?? ""}
                 alt="책 표지"
                 fill
               />
@@ -50,7 +50,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
               <div className="text-[19px] font-semibold mb-1 overflow-hidden line-clamp-1">
                 {data.title}
               </div>
-              <div className="text-base">{data.author}</div>
+              <div className="text-base">{data.bookAuthor}</div>
             </div>
             <div className="flex flex-col items-center">
               <IconButton onClick={() => changeIsLike(isLike)}>
@@ -68,7 +68,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
           <div className="flex flex-row my-3 font-semibold items-center gap-x-[7px]">
             <ThemeTitle />
             <div className="flex flex-row overflow-hidden line-clamp-1 text-[22px]">
-              {data.talkTitle}
+              {data.title}
             </div>
             <div className="flex items-center bg-transparent leading-tight text-[15px] text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[11px] py-0.5">
               BEST
@@ -76,7 +76,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
           </div>
 
           <div className="font-medium text-lg text-[#656565] overflow-hidden min-h-20 mb-3 line-clamp-3">
-            {data.comment}
+            {data.content}
           </div>
 
           <hr className="w-full border border-[#F4E4CE]" />
@@ -84,14 +84,15 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
           <div className="flex flex-row gap-x-2.5 items-center mt-3">
             <div>
               <Image
-                src={Profile}
+                className="max-w-[26px] max-h-[26px] border rounded-[18px]"
+                src={data.profileImage ?? ""}
                 alt="프로필"
                 width={26}
                 height={26}
                 priority
               />
             </div>
-            <div className="font-medium text-base">{data.userName}</div>
+            <div className="font-medium text-base">{data.username}</div>
           </div>
         </div>
       </div>
