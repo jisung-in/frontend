@@ -47,8 +47,6 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
     return <div>Loading...</div>;
   }
 
-  console.log(talkroomOneData);
-
   return (
     <>
       {talkroomOneData && (
