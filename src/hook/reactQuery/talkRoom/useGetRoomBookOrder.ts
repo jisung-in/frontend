@@ -16,7 +16,7 @@ type TalkRoomBookOrder = {
   dateTime: number[];
 };
 
-export const useGetTalkRoomBookOrder = ({
+export const useGetRoomBookOrder = ({
   page = 1,
   size = 10,
   order = "recent",

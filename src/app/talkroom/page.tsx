@@ -2,7 +2,7 @@
 
 import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
-import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useInput } from "@/hook/useInput";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
@@ -17,7 +17,14 @@ const page = () => {
   const { value, handleChange, reset } = useInput("");
   const router = useRouter();
   const params = useSearchParams();
-  const orderStatus: string = params.get("order") || "";
+  const orderParam = params.get("order");
+  const orderStatus: "recent" | "recommend" | "recent-comment" =
+    orderParam === "recent" ||
+    orderParam === "recommend" ||
+    orderParam === "recent-comment"
+      ? orderParam
+      : "recent";
+
   const [isDate, setIsDate] = useState<string>("날짜별");
   const dateType: string[] = ["~한달 전", "7일전", "하루 전"];
   const changeIsDate = (date: string) => {
@@ -35,7 +42,7 @@ const page = () => {
   };
   const [sortByDate, setSortByDate] = useState<string>("");
 
-  const { data: talkRoomPopular } = useGetTalkRoomPopular({
+  const { data: talkRoomPopular } = useGetRooms({
     page: 1,
     size: 10,
     order: orderStatus,

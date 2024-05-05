@@ -1,9 +1,7 @@
 "use client";
 
-import { Button } from "@/app/components/Button/Button";
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
-import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 
 const buttonIndex = [
   {
@@ -21,11 +19,12 @@ const buttonIndex = [
 ];
 
 const StarPage = () => {
-  const { data: talkRoomPopular } = useGetTalkRoomPopular({
+  const { data: talkRoomPopular } = useGetRooms({
     page: 1,
     size: 10,
     order: "recent",
     search: "",
+    sortbydate: "",
   });
   return (
     <div className="grid grid-cols-3 gap-[20px] w-[80%]">
