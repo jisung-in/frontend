@@ -10,6 +10,7 @@ export const Header = () => {
   const router = useRouter();
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!value) return;
     reset();
     router.push(`/search/books?name=${value}`);
   };
