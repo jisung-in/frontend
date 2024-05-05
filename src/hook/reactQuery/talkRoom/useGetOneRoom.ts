@@ -21,11 +21,11 @@ type TalkRoomResponse = {
 };
 
 export const useGetOneRoom = ({ talkRoomId }: TalkRoomRequest) => {
-  return useQuery({
+  return useQuery<TalkRoomResponse>({
     queryKey: ["talkRoom", talkRoomId],
     queryFn: () =>
       axiosInstance
-        .get<TalkRoomResponse>(`/v1/talk-room/${talkRoomId}`)
+        .get(`/v1/talk-room/${talkRoomId}`)
         .then((data) => data.data),
     throwOnError: true,
   });
