@@ -1,7 +1,24 @@
 "use client";
 
+import { Button } from "@/app/components/Button/Button";
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
 import { useGetTalkRoomPopular } from "@/hook/reactQuery/main/useGetTalkRoomPopular";
+
+const buttonIndex = [
+  {
+    content: "생성한",
+    actived: false,
+  },
+  {
+    content: "답변한",
+    actived: false,
+  },
+  {
+    content: "좋아요",
+    actived: false,
+  },
+];
 
 const StarPage = () => {
   const { data: talkRoomPopular } = useGetTalkRoomPopular({

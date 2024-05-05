@@ -1,13 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import KakaoLogin from "@/assets/img/kakao-login.png";
+import Image from "next/image";
 
 const Button = () => {
-  const router = useRouter();
   return (
     <Link href={`${process.env.NEXT_PUBLIC_SERVER}/v1/oauth/kakao`}>
-      <button className="border-2 p-2">카카오 로그인</button>
+      <Image src={KakaoLogin} width={250} height={150} alt="카카오 버튼" />
     </Link>
   );
 };

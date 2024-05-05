@@ -11,6 +11,7 @@ import ReadingOff from "@/assets/img/reading-off.svg";
 import ReadingOn from "@/assets/img/reading-on.svg";
 import WantToReadOff from "@/assets/img/want-to-read-off.svg";
 import WantToReadOn from "@/assets/img/want-to-read-on.svg";
+import { useCreateBookState } from "@/hook/reactQuery/book/useCreateBookState";
 import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -25,7 +26,7 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
   const [status, setStatus] = useState<string>("");
   const [evaluate, setEvaluate] = useState<string>("평가하기");
   const { data: bookDetailData } = useGetBookDetail({ isbn });
-
+  const { mutate } = useCreateBookState(String(isbn));
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -40,6 +41,7 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
 
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
+    mutate({ isbn: String(isbn), readingStatus: "want" });
   };
 
   const handleMouseMove = (

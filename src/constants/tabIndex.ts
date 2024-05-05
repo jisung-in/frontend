@@ -1,15 +1,15 @@
 export const TAB_INDEX = [
   {
     path: "/summary/star",
-    text: "나의 별점 모아보기",
+    text: "별점",
   },
   {
     path: "/summary/review",
-    text: "나의 서평 모아보기",
+    text: "서평",
   },
   {
     path: "/summary/talkroom",
-    text: "나의 토크방 모아보기",
+    text: "토크방",
   },
   {
     path: "/summary/state",

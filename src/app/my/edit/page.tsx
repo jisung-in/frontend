@@ -6,6 +6,7 @@ import { Button } from "@/app/components/Button/Button";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import { useInput } from "@/hook/useInput";
 import { ChangeEvent, useRef, useState } from "react";
+import BackButton from "@/app/summary/_component/BackButton";
 
 const EditPage = () => {
   const { value: name, handleChange: onNameChange } = useInput("");
@@ -29,7 +30,13 @@ const EditPage = () => {
   };
 
   return (
-    <div className="flex flex-col px-[5%] py-[5%] gap-5 relative">
+    <div className="flex flex-col px-[5%] py-[5%] gap-5 relative ">
+      <div className="flex flex-col gap-4">
+        <BackButton />
+        <div>
+          <span className="font-bold text-3xl">프로필 수정</span>
+        </div>
+      </div>
       <div
         className="relative w-44 h-44 rounded-full overflow-hidden group"
         onClick={handleImageClick}
@@ -65,7 +72,7 @@ const EditPage = () => {
         <Textarea value={intro} onChange={onIntroChange} />
       </div>
       <div className="flex justify-end w-[100%]">
-        <div className="w-[180px]">
+        <div className="w-[180px] md:w-full">
           <Button>변경하기</Button>
         </div>
       </div>

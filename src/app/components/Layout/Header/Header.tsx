@@ -2,9 +2,8 @@
 import { useInput } from "@/hook/useInput";
 import { Input } from "../../Input/Input";
 import { useRouter } from "next/navigation";
-import { LoginComponent } from "./LoginComponents";
-import { useEffect } from "react";
 import SearchedList from "../../molecules/SearchedList/SearchedList";
+import { LoginComponent } from "./LoginComponents";
 
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
@@ -23,7 +22,7 @@ export const Header = () => {
       >
         <span className="cursor-pointer">JISUNGIN</span>
       </div>
-      <div className="flex gap-[46px] items-center">
+      <div className="flex gap-[46px] items-center sm:hidden">
         <form onSubmit={(e) => onSubmit(e)}>
           <div className="relative w-[414px]">
             <Input
@@ -35,7 +34,7 @@ export const Header = () => {
             {value.length > 0 && <SearchedList value={value} reset={reset} />}
           </div>
         </form>
-        {/* <LoginComponent /> */}
+        <LoginComponent />
       </div>
     </div>
   );

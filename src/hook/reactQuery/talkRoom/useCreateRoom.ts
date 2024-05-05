@@ -6,7 +6,7 @@ type TalkRoomRequest = {
   title: string;
   content: string;
   readingStatus: string[];
-  imageUrls: string;
+  imageUrls?: string;
 };
 
 type TalkRoomResponse = {
@@ -29,7 +29,10 @@ export const useCreateRoom = () => {
 
   return useMutation({
     mutationFn: (request: TalkRoomRequest) =>
-      axiosInstance.post<TalkRoomResponse>("/v1/talk-rooms", request),
+      axiosInstance.post<TalkRoomResponse>(
+        `${process.env.NEXT_PUBLIC_SERVER}/v1/talk-rooms`,
+        request,
+      ),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["talkRoom"] }),
   });
 };

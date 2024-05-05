@@ -13,13 +13,13 @@ const SearchedList = ({ value, reset }: Props) => {
   const { data: kakaoResult } = useGetKakaoResults({ target: value });
   const router = useRouter();
 
-  const onListClicked = (title: string) => {
-    router.push(`/search/book?name=${title}`);
+  const onListClicked = (book: any) => {
+    router.push(`/search/book?name=${book.title}`);
     reset();
   };
 
   return (
-    <div className="absolute flex flex-col w-full bg-[#F5F5F7] rounded-md p-4 gap-[10px]">
+    <div className="absolute flex flex-col w-full shadow-md bg-[#F5F5F7] rounded-md p-4 gap-[10px]">
       <span className="font-bold">인기 검색어</span>
       <div className="flex w-full gap-[3%]">
         <div className="max-w-[70px]">
@@ -43,7 +43,11 @@ const SearchedList = ({ value, reset }: Props) => {
       <span className="font-bold">연관 검색어</span>
       <ul className="flex flex-col gap-[5px]">
         {kakaoResult?.documents?.map((book) => (
-          <li key={book.isbn} onClick={() => onListClicked(book.title)}>
+          <li
+            key={book.isbn}
+            onClick={() => onListClicked(book)}
+            className="cursor-pointer"
+          >
             {book.title}
           </li>
         ))}
