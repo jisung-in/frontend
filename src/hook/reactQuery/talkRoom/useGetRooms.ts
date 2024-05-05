@@ -21,7 +21,7 @@ type TalkRoomInfo = {
     bookThumbnail: string;
     likeCount: number;
     readingStatuses: string[];
-    registeredDateTime: number[];
+    registeredDateTime: string;
   };
   totalCount: number;
   size: number;

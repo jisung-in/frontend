@@ -15,7 +15,7 @@ interface BookSliderProps {
     publisher: string;
     thumbnail: string;
     authors: string[];
-    dateTime: number[];
+    dateTime: string;
   }[];
   slidesPerView: number;
 }

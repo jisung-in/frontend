@@ -22,7 +22,6 @@ const CommentPage = () => {
     search: "",
     sortbydate: "",
   });
-  console.log("data", data);
   const [imageSrcs, setImageSrcs] = useState<string[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 

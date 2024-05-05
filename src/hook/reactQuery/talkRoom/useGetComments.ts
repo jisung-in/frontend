@@ -13,7 +13,7 @@ type TalkRoomResponse = {
         userName: string;
         content: string;
         commentLikeCount: number;
-        createTime: number[];
+        createTime: string;
       },
     ];
     totalCount: number;

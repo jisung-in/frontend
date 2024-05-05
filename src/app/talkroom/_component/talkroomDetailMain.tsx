@@ -19,7 +19,36 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
     setCount(count + 1);
     if (isLike) setCount(count - 1);
   };
+  const timeLapse = (createdDateTime: string): string => {
+    const createdDate = new Date(createdDateTime);
+    const currentDate = new Date();
+    const elapsedTimeInMs = currentDate.getTime() - createdDate.getTime();
+
+    // 시간 단위로 변환
+    const elapsedTimeInHours = elapsedTimeInMs / (1000 * 60 * 60);
+
+    // 24시간 이상 경과한 경우
+    if (elapsedTimeInHours >= 24) {
+      const elapsedTimeInDays = Math.floor(elapsedTimeInHours / 24);
+      return `${elapsedTimeInDays}일 전`;
+    }
+
+    // 1시간 이상 24시간 미만 경과한 경우
+    if (elapsedTimeInHours >= 1) {
+      return `${Math.floor(elapsedTimeInHours)}시간 전`;
+    }
+
+    // 1시간 미만 경과한 경우
+    const elapsedTimeInMinutes = Math.floor(elapsedTimeInMs / (1000 * 60));
+    return `${elapsedTimeInMinutes}분 전`;
+  };
+
+  if (!talkroomOneData) {
+    return <div>Loading...</div>;
+  }
+
   console.log(talkroomOneData);
+
   return (
     <>
       {talkroomOneData && (
@@ -32,7 +61,11 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
                     <div className="image-wrapper">
                       <Image
                         className="min-w-[223px] min-h-[291px] max-w-[223px] max-h-[291px]  border border-solid border-[#F4E4CE] mt-[5px] mr-[40px]"
-                        src={talkroomOneData?.bookThumbnail}
+                        src={
+                          talkroomOneData && talkroomOneData.bookThumbnail
+                            ? talkroomOneData.bookThumbnail
+                            : "/placeholder-image.jpg"
+                        }
                         alt={"책표지"}
                         width={223}
                         height={291}
@@ -53,7 +86,10 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
                       {talkroomOneData.bookName}
                     </div>
                     <div className="flex font-regular text-lg text-[#7E7E7E]">
-                      생성일: {talkroomOneData.registeredDateTime}
+                      생성일: &nbsp;
+                      {talkroomOneData.registeredDateTime
+                        ? timeLapse(talkroomOneData.registeredDateTime)
+                        : "더미데이터"}
                     </div>
                   </div>
                 </div>
@@ -110,7 +146,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
               {talkroomOneData.images.length > 0 ? (
                 talkroomOneData.images.map((image, index: number) => (
                   <Image
-                    key={index}
+                    key={`image_${index}`}
                     className="w-[160px] h-[160px] border border-solid border-[#FBF7F0] rounded-[4px]"
                     src={image}
                     alt="이미지"

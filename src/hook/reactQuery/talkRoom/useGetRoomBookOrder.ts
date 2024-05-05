@@ -13,7 +13,7 @@ type TalkRoomBookOrder = {
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: number[];
+  dateTime: string;
 };
 
 export const useGetRoomBookOrder = ({

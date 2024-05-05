@@ -23,7 +23,7 @@ type TalkRoom = {
   bookThumbnail: string;
   likeCount: number;
   readingStatuses: string[];
-  registeredDateTime: number[];
+  registeredDateTime: string;
 };
 
 type TalkRoomBookOrder = {
@@ -32,7 +32,7 @@ type TalkRoomBookOrder = {
   publisher: string;
   thumbnail: string;
   authors: string[];
-  dateTime: number[];
+  dateTime: string;
 };
 
 const page = () => {
