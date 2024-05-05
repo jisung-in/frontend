@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 type BookInformation = {
   title: string;
   content: string;
-  isbn: number;
+  isbn: string;
   publisher: string;
   imageUrl: string;
   thumbnail: string;
@@ -13,7 +13,7 @@ type BookInformation = {
   dateTime: string;
 };
 
-export const useGetBookInformation = ({ isbn }: { isbn: number }) => {
+export const useGetBookInformation = ({ isbn }: { isbn: string }) => {
   return useQuery<BookInformation>({
     queryKey: ["books", isbn.toString()],
     queryFn: () =>

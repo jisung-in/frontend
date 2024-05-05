@@ -17,7 +17,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface Isbn {
-  isbn: number;
+  isbn: string;
 }
 
 const BookInformation: React.FC<Isbn> = ({ isbn }) => {

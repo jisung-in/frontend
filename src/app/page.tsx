@@ -27,7 +27,7 @@ type TalkRoom = {
 };
 
 type TalkRoomBookOrder = {
-  isbn: number;
+  isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;

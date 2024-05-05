@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import Image from "next/image";
 
 interface dataPrpos {
-  isbn: number;
+  isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
