@@ -1,7 +1,7 @@
 import BookTitle from "@/assets/img/book-title.svg";
 import Like from "@/assets/img/like.svg";
 import NotLike from "@/assets/img/not-like.svg";
-import image from "@/assets/img/profile.png";
+import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title.svg";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
@@ -35,6 +35,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
     setIsLike(!isLike);
     setCount((prevCount) => (isLike ? prevCount - 1 : prevCount + 1));
   };
+  console.log(data.profileImage);
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
       <div className="relative w-[405px] h-[330px] rounded-[17px] bg-[#fff] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden">
@@ -108,7 +109,9 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
               <div>
                 <Image
                   className="max-w-[26px] max-h-[26px] border rounded-[16px]"
-                  src={data.profileImage ? image : data.profileImage}
+                  src={
+                    data.profileImage !== "image" ? data.profileImage : Profile
+                  }
                   alt="프로필"
                   width={26}
                   height={26}

@@ -1,7 +1,7 @@
 import BookTitleRelate from "@/assets/img/book-title-relate.svg";
 import Like from "@/assets/img/like.svg";
 import NotLike from "@/assets/img/not-like.svg";
-import image from "@/assets/img/profile.png";
+import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title-middle.svg";
 import { faker } from "@faker-js/faker";
 import Image from "next/image";
@@ -90,7 +90,9 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
               <div>
                 <Image
                   className="max-w-[26px] max-h-[26px] border rounded-[18px]"
-                  src={data.profileImage ? image : data.profileImage}
+                  src={
+                    data.profileImage !== "image" ? data.profileImage : Profile
+                  }
                   alt="프로필"
                   width={26}
                   height={26}
