@@ -12,7 +12,7 @@ import ReadingOn from "@/assets/img/reading-on.svg";
 import WantToReadOff from "@/assets/img/want-to-read-off.svg";
 import WantToReadOn from "@/assets/img/want-to-read-on.svg";
 import { useCreateBookState } from "@/hook/reactQuery/book/useCreateBookState";
-import { useGetBookDetail } from "@/hook/reactQuery/book/useGetBookDetail";
+import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
@@ -25,18 +25,12 @@ const BookInformation: React.FC<Isbn> = ({ isbn }) => {
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [status, setStatus] = useState<string>("");
   const [evaluate, setEvaluate] = useState<string>("평가하기");
-  const { data: bookDetailData } = useGetBookDetail({ isbn });
+  const { data: bookDetailData } = useGetBookInformation({ isbn });
   const { mutate } = useCreateBookState(String(isbn));
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpand = () => {
     setExpanded(!expanded);
-  };
-
-  const toggleContent = () => {
-    if (expanded) {
-      toggleExpand();
-    }
   };
 
   const changeStatus = (statusName: string) => {
