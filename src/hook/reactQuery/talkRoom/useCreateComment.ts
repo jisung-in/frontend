@@ -17,7 +17,7 @@ export const useCreateComment = () => {
   return useMutation({
     mutationFn: (request: CommentRequest) =>
       axiosInstance.post<CommentResponse>(
-        `${process.env.NEXT_PUBLIC_SERVER}/v1/comments?talkRoomId=549`,
+        `${process.env.NEXT_PUBLIC_SERVER}/v1/565/comments`,
         request,
       ),
     onSuccess: () =>
