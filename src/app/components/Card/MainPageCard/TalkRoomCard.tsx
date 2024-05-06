@@ -35,7 +35,6 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
     setIsLike(!isLike);
     setCount((prevCount) => (isLike ? prevCount - 1 : prevCount + 1));
   };
-  console.log(data.profileImage);
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
       <div className="relative w-[405px] h-[330px] rounded-[17px] bg-[#fff] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden">
