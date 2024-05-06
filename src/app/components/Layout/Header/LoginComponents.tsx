@@ -15,7 +15,7 @@ export const LoginComponent = () => {
           onClick={() => router.push("/my")}
         />
       ) : ( */}
-      <Button variant="ivory" height="md" onClick={() => router.push("/login")}>
+      <Button height="md" onClick={() => router.push("/login")}>
         로그인
       </Button>
       {/* )} */}
