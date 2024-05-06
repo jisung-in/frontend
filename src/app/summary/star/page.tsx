@@ -5,6 +5,7 @@ import {
   MyStarRateRequest,
   useGetMyStarRate,
 } from "@/hook/reactQuery/my/useGetMyStarRate";
+import { useGetMyStar } from "@/hook/reactQuery/my/useGetMyStars";
 import { useState } from "react";
 
 const filterList: string[] = [
@@ -20,11 +21,13 @@ const filterList: string[] = [
 
 const StarPage = () => {
   const [starFilter, setStartFilter] = useState("별점 순");
-  const { data: starData } = useGetMyStarRate();
+  const { data: starData } = useGetMyStar();
+
+  console.log(starData);
 
   return (
     <div className="flex flex-col w-full h-full items-center">
-      <div className="flex w-full justify-end pr-[160px] pb-[10px]">
+      <div className="flex w-full justify-end pr-[10%] pb-[10px]">
         <Dropdown
           items={filterList}
           selectedItem={starFilter}
@@ -32,14 +35,14 @@ const StarPage = () => {
         />
       </div>
       <div className="grid grid-cols-6 gap-[20px] w-[90%]">
-        {(starData as any)?.map((book: MyStarRateRequest) => (
+        {/* {(starData as any)?.map((book: MyStarRateRequest) => (
           <MyBookCard
             postId={book.postId}
             title={book.title}
             image={book.image}
             starRate={book.starRate}
           />
-        ))}
+        ))} */}
       </div>
     </div>
   );
