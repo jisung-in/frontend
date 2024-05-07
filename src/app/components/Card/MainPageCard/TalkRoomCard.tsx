@@ -37,7 +37,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
   };
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
-      <div className="relative w-[405px] h-[330px] rounded-[17px] bg-[#fff] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden">
+      <div className="relative w-[20dvw] min-w-[320px] h-[330px] rounded-[17px] bg-[#fff] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden">
         <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#FBF7F0] top-[-30%]"></div>
         <div className="absolute inset-0 flex justify-center items-center">
           <div className="flex flex-col m-[26px] w-full">

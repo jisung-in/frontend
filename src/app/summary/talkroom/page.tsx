@@ -3,21 +3,6 @@
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 
-const buttonIndex = [
-  {
-    content: "생성한",
-    actived: false,
-  },
-  {
-    content: "답변한",
-    actived: false,
-  },
-  {
-    content: "좋아요",
-    actived: false,
-  },
-];
-
 const StarPage = () => {
   const { data: talkRoomPopular } = useGetRooms({
     page: 1,

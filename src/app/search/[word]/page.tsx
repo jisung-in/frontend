@@ -3,6 +3,7 @@ import Preface from "./_component/Preface";
 import BookCards from "./_component/BookCards";
 import RoomCards from "./_component/RoomCards";
 import Tabs from "@/app/components/Tabs/Tabs";
+import SearchTab from "./_component/SearchTab";
 
 const SearchingWordPage = () => {
   return (
@@ -13,13 +14,7 @@ const SearchingWordPage = () => {
           <Preface />
         </div>
       </div>
-      <Tabs
-        tabs={[
-          { path: "/search/book", text: "도서" },
-          { path: "/search/talkroom", text: "토크방" },
-        ]}
-        bgColor="#FBF7F0"
-      />
+      <SearchTab />
       <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] px-[5%]">
         <BookCards />
       </div>
