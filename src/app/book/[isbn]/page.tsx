@@ -30,7 +30,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { data: relateData } = useGetBookRelatedTalkRoom({
     isbn: params?.isbn,
     page: 1,
-    size: 12,
+    size: 6,
   });
   return (
     <div>
