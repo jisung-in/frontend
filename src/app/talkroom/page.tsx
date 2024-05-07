@@ -6,7 +6,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
 import Pagination from "../components/Pagination/Pagination";
 import { ThemeMain } from "../components/Theme/Theme";
-import TalkRoomButtons from "./_component/talkroomButtons";
+import TalkRoomSearchFunction from "./_component/talkroomSearchFunction";
 type TalkRoom = {
   id: number;
   profileImage: string;
@@ -64,7 +64,10 @@ const page = () => {
         </ThemeMain.MainTheme>
 
         <div className="flex mb-[37px] grow">
-          <TalkRoomButtons onSearchSubmit={searchTalkRoom} searchParam={""} />
+          <TalkRoomSearchFunction
+            onSearchSubmit={searchTalkRoom}
+            searchParam={""}
+          />
         </div>
       </div>
 
