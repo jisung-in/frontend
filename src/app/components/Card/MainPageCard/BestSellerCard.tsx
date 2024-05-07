@@ -20,7 +20,7 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   return (
     <BookMain>
       <BookMain.BookCover>
-        <div className="w-[263px] h-[375px]">
+        <div className="w-[320px] h-[450px]">
           {thumbnail && (
             <Image
               className="border border-[#F4E4CE] rounded-[10px]"

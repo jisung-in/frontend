@@ -12,8 +12,8 @@ interface dataPrpos {
 
 const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
   return (
-    <div className="w-[223px]">
-      <div className="relative w-full h-[323px] cursor-pointer">
+    <div className="w-[263px]">
+      <div className="relative w-full h-[375px] cursor-pointer">
         {data.thumbnail ? (
           <Image
             className="border border-[#F4E4CE] rounded-[10px]"

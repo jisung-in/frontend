@@ -81,8 +81,8 @@ const page = () => {
             ))}
         </div>
       </div>
-      <div className="bg-[#FBF7F0] pt-[1px]">
-        <div className="mt-[55px] ml-[120px]">
+      <div className="bg-[#FBF7F0] py-[1px]">
+        <div className="my-[55px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-7">
               <div className="flex gap-x-3 grow items-center">
@@ -92,7 +92,7 @@ const page = () => {
             </div>
           </ThemeMain.MainTheme>
           {bookRankData instanceof Array && (
-            <Swiper data={bookRankData} slidesPerView={6} />
+            <Swiper data={bookRankData} slidesPerView={5} />
           )}
         </div>
       </div>
