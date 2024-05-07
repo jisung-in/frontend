@@ -64,7 +64,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
                   <BookTitle />
                 </div>
                 <div className="mt-4 ml-[9px] flex-grow text-[#656565]">
-                  <div className="font-semibold mb-1 overflow-hidden line-clamp-1">
+                  <div className="font-semibold mb-1 text-[#17px] overflow-hidden line-clamp-1">
                     {data.bookName}
                   </div>
                   <div className="text-sm">{data.bookAuthor}</div>
@@ -79,14 +79,14 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
                     <NotLike width={21} height={19} />
                   )}
                 </IconButton>
-                <div className="h-[22px] font-Inter font-regular text-base text-[#656565]">
+                <div className="h-[22px] font-Inter font-regular text-[#13px] text-[#656565]">
                   {count}
                 </div>
               </div>
             </div>
             <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">
               <ThemeTitle />
-              <div className="flex flex-row overflow-hidden line-clamp-1">
+              <div className="flex flex-row text-xl overflow-hidden line-clamp-1">
                 {data.title}
               </div>
               {isBest ? (

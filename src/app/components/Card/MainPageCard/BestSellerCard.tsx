@@ -38,13 +38,15 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
         </div>
       </BookMain.BookTitle>
       <BookMain.Publisher>
-        <div className="overflow-hidden line-clamp-1">{publisher}</div>
+        <div className="text-lg overflow-hidden line-clamp-1">{publisher}</div>
       </BookMain.Publisher>
       <BookMain.Author>
-        <div className="overflow-hidden line-clamp-1">{authors.join(", ")}</div>
+        <div className="text-lg overflow-hidden line-clamp-1">
+          {authors.join(", ")}
+        </div>
       </BookMain.Author>
       <BookMain.Year>
-        <div className="overflow-hidden line-clamp-1">
+        <div className="text-lg overflow-hidden line-clamp-1">
           {dateTime.slice(0, 4)}
         </div>
       </BookMain.Year>
