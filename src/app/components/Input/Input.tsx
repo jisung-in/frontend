@@ -12,7 +12,7 @@ const inputContainerVariants = cva(
   {
     variants: {
       variant: {
-        main: "bg-gray-30 border-none font-white",
+        main: "bg-gray-40 border-none font-white",
         empty: "bg-white border-gray-40 font-black",
       },
       isFocused: {

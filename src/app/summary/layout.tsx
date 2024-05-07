@@ -8,7 +8,7 @@ type Props = { children: ReactNode };
 export default function SummaryLayout({ children }: Props) {
   return (
     <div className="flex flex-col justify-center w-full h-full py-[3%]">
-      <div className="flex flex-col px-[5%] gap-[20px] pb-[20px]">
+      <div className="flex flex-col sm:flex-row px-[5%] gap-[20px] pb-[20px]">
         <BackButton />
         <Preface />
       </div>

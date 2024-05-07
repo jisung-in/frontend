@@ -7,14 +7,17 @@ import { useRouter } from "next/navigation";
 type Props = {
   value: string;
   reset: () => void;
+  searches: any;
+  setSearches: any;
 };
 
-const SearchedList = ({ value, reset }: Props) => {
+const SearchedList = ({ value, reset, setSearches, searches }: Props) => {
   const { data: kakaoResult } = useGetKakaoResults({ target: value });
   const router = useRouter();
 
   const onListClicked = (book: any) => {
     router.push(`/search/book?name=${book.title}`);
+
     reset();
   };
 
@@ -38,7 +41,16 @@ const SearchedList = ({ value, reset }: Props) => {
           </Button>
         </div>
       </div>
+
       <span className="font-bold">최근 검색어</span>
+      <ul>
+        {searches.map((item: string) => (
+          <li>{item}</li>
+        ))}
+      </ul>
+      <ul className="flex flex-col gap-[5px]">
+        <li></li>
+      </ul>
 
       <span className="font-bold">연관 검색어</span>
       <ul className="flex flex-col gap-[5px]">

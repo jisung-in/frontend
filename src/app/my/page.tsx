@@ -53,7 +53,7 @@ const MyPage = () => {
           <MyButton width={100}>로그아웃</MyButton>
         </div>
 
-        <div className="flex align-center gap-[5%]">
+        <div className="flex align-center gap-[5%] sm:flex-col sm:gap-[20px]">
           <span className="text-[27px] font-[700]">{userData.id}</span>
 
           <MyButton width={133} path="/my/edit">
@@ -70,7 +70,7 @@ const MyPage = () => {
       </div>
       <div className="flex flex-col px-[5%] py-[5%] gap-5">
         <h2 className="text-[27px] font-[700]">내 정보 요약</h2>
-        <div className="flex justify-between px-[5%] pt-[5%]">
+        <div className="flex justify-between px-[5%] pt-[5%] sm:flex-wrap">
           {data.map((item) => (
             <SummaryCard data={item} />
           ))}
