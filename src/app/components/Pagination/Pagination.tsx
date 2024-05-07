@@ -41,51 +41,44 @@ const Pagination = ({
       <div className="mr-[17px]">
         {pageCount > 1 && currentPage !== 1 && (
           <Link
-            href={`${link}page=${currentPage - 1}`}
+            href={`${link.split("&page=")[0]}&page=${currentPage - 1}`}
             onClick={() => changePage(currentPage - 1)}
             passHref
+            key="prev"
           >
             <PrevArrow />
           </Link>
         )}
       </div>
-      {[
-        pageNumber.map((pageNum: number) => (
-          <>
-            {
-              <div
-                key={pageNum}
-                className="mr-[17px] text-[15px] text-[#A3A3A3]"
-              >
-                {currentPage === pageNum ? (
-                  <Link
-                    className="bg-[#80685D] rounded-[5px] text-white px-[17px] py-[12px]"
-                    passHref
-                    href="#"
-                  >
-                    {pageNum}
-                  </Link>
-                ) : (
-                  <Link
-                    className="px-[17px] py-[12px]"
-                    href={`${link}page=${pageNum}`}
-                    onClick={() => changePage(pageNum)}
-                    passHref
-                  >
-                    {pageNum}
-                  </Link>
-                )}
-              </div>
-            }
-          </>
-        )),
-      ]}
+      {pageNumber.map((pageNum: number) => (
+        <div key={pageNum} className="mr-[17px] text-[15px] text-[#A3A3A3]">
+          {currentPage === pageNum ? (
+            <Link
+              className="bg-[#80685D] rounded-[5px] text-white px-[17px] py-[12px]"
+              passHref
+              href="#"
+            >
+              {pageNum}
+            </Link>
+          ) : (
+            <Link
+              className="px-[17px] py-[12px]"
+              href={`${link.split("&page=")[0]}&page=${pageNum}`}
+              onClick={() => changePage(pageNum)}
+              passHref
+            >
+              {pageNum}
+            </Link>
+          )}
+        </div>
+      ))}
       <div>
         {currentPage < pageCount && (
           <Link
-            href={`${link}page=${currentPage + 1}`}
+            href={`${link.split("&page=")[0]}&page=${currentPage + 1}`}
             onClick={() => changePage(currentPage + 1)}
             passHref
+            key="next"
           >
             <NextArrow />
           </Link>

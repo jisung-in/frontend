@@ -4,7 +4,7 @@ import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useInput } from "@/hook/useInput";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../components/Button/Button";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
@@ -31,6 +31,7 @@ const page = () => {
   const { value, handleChange, reset } = useInput("");
   const router = useRouter();
   const params = useSearchParams();
+  const currentUrl = usePathname();
   const orderParam = params.get("order");
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
@@ -41,24 +42,24 @@ const page = () => {
 
   const [isDate, setIsDate] = useState<string>("날짜별");
   const dateType: string[] = ["~한달 전", "7일전", "하루 전"];
+  const [sortByDate, setSortByDate] = useState<string>("");
   const changeIsDate = (date: string) => {
     setIsDate(date);
     if (date === "~한달 전") {
       setSortByDate("1m");
-      router.push("/talkroom/?order=recommend&sortbydate=1m");
+      router.push("/talkroom/?order=recommend&sortbydate=1m&page=1");
     } else if (date === "7일전") {
       setSortByDate("1w");
-      router.push("/talkroom/?order=recommend&sortbydate=1w");
+      router.push("/talkroom/?order=recommend&sortbydate=1w&page=1");
     } else if (date === "하루 전") {
       setSortByDate("1d");
-      router.push("/talkroom/?order=recommend&sortbydate=1d");
+      router.push("/talkroom/?order=recommend&sortbydate=1d&page=1");
     }
   };
-  const [sortByDate, setSortByDate] = useState<string>("");
 
   const { data: talkRoomPopular } = useGetRooms({
     page: 1,
-    size: 10,
+    size: 12,
     order: orderStatus,
     search: "",
     sortbydate: sortByDate,
@@ -66,15 +67,21 @@ const page = () => {
 
   const changeIsStatus = (status: string) => {
     if (status === "recent") {
-      router.push("/talkroom/?order=recent");
+      router.push("/talkroom/?order=recent&page=1");
       setSortByDate("");
     } else if (status === "recommend") {
-      router.push("/talkroom/?order=recommend&sortbydate=");
+      router.push("/talkroom/?order=recommend&sortbydate=&page=1");
       setSortByDate("");
       setIsDate("날짜별");
     } else return router.push("/not-found");
   };
 
+  const searchTalkRoom = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    router.push(
+      `/talkroom/${value}/?order=recent&search=${value}&sortbydate=&page=1`,
+    );
+  };
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">
@@ -129,14 +136,16 @@ const page = () => {
 
           <div className="flex h-[40px]">
             <div className="w-[567px] mr-[11px]">
-              <Input
-                className="font-Pretendard font-[400]"
-                variant="empty"
-                value={value}
-                onChange={handleChange}
-                reset={reset}
-                placeholder="이곳에 검색해보세요."
-              />
+              <form onSubmit={searchTalkRoom}>
+                <Input
+                  className="font-Pretendard font-[400]"
+                  variant="empty"
+                  value={value}
+                  onChange={handleChange}
+                  reset={reset}
+                  placeholder="이곳에 검색해보세요."
+                />
+              </form>
             </div>
             <div className="w-[167px]">
               <Button>
@@ -161,7 +170,11 @@ const page = () => {
             (talkRoomPopular?.response.size ?? 1),
         )}
         postPage={talkRoomPopular?.response.size}
-        link={orderStatus + "?"}
+        link={
+          sortByDate
+            ? currentUrl + `?order=${orderParam}&sortByDate=${sortByDate}`
+            : currentUrl + `?order=${orderParam}`
+        }
       />
     </div>
   );
