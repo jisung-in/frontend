@@ -6,7 +6,7 @@ type TalkRoomRequest = {
   size: number;
   order: "recent" | "recommend" | "recent-comment";
   search?: string;
-  sortbydate?: string;
+  sortbydate?: "1m" | "1w" | "1d" | "";
 };
 
 type TalkRoomInfo = {
