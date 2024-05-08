@@ -1,3 +1,4 @@
+import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 
@@ -21,14 +22,12 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
     <BookMain>
       <BookMain.BookCover>
         <div className="w-[320px] h-[450px]">
-          {thumbnail && (
-            <Image
-              className="border border-[#F4E4CE] rounded-[10px]"
-              src={thumbnail}
-              alt="책 표지"
-              fill
-            />
-          )}
+          <Image
+            className="border border-[#F4E4CE] rounded-[10px]"
+            src={thumbnail ? thumbnail : NoImage}
+            alt="책 표지"
+            fill
+          />
         </div>
       </BookMain.BookCover>
       {ranking && <BookMain.RankBox>{ranking}</BookMain.RankBox>}
