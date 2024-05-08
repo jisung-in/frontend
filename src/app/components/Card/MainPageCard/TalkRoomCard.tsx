@@ -1,9 +1,9 @@
 import BookTitle from "@/assets/img/book-title.svg";
 import Like from "@/assets/img/like.svg";
+import NoImage from "@/assets/img/no-image.png";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title.svg";
-import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -54,7 +54,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
                   ) : (
                     <Image
                       className="border border-[#F4E4CE]"
-                      src={faker.image.urlLoremFlickr()}
+                      src={data.bookThumbnail ? data.bookThumbnail : NoImage}
                       alt="책 표지"
                       fill
                     />
