@@ -1,14 +1,12 @@
 "use client";
-import { Button } from "@/app/components/Button/Button";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
-import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
-import { useInput } from "@/hook/useInput";
 import Link from "next/link";
 import BookInformation from "../_component/BookInformation";
+import RegisterEvaluation from "../_component/registerEvaluation";
 
 type TalkRoom = {
   id: number;
@@ -23,7 +21,6 @@ type TalkRoom = {
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
-  const { value: name, handleChange: onNameChange } = useInput("");
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params?.isbn,
   });
@@ -47,25 +44,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
 
       <div className="bg-white">
         <div className="max-w-[1680px] mx-[120px]">
-          <div className="font-SpoqaHanSansNeo font-bold text-[30px] pt-[43px] mb-[28px]">
-            한줄평을 작성해보세요
-          </div>
-          <div className="relative font-Pretendard ">
-            <Textarea
-              variant="main"
-              value={name}
-              className="font-regular text-[22px] max-w-[1680px] min-h-[179px]"
-              onChange={onNameChange}
-              placeholder="한줄평을 자유롭게 작성해보세요."
-            />
-            <div className="absolute bottom-[26px] right-[36px]">
-              <Button className="font-medium text-[21px]">
-                <div className="px-[25px] my-[8px]">등록하기</div>
-              </Button>
-            </div>
-          </div>
+          <RegisterEvaluation />
 
-          <div className="flex flex-row mt-[63px] mb-[28px]  items-center">
+          <div className="flex flex-row mt-[63px] mb-[28px] items-center">
             <div className="flex flex-row gap-x-[19px] flex-grow text-[30px] font-SpoqaHanSansNeo items-center">
               <div className="font-bold">유저들의 평가</div>
               <div className="font-medium text-[#74747B]">3000+</div>
