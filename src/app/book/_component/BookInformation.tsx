@@ -37,10 +37,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
   const [status, setStatus] = useState<string>("");
   const [evaluate, setEvaluate] = useState<string>("평가하기");
   const { mutate } = useCreateBookState(String(isbn));
-  const [expanded, setExpanded] = useState(false);
-  const toggleExpand = () => {
-    setExpanded(!expanded);
-  };
+
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
     mutate({ isbn: String(isbn), readingStatus: status });
@@ -131,7 +128,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
         />
       </div>
       <div className="flex flex-col grow justify-start font-Pretendard font-medium">
-        <div className="flex flex-row items-center mt-[30px] gap-x-[220px]">
+        <div className="flex flex-row items-center mt-[30px] gap-x-[70px]">
           <div className="flex flex-col">
             <div className="flex flex-row">
               {Array(5)
@@ -163,71 +160,65 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
                   );
                 })}
             </div>
-            <div className="text-base text-[#B1B1B1] mt-1.5 mb-[27px]">
-              {evaluate}
-            </div>
+            <div className="text-base text-[#B1B1B1] mt-[15px]">{evaluate}</div>
           </div>
           <div className="flex flex-col items-center">
-            <div className="font-Inter text-[44px]">{data?.ratingAverage}</div>
-            <div className="text-base text-[#B1B1B1] mt-1.5 mb-[27px]">
-              평균별점
+            <div className="font-Inter text-[44px]">
+              {data?.ratingAverage
+                ? parseFloat(data?.ratingAverage.toFixed(1))
+                : (0).toFixed(1).toString()}
+            </div>
+            <div className="text-base text-[#B1B1B1]">평균별점</div>
+          </div>
+
+          <div className="w-full flex flex-row gap-x-[26px] justify-end">
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("want")}
+            >
+              {status === "want" ? <WantToReadOn /> : <WantToReadOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("reading")}
+            >
+              {status === "reading" ? <ReadingOn /> : <ReadingOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("read")}
+            >
+              {status === "read" ? <ReadOn /> : <ReadOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("pause")}
+            >
+              {status === "pause" ? <ReadStopOn /> : <ReadStopOff />}
+            </div>
+            <div
+              className="cursor-pointer"
+              onClick={() => changeStatus("stop")}
+            >
+              {status === "stop" ? <PasueOn /> : <PasueOff />}
             </div>
           </div>
         </div>
+        <hr className="w-full border border-[#F4E4CE] mt-[18px] mb-[32px]" />
+        <div className="flex flex-col">
+          <div className="mb-[9px] font-semibold text-[40px]">
+            {data?.title}
+          </div>
 
-        <div className="mb-[9px] font-semibold text-[40px]">{data?.title}</div>
+          <div className="font-Inter flex flex-row gap-x-[29px] text-2xl text-[#656565] mb-[41px]">
+            <div>{data?.publisher}</div>
+            <div>{data?.authors.join(", ")}</div>
+            <div>{data?.dateTime.slice(0, 4)}</div>
+          </div>
 
-        <div className="font-Inter flex flex-row gap-x-[29px] text-2xl text-[#656565] mb-[41px]">
-          <div>{data?.publisher}</div>
-          <div>{data?.authors.join(", ")}</div>
-          <div>{data?.dateTime.slice(0, 4)}</div>
-        </div>
-
-        <div className="text-xl text-[#656565] w-[680px] overflow-hidden">
-          {expanded ? (
-            <>
-              {data?.content}
-              <div className="flex justify-end">
-                <button className="font-semibold" onClick={toggleExpand}>
-                  접기
-                </button>
-              </div>
-            </>
-          ) : (
-            <>
-              {data?.content.length > 200 ? (
-                <>
-                  {data?.content.slice(0, 200)}
-                  {"... "}
-                  <div className="flex justify-end">
-                    <button className="font-semibold" onClick={toggleExpand}>
-                      더 보기
-                    </button>
-                  </div>
-                </>
-              ) : (
-                data?.content
-              )}
-            </>
-          )}
-        </div>
-      </div>
-
-      <div className="w-full flex flex-row gap-x-[26px] justify-end">
-        <div className="cursor-pointer" onClick={() => changeStatus("want")}>
-          {status === "want" ? <WantToReadOn /> : <WantToReadOff />}
-        </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("reading")}>
-          {status === "reading" ? <ReadingOn /> : <ReadingOff />}
-        </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("read")}>
-          {status === "read" ? <ReadOn /> : <ReadOff />}
-        </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("pause")}>
-          {status === "pause" ? <ReadStopOn /> : <ReadStopOff />}
-        </div>
-        <div className="cursor-pointer" onClick={() => changeStatus("stop")}>
-          {status === "stop" ? <PasueOn /> : <PasueOff />}
+          <div className="text-xl text-[#656565] yoverflow-hidden">
+            {data?.content.slice(0, 400)} {"... "}
+          </div>
         </div>
       </div>
     </div>
