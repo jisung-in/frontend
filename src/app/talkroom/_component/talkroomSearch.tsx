@@ -1,5 +1,7 @@
 import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import { useInput } from "@/hook/useInput";
+import changeIsDate from "@/util/searchTalkRoomDate";
+import changeIsStatus from "@/util/searchTalkRoomStatus";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../../components/Button/Button";
@@ -18,10 +20,10 @@ const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
   const router = useRouter();
   const params = useSearchParams();
   const orderParam = params.get("order");
+  const sortByDateParam = params.get("sortbydate");
   const { value, handleChange, reset } = useInput("");
   const [isDate, setIsDate] = useState<string>("날짜별");
   const dateType: string[] = ["~한달 전", "7일전", "하루 전"];
-  const [sortByDate, setSortByDate] = useState<string>("");
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
@@ -29,76 +31,10 @@ const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
       ? orderParam
       : "recent";
 
-  const changeIsStatus = (status: string) => {
-    if (searchParam) {
-      if (status === "recent") {
-        setSortByDate("");
-        return router.push(
-          `/talkroom/${searchParam}/?order=recent&search=${searchParam}&page=1`,
-        );
-      } else if (status === "recommend") {
-        setSortByDate("");
-        setIsDate("날짜별");
-        return router.push(
-          `/talkroom/${searchParam}/?order=recommend&search=${searchParam}&sortbydate=&page=1`,
-        );
-      }
-    } else {
-      if (status === "recent") {
-        setSortByDate("");
-        return router.push(`/talkroom/?order=recent&page=1`);
-      }
-      if (status === "recommend") {
-        setSortByDate("");
-        setIsDate("날짜별");
-        return router.push(`/talkroom/?order=recommend&sortbydate=&page=1`);
-      } else {
-        router.push("/not-found");
-      }
-    }
-  };
-  const changeIsDate = (date: string) => {
-    setIsDate(date);
-    if (searchParam) {
-      if (date === "~한달 전") {
-        setSortByDate("1m");
-        return router.push(
-          `/talkroom/${searchParam}/?order=recommend&search=${searchParam}&sortbydate=1m&page=1`,
-        );
-      }
-      if (date === "7일전") {
-        setSortByDate("1w");
-        return router.push(
-          `/talkroom/${searchParam}/?order=recommend&search=${searchParam}&sortbydate=1w&page=1`,
-        );
-      }
-      if (date === "하루 전") {
-        setSortByDate("1d");
-        return router.push(
-          `/talkroom/${searchParam}/?order=recommend&search=${searchParam}&sortbydate=1d&page=1`,
-        );
-      }
-    } else {
-      if (date === "~한달 전") {
-        setSortByDate("1m");
-        return router.push("/talkroom/?order=recommend&sortbydate=1m&page=1");
-      }
-      if (date === "7일전") {
-        setSortByDate("1w");
-        return router.push("/talkroom/?order=recommend&sortbydate=1w&page=1");
-      }
-      if (date === "하루 전") {
-        setSortByDate("1d");
-        return router.push("/talkroom/?order=recommend&sortbydate=1d&page=1");
-      }
-    }
-  };
-
   const searchTalkRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSearchSubmit(value);
   };
-
   return (
     <>
       <div className="flex grow">
@@ -107,7 +43,10 @@ const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
             <div className="flex">
               <div
                 className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer mr-[11px]"
-                onClick={() => changeIsStatus("recent")}
+                onClick={() => {
+                  setIsDate("날짜별");
+                  router.push(changeIsStatus("recent", searchParam));
+                }}
               >
                 최신순
               </div>
@@ -119,7 +58,10 @@ const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
               <DropDown
                 items={dateType}
                 selectedItem={isDate}
-                setSelectedItem={changeIsDate}
+                setSelectedItem={(date) => {
+                  setIsDate(date);
+                  router.push(changeIsDate(date, searchParam));
+                }}
                 className="left-[-35px]"
               />
             </div>
@@ -132,7 +74,9 @@ const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
             </div>
             <div
               className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer"
-              onClick={() => changeIsStatus("recommend")}
+              onClick={() =>
+                router.push(changeIsStatus("recommend", searchParam))
+              }
             >
               인기순
             </div>
