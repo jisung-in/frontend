@@ -20,7 +20,6 @@ const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
   const router = useRouter();
   const params = useSearchParams();
   const orderParam = params.get("order");
-  const sortByDateParam = params.get("sortbydate");
   const { value, handleChange, reset } = useInput("");
   const [isDate, setIsDate] = useState<string>("날짜별");
   const dateType: string[] = ["~한달 전", "7일전", "하루 전"];
