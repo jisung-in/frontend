@@ -32,6 +32,7 @@ const SwiperSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
           modules={[Navigation, Pagination]}
           spaceBetween={20}
           slidesPerView={slidesPerView}
+          slidesPerGroup={5}
         >
           {data?.map((data) => (
             <SwiperSlide key={data.isbn}>

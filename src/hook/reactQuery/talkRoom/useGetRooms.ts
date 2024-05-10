@@ -6,25 +6,28 @@ type TalkRoomRequest = {
   size: number;
   order: "recent" | "recommend" | "recent-comment";
   search?: string;
-  sortbydate?: string;
+  sortbydate?: "1m" | "1w" | "1d" | "";
 };
 
 type TalkRoomInfo = {
-  queryResponse: {
-    id: number;
-    profileImage: string;
-    username: string;
-    title: string;
-    content: string;
-    bookName: string;
-    bookAuthor: string;
-    bookThumbnail: string;
-    likeCount: number;
-    readingStatuses: string[];
-    registeredDateTime: string;
+  response: {
+    queryResponse: {
+      id: number;
+      profileImage: string;
+      username: string;
+      title: string;
+      content: string;
+      bookName: string;
+      bookAuthor: string;
+      bookThumbnail: string;
+      likeCount: number;
+      readingStatuses: string[];
+      registeredDateTime: string;
+    };
+    totalCount: number;
+    size: number;
   };
-  totalCount: number;
-  size: number;
+  userLikeTalkRoomIds: number[];
 };
 
 export const useGetRooms = ({
@@ -41,7 +44,7 @@ export const useGetRooms = ({
         .get(
           `/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}&day=${sortbydate}`,
         )
-        .then(({ data }) => data.response),
+        .then(({ data }) => data),
     throwOnError: true,
   });
 };

@@ -43,7 +43,6 @@ const page = () => {
     search: "",
     sortbydate: "",
   });
-  const { data: bookRankData } = useGetBookRank();
   const { data: recentData } = useGetRooms({
     page: 1,
     size: 4,
@@ -51,6 +50,7 @@ const page = () => {
     search: "",
     sortbydate: "",
   });
+  const { data: bookRankData } = useGetBookRank();
   const { data: talkRoomManyBookData } = useGetRoomBookOrder({
     page: 1,
     size: 12,
@@ -68,21 +68,21 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
-              <Link href={"/talkroom/?order=recommend&sortbydate="}>
+              <Link href={"/talkroom/?order=recommend&sortbydate=&page=1"}>
                 전체보기 {">"}
               </Link>
             </ThemeMain.Show>
           </ThemeMain>
         </div>
         <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {popularData?.queryResponse instanceof Array &&
-            popularData?.queryResponse?.map((data: TalkRoom) => (
+          {popularData?.response.queryResponse instanceof Array &&
+            popularData?.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={true} />
             ))}
         </div>
       </div>
-      <div className="bg-[#FBF7F0] pt-[1px]">
-        <div className="mt-[55px] ml-[120px]">
+      <div className="bg-[#FBF7F0] py-[1px]">
+        <div className="my-[55px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-7">
               <div className="flex gap-x-3 grow items-center">
@@ -92,7 +92,7 @@ const page = () => {
             </div>
           </ThemeMain.MainTheme>
           {bookRankData instanceof Array && (
-            <Swiper data={bookRankData} slidesPerView={6} />
+            <Swiper data={bookRankData} slidesPerView={5} />
           )}
         </div>
       </div>
@@ -105,12 +105,12 @@ const page = () => {
             </div>
           </ThemeMain.MainTheme>
           <ThemeMain.Show>
-            <Link href={"/talkroom/?order=recent"}>전체보기 {">"}</Link>
+            <Link href={"/talkroom/?order=recent&page=1"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
         <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {recentData?.queryResponse instanceof Array &&
-            recentData?.queryResponse.map((data: TalkRoom) => (
+          {recentData?.response.queryResponse instanceof Array &&
+            recentData?.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={false} />
             ))}
         </div>

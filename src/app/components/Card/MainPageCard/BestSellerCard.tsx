@@ -1,3 +1,4 @@
+import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 
@@ -20,15 +21,13 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   return (
     <BookMain>
       <BookMain.BookCover>
-        <div className="w-[263px] h-[375px]">
-          {thumbnail && (
-            <Image
-              className="border border-[#F4E4CE] rounded-[10px]"
-              src={thumbnail}
-              alt="책 표지"
-              fill
-            />
-          )}
+        <div className="w-[320px] h-[450px]">
+          <Image
+            className="border border-[#F4E4CE] rounded-[10px]"
+            src={thumbnail ? thumbnail : NoImage}
+            alt="책 표지"
+            fill
+          />
         </div>
       </BookMain.BookCover>
       {ranking && <BookMain.RankBox>{ranking}</BookMain.RankBox>}
@@ -38,13 +37,15 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
         </div>
       </BookMain.BookTitle>
       <BookMain.Publisher>
-        <div className="overflow-hidden line-clamp-1">{publisher}</div>
+        <div className="text-lg overflow-hidden line-clamp-1">{publisher}</div>
       </BookMain.Publisher>
       <BookMain.Author>
-        <div className="overflow-hidden line-clamp-1">{authors.join(", ")}</div>
+        <div className="text-lg overflow-hidden line-clamp-1">
+          {authors.join(", ")}
+        </div>
       </BookMain.Author>
       <BookMain.Year>
-        <div className="overflow-hidden line-clamp-1">
+        <div className="text-lg overflow-hidden line-clamp-1">
           {dateTime.slice(0, 4)}
         </div>
       </BookMain.Year>
