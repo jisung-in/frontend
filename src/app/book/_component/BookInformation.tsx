@@ -1,19 +1,9 @@
 import BigStar from "@/assets/img/big-star.svg";
 import EmptyStar from "@/assets/img/empty-star.svg";
 import HalfStar from "@/assets/img/half-star.svg";
-import PasueOn from "@/assets/img/pasue-on.svg";
-import PasueOff from "@/assets/img/pause-off.svg";
-import ReadOff from "@/assets/img/read-off.svg";
-import ReadOn from "@/assets/img/read-on.svg";
-import ReadStopOff from "@/assets/img/read-stop-off.svg";
-import ReadStopOn from "@/assets/img/read-stop-on.svg";
-import ReadingOff from "@/assets/img/reading-off.svg";
-import ReadingOn from "@/assets/img/reading-on.svg";
-import WantToReadOff from "@/assets/img/want-to-read-off.svg";
-import WantToReadOn from "@/assets/img/want-to-read-on.svg";
-import { useCreateBookState } from "@/hook/reactQuery/book/useCreateBookState";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import BookStatus from "./BookStatus";
 
 type BookInformation = {
   title: string;
@@ -34,14 +24,7 @@ type BookInformationProps = {
 const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
-  const [status, setStatus] = useState<string>("");
   const [evaluate, setEvaluate] = useState<string>("평가하기");
-  const { mutate } = useCreateBookState(String(isbn));
-
-  const changeStatus = (statusName: string) => {
-    setStatus(statusName === status ? "" : statusName);
-    mutate({ isbn: String(isbn), readingStatus: status });
-  };
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -92,7 +75,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
     if (myStarRate === 5.0) {
       setEvaluate("최고에요!");
     }
-  }, [myStarRate, status]);
+  }, [myStarRate]);
 
   const handleMouseLeave = () => {
     setStarRate(0);
@@ -172,36 +155,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
           </div>
 
           <div className="w-full flex flex-row gap-x-[26px] justify-end">
-            <div
-              className="cursor-pointer"
-              onClick={() => changeStatus("want")}
-            >
-              {status === "want" ? <WantToReadOn /> : <WantToReadOff />}
-            </div>
-            <div
-              className="cursor-pointer"
-              onClick={() => changeStatus("reading")}
-            >
-              {status === "reading" ? <ReadingOn /> : <ReadingOff />}
-            </div>
-            <div
-              className="cursor-pointer"
-              onClick={() => changeStatus("read")}
-            >
-              {status === "read" ? <ReadOn /> : <ReadOff />}
-            </div>
-            <div
-              className="cursor-pointer"
-              onClick={() => changeStatus("pause")}
-            >
-              {status === "pause" ? <ReadStopOn /> : <ReadStopOff />}
-            </div>
-            <div
-              className="cursor-pointer"
-              onClick={() => changeStatus("stop")}
-            >
-              {status === "stop" ? <PasueOn /> : <PasueOff />}
-            </div>
+            <BookStatus isbn={isbn} />
           </div>
         </div>
         <hr className="w-full border border-[#F4E4CE] mt-[18px] mb-[32px]" />
