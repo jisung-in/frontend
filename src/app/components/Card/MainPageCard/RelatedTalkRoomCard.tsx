@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
-interface TalkRoomCardProps {
+type TalkRoomCardProps = {
   data: {
     id: number;
     profileImage: string;
@@ -21,7 +21,7 @@ interface TalkRoomCardProps {
     bookThumbnail: string;
     likeCount: number;
   };
-}
+};
 
 const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
   const [count, setCount] = useState<number>(0);

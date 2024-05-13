@@ -1,14 +1,14 @@
 import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 
-interface dataPrpos {
+type dataPrpos = {
   isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
   dateTime: string;
-}
+};
 
 const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
   return (

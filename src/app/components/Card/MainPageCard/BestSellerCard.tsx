@@ -2,14 +2,14 @@ import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 
-interface BestSellerCardProps {
+type BestSellerCardProps = {
   ranking: number;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
   dateTime: string;
-}
+};
 const BestSellerCard: React.FC<BestSellerCardProps> = ({
   ranking,
   title,

@@ -7,14 +7,14 @@ import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
-interface MiniEvaluationProps {
+type MiniEvaluationProps = {
   id: number;
   image: string;
   starRate: number;
   userName: string;
   comment: string;
   like: number;
-}
+};
 
 const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
   data,

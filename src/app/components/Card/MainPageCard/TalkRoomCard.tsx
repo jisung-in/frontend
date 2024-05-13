@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
-interface TalkRoomCardProps {
+type TalkRoomCardProps = {
   data: {
     id: number;
     profileImage: string;
@@ -24,7 +24,7 @@ interface TalkRoomCardProps {
     registeredDateTime: string;
   };
   isBest: boolean;
-}
+};
 
 const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
   const [count, setCount] = useState<number>(0);

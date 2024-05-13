@@ -4,6 +4,7 @@ import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
+import HaveNotData from "../components/HaveNotData/HaveNotData";
 import Pagination from "../components/Pagination/Pagination";
 import { ThemeMain } from "../components/Theme/Theme";
 import TalkRoomSearch from "./_component/talkroomSearch";
@@ -68,12 +69,17 @@ const page = () => {
         </div>
       </div>
 
-      <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-        {talkRoomPopular?.response.queryResponse instanceof Array &&
-          talkRoomPopular?.response.queryResponse.map((data: TalkRoom) => (
+      {talkRoomPopular &&
+      Array.isArray(talkRoomPopular.response.queryResponse) &&
+      talkRoomPopular.response.queryResponse.length > 0 ? (
+        <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
+          {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => (
             <TalkRoomCard key={data.id} data={data} isBest={false} />
           ))}
-      </div>
+        </div>
+      ) : (
+        <HaveNotData content={"토크방이"} />
+      )}
       <Pagination
         totalItems={talkRoomPopular?.response.totalCount}
         pageCount={Math.ceil(

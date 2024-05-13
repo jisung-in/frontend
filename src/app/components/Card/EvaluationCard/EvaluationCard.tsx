@@ -7,14 +7,14 @@ import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
-interface EvaluationProps {
+type EvaluationProps = {
   id: number;
   image: string;
   starRate: number;
   userName: string;
   comment: string;
   like: number;
-}
+};
 
 const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
   const [count, setCount] = useState<number>(data.like);

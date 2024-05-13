@@ -1,5 +1,6 @@
 "use client";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
+import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
@@ -38,7 +39,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
         {bookDetailData ? (
           <BookInformation data={bookDetailData} isbn={params.isbn} />
         ) : (
-          <div>Loading...</div>
+          <HaveNotData content={"책의 정보가"} />
         )}
       </div>
 
@@ -78,15 +79,15 @@ const page = ({ params }: { params: { isbn: string } }) => {
             </div>
           </Link>
         </div>
-        <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-          {relateData?.response.queryResponse instanceof Array ? (
-            relateData?.response.queryResponse.map((data: TalkRoom) => (
+        {relateData && relateData.response.queryResponse.length > 0 ? (
+          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+            {relateData.response.queryResponse.map((data: TalkRoom) => (
               <RelatedTalkRoomCard key={data.id} data={data} />
-            ))
-          ) : (
-            <>loading...</>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <HaveNotData content={"연관된 토크방이"} />
+        )}
       </div>
     </div>
   );

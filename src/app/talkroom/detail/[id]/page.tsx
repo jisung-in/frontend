@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/app/components/Button/Button";
+import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import Link from "next/link";
@@ -24,7 +25,10 @@ const Page = ({ params }: { params: { id: number } }) => {
         의견 999+
       </div>
 
+      <HaveNotData content={"아직 의견이"} />
+
       <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} />
+
       {new Array(10).fill(1).map((content: string, index: number) => (
         <SpeechBubble
           key={"username" + index}
