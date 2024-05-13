@@ -9,6 +9,7 @@ import ReadingOn from "@/assets/img/reading-on.svg";
 import WantToReadOff from "@/assets/img/want-to-read-off.svg";
 import WantToReadOn from "@/assets/img/want-to-read-on.svg";
 import { useCreateBookState } from "@/hook/reactQuery/book/useCreateBookState";
+import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { useState } from "react";
 
 type Isbn = {
@@ -18,8 +19,7 @@ type Isbn = {
 const BookStatus: React.FC<Isbn> = ({ isbn }) => {
   const [status, setStatus] = useState<string>("");
   const { mutate } = useCreateBookState(isbn);
-  // const { data: statusData } = useGetBookState(isbn);
-  // console.log(statusData);
+  const { data: statusData } = useGetBookState(isbn);
   const changeStatus = (statusName: string) => {
     setStatus(statusName === status ? "" : statusName);
     mutate({ isbn, readingStatus: statusName });
