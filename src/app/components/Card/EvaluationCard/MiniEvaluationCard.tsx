@@ -27,7 +27,7 @@ const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="w-[405px] min-h-[290px] bg-[#FFF] shadow-lg shadow-[#E7E7E7] mb-[30px] rounded-[11px] font-Pretendard font-medium">
+    <div className="w-[405px] min-h-[290px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">
       <div className="mt-[18px] ml-[15px] mr-[13px] w-auto">
         <div className="flex flex-row mb-[16px]">
           <div className="flex flex-row items-center flex-grow gap-x-[10px]">

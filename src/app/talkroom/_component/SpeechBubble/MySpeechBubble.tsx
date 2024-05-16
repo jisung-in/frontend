@@ -19,7 +19,7 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="relative bg-[#FAECD9] rounded-[15px] mb-[97px] font-Pretendard font-regular">
+    <div className="relative bg-[#FAECD9] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">
       <div className="pt-[20px] pb-[12px] mx-[20px]">
         <div className="flex items-center mb-4">
           <div className="flex grow items-center">
@@ -60,13 +60,13 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
                 {count > 999 ? "999+" : count}
               </div>
             </div>
-            <div className="flex items-center justify-center font-medium text-[18px] text-[#624E45] border-[#D9D9D9] border border-solid rounded-[3px] bg-[#FFF] px-[12px] py-[3px] cursor-pointer">
+            <div className="flex items-center justify-center font-medium text-[18px] text-[#624E45] border border-solid rounded-[3px] bg-[#FFF] px-[12px] py-[3px] cursor-pointer">
               삭제
             </div>
           </div>
         </div>
       </div>
-      <div className="skew-x-[60deg] absolute bottom-[-65px] right-[3%] border-solid border-transparent border-[70px] border-t-[#FAECD9] border-l-0 border-b-0 border-r-[80px]" />
+      <div className="skew-x-[60deg] absolute bottom-[-65px] right-[3%] border-solid border-transparent border-[70px] border-[#F4E4CE] border-t-[#FAECD9] border-l-0 border-b-0 border-r-[80px]" />
     </div>
   );
 };

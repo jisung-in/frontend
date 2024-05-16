@@ -19,7 +19,7 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="relative bg-[white] rounded-[15px] mb-[97px] font-Pretendard font-regular">
+    <div className="relative bg-[white] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">
       <div className="pt-[20px] pb-[12px] mx-[20px]">
         <div className="flex items-center mb-4">
           <div className="flex grow items-center">
@@ -63,7 +63,7 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
           </div>
         </div>
       </div>
-      <div className="skew-x-[-30deg] absolute bottom-[-65px] left-[6%] border-solid border-transparent border-[70px] border-t-[white] border-l-0 border-b-0 border-r-[80px]" />
+      <div className="skew-x-[-30deg] absolute bottom-[-65px] left-[6%] border-solid border-transparent border-[70px] border-[#F4E4CE] border-t-[white] border-l-0 border-b-0 border-r-[80px]" />
     </div>
   );
 };
