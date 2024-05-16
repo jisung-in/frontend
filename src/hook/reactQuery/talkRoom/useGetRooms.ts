@@ -11,23 +11,25 @@ type TalkRoomRequest = {
 
 type TalkRoomInfo = {
   response: {
-    queryResponse: {
-      id: number;
-      profileImage: string;
-      username: string;
-      title: string;
-      content: string;
-      bookName: string;
-      bookAuthor: string;
-      bookThumbnail: string;
-      likeCount: number;
-      readingStatuses: string[];
-      registeredDateTime: string;
-    };
+    queryResponse: TalkRoom[];
     totalCount: number;
     size: number;
   };
   userLikeTalkRoomIds: number[];
+};
+
+type TalkRoom = {
+  id: number;
+  profileImage: string;
+  username: string;
+  title: string;
+  content: string;
+  bookName: string;
+  bookAuthor: string;
+  bookThumbnail: string;
+  likeCount: number;
+  readingStatuses: string[];
+  registeredDateTime: string;
 };
 
 export const useGetRooms = ({

@@ -75,9 +75,7 @@ const page = () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {popularData &&
-        Array.isArray(popularData.response.queryResponse) &&
-        popularData.response.queryResponse.length > 0 ? (
+        {popularData ? (
           <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
             {popularData.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={true} />
@@ -118,9 +116,7 @@ const page = () => {
             <Link href={"/talkroom/?order=recent&page=1"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
-        {recentData &&
-        Array.isArray(recentData.response.queryResponse) &&
-        recentData.response.queryResponse.length > 0 ? (
+        {recentData ? (
           <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
             {recentData.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={false} />
@@ -140,11 +136,9 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
           </ThemeMain>
-          {talkRoomManyBookData &&
-          Array.isArray(talkRoomManyBookData) &&
-          talkRoomManyBookData.length > 0 ? (
+          {talkRoomManyBookData ? (
             <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
-              {talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
+              {talkRoomManyBookData?.map((data: TalkRoomBookOrder) => (
                 <Link key={data.isbn} href={`/book/${data.isbn}`}>
                   <ManyTalkRoomBookCard data={data} />
                 </Link>
