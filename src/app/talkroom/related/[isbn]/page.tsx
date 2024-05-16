@@ -26,7 +26,6 @@ const page = ({ params }: { params: { isbn: string } }) => {
     page: 1,
     size: 12,
   });
-  console.log(relateData);
   return (
     <div className="flex flex-col">
       <ThemeMain.MainTheme>
