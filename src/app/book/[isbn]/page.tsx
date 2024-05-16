@@ -73,7 +73,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <div className="font-SpoqaHanSansNeo font-bold text-[30px] flex flex-row flex-grow">
             연관된 토크방 보기
           </div>
-          <Link href={`#`}>
+          <Link href={`/talkroom/related/${params.isbn}`}>
             <div className="text-[20px] text-[#74747B] font-Pretendard font-regular flex items-center">
               더보기 {">"}
             </div>

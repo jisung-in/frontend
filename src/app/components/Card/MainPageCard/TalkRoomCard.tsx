@@ -20,8 +20,8 @@ type TalkRoomCardProps = {
     bookAuthor: string;
     bookThumbnail: string;
     likeCount: number;
-    readingStatuses: string[];
-    registeredDateTime: string;
+    readingStatuses?: string[];
+    registeredDateTime?: string;
   };
   isBest: boolean;
 };
