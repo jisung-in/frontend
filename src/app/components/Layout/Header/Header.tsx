@@ -4,26 +4,20 @@ import { Input } from "../../Input/Input";
 import { useRouter } from "next/navigation";
 import SearchedList from "../../molecules/SearchedList/SearchedList";
 import { LoginComponent } from "./LoginComponents";
-import { useEffect, useState } from "react";
+import useRecentSearches from "@/hook/useRecentSearches";
 
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
-  const [searches, setSearches] = useState<any>();
   const router = useRouter();
+  const { searches, addSearch } = useRecentSearches();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!value) return;
+    addSearch(value);
     reset();
     router.push(`/search/books?name=${value}`);
   };
-
-  useEffect(() => {
-    const savedSearches = JSON.parse(
-      localStorage.getItem("recentSearches") || "[]",
-    );
-    setSearches(savedSearches);
-  }, []);
 
   return (
     <div className="flex sticky z-20 top-0 items-center w-full px-[5%] bg-white h-[75px] opacity-[0.95] border-b-2">
@@ -34,7 +28,7 @@ export const Header = () => {
         <span className="cursor-pointer text-brown-60">JISUNGIN</span>
       </div>
       <div className="flex gap-[46px] items-center sm:hidden">
-        <form onSubmit={(e) => onSubmit(e)}>
+        <form onSubmit={onSubmit}>
           <div className="relative w-[414px]">
             <Input
               variant="main"
@@ -48,7 +42,7 @@ export const Header = () => {
                 value={value}
                 reset={reset}
                 searches={searches}
-                setSearches={setSearches}
+                setSearches={addSearch}
               />
             )}
           </div>

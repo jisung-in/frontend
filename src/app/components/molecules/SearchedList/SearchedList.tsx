@@ -17,7 +17,7 @@ const SearchedList = ({ value, reset, setSearches, searches }: Props) => {
 
   const onListClicked = (book: any) => {
     router.push(`/search/book?name=${book.title}`);
-
+    setSearches(book.title);
     reset();
   };
 
