@@ -9,6 +9,7 @@ import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import Link from "next/link";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
+import HaveNotData from "./components/HaveNotData/HaveNotData";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
@@ -43,7 +44,6 @@ const page = () => {
     search: "",
     sortbydate: "",
   });
-  const { data: bookRankData } = useGetBookRank();
   const { data: recentData } = useGetRooms({
     page: 1,
     size: 4,
@@ -51,6 +51,7 @@ const page = () => {
     search: "",
     sortbydate: "",
   });
+  const { data: bookRankData } = useGetBookRank();
   const { data: talkRoomManyBookData } = useGetRoomBookOrder({
     page: 1,
     size: 12,
@@ -68,21 +69,26 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
-              <Link href={"/talkroom/?order=recommend&sortbydate="}>
+              <Link href={"/talkroom/?order=recommend&sortbydate=&page=1"}>
                 전체보기 {">"}
               </Link>
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-          {popularData?.queryResponse instanceof Array &&
-            popularData?.queryResponse?.map((data: TalkRoom) => (
+        {popularData &&
+        Array.isArray(popularData.response.queryResponse) &&
+        popularData.response.queryResponse.length > 0 ? (
+          <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
+            {popularData.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={true} />
             ))}
-        </div>
+          </div>
+        ) : (
+          <HaveNotData content={"인기있는 토크방이"} />
+        )}
       </div>
-      <div className="bg-[#FBF7F0] pt-[1px]">
-        <div className="mt-[55px] ml-[120px]">
+      <div className="bg-[#FBF7F0] py-[1px]">
+        <div className="my-[55px] ml-[120px]">
           <ThemeMain.MainTheme>
             <div className="flex mb-7">
               <div className="flex gap-x-3 grow items-center">
@@ -91,8 +97,12 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {bookRankData instanceof Array && (
-            <Swiper data={bookRankData} slidesPerView={6} />
+          {bookRankData &&
+          Array.isArray(bookRankData) &&
+          bookRankData.length > 0 ? (
+            <Swiper data={bookRankData} slidesPerView={5} />
+          ) : (
+            <HaveNotData content={"베스트 셀러가"} />
           )}
         </div>
       </div>
@@ -105,15 +115,20 @@ const page = () => {
             </div>
           </ThemeMain.MainTheme>
           <ThemeMain.Show>
-            <Link href={"/talkroom/?order=recent"}>전체보기 {">"}</Link>
+            <Link href={"/talkroom/?order=recent&page=1"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
-        <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-          {recentData?.queryResponse instanceof Array &&
-            recentData?.queryResponse.map((data: TalkRoom) => (
+        {recentData &&
+        Array.isArray(recentData.response.queryResponse) &&
+        recentData.response.queryResponse.length > 0 ? (
+          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
+            {recentData.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={false} />
             ))}
-        </div>
+          </div>
+        ) : (
+          <HaveNotData content={"최근 생성된 토크방이"} />
+        )}
       </div>
       <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
         <div className="pt-[77px] ml-[120px]">
@@ -125,14 +140,19 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
           </ThemeMain>
-          <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
-            {talkRoomManyBookData instanceof Array &&
-              talkRoomManyBookData?.map((data: TalkRoomBookOrder) => (
+          {talkRoomManyBookData &&
+          Array.isArray(talkRoomManyBookData) &&
+          talkRoomManyBookData.length > 0 ? (
+            <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
+              {talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
                 <Link key={data.isbn} href={`/book/${data.isbn}`}>
                   <ManyTalkRoomBookCard data={data} />
                 </Link>
               ))}
-          </div>
+            </div>
+          ) : (
+            <HaveNotData content={"토크 많은 책이"} />
+          )}
         </div>
       </div>
     </div>

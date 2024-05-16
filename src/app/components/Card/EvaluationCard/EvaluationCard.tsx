@@ -7,14 +7,14 @@ import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
-interface EvaluationProps {
+type EvaluationProps = {
   id: number;
   image: string;
   starRate: number;
   userName: string;
   comment: string;
   like: number;
-}
+};
 
 const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
   const [count, setCount] = useState<number>(data.like);
@@ -25,7 +25,7 @@ const EvaluationCard: React.FC<{ data: EvaluationProps }> = ({ data }) => {
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="w-[910px] min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] shadow-lg shadow-[#E7E7E7] font-Pretendard font-medium">
+    <div className="w-[910px] min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] border border-[#F4E4CE] font-Pretendard font-medium">
       <div className="mt-[20px] ml-[30px] mr-[26px] w-auto">
         <div className="flex flex-row mb-[23px]">
           <div className="flex flex-row items-center flex-grow gap-x-[10px]">

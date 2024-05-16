@@ -22,6 +22,7 @@ const buttonVariants = cva(
       },
       width: {
         full: "w-full",
+        register: "w-[350px]",
       },
       height: {
         xl2: "h-[70px]",

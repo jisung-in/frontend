@@ -1,34 +1,25 @@
-import { faker } from "@faker-js/faker";
+import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 
-interface dataPrpos {
+type dataPrpos = {
   isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
   dateTime: string;
-}
+};
 
 const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
   return (
-    <div className="w-[223px]">
-      <div className="relative w-full h-[323px] cursor-pointer">
-        {data.thumbnail ? (
-          <Image
-            className="border border-[#F4E4CE] rounded-[10px]"
-            src={data.thumbnail}
-            alt="책 표지"
-            fill
-          />
-        ) : (
-          <Image
-            className="border border-[#F4E4CE] rounded-[10px]"
-            src={faker.image.urlLoremFlickr()}
-            alt="책 표지"
-            fill
-          />
-        )}
+    <div className="w-[263px]">
+      <div className="relative w-full h-[375px] cursor-pointer">
+        <Image
+          className="border border-[#F4E4CE] rounded-[10px]"
+          src={data.thumbnail ? data.thumbnail : NoImage}
+          alt="책 표지"
+          fill
+        />
       </div>
       <div className="font-Prentendard font-semibold mt-3 text-[#000] text-[21px] overflow-hidden line-clamp-1">
         {data.title}

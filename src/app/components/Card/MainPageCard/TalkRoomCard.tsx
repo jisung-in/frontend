@@ -1,15 +1,15 @@
 import BookTitle from "@/assets/img/book-title.svg";
 import Like from "@/assets/img/like.svg";
+import NoImage from "@/assets/img/no-image.png";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title.svg";
-import { faker } from "@faker-js/faker";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
-interface TalkRoomCardProps {
+type TalkRoomCardProps = {
   data: {
     id: number;
     profileImage: string;
@@ -20,11 +20,11 @@ interface TalkRoomCardProps {
     bookAuthor: string;
     bookThumbnail: string;
     likeCount: number;
-    readingStatuses: string[];
-    registeredDateTime: string;
+    readingStatuses?: string[];
+    registeredDateTime?: string;
   };
   isBest: boolean;
-}
+};
 
 const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
   const [count, setCount] = useState<number>(0);
@@ -35,11 +35,10 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
     setIsLike(!isLike);
     setCount((prevCount) => (isLike ? prevCount - 1 : prevCount + 1));
   };
-
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
-      <div className="relative w-[20dvw] min-w-[320px] h-[330px] rounded-[17px] bg-[#fff] shadow-lg shadow-[#E7E7E7] font-Pretendard overflow-hidden">
-        <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#FBF7F0] top-[-30%]"></div>
+      <div className="relative w-[20dvw] min-w-[405px] h-[330px] rounded-[17px] bg-[#fff] border border-[#F4E4CE] font-Pretendard overflow-hidden">
+        <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#80685D] top-[-30%]"></div>
         <div className="absolute inset-0 flex justify-center items-center">
           <div className="flex flex-col m-[26px] w-full">
             <div className="flex flex-row">
@@ -55,7 +54,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
                   ) : (
                     <Image
                       className="border border-[#F4E4CE]"
-                      src={faker.image.urlLoremFlickr()}
+                      src={data.bookThumbnail ? data.bookThumbnail : NoImage}
                       alt="책 표지"
                       fill
                     />
@@ -64,11 +63,13 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
                 <div className="ml-4 mt-5">
                   <BookTitle />
                 </div>
-                <div className="mt-4 ml-[9px] flex-grow text-[#656565]">
-                  <div className="font-semibold mb-1 overflow-hidden line-clamp-1">
+                <div className="mt-4 ml-[9px] flex-grow text-[#656565] text-white">
+                  <div className="font-semibold mb-1 text-[#17px] overflow-hidden line-clamp-1">
                     {data.bookName}
                   </div>
-                  <div className="text-sm">{data.bookAuthor}</div>
+                  <div className="text-sm overflow-hidden line-clamp-1">
+                    {data.bookAuthor}
+                  </div>
                 </div>
               </div>
 
@@ -80,14 +81,14 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
                     <NotLike width={21} height={19} />
                   )}
                 </IconButton>
-                <div className="h-[22px] font-Inter font-regular text-base text-[#656565]">
+                <div className="h-[22px] font-Inter font-regular text-[#13px] text-[#656565]">
                   {count}
                 </div>
               </div>
             </div>
             <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">
               <ThemeTitle />
-              <div className="flex flex-row overflow-hidden line-clamp-1">
+              <div className="flex flex-row text-xl overflow-hidden line-clamp-1">
                 {data.title}
               </div>
               {isBest ? (
@@ -108,10 +109,13 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
             <div className="flex flex-row gap-x-[9px] items-center">
               <div>
                 <Image
-                  src={Profile}
+                  className="max-w-[26px] max-h-[26px] border rounded-[16px]"
+                  src={
+                    data.profileImage !== "image" ? data.profileImage : Profile
+                  }
                   alt="프로필"
-                  width={20}
-                  height={20}
+                  width={26}
+                  height={26}
                   priority
                 />
               </div>
