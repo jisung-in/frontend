@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import SearchedList from "../../molecules/SearchedList/SearchedList";
 import { LoginComponent } from "./LoginComponents";
 import useRecentSearches from "@/hook/useRecentSearches";
+import Logo from "@/assets/img/jisung-in-logo.svg";
 
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
@@ -25,7 +26,12 @@ export const Header = () => {
         onClick={() => router.push("/")}
         className="flex font-SpoqaHanSansNeo font-[500] items-center text-white text-3xl flex-1"
       >
-        <span className="cursor-pointer text-brown-60">JISUNGIN</span>
+        <span className="flex items-center cursor-pointer text-brown-60">
+          JISUNGIN
+          <div className="pb-2">
+            <Logo />
+          </div>
+        </span>
       </div>
       <div className="flex gap-[46px] items-center sm:hidden">
         <form onSubmit={onSubmit}>
