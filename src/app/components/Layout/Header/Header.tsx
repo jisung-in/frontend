@@ -9,7 +9,7 @@ import useRecentSearches from "@/hook/useRecentSearches";
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
   const router = useRouter();
-  const { searches, addSearch } = useRecentSearches();
+  const { searches, addSearch, removeSearch } = useRecentSearches();
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -43,6 +43,7 @@ export const Header = () => {
                 reset={reset}
                 searches={searches}
                 setSearches={addSearch}
+                removeSearch={removeSearch}
               />
             )}
           </div>

@@ -9,9 +9,16 @@ type Props = {
   reset: () => void;
   searches: any;
   setSearches: any;
+  removeSearch: any;
 };
 
-const SearchedList = ({ value, reset, setSearches, searches }: Props) => {
+const SearchedList = ({
+  value,
+  reset,
+  setSearches,
+  searches,
+  removeSearch,
+}: Props) => {
   const { data: kakaoResult } = useGetKakaoResults({ target: value });
   const router = useRouter();
 
@@ -19,6 +26,10 @@ const SearchedList = ({ value, reset, setSearches, searches }: Props) => {
     router.push(`/search/book?name=${book.title}`);
     setSearches(book.title);
     reset();
+  };
+
+  const onRemoveClicked = (content: string) => {
+    removeSearch(content);
   };
 
   return (
@@ -45,11 +56,16 @@ const SearchedList = ({ value, reset, setSearches, searches }: Props) => {
       <span className="font-bold">최근 검색어</span>
       <ul>
         {searches.map((item: string) => (
-          <li>{item}</li>
+          <li className="flex gap-2">
+            {item}{" "}
+            <span
+              className="cursor-pointer"
+              onClick={() => onRemoveClicked(item)}
+            >
+              X
+            </span>
+          </li>
         ))}
-      </ul>
-      <ul className="flex flex-col gap-[5px]">
-        <li></li>
       </ul>
 
       <span className="font-bold">연관 검색어</span>
