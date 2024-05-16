@@ -12,8 +12,9 @@ const MyButton = ({ children, width = 100, path = "/" }: Props) => {
   const onClick = () => {
     const handleOAuthKakao = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_SERVER}/v1/oauth/logout/kakao`,
+        const response = await axios.post(
+          `${process.env.NEXT_PUBLIC_SERVER}/v1/logout`,
+          null,
           { withCredentials: true },
         );
         router.push("/");
@@ -23,8 +24,6 @@ const MyButton = ({ children, width = 100, path = "/" }: Props) => {
     };
 
     handleOAuthKakao();
-
-    console.log("clicked");
   };
 
   return (

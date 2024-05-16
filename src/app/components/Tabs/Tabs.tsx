@@ -27,7 +27,7 @@ const Tabs = ({ tabs, bgColor = "white" }: TabsProps) => {
             key={index}
             className={clsx(
               "min-w-[220px] sm:min-w-[85px] flex h-full items-center justify-center text-gray-60 hover:text-brown-50",
-              path.includes(item.path) &&
+              (path.includes(item.path) || item.path.includes(path)) &&
                 "shadow-brown-50 shadow-[inset_0_-1px_0_0,0_1px_0_0] shadow-brown-50",
             )}
             onClick={() => router.push(item.path)}
@@ -35,7 +35,8 @@ const Tabs = ({ tabs, bgColor = "white" }: TabsProps) => {
             <div
               className={clsx(
                 "flex text-[19px] sm:text-[13px]",
-                path.includes(item.path) && "text-brown-50",
+                (path.includes(item.path) || item.path.includes(path)) &&
+                  "text-brown-50",
               )}
             >
               {item.text}
