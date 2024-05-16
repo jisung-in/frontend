@@ -1,7 +1,6 @@
 "use client";
 import { Button } from "@/app/components/Button/Button";
 import { TabContext } from "./TabProvider";
-import style from "./tab.module.css";
 import { useContext } from "react";
 
 export default function Tab() {
