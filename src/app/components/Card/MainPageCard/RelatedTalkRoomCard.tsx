@@ -40,7 +40,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
         <div className="absolute inset-0 flex justify-center items-center">
           <div className="flex flex-col mx-8 mt-[31px] mb-3 w-full">
             <div className="flex flex-row">
-              <div className="relative w-[135px] h-[188px]">
+              <div className="relative min-w-[135px] min-h-[188px] max-w-[135px] max-h-[188px]">
                 <Image
                   className="border border-[#F4E4CE]"
                   src={data ? data.bookThumbnail : faker.image.urlLoremFlickr()}
