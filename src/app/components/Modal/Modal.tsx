@@ -30,7 +30,7 @@ const Modal: React.FC<ModalProps> = ({
             &times;
           </button>
         </div>
-        <div className="flex h-full justify-center items-center min-h-[200px] p-4">
+        <div className="flex h-full justify-center items-center min-h-[200px] sm:min-h-[100px] p-4">
           <p>{content}</p>
         </div>
         <div className="flex">
