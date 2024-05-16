@@ -6,7 +6,7 @@ const BackButton = () => {
   const router = useRouter();
 
   return (
-    <button onClick={() => router.back()}>
+    <button className="max-w-[25px]" onClick={() => router.back()}>
       <BackArrow />
     </button>
   );
