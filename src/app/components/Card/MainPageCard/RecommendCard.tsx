@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
-interface RecommendCardProps {
+type RecommendCardProps = {
   id: number;
   title: string;
   image: string;
@@ -16,7 +16,7 @@ interface RecommendCardProps {
   talkTitle: string;
   userName: string;
   comment: string;
-}
+};
 
 const RecommendCard: React.FC<RecommendCardProps> = ({
   id,

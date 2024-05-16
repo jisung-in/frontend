@@ -6,6 +6,7 @@ import { useEvaluationUser } from "@/hook/reactQuery/evaluation/useEvaluationUse
 import { useState } from "react";
 import EvaluationCard from "../components/Card/EvaluationCard/EvaluationCard";
 import DropDown from "../components/DropDown/DropDown";
+import HaveNotData from "../components/HaveNotData/HaveNotData";
 import MainThemeTitle from "../components/MainThemeTitle/MainThemeTitle";
 
 const page = () => {
@@ -56,11 +57,15 @@ const page = () => {
         </div>
       </div>
 
-      <div className="flex flex-col items-center">
-        {evaluationUser?.map((data: any) => (
-          <EvaluationCard key={data.id} data={data} />
-        ))}
-      </div>
+      {evaluationUser ? (
+        <div className="flex flex-col items-center">
+          {evaluationUser.map((data: any) => (
+            <EvaluationCard key={data.id} data={data} />
+          ))}
+        </div>
+      ) : (
+        <HaveNotData content={"아직 유저평가가"} />
+      )}
     </div>
   );
 };

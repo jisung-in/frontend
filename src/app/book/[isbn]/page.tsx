@@ -1,14 +1,13 @@
 "use client";
-import { Button } from "@/app/components/Button/Button";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
+import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
-import { Textarea } from "@/app/components/Textarea/Textarea";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
-import { useInput } from "@/hook/useInput";
 import Link from "next/link";
 import BookInformation from "../_component/BookInformation";
+import RegisterEvaluation from "../_component/registerEvaluation";
 
 type TalkRoom = {
   id: number;
@@ -23,7 +22,6 @@ type TalkRoom = {
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
-  const { value: name, handleChange: onNameChange } = useInput("");
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params?.isbn,
   });
@@ -41,37 +39,21 @@ const page = ({ params }: { params: { isbn: string } }) => {
         {bookDetailData ? (
           <BookInformation data={bookDetailData} isbn={params.isbn} />
         ) : (
-          <div>Loading...</div>
+          <HaveNotData content={"책의 정보가"} />
         )}
       </div>
 
       <div className="bg-white">
-        <div className="font-SpoqaHanSansNeo font-bold text-[30px] max-w-[1680px] mx-[120px]">
-          <div className="pt-[43px] mb-[28px]">한줄평을 작성해보세요</div>
-          <div className="relative">
-            <Textarea
-              variant="main"
-              value={name}
-              className="font-Pretendard font-regular max-w-[1680px] h-[179px]"
-              onChange={onNameChange}
-              placeholder="한줄평을 자유롭게 작성해보세요."
-            />
-            <div className="absolute bottom-[26px] right-[36px]">
-              <Button className="font-Pretendard font-medium text-[21px]">
-                <div className="px-[25px] my-[8px]">등록하기</div>
-              </Button>
-            </div>
-          </div>
+        <div className="max-w-[1680px] mx-[120px]">
+          <RegisterEvaluation />
 
-          <div className="flex flex-row mt-[63px] mb-[28px]">
-            <div className="flex flex-row gap-x-[19px] flex-grow">
-              <div>유저들의 평가</div>
-              <div className="font-Poppins font-medium text-[#74747B]">
-                3000+
-              </div>
+          <div className="flex flex-row mt-[63px] mb-[28px] items-center">
+            <div className="flex flex-row gap-x-[19px] flex-grow text-[30px] font-SpoqaHanSansNeo items-center">
+              <div className="font-bold">유저들의 평가</div>
+              <div className="font-medium text-[#74747B]">3000+</div>
             </div>
             <Link href={"/evaluation"}>
-              <div className="text-[20px] text-[#74747B] font-Pretendard font-refular flex items-center">
+              <div className="text-[20px] text-[#74747B] font-Pretendard font-regular">
                 더보기 {">"}
               </div>
             </Link>
@@ -87,25 +69,25 @@ const page = ({ params }: { params: { isbn: string } }) => {
       </div>
 
       <div className="mx-[120px] max-w-[1680px]">
-        <div className="flex flex-row mt-[57px] mb-[27px]">
+        <div className="flex flex-row mt-[57px] mb-[27px] items-center">
           <div className="font-SpoqaHanSansNeo font-bold text-[30px] flex flex-row flex-grow">
-            <div>연관된 토크방 보기</div>
+            연관된 토크방 보기
           </div>
-          <Link href={`#`}>
-            <div className="text-[20px] text-[#74747B] font-Pretendard font-refular flex items-center">
+          <Link href={`/talkroom/related/${params.isbn}`}>
+            <div className="text-[20px] text-[#74747B] font-Pretendard font-regular flex items-center">
               더보기 {">"}
             </div>
           </Link>
         </div>
-        <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-          {relateData?.response.queryResponse instanceof Array ? (
-            relateData?.response.queryResponse.map((data: TalkRoom) => (
+        {relateData && relateData.response.queryResponse.length > 0 ? (
+          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+            {relateData.response.queryResponse.map((data: TalkRoom) => (
               <RelatedTalkRoomCard key={data.id} data={data} />
-            ))
-          ) : (
-            <>loading...</>
-          )}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <HaveNotData content={"연관된 토크방이"} />
+        )}
       </div>
     </div>
   );

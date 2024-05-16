@@ -11,7 +11,9 @@ export const useGetBookState = (isbn: string) => {
   return useQuery<BookStateResponse>({
     queryKey: ["book", "state", isbn],
     queryFn: () =>
-      axiosInstance.get(`/v1/user-libraries?${isbn}`).then((data) => data.data),
+      axiosInstance
+        .get(`/v1/user-libraries?isbn=${isbn}`)
+        .then((data) => data.data),
     throwOnError: true,
   });
 };

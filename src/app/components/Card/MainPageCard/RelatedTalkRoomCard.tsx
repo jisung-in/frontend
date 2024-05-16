@@ -9,7 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
-interface TalkRoomCardProps {
+type TalkRoomCardProps = {
   data: {
     id: number;
     profileImage: string;
@@ -21,7 +21,7 @@ interface TalkRoomCardProps {
     bookThumbnail: string;
     likeCount: number;
   };
-}
+};
 
 const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
   const [count, setCount] = useState<number>(0);
@@ -36,7 +36,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
       <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">
-        <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#FBF7F0] top-[-15%]"></div>
+        <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#80685D] top-[-15%]"></div>
         <div className="absolute inset-0 flex justify-center items-center">
           <div className="flex flex-col mx-8 mt-[31px] mb-3 w-full">
             <div className="flex flex-row">
@@ -51,7 +51,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
               <div className="ml-5 mt-5">
                 <BookTitleRelate />
               </div>
-              <div className="pt-4 ml-3 flex-grow text-[#656565]">
+              <div className="pt-4 ml-3 flex-grow text-[#656565] text-white">
                 <div className="text-[19px] font-semibold mb-1 overflow-hidden line-clamp-1">
                   {data.bookName}
                 </div>
