@@ -26,7 +26,7 @@ export const useGetOneRoom = ({ talkRoomId }: TalkRoomRequest) => {
     queryKey: ["talkRoom", talkRoomId],
     queryFn: () =>
       axiosInstance
-        .get(`/v1/talk-room/${talkRoomId}`)
+        .get(`/v1/talk-rooms/${talkRoomId}`)
         .then((data) => data.data),
     throwOnError: true,
   });
