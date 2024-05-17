@@ -23,8 +23,8 @@ const SearchedList = ({
   const router = useRouter();
 
   const onListClicked = (book: any) => {
-    router.push(`/search/book?name=${book.title}`);
-    setSearches(book.title);
+    router.push(`/search/book?name=${book.title ?? book}`);
+    setSearches(book.title ?? book);
     reset();
   };
 
@@ -56,13 +56,16 @@ const SearchedList = ({
       <span className="font-bold">최근 검색어</span>
       <ul>
         {searches.map((item: string) => (
-          <li className="flex gap-2">
+          <li
+            className="flex gap-2 cursor-pointer"
+            onClick={() => onListClicked(item)}
+          >
             {item}{" "}
             <span
               className="cursor-pointer"
               onClick={() => onRemoveClicked(item)}
             >
-              X
+              &times;
             </span>
           </li>
         ))}
