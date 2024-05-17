@@ -22,11 +22,11 @@ export const Header = () => {
 
   return (
     <div className="flex sticky z-20 top-0 items-center w-full px-[5%] bg-white h-[75px] opacity-[0.95] border-b-2">
-      <div
-        onClick={() => router.push("/")}
-        className="flex font-SpoqaHanSansNeo font-[500] items-center text-white text-3xl flex-1"
-      >
-        <span className="flex items-center cursor-pointer text-brown-60">
+      <div className="flex font-SpoqaHanSansNeo font-[500] items-center text-white text-3xl flex-1">
+        <span
+          className="flex items-center cursor-pointer text-brown-60"
+          onClick={() => router.push("/")}
+        >
           JISUNGIN
           <div className="pb-2">
             <Logo />

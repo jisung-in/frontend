@@ -5,6 +5,7 @@ module.exports = {
       "loremflickr.com",
       "image.yes24.com",
       "dummyimage.com",
+      "search1.kakaocdn.net",
     ],
   },
   webpack: (config) => {
