@@ -108,18 +108,16 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
                 </div>
               </div>
               <div className="flex flex-col items-center mt-[19px] font-Pretendard font-medium text-lg text-[#FF6363]">
-                <div className="flex flex-col">
-                  <div className="text-2xl mb-[7px]">참가조건</div>
-                  <div className="flex flex-row gap-x-3 h-[30px]">
-                    {talkroomOneData.readingStatuses.map((status, index) => (
-                      <div
-                        className="flex justify-center items-center w-auto h-[35px] text-[#656565] bg-[#FBF7F0] border border-[#F4E4CE] border-solid rounded-[4px] px-[9px] py-[7px]"
-                        key={index}
-                      >
-                        {status}
-                      </div>
-                    ))}
-                  </div>
+                <div className="text-2xl mb-[7px]">참가조건</div>
+                <div className="flex flex-row gap-x-3 h-[30px]">
+                  {talkroomOneData.readingStatuses.map((status, index) => (
+                    <div
+                      className="flex justify-center items-center w-auto h-[35px] text-[#656565] bg-[#FBF7F0] border border-[#F4E4CE] border-solid rounded-[4px] px-[9px] py-[7px]"
+                      key={index}
+                    >
+                      {status}
+                    </div>
+                  ))}
                 </div>
               </div>
             </div>
