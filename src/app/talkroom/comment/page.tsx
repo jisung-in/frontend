@@ -6,7 +6,7 @@ import BackButton from "@/app/summary/_component/BackButton";
 import Camera from "@/assets/img/camera.svg";
 import TalkIcon from "@/assets/img/talk-icon.svg";
 import { useCreateComment } from "@/hook/reactQuery/talkRoom/useCreateComment";
-import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import useImageUpload from "@/hook/useImageUpload";
 import { useInput } from "@/hook/useInput";
 import Image from "next/image";
 import { ChangeEvent, useRef, useState } from "react";
@@ -14,32 +14,16 @@ import { ChangeEvent, useRef, useState } from "react";
 const CommentPage = () => {
   const { value, handleChange } = useInput("");
   const { mutate } = useCreateComment();
-  // const {data} = useGetComments();
-  const { data } = useGetRooms({
-    page: 1,
-    size: 4,
-    order: "recent",
-    search: "",
-    sortbydate: "",
-  });
-  const [imageSrcs, setImageSrcs] = useState<string[]>([]);
+  const { encodeImageFileAsURL, previewImage, error, uploadImages } =
+    useImageUpload();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
-    if (files) {
-      const newImageSrcs: string[] = [];
-      Array.from(files).forEach((file) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-          newImageSrcs.push(reader.result as string);
-          if (newImageSrcs.length === files.length) {
-            setImageSrcs(newImageSrcs);
-          }
-        };
-      });
+    if (!files) {
+      return;
     }
+    encodeImageFileAsURL(files, "comment");
   };
 
   const handleSubmitClick = () => {
@@ -47,7 +31,14 @@ const CommentPage = () => {
   };
 
   const onSubmitClick = () => {
-    mutate({ content: value });
+    if (!error && previewImage.length) {
+      console.log(previewImage);
+      // const response = uploadImages();
+      console.log("보낸다잉");
+      // mutate({ content: value, imageUrls: response?.data });
+    } else {
+      mutate({ content: value });
+    }
   };
 
   return (
@@ -83,7 +74,7 @@ const CommentPage = () => {
             />
           </div>
           <div className="grid grid-cols-4">
-            {imageSrcs.slice(0, 4).map((src, index) => (
+            {previewImage?.slice(0, 4).map((src, index) => (
               <div key={index} className="w-29 h-44 relative">
                 <Image
                   src={src}
@@ -96,7 +87,12 @@ const CommentPage = () => {
           </div>
           <div className="flex w-full justify-end relative">
             <div className="w-[180px]">
-              <Button onClick={onSubmitClick}>의견 등록</Button>
+              <Button
+                onClick={onSubmitClick}
+                disabled={value.trim() === "" || value.length > 200}
+              >
+                의견 등록
+              </Button>
             </div>
           </div>
         </div>

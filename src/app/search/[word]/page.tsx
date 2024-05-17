@@ -2,7 +2,6 @@ import BackButton from "@/app/summary/_component/BackButton";
 import Preface from "./_component/Preface";
 import BookCards from "./_component/BookCards";
 import RoomCards from "./_component/RoomCards";
-import Tabs from "@/app/components/Tabs/Tabs";
 import SearchTab from "./_component/SearchTab";
 
 const SearchingWordPage = () => {
@@ -15,17 +14,13 @@ const SearchingWordPage = () => {
         </div>
       </div>
       <SearchTab />
-      <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] px-[5%]">
-        <BookCards />
-      </div>
+      <BookCards />
 
-      {/* 토크룸 */}
+      {/* 인기 */}
 
       <div className="w-full h-full px-[5%] py-[3%]">
-        <Preface content="토론방" />
-        <div className="grid gap-8 grid-cols-3">
-          <RoomCards />
-        </div>
+        <Preface content="인기 토론방" />
+        <RoomCards />
       </div>
     </div>
   );

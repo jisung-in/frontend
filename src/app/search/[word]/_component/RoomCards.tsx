@@ -1,16 +1,28 @@
 "use client";
 
-import RoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import { useGetMyStarRate } from "@/hook/reactQuery/my/useGetMyStarRate";
+import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 
 const RoomCards = () => {
-  const { data: bookData } = useGetMyStarRate();
+  const { data: bookData, isLoading } = useGetRooms({
+    page: 1,
+    size: 6,
+    order: "recommend",
+    search: "",
+    sortbydate: "",
+  });
+
+  if (isLoading) {
+    return <HaveNotData content="관련 게시물이" />;
+  }
+
   return (
-    <>
-      {(bookData as any)?.map((data: any) => (
-        <RoomCard key={data.id} data={data} isBest={false} />
+    <div className="grid gap-8 grid-cols-3">
+      {bookData?.response.queryResponse?.map((data: any) => (
+        <TalkRoomCard key={data.id} data={data} isBest={false} />
       ))}
-    </>
+    </div>
   );
 };
 

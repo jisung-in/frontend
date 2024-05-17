@@ -1,7 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 
-type Props = { content?: "도서" | "토론방" };
+type Props = { content?: "도서" | "토론방" | "인기 토론방" };
 const Preface = ({ content = "도서" }: Props) => {
   const params = useSearchParams();
   const word = params.get("name");

@@ -27,7 +27,9 @@ export const useGetComments = ({ talkRoomId }: TalkRoomRequest) => {
     queryKey: ["talkRoom", "comment", talkRoomId],
     queryFn: () =>
       axiosInstance
-        .get<any>(`v1/${talkRoomId}/comments`)
+        .get<any>(
+          `${process.env.NEXT_PUBLIC_SERVER}/v1/talk-rooms/${talkRoomId}/comments`,
+        )
         .then((data) => data.data),
     throwOnError: true,
   });
