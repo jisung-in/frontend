@@ -75,7 +75,7 @@ const page = () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {popularData ? (
+        {popularData && popularData.response.queryResponse.length > 0 ? (
           <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
             {popularData.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={true} />
@@ -95,9 +95,7 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {bookRankData &&
-          Array.isArray(bookRankData) &&
-          bookRankData.length > 0 ? (
+          {bookRankData && bookRankData.length > 0 ? (
             <Swiper data={bookRankData} slidesPerView={5} />
           ) : (
             <HaveNotData content={"베스트 셀러가"} />
@@ -116,7 +114,7 @@ const page = () => {
             <Link href={"/talkroom/?order=recent&page=1"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
-        {recentData ? (
+        {recentData && recentData.response.queryResponse.length > 0 ? (
           <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
             {recentData.response.queryResponse.map((data: TalkRoom) => (
               <TalkRoomCard key={data.id} data={data} isBest={false} />
@@ -136,9 +134,9 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
           </ThemeMain>
-          {talkRoomManyBookData ? (
+          {talkRoomManyBookData && talkRoomManyBookData.length > 0 ? (
             <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
-              {talkRoomManyBookData?.map((data: TalkRoomBookOrder) => (
+              {talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
                 <Link key={data.isbn} href={`/book/${data.isbn}`}>
                   <ManyTalkRoomBookCard data={data} />
                 </Link>

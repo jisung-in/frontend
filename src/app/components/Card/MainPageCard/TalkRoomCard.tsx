@@ -43,7 +43,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
           <div className="flex flex-col m-[26px] w-full">
             <div className="flex flex-row">
               <div className="flex flex-grow">
-                <div className="relative w-[100px] h-[140px]">
+                <div className="relative min-w-[100px] max-w-[100px] min-h-[140px] max-h-[100px]">
                   {data.bookThumbnail ? (
                     <Image
                       className="border border-[#F4E4CE]"
