@@ -12,7 +12,7 @@ type BookRankResponse = {
 };
 
 export const useGetBookRank = () => {
-  return useQuery<BookRankResponse>({
+  return useQuery<BookRankResponse[]>({
     queryKey: ["book", "rank"],
     queryFn: () =>
       axiosInstance
