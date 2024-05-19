@@ -7,8 +7,10 @@ type TalkRoomResponse = {
       {
         commentId: number;
         userName: string;
+        profileImage: string;
         content: string;
         commentLikeCount: number;
+        commentImages: [];
         createTime: string;
       },
     ];

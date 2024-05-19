@@ -13,13 +13,14 @@ interface SpeechBubbleProps {
   data: {
     commentId: number;
     userName: string;
+    profileImage: string;
     content: string;
     commentLikeCount: number;
+    commentImages: [];
     createTime: string;
   };
   isLike: boolean;
 }
-
 const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
   const [isLike, setIsLike] = useState<boolean>(initailIsLike);
@@ -41,7 +42,14 @@ const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
       <div className="pt-[20px] pb-[12px] mx-[20px]">
         <div className="flex items-center mb-4">
           <div className="flex grow items-center">
-            <Image src={Profile} alt="프로필" width={40} height={40} priority />
+            <Image
+              className="rounded-[50%]"
+              src={data.profileImage ? data.profileImage : Profile}
+              alt="프로필"
+              width={40}
+              height={40}
+              priority
+            />
             <div>
               <div className="font-medium text-[20px] ml-[6px]">
                 {data.userName}
@@ -54,12 +62,15 @@ const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
         </div>
         <div className="text-[20px] text-[#000]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
-          {/* {new Array(3).fill(1).map((index: number) => (
-            <div
-              key={"img" + index}
-              className="bg-[#D9D9D9] w-[120px] h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
+          {data.commentImages.map((imgae: string) => (
+            <Image
+              className="min-w-[120px] max-w-[120px] min-h-[120px] max-h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
+              width={120}
+              height={120}
+              src={imgae}
+              alt="댓글 이미지"
             />
-          ))} */}
+          ))}
         </div>
         <div className="flex flex-col">
           <hr className="border-2 border-solid border-[#FBF7F0] mb-[9px]" />

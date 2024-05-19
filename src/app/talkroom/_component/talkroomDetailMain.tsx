@@ -21,7 +21,6 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
   const [count, setCount] = useState<number>(0);
   const addTalkRoomLike = useCreateRoomLike(talkRoomId);
   const deleteTalkRoomLike = useDeleteRoomLike(talkRoomId);
-
   useEffect(() => {
     if (talkroomOneData) {
       setCount(talkroomOneData.likeCount);
