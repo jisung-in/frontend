@@ -25,12 +25,11 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
   useEffect(() => {
     if (talkroomOneData) {
       setCount(talkroomOneData.likeCount);
-      setIsLike(talkroomOneData.likeTalkRoom); // 여기에 적절한 값을 넣으세요
+      setIsLike(talkroomOneData.likeTalkRoom);
     }
   }, [talkroomOneData]);
 
-  const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const changeIsLike = () => {
     if (isLike) {
       deleteTalkRoomLike.mutate();
       setCount((prevCount) => prevCount - 1);

@@ -1,6 +1,8 @@
 import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
+import { useCreateCommentLike } from "@/hook/reactQuery/talkRoom/useCreateCommentLike";
+import { useDeleteCommentLike } from "@/hook/reactQuery/talkRoom/useDeleteCommentLike";
 import timeLapse from "@/util/timeLapse";
 import Image from "next/image";
 import { useState } from "react";
@@ -15,15 +17,24 @@ interface SpeechBubbleProps {
     commentLikeCount: number;
     createTime: string;
   };
+  isLike: boolean;
 }
 
-const SpeechBubble = ({ data }: SpeechBubbleProps) => {
+const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
-  const [isLike, setIsLike] = useState<boolean>(false);
-  const changeIsLike = (isLike: boolean) => {
+  const [isLike, setIsLike] = useState<boolean>(initailIsLike);
+  const createCommentLike = useCreateCommentLike(data.commentId);
+  const deleteCommentLike = useDeleteCommentLike(data.commentId);
+
+  const changeIsLike = () => {
+    if (isLike) {
+      deleteCommentLike.mutate();
+      setCount((prevCount) => prevCount - 1);
+    } else {
+      createCommentLike.mutate();
+      setCount((prevCount) => prevCount + 1);
+    }
     setIsLike(!isLike);
-    setCount(count + 1);
-    if (isLike) setCount(count - 1);
   };
   return (
     <div className="relative bg-[white] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">
@@ -54,13 +65,10 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
           <hr className="border-2 border-solid border-[#FBF7F0] mb-[9px]" />
           <div className="flex grow items-center font-medium text-[17px] text-[#656565]">
             <div className="mr-[13px]">
-              <LikeButton
-                isLike={isLike}
-                onClick={() => changeIsLike(isLike)}
-              />
+              <LikeButton isLike={isLike} onClick={changeIsLike} />
             </div>
             <div className="flex items-center gap-x-[3px]">
-              <IconButton onClick={() => changeIsLike(isLike)}>
+              <IconButton onClick={changeIsLike}>
                 {isLike ? (
                   <LikeSpeechBubble width={16} height={15} />
                 ) : (

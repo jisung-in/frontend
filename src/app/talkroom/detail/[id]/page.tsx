@@ -58,9 +58,14 @@ const Page = ({ params }: { params: { id: number } }) => {
       {/* <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} /> */}
 
       {commentsData && commentsData.response.queryResponse.length > 0 ? (
-        commentsData.response.queryResponse.map((data) => (
-          <SpeechBubble key={data.commentId} data={data} />
-        ))
+        commentsData.response.queryResponse.map((data) => {
+          const isLike = commentsData.userLikeCommentIds.includes(
+            data.commentId,
+          );
+          return (
+            <SpeechBubble key={data.commentId} data={data} isLike={isLike} />
+          );
+        })
       ) : (
         <HaveNotData content={"아직 의견이"} />
       )}
