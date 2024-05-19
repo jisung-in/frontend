@@ -5,22 +5,41 @@ import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
 import NotLike from "@/assets/img/not-like.svg";
 import TitleThemeBigImg from "@/assets/img/theme-title-big.svg";
+import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
+import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import { useGetOneRoom } from "@/hook/reactQuery/talkRoom/useGetOneRoom";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface TalkRoomId {
   talkRoomId: number;
 }
 const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
-  const [count, setCount] = useState<number>(0);
   const { data: talkroomOneData } = useGetOneRoom({ talkRoomId });
   const [isLike, setIsLike] = useState<boolean>(false);
-  const changeIsLike = (isLike: boolean) => {
+  const [count, setCount] = useState<number>(0);
+  const addTalkRoomLike = useCreateRoomLike(talkRoomId);
+  const deleteTalkRoomLike = useDeleteRoomLike(talkRoomId);
+
+  useEffect(() => {
+    if (talkroomOneData) {
+      setCount(talkroomOneData.likeCount);
+      setIsLike(talkroomOneData.likeTalkRoom); // 여기에 적절한 값을 넣으세요
+    }
+  }, [talkroomOneData]);
+
+  const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    if (isLike) {
+      deleteTalkRoomLike.mutate();
+      setCount((prevCount) => prevCount - 1);
+    } else {
+      addTalkRoomLike.mutate();
+      setCount((prevCount) => prevCount + 1);
+    }
     setIsLike(!isLike);
-    setCount(count + 1);
-    if (isLike) setCount(count - 1);
   };
+
   const timeLapse = (createdDateTime: string): string => {
     const createdDate = new Date(createdDateTime);
     const currentDate = new Date();
@@ -50,9 +69,8 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
   };
 
   if (!talkroomOneData) {
-    return <div>Loading...</div>;
+    return <HaveNotData content={"책의 정보가"} />;
   }
-
   return (
     <>
       {talkroomOneData && (
@@ -62,7 +80,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
               <div className="flex flex-col items-end">
                 <div className="flex flex-col">
                   <div className="flex flex-col items-center">
-                    <IconButton onClick={() => changeIsLike(isLike)}>
+                    <IconButton onClick={changeIsLike}>
                       {isLike ? (
                         <Like width={26} height={24} />
                       ) : (
@@ -70,7 +88,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
                       )}
                     </IconButton>
                     <div className="h-[16px] font-Inter font-regular text-[16px] text-[#656565]">
-                      {talkroomOneData.likeCount}
+                      {count}
                     </div>
                   </div>
                 </div>
@@ -84,9 +102,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
                 </div>
                 <div className="flex font-regular text-lg text-[#7E7E7E]">
                   생성일: &nbsp;
-                  {talkroomOneData.registeredDateTime
-                    ? timeLapse(talkroomOneData.registeredDateTime)
-                    : "더미데이터"}
+                  {timeLapse(talkroomOneData.registeredDateTime)}
                 </div>
                 <Image
                   className="min-w-[260px] min-h-[339px] max-w-[260px] max-h-[339px]  border border-solid border-[#F4E4CE] my-[27px]"
