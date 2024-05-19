@@ -43,12 +43,12 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
         </div>
         <div className="text-[20px] text-[#000]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
-          {new Array(3).fill(1).map((index: number) => (
+          {/* {new Array(3).fill(1).map((index: number) => (
             <div
               key={"img" + index}
               className="bg-[#D9D9D9] w-[120px] h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
             />
-          ))}
+          ))} */}
         </div>
         <div className="flex flex-col">
           <hr className="border-2 border-solid border-[#FBF7F0] mb-[9px]" />

@@ -20,7 +20,6 @@ type TalkRoom = {
   bookThumbnail: string;
   likeCount: number;
 };
-
 const page = ({ params }: { params: { isbn: string } }) => {
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params?.isbn,
