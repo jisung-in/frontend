@@ -1,17 +1,24 @@
 import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
+import timeLapse from "@/util/timeLapse";
 import Image from "next/image";
 import { useState } from "react";
 import IconButton from "../../../components/IconButton/IconButton";
 import LikeButton from "../../../components/LikeButton/LikeButton";
 
 interface SpeechBubbleProps {
-  content?: string;
+  data: {
+    commentId: number;
+    userName: string;
+    content: string;
+    commentLikeCount: number;
+    createTime: string;
+  };
 }
 
-const SpeechBubble = ({ content }: SpeechBubbleProps) => {
-  const [count, setCount] = useState<number>(0);
+const SpeechBubble = ({ data }: SpeechBubbleProps) => {
+  const [count, setCount] = useState<number>(data.commentLikeCount);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
@@ -25,12 +32,16 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
           <div className="flex grow items-center">
             <Image src={Profile} alt="프로필" width={40} height={40} priority />
             <div>
-              <div className="font-medium text-[20px] ml-[6px]">이름</div>
+              <div className="font-medium text-[20px] ml-[6px]">
+                {data.userName}
+              </div>
             </div>
           </div>
-          <div className="text-[#17px] text-[#7E7E7E]">20시간 전</div>
+          <div className="text-[#17px] text-[#7E7E7E]">
+            {timeLapse(data.createTime)}
+          </div>
         </div>
-        <div className="text-[20px] text-[#000]">{content}</div>
+        <div className="text-[20px] text-[#000]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
           {new Array(3).fill(1).map((index: number) => (
             <div
