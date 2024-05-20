@@ -10,6 +10,7 @@ import Link from "next/link";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
+import ResizeImage from "./components/ResizeImage/ResizeImage";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
@@ -58,8 +59,8 @@ const page = () => {
     order: "comment",
   });
   return (
-    <div className="bg-[#FFF]">
-      <div className="mt-[51px] ml-[115px] mb-[78px]">
+    <div className="bg-[#FFF] w-full">
+      <div className="mt-[51px] px-[5%] mb-[78px]">
         <div className="mb-7">
           <ThemeMain>
             <ThemeMain.MainTheme>
@@ -70,7 +71,7 @@ const page = () => {
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
               <Link href={"/talkroom/?order=recommend&sortbydate=&page=1"}>
-                전체보기 {">"}
+                <div className="w-[90px]">전체보기 {">"}</div>
               </Link>
             </ThemeMain.Show>
           </ThemeMain>
@@ -94,34 +95,38 @@ const page = () => {
         )}
       </div>
       <div className="bg-[#FBF7F0] py-[1px]">
-        <div className="my-[55px] ml-[120px]">
+        <div className="sm:my-[26px] md:my-[33px] lg:my-[40px] xl:my-[48px] xl2:my-[55px] px-[5%]">
           <ThemeMain.MainTheme>
-            <div className="flex mb-7">
-              <div className="flex gap-x-3 grow items-center">
+            <div className="flex sm:mb-[15px] md:mb-[17px] lg:mb-[19px] xl:mb-[19px] xl2:mb-[21px]">
+              <div className="flex sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3 grow items-center">
                 <div>베스트 셀러</div>
-                <BestSeller />
+                <ResizeImage src={BestSeller} alt="베스트 셀러" />
               </div>
             </div>
           </ThemeMain.MainTheme>
           {bookRankData && bookRankData.length > 0 ? (
-            <Swiper data={bookRankData} slidesPerView={5} />
+            <Swiper data={bookRankData} />
           ) : (
             <HaveNotData content={"베스트 셀러가"} />
           )}
         </div>
       </div>
-      <div className="mt-[51px] ml-[120px]">
-        <ThemeMain>
-          <ThemeMain.MainTheme>
-            <div className="flex gap-x-3 grow items-center mb-7">
-              <div>최근 생성된 토크방</div>
-              <PopularTalkRoom />
-            </div>
-          </ThemeMain.MainTheme>
-          <ThemeMain.Show>
-            <Link href={"/talkroom/?order=recent&page=1"}>전체보기 {">"}</Link>
-          </ThemeMain.Show>
-        </ThemeMain>
+      <div className="mt-[51px] px-[5%]">
+        <div className=" mb-7">
+          <ThemeMain>
+            <ThemeMain.MainTheme>
+              <div className="flex gap-x-3 grow items-center">
+                <div>최근 생성된 토크방</div>
+                <PopularTalkRoom />
+              </div>
+            </ThemeMain.MainTheme>
+            <ThemeMain.Show>
+              <Link href={"/talkroom/?order=recent&page=1"}>
+                <div className="w-[90px]">전체보기 {">"}</div>
+              </Link>
+            </ThemeMain.Show>
+          </ThemeMain>
+        </div>
         {recentData && recentData.response.queryResponse.length > 0 ? (
           <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
             {recentData.response.queryResponse.map((data: TalkRoom) => {
@@ -141,7 +146,7 @@ const page = () => {
         )}
       </div>
       <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
-        <div className="pt-[77px] ml-[120px]">
+        <div className="pt-[77px] px-[5%]">
           <ThemeMain>
             <ThemeMain.MainTheme>
               <div className="flex gap-x-3 mb-7 items-center">

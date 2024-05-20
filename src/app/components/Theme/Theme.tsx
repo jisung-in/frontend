@@ -3,14 +3,30 @@ import { ThemeProps } from "./Theme.types";
 
 const MainTheme = ({ children }: ThemeProps) => {
   return (
-    <div className="text-[28px] font-SpoqaHanSansNeo font-bold flex-grow">
+    <div
+      className="
+    sm:text-[18px] 
+    md:text-[22px] 
+    lg:text-[24px] 
+    xl:text-[26px] 
+    xl2:text-[28px] 
+    font-SpoqaHanSansNeo font-bold flex-grow"
+    >
       {children}
     </div>
   );
 };
 const Show = ({ children }: ThemeProps) => {
   return (
-    <div className="text-[20px] text-[#B1B1B1] mr-[115px] font-Pretendard font-regular flex items-center">
+    <div
+      className="
+    sm:text-[12px] 
+    md:text-[14px] 
+    lg:text-[16px] 
+    xl:text-[18px] 
+    xl2:text-[20px] 
+    text-[#B1B1B1] font-Pretendard font-regular flex items-center"
+    >
       {children}
     </div>
   );
