@@ -1,19 +1,23 @@
-"use client";
+// "use client";
 
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
-import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
-import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
-import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
-import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import PopularTalkRoomIcon from "@/assets/img/popular-talk-room.svg";
+import { usePrefetchBookRank } from "@/hook/reactQuery/book/useGetBookRank";
+import { usePrefetchRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import Link from "next/link";
-import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
-import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "./components/HaveNotData/HaveNotData";
-import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
+import PopularTalkRoom from "./components/molecules/MainCard/PopularTalkRoom";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
+import BestSellerCard from "./components/molecules/MainCard/BestSellerCard";
+import RecentTalkRoom from "./components/molecules/MainCard/RecentTalkRoom";
+import ManyTalkRoom from "./components/molecules/MainCard/ManyTalkRoom";
 
-type TalkRoom = {
+export type TalkRoom = {
   id: number;
   profileImage: string;
   username: string;
@@ -27,7 +31,7 @@ type TalkRoom = {
   registeredDateTime: string;
 };
 
-type TalkRoomBookOrder = {
+export type TalkRoomBookOrder = {
   isbn: string;
   title: string;
   publisher: string;
@@ -36,27 +40,19 @@ type TalkRoomBookOrder = {
   dateTime: string;
 };
 
-const page = () => {
-  const { data: popularData } = useGetRooms({
-    page: 1,
-    size: 4,
-    order: "recommend",
-    search: "",
-    sortbydate: "",
+const page = async () => {
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: ["talk-room", "first"],
+    queryFn: usePrefetchRooms,
   });
-  const { data: recentData } = useGetRooms({
-    page: 1,
-    size: 4,
-    order: "recent",
-    search: "",
-    sortbydate: "",
+  await queryClient.prefetchQuery({
+    queryKey: ["book", "rank"],
+    queryFn: usePrefetchBookRank,
   });
-  const { data: bookRankData } = useGetBookRank();
-  const { data: talkRoomManyBookData } = useGetRoomBookOrder({
-    page: 1,
-    size: 12,
-    order: "comment",
-  });
+
+  const dehydratedState = dehydrate(queryClient);
+
   return (
     <div className="bg-[#FFF]">
       <div className="mt-[51px] ml-[115px] mb-[78px]">
@@ -65,7 +61,7 @@ const page = () => {
             <ThemeMain.MainTheme>
               <div className="flex gap-x-3 grow items-center">
                 <div>인기있는 토크방</div>
-                <PopularTalkRoom />
+                <PopularTalkRoomIcon />
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
@@ -75,15 +71,10 @@ const page = () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {popularData && popularData.response.queryResponse.length > 0 ? (
-          <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-            {popularData.response.queryResponse.map((data: TalkRoom) => (
-              <TalkRoomCard key={data.id} data={data} isBest={true} />
-            ))}
-          </div>
-        ) : (
-          <HaveNotData content={"인기있는 토크방이"} />
-        )}
+
+        <HydrationBoundary state={dehydratedState}>
+          <PopularTalkRoom />
+        </HydrationBoundary>
       </div>
       <div className="bg-[#FBF7F0] py-[1px]">
         <div className="my-[55px] ml-[120px]">
@@ -95,11 +86,10 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {bookRankData && bookRankData.length > 0 ? (
-            <Swiper data={bookRankData} slidesPerView={5} />
-          ) : (
-            <HaveNotData content={"베스트 셀러가"} />
-          )}
+
+          <HydrationBoundary state={dehydratedState}>
+            <BestSellerCard />
+          </HydrationBoundary>
         </div>
       </div>
       <div className="mt-[51px] ml-[120px]">
@@ -107,22 +97,15 @@ const page = () => {
           <ThemeMain.MainTheme>
             <div className="flex gap-x-3 grow items-center mb-7">
               <div>최근 생성된 토크방</div>
-              <PopularTalkRoom />
+              <PopularTalkRoomIcon />
             </div>
           </ThemeMain.MainTheme>
           <ThemeMain.Show>
             <Link href={"/talkroom/?order=recent&page=1"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
-        {recentData && recentData.response.queryResponse.length > 0 ? (
-          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-            {recentData.response.queryResponse.map((data: TalkRoom) => (
-              <TalkRoomCard key={data.id} data={data} isBest={false} />
-            ))}
-          </div>
-        ) : (
-          <HaveNotData content={"최근 생성된 토크방이"} />
-        )}
+
+        <RecentTalkRoom />
       </div>
       <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
         <div className="pt-[77px] ml-[120px]">
@@ -134,17 +117,7 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
           </ThemeMain>
-          {talkRoomManyBookData && talkRoomManyBookData.length > 0 ? (
-            <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
-              {talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
-                <Link key={data.isbn} href={`/book/${data.isbn}`}>
-                  <ManyTalkRoomBookCard data={data} />
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <HaveNotData content={"토크 많은 책이"} />
-          )}
+          <ManyTalkRoom />
         </div>
       </div>
     </div>
