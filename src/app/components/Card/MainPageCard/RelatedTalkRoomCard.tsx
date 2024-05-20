@@ -1,9 +1,11 @@
 import BookTitleRelate from "@/assets/img/book-title-relate.svg";
 import Like from "@/assets/img/like.svg";
+import NoImage from "@/assets/img/no-image.png";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title-middle.svg";
-import { faker } from "@faker-js/faker";
+import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
+import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -21,16 +23,28 @@ type TalkRoomCardProps = {
     bookThumbnail: string;
     likeCount: number;
   };
+  isLike: boolean;
 };
 
-const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
-  const [count, setCount] = useState<number>(0);
-  const [isLike, setIsLike] = useState<boolean>(false);
+const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
+  data,
+  isLike: initialIsLike,
+}) => {
+  const [count, setCount] = useState<number>(data.likeCount);
+  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
+  const addTalkRoomLike = useCreateRoomLike(data.id);
+  const deleteTalkRoomLike = useDeleteRoomLike(data.id);
 
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    if (isLike) {
+      deleteTalkRoomLike.mutate();
+      setCount((prevCount) => prevCount - 1);
+    } else {
+      addTalkRoomLike.mutate();
+      setCount((prevCount) => prevCount + 1);
+    }
     setIsLike(!isLike);
-    setCount((prevCount) => (isLike ? prevCount - 1 : prevCount + 1));
   };
 
   return (
@@ -43,7 +57,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
               <div className="relative min-w-[135px] min-h-[188px] max-w-[135px] max-h-[188px]">
                 <Image
                   className="border border-[#F4E4CE]"
-                  src={data ? data.bookThumbnail : faker.image.urlLoremFlickr()}
+                  src={data ? data.bookThumbnail : NoImage}
                   alt="책 표지"
                   fill
                 />

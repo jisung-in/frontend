@@ -1,9 +1,9 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import Tab from "./Tab";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useContext } from "react";
+import Tab from "./Tab";
 import { TabContext } from "./TabProvider";
 
 const MyTalkRoom = () => {
@@ -21,9 +21,19 @@ const MyTalkRoom = () => {
       <Tab />
       <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-[20px] w-[80%]">
         {talkRoomPopular?.response.queryResponse instanceof Array &&
-          talkRoomPopular?.response.queryResponse.map((data: any) => (
-            <TalkRoomCard key={data.id} data={data} isBest={false} />
-          ))}
+          talkRoomPopular?.response.queryResponse.map((data: any) => {
+            const isLike = talkRoomPopular.userLikeTalkRoomIds.includes(
+              data.id,
+            );
+            return (
+              <TalkRoomCard
+                key={data.id}
+                data={data}
+                isBest={false}
+                isLike={isLike}
+              />
+            );
+          })}
       </div>
     </div>
   );

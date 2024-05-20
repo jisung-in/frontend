@@ -77,9 +77,17 @@ const page = () => {
         </div>
         {popularData && popularData.response.queryResponse.length > 0 ? (
           <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
-            {popularData.response.queryResponse.map((data: TalkRoom) => (
-              <TalkRoomCard key={data.id} data={data} isBest={true} />
-            ))}
+            {popularData.response.queryResponse.map((data: TalkRoom) => {
+              const isLike = popularData.userLikeTalkRoomIds.includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={true}
+                  isLike={isLike}
+                />
+              );
+            })}
           </div>
         ) : (
           <HaveNotData content={"인기있는 토크방이"} />
@@ -116,9 +124,17 @@ const page = () => {
         </ThemeMain>
         {recentData && recentData.response.queryResponse.length > 0 ? (
           <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
-            {recentData.response.queryResponse.map((data: TalkRoom) => (
-              <TalkRoomCard key={data.id} data={data} isBest={false} />
-            ))}
+            {recentData.response.queryResponse.map((data: TalkRoom) => {
+              const isLike = recentData.userLikeTalkRoomIds.includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={true}
+                  isLike={isLike}
+                />
+              );
+            })}
           </div>
         ) : (
           <HaveNotData content={"최근 생성된 토크방이"} />
