@@ -71,10 +71,23 @@ const page = async () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-
-        <HydrationBoundary state={dehydratedState}>
-          <PopularTalkRoom />
-        </HydrationBoundary>
+        {popularData && popularData.response.queryResponse.length > 0 ? (
+          <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
+            {popularData.response.queryResponse.map((data: TalkRoom) => {
+              const isLike = popularData.userLikeTalkRoomIds.includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={true}
+                  isLike={isLike}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <HaveNotData content={"인기있는 토크방이"} />
+        )}
       </div>
       <div className="bg-[#FBF7F0] py-[1px]">
         <div className="my-[55px] ml-[120px]">
@@ -104,8 +117,23 @@ const page = async () => {
             <Link href={"/talkroom/?order=recent&page=1"}>전체보기 {">"}</Link>
           </ThemeMain.Show>
         </ThemeMain>
-
-        <RecentTalkRoom />
+        {recentData && recentData.response.queryResponse.length > 0 ? (
+          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
+            {recentData.response.queryResponse.map((data: TalkRoom) => {
+              const isLike = recentData.userLikeTalkRoomIds.includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={true}
+                  isLike={isLike}
+                />
+              );
+            })}
+          </div>
+        ) : (
+          <HaveNotData content={"최근 생성된 토크방이"} />
+        )}
       </div>
       <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
         <div className="pt-[77px] ml-[120px]">

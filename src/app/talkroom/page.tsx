@@ -69,13 +69,21 @@ const page = () => {
         </div>
       </div>
 
-      {talkRoomPopular &&
-      Array.isArray(talkRoomPopular.response.queryResponse) &&
-      talkRoomPopular.response.queryResponse.length > 0 ? (
+      {talkRoomPopular && talkRoomPopular.response.queryResponse.length > 0 ? (
         <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-          {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => (
-            <TalkRoomCard key={data.id} data={data} isBest={false} />
-          ))}
+          {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => {
+            const isLike = talkRoomPopular.userLikeTalkRoomIds.includes(
+              data.id,
+            );
+            return (
+              <TalkRoomCard
+                key={data.id}
+                data={data}
+                isBest={false}
+                isLike={isLike}
+              />
+            );
+          })}
         </div>
       ) : (
         <HaveNotData content={"토크방이"} />

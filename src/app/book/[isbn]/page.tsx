@@ -20,7 +20,6 @@ type TalkRoom = {
   bookThumbnail: string;
   likeCount: number;
 };
-
 const page = ({ params }: { params: { isbn: string } }) => {
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params?.isbn,
@@ -81,9 +80,16 @@ const page = ({ params }: { params: { isbn: string } }) => {
         </div>
         {relateData && relateData.response.queryResponse.length > 0 ? (
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-            {relateData.response.queryResponse.map((data: TalkRoom) => (
-              <RelatedTalkRoomCard key={data.id} data={data} />
-            ))}
+            {relateData.response.queryResponse.map((data: TalkRoom) => {
+              const isLike = relateData.userLikeTalkRoomIds.includes(data.id);
+              return (
+                <RelatedTalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isLike={isLike}
+                />
+              );
+            })}
           </div>
         ) : (
           <HaveNotData content={"연관된 토크방이"} />

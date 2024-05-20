@@ -19,9 +19,17 @@ const RoomCards = () => {
 
   return (
     <div className="grid gap-8 grid-cols-3">
-      {bookData?.response.queryResponse?.map((data: any) => (
-        <TalkRoomCard key={data.id} data={data} isBest={false} />
-      ))}
+      {bookData?.response.queryResponse?.map((data: any) => {
+        const isLike = bookData.userLikeTalkRoomIds.includes(data.id);
+        return (
+          <TalkRoomCard
+            key={data.id}
+            data={data}
+            isBest={false}
+            isLike={isLike}
+          />
+        );
+      })}
     </div>
   );
 };

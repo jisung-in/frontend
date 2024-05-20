@@ -1,16 +1,14 @@
 "use client";
 
-import { Button } from "@/app/components/Button/Button";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
-import Link from "next/link";
-import BestSpeechBubble from "../../_component/SpeechBubble/BestSpeechBubble";
-import MySpeechBubble from "../../_component/SpeechBubble/MySpeechBubble";
+import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
 import SpeechBubble from "../../_component/SpeechBubble/SpeechBubble";
 import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
 
 const Page = ({ params }: { params: { id: number } }) => {
+  const { data: commentsData } = useGetComments(params.id);
   return (
     <div>
       <MainThemeTitle title="토크해요">
@@ -21,7 +19,7 @@ const Page = ({ params }: { params: { id: number } }) => {
 
       <hr className="border-[6px] border-[#F5EFE5] mt-[47px] mb-[42px]" />
 
-      <div className="flex flex-col items-center mt-[37px] mb-[140px]">
+      {/* <div className="flex flex-col items-center mt-[37px] mb-[140px]">
         <div className="font-SpoqaHanSansNeo font-bold text-[#80685D] text-[30px] mb-[43px]">
           참가 조건에 부합하여 의견 작성이 가능합니다
         </div>
@@ -48,23 +46,30 @@ const Page = ({ params }: { params: { id: number } }) => {
         >
           등록하기
         </Button>
-      </div>
+      </div> */}
 
       <div className="font-Pretendard font-semibold text-[21px] text-[#818181] mb-[28px]">
-        의견 999+
+        의견{" "}
+        {commentsData && commentsData.response.totalCount > 999
+          ? "999+"
+          : commentsData?.response.totalCount}
       </div>
 
-      <HaveNotData content={"아직 의견이"} />
+      {/* <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} /> */}
 
-      <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} />
-
-      {new Array(10).fill(1).map((content: string, index: number) => (
-        <SpeechBubble
-          key={"username" + index}
-          content={"토크 의견 내용 들어갈 곳 입니다."}
-        />
-      ))}
-      <MySpeechBubble content={"나의 의견 내용 들어갈 곳 입니다."} />
+      {commentsData && commentsData.response.queryResponse.length > 0 ? (
+        commentsData.response.queryResponse.map((data) => {
+          const isLike = commentsData.userLikeCommentIds.includes(
+            data.commentId,
+          );
+          return (
+            <SpeechBubble key={data.commentId} data={data} isLike={isLike} />
+          );
+        })
+      ) : (
+        <HaveNotData content={"아직 의견이"} />
+      )}
+      {/* <MySpeechBubble content={"나의 의견 내용 들어갈 곳 입니다."} /> */}
     </div>
   );
 };
