@@ -15,27 +15,30 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
   return (
     <div
       className="
-    sm:w-[103px]
-    md:w-[143px]
-    lg:w-[183px]
-    xl:w-[223px]
-    xl2:w-[263px]
-    sm:h-[194px]
-    md:h-[232px]
-    lg:h-[271px]
-    xl:h-[335px]
-    xl2:h-[438px]
-    "
+      sm:w-[103px]
+      md:w-[143px]
+      lg:w-[183px]
+      xl:w-[223px]
+      xl2:w-[263px]
+      h-full"
     >
       <BookMain>
         <BookMain.BookCover>
           <div
             className="relative w-full 
-          sm:h-[146px]
-          xl2:h-[375px] cursor-pointer"
+            sm:h-[146px]
+            md:h-[203px]
+            lg:h-[260px]
+            xl:h-[317px]
+            xl2:h-[375px] cursor-pointer"
           >
             <Image
-              className="border border-[#F4E4CE] rounded-[10px]"
+              className="border border-[#F4E4CE]            
+              sm:rounded-[3px]
+              md:rounded-[5px]
+              lg:rounded-[7px]
+              xl:rounded-[9px]
+              xl2:rounded-[10px]"
               src={data.thumbnail ? data.thumbnail : NoImage}
               alt="책 표지"
               fill

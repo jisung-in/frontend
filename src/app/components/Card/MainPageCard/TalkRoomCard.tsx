@@ -1,7 +1,7 @@
 import BookTitle from "@/assets/img/book-title.svg";
 import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
-import NotLike from "@/assets/img/not-like.svg";
+import NotLike from "@/assets/img/not-like-white.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title.svg";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
@@ -51,13 +51,66 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
   };
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
-      <div className="relative w-[20dvw] min-w-[405px] h-[330px] rounded-[17px] bg-[#fff] border border-[#F4E4CE] font-Pretendard overflow-hidden">
-        <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#80685D] top-[-30%]"></div>
+      <div
+        className="relative 
+        sm:w-[291px] 
+        sm:h-[235px]
+        sm:rounded-[10px]
+        md:w-[319px] 
+        md:h-[258px]
+        md:rounded-[12px]
+        lg:w-[348px] 
+        lg:h-[282px]
+        lg:rounded-[14px]
+        xl:w-[376px] 
+        xl:h-[306px]
+        xl:rounded-[16px]
+        xl2:w-[405px] 
+        xl2:h-[330px]
+        xl2:rounded-[17px]
+      bg-[#fff] border border-[#F4E4CE] font-Pretendard overflow-hidden"
+      >
+        <div
+          className="
+        sm:top-[-10%]
+        sm:h-[100px]
+        md:top-[-30%]
+        md:h-[200px]
+        lg:top-[-30%]
+        lg:h-[200px]
+        xl:top-[-30%]
+        xl:h-[200px]
+        xl2:top-[-30%]
+        xl2:h-[200px]
+        absolute inset-0 transform -skew-y-[10deg] bg-[#80685D] "
+        ></div>
         <div className="absolute inset-0 flex justify-center items-center">
           <div className="flex flex-col m-[26px] w-full">
             <div className="flex flex-row">
               <div className="flex flex-grow">
-                <div className="relative min-w-[100px] max-w-[100px] min-h-[140px] max-h-[100px]">
+                <div
+                  className="relative 
+                  sm:min-w-[70px] 
+                  sm:max-w-[70px] 
+                  sm:min-h-[100px] 
+                  sm:max-h-[100px]
+                  md:min-w-[78px] 
+                  md:max-w-[78px] 
+                  md:min-h-[110px] 
+                  md:max-h-[110px]
+                  lg:min-w-[85px] 
+                  lg:max-w-[85px] 
+                  lg:min-h-[120px] 
+                  lg:max-h-[120px]
+                  xl:min-w-[92px] 
+                  xl:max-w-[92px] 
+                  xl:min-h-[130px] 
+                  xl:max-h-[130px]
+                  xl2:min-w-[100px] 
+                  xl2:max-w-[100px] 
+                  xl2:min-h-[140px] 
+                  xl2:max-h-[140px]"
+                >
                   {data.bookThumbnail ? (
                     <Image
                       className="border border-[#F4E4CE]"
@@ -90,14 +143,21 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
               <div className="flex flex-col items-center">
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
-                    <Like width={21} height={19} />
+                    <>
+                      <Like width={21} height={19} />
+                      <div className="h-[22px] font-Inter font-regular text-[#13px] text-[#F24D4D]">
+                        {count}
+                      </div>
+                    </>
                   ) : (
-                    <NotLike width={21} height={19} />
+                    <>
+                      <NotLike width={21} height={19} />
+                      <div className="h-[22px] font-Inter font-regular text-[#13px] text-white">
+                        {count}
+                      </div>
+                    </>
                   )}
                 </IconButton>
-                <div className="h-[22px] font-Inter font-regular text-[#13px] text-[#656565]">
-                  {count}
-                </div>
               </div>
             </div>
             <div className="flex flex-row mt-[17px] font-semibold items-center gap-x-[7px] mb-3.5">

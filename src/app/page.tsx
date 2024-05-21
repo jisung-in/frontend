@@ -61,11 +61,39 @@ const page = () => {
   });
   return (
     <div className="bg-[#FFF] w-full">
-      <div className="mt-[51px] px-[4.5%] mb-[78px]">
-        <div className="mb-7">
+      <div
+        className="
+        sm:mt-[25px]
+        md:mt-[34px]
+        lg:mt-[40px]
+        xl:mt-[48px]
+        xl2:mt-[56px] 
+        sm:px-[16px]
+        md:px-[42px]
+        lg:px-[68px]
+        xl:px-[89px]
+        xl2:px-[120px]
+        sm:mb-[25px]
+        md:mb-[36px]
+        lg:mb-[48px]
+        xl:mb-[60px]
+        xl2:mb-[72px]"
+      >
+        <div
+          className="
+          sm:mb-[17px]
+          md:mb-[19px]
+          lg:mb-[22px]
+          xl:mb-[24px]
+          xl2:mb-[26px]"
+        >
           <ThemeMain>
             <ThemeMain.MainTheme>
-              <div className="flex gap-x-3 grow items-center">
+              <div
+                className="
+                flex grow items-center 
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3"
+              >
                 <div>인기있는 토크방</div>
                 <ResizeImage src={PopularTalkRoom} alt="인기있는 토크방" />
               </div>
@@ -78,7 +106,7 @@ const page = () => {
           </ThemeMain>
         </div>
         {popularData && popularData.response.queryResponse.length > 0 ? (
-          <div className="flex flex-row flex-wrap gap-x-[21px] gap-y-[21px]">
+          <div className="flex flex-row xl2:gap-x-[20px]">
             {popularData.response.queryResponse.map((data: TalkRoom) => {
               const isLike = popularData.userLikeTalkRoomIds.includes(data.id);
               return (
@@ -96,10 +124,30 @@ const page = () => {
         )}
       </div>
       <div className="bg-[#FBF7F0] py-[1px]">
-        <div className="sm:my-[26px] md:my-[33px] lg:my-[40px] xl:my-[48px] xl2:my-[55px] px-[4.5%]">
+        <div
+          className="
+            sm:my-[26px] 
+            md:my-[34px]
+            lg:my-[42px]
+            xl:my-[48px]
+            xl2:my-[56px]
+            sm:px-[16px]
+            md:px-[42px]
+            lg:px-[68px]
+            xl:px-[89px]
+            xl2:px-[120px]
+            "
+        >
           <ThemeMain.MainTheme>
-            <div className="flex sm:mb-[15px] md:mb-[17px] lg:mb-[19px] xl:mb-[19px] xl2:mb-[21px]">
-              <div className="flex sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3 grow items-center">
+            <div
+              className="flex
+              sm:mb-[15px] md:mb-[17px] lg:mb-[19px] xl:mb-[19px] xl2:mb-[21px]"
+            >
+              <div
+                className="
+                flex grow items-center
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3 "
+              >
                 <div>베스트 셀러</div>
                 <ResizeImage src={BestSeller} alt="베스트 셀러" />
               </div>
@@ -112,11 +160,33 @@ const page = () => {
           )}
         </div>
       </div>
-      <div className="mt-[51px] px-[4.5%]">
-        <div className=" mb-7">
+      <div
+        className="
+        sm:my-[26px] 
+        md:my-[34px]
+        lg:my-[42px]
+        xl:my-[48px]
+        xl2:my-[56px]
+        sm:px-[16px]
+        md:px-[42px]
+        lg:px-[68px]
+        xl:px-[89px]
+        xl2:px-[120px]"
+      >
+        <div
+          className="
+          sm:mb-[17px]
+          md:mb-[19px]
+          lg:mb-[22px]
+          xl:mb-[24px]
+          xl2:mb-[26px]"
+        >
           <ThemeMain>
             <ThemeMain.MainTheme>
-              <div className="flex gap-x-3 grow items-center">
+              <div
+                className="flex grow items-center
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3"
+              >
                 <div>최근 생성된 토크방</div>
                 <ResizeImage src={RecentTalkRoom} alt="최근 생성된 토크방" />
               </div>
@@ -129,7 +199,7 @@ const page = () => {
           </ThemeMain>
         </div>
         {recentData && recentData.response.queryResponse.length > 0 ? (
-          <div className="flex flex-row flex-wrap gap-x-[18px] gap-y-[18px]">
+          <div className="flex flex-row xl2:gap-x-[20px]">
             {recentData.response.queryResponse.map((data: TalkRoom) => {
               const isLike = recentData.userLikeTalkRoomIds.includes(data.id);
               return (
@@ -146,11 +216,39 @@ const page = () => {
           <HaveNotData content={"최근 생성된 토크방이"} />
         )}
       </div>
-      <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
-        <div className="pt-[77px] px-[4.5%]">
+      <div
+        className="bg-[#FBF7F0] pt-[1px] 
+        sm:pb-[17px]
+        md:pb-[28px]
+        lg:pb-[38px]
+        xl:pb-[48px]
+        xl2:pb-[56px]"
+      >
+        <div
+          className="            
+          sm:mt-[26px] 
+          md:mt-[34px]
+          lg:mt-[42px]
+          xl:mt-[48px]
+          xl2:mt-[56px]
+          sm:px-[16px]
+          md:px-[42px]
+          lg:px-[68px]
+          xl:px-[89px]
+          xl2:px-[120px]"
+        >
           <ThemeMain>
             <ThemeMain.MainTheme>
-              <div className="flex gap-x-3 mb-7 items-center">
+              <div
+                className="
+                flex items-center
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3
+                sm:mb-[17px]
+                md:mb-[19px]
+                lg:mb-[22px]
+                xl:mb-[24px]
+                xl2:mb-[26px]"
+              >
                 <div>토크 많은 책</div>
                 <ResizeImage src={ManyTalkRoomBook} alt="토크 많은 책" />
               </div>
