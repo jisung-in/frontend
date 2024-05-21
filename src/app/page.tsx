@@ -3,6 +3,7 @@
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
+import RecentTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
 import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
@@ -66,12 +67,12 @@ const page = () => {
             <ThemeMain.MainTheme>
               <div className="flex gap-x-3 grow items-center">
                 <div>인기있는 토크방</div>
-                <PopularTalkRoom />
+                <ResizeImage src={PopularTalkRoom} alt="인기있는 토크방" />
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
               <Link href={"/talkroom/?order=recommend&sortbydate=&page=1"}>
-                <div className="w-[90px]">전체보기 {">"}</div>
+                <div className="w-full">전체보기 {">"}</div>
               </Link>
             </ThemeMain.Show>
           </ThemeMain>
@@ -117,12 +118,12 @@ const page = () => {
             <ThemeMain.MainTheme>
               <div className="flex gap-x-3 grow items-center">
                 <div>최근 생성된 토크방</div>
-                <PopularTalkRoom />
+                <ResizeImage src={RecentTalkRoom} alt="최근 생성된 토크방" />
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
               <Link href={"/talkroom/?order=recent&page=1"}>
-                <div className="w-[90px]">전체보기 {">"}</div>
+                <div className="w-full">전체보기 {">"}</div>
               </Link>
             </ThemeMain.Show>
           </ThemeMain>
@@ -151,7 +152,7 @@ const page = () => {
             <ThemeMain.MainTheme>
               <div className="flex gap-x-3 mb-7 items-center">
                 <div>토크 많은 책</div>
-                <ManyTalkRoomBook />
+                <ResizeImage src={ManyTalkRoomBook} alt="토크 많은 책" />
               </div>
             </ThemeMain.MainTheme>
           </ThemeMain>
