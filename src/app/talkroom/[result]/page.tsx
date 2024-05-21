@@ -92,7 +92,7 @@ const page = ({ params }: { params: { result: string } }) => {
               <TalkRoomCard
                 key={data.id}
                 data={data}
-                isBest={false}
+                isBest={orderParam === "recommend"}
                 isLike={isLike}
               />
             );
