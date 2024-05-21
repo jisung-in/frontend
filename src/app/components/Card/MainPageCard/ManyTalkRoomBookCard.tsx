@@ -15,22 +15,25 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
   return (
     <div
       className="
-      sm:w-[103px]
-      md:w-[143px]
-      lg:w-[183px]
-      xl:w-[223px]
-      xl2:w-[263px]
+      w-[29vw]
+      min-w-[93px]
+      max-w-[263px]
+      md:w-[27vw]
+      lg:w-[21vw]
+      xl:w-[16vw]
+      xl2:w-[14vw]
       h-full"
     >
       <BookMain>
         <BookMain.BookCover>
           <div
-            className="relative w-full 
-            sm:h-[146px]
-            md:h-[203px]
-            lg:h-[260px]
-            xl:h-[317px]
-            xl2:h-[375px] cursor-pointer"
+            className="relative w-full cursor-pointer
+            min-h-[126px]
+            max-h-[375px]
+            lg:h-[30vw]
+            xl:h-[23vw]
+            xl2:h-[38vw]
+            h-[41vw]"
           >
             <Image
               className="border border-[#F4E4CE]            
