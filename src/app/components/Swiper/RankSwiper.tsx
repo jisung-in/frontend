@@ -19,7 +19,7 @@ interface BookSliderProps {
   }[];
 }
 
-const SwiperSlider: React.FC<BookSliderProps> = ({ data }) => {
+const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
   return (
     <section
       className="
@@ -34,7 +34,7 @@ const SwiperSlider: React.FC<BookSliderProps> = ({ data }) => {
           loop={false}
           modules={[Navigation, Pagination]}
           breakpoints={{
-            200: {
+            319: {
               slidesPerView: 2.7,
               slidesPerGroup: 2,
               spaceBetween: 10,
@@ -81,4 +81,4 @@ const SwiperSlider: React.FC<BookSliderProps> = ({ data }) => {
   );
 };
 
-export default SwiperSlider;
+export default RankSwiper;
