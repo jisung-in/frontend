@@ -113,7 +113,22 @@ const Book = ({ children, className = "" }: BookProps) => {
       {rankBox.length > 0 ? (
         <div className="relative">
           {bookCover && <>{bookCover}</>}
-          <div className="absolute top-[10px] left-[10px]">{rankBox}</div>
+          <div
+            className="absolute 
+            sm:top-[3px] 
+            sm:left-[3px]
+            md:top-[5px] 
+            md:left-[5px]
+            lg:top-[7px] 
+            lg:left-[7px]
+            xl:top-[9px] 
+            xl:left-[9px]
+            xl2:top-[10px] 
+            xl2:left-[10px]
+          "
+          >
+            {rankBox}
+          </div>
         </div>
       ) : (
         <>{bookCover}</>

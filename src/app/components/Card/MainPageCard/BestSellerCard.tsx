@@ -31,7 +31,13 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
           "
         >
           <Image
-            className="border border-[#F4E4CE] rounded-[10px]"
+            className="border border-[#F4E4CE] 
+            sm:rounded-[5px]
+            md:rounded-[6px]
+            lg:rounded-[8px]
+            xl:rounded-[9px]
+            xl2:rounded-[10px]
+            "
             src={thumbnail ? thumbnail : NoImage}
             alt="책 표지"
             fill
@@ -47,7 +53,12 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
           lg:text-[17px]
           xl:text-[19px]
           xl2:text-[21px]
-          font-semibold mt-[12px] text-[#000] overflow-hidden line-clamp-1"
+          sm:mt-[8px]
+          md:mt-[9px]
+          lg:mt-[10px]
+          xl:mt-[11px]
+          xl2:mt-[12px]
+          font-semibold text-[#000] overflow-hidden line-clamp-1"
         >
           {title}
         </div>

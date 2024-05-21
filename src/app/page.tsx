@@ -61,7 +61,7 @@ const page = () => {
   });
   return (
     <div className="bg-[#FFF] w-full">
-      <div className="mt-[51px] px-[5%] mb-[78px]">
+      <div className="mt-[51px] px-[4.5%] mb-[78px]">
         <div className="mb-7">
           <ThemeMain>
             <ThemeMain.MainTheme>
@@ -96,7 +96,7 @@ const page = () => {
         )}
       </div>
       <div className="bg-[#FBF7F0] py-[1px]">
-        <div className="sm:my-[26px] md:my-[33px] lg:my-[40px] xl:my-[48px] xl2:my-[55px] px-[5%]">
+        <div className="sm:my-[26px] md:my-[33px] lg:my-[40px] xl:my-[48px] xl2:my-[55px] px-[4.5%]">
           <ThemeMain.MainTheme>
             <div className="flex sm:mb-[15px] md:mb-[17px] lg:mb-[19px] xl:mb-[19px] xl2:mb-[21px]">
               <div className="flex sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3 grow items-center">
@@ -112,7 +112,7 @@ const page = () => {
           )}
         </div>
       </div>
-      <div className="mt-[51px] px-[5%]">
+      <div className="mt-[51px] px-[4.5%]">
         <div className=" mb-7">
           <ThemeMain>
             <ThemeMain.MainTheme>
@@ -147,7 +147,7 @@ const page = () => {
         )}
       </div>
       <div className="bg-[#FBF7F0] mt-[81px] pt-[1px] pb-[64px]">
-        <div className="pt-[77px] px-[5%]">
+        <div className="pt-[77px] px-[4.5%]">
           <ThemeMain>
             <ThemeMain.MainTheme>
               <div className="flex gap-x-3 mb-7 items-center">
@@ -157,7 +157,15 @@ const page = () => {
             </ThemeMain.MainTheme>
           </ThemeMain>
           {talkRoomManyBookData && talkRoomManyBookData.length > 0 ? (
-            <div className="flex flew-row flex-wrap gap-x-[19px] gap-y-[27px]">
+            <div
+              className="flex flew-row flex-wrap 
+              sm:gap-x-[9px] sm:gap-y-[10px]
+              md:gap-x-[12px] md:gap-y-[15px]
+              lg:gap-x-[14px] lg:gap-y-[20px]
+              xl:gap-x-[17px] xl:gap-y-[24px]
+              xl2:gap-x-[19px] xl2:gap-y-[27px]
+            "
+            >
               {talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
                 <Link key={data.isbn} href={`/book/${data.isbn}`}>
                   <ManyTalkRoomBookCard data={data} />
