@@ -8,11 +8,13 @@ import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
 import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
-import Swiper from "./components/Swiper/Swiper";
+import RankSwiper from "./components/Swiper/RankSwiper";
+import TalkRoomCardSwiper from "./components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "./components/Theme/Theme";
 
 type TalkRoom = {
@@ -39,6 +41,21 @@ type TalkRoomBookOrder = {
 };
 
 const page = () => {
+  const [isSwiper, setIsSwiper] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSwiper(window.innerWidth <= 1800);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   const { data: popularData } = useGetRooms({
     page: 1,
     size: 4,
@@ -106,19 +123,29 @@ const page = () => {
           </ThemeMain>
         </div>
         {popularData && popularData.response.queryResponse.length > 0 ? (
-          <div className="flex flex-row xl2:gap-x-[20px]">
-            {popularData.response.queryResponse.map((data: TalkRoom) => {
-              const isLike = popularData.userLikeTalkRoomIds.includes(data.id);
-              return (
-                <TalkRoomCard
-                  key={data.id}
-                  data={data}
-                  isBest={true}
-                  isLike={isLike}
-                />
-              );
-            })}
-          </div>
+          isSwiper ? (
+            <TalkRoomCardSwiper
+              talkRooms={popularData.response.queryResponse}
+              userLikeTalkRoomIds={popularData.userLikeTalkRoomIds}
+              isBest={true}
+            />
+          ) : (
+            <div className="flex flex-row xl2:gap-x-[20px]">
+              {popularData.response.queryResponse.map((data: TalkRoom) => {
+                const isLike = popularData.userLikeTalkRoomIds.includes(
+                  data.id,
+                );
+                return (
+                  <TalkRoomCard
+                    key={data.id}
+                    data={data}
+                    isBest={true}
+                    isLike={isLike}
+                  />
+                );
+              })}
+            </div>
+          )
         ) : (
           <HaveNotData content={"인기있는 토크방이"} />
         )}
@@ -154,7 +181,7 @@ const page = () => {
             </div>
           </ThemeMain.MainTheme>
           {bookRankData && bookRankData.length > 0 ? (
-            <Swiper data={bookRankData} />
+            <RankSwiper data={bookRankData} />
           ) : (
             <HaveNotData content={"베스트 셀러가"} />
           )}
@@ -199,19 +226,27 @@ const page = () => {
           </ThemeMain>
         </div>
         {recentData && recentData.response.queryResponse.length > 0 ? (
-          <div className="flex flex-row xl2:gap-x-[20px]">
-            {recentData.response.queryResponse.map((data: TalkRoom) => {
-              const isLike = recentData.userLikeTalkRoomIds.includes(data.id);
-              return (
-                <TalkRoomCard
-                  key={data.id}
-                  data={data}
-                  isBest={true}
-                  isLike={isLike}
-                />
-              );
-            })}
-          </div>
+          isSwiper ? (
+            <TalkRoomCardSwiper
+              talkRooms={recentData.response.queryResponse}
+              userLikeTalkRoomIds={recentData.userLikeTalkRoomIds}
+              isBest={false}
+            />
+          ) : (
+            <div className="flex flex-row xl2:gap-x-[20px]">
+              {recentData.response.queryResponse.map((data: TalkRoom) => {
+                const isLike = recentData.userLikeTalkRoomIds.includes(data.id);
+                return (
+                  <TalkRoomCard
+                    key={data.id}
+                    data={data}
+                    isBest={false}
+                    isLike={isLike}
+                  />
+                );
+              })}
+            </div>
+          )
         ) : (
           <HaveNotData content={"최근 생성된 토크방이"} />
         )}
@@ -256,12 +291,13 @@ const page = () => {
           </ThemeMain>
           {talkRoomManyBookData && talkRoomManyBookData.length > 0 ? (
             <div
-              className="flex flew-row flex-wrap 
-              sm:gap-x-[9px] sm:gap-y-[10px]
-              md:gap-x-[12px] md:gap-y-[15px]
-              lg:gap-x-[14px] lg:gap-y-[20px]
-              xl:gap-x-[17px] xl:gap-y-[24px]
-              xl2:gap-x-[19px] xl2:gap-y-[27px]
+              className="
+              grid gap-y-3
+              sm:grid-cols-3
+              md:grid-cols-3
+              lg:grid-cols-4
+              xl:grid-cols-5
+              xl2:grid-cols-6
             "
             >
               {talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
