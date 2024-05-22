@@ -1,10 +1,6 @@
 "use client";
 import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
 import Dropdown from "@/app/components/DropDown/DropDown";
-import {
-  MyStarRateRequest,
-  useGetMyStarRate,
-} from "@/hook/reactQuery/my/useGetMyStarRate";
 import { useGetMyStar } from "@/hook/reactQuery/my/useGetMyStars";
 import { useState } from "react";
 
@@ -22,8 +18,6 @@ const filterList: string[] = [
 const StarPage = () => {
   const [starFilter, setStartFilter] = useState("별점 순");
   const { data: starData } = useGetMyStar();
-
-  console.log(starData);
 
   return (
     <div className="flex flex-col w-full h-full items-center">

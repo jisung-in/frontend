@@ -24,7 +24,11 @@ const BookCards = () => {
   return (
     <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] px-[5%]">
       {(bookData as any)?.documents?.map((data: any) => (
-        <div className="w-[263px]">
+        <div
+          className="w-[263px]"
+          key={data.isbn}
+          onClick={() => onBookClicked(data.isbn)}
+        >
           <div className="relative w-full h-[375px] cursor-pointer">
             <Image
               className="border border-[#F4E4CE] rounded-[10px]"

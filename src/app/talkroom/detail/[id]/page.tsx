@@ -9,6 +9,7 @@ import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
 
 const Page = ({ params }: { params: { id: number } }) => {
   const { data: commentsData } = useGetComments(params.id);
+  console.log(commentsData);
   return (
     <div>
       <MainThemeTitle title="토크해요">

@@ -6,6 +6,7 @@ module.exports = {
       "image.yes24.com",
       "dummyimage.com",
       "search1.kakaocdn.net",
+      "jisungin-bucket.s3.ap-northeast-2.amazonaws.com",
     ],
   },
   webpack: (config) => {

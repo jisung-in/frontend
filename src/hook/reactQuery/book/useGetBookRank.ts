@@ -1,5 +1,5 @@
 import axiosInstance from "@/app/api/requestApi";
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunction, useQuery } from "@tanstack/react-query";
 
 type BookRankResponse = {
   ranking: number;
@@ -20,4 +20,26 @@ export const useGetBookRank = () => {
         .then((data) => data.data.queryResponse),
     throwOnError: true,
   });
+};
+
+export const usePrefetchBookRank: QueryFunction<
+  any,
+  [_1: string, _2: string]
+> = async ({ queryKey }) => {
+  const [_1, username] = queryKey;
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER}/v1/books/best-seller?page=1&size=20"`,
+    {
+      next: {
+        tags: ["book", "rank"],
+      },
+      cache: "no-store",
+    },
+  );
+
+  if (!res.ok) {
+    throw new Error("Failed to fetch data");
+  }
+
+  return res.json();
 };

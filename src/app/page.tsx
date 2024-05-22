@@ -1,5 +1,4 @@
 "use client";
-
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
@@ -12,7 +11,6 @@ import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
 import Swiper from "./components/Swiper/Swiper";
 import { ThemeMain } from "./components/Theme/Theme";
-
 type TalkRoom = {
   id: number;
   profileImage: string;
@@ -26,7 +24,6 @@ type TalkRoom = {
   readingStatuses: string[];
   registeredDateTime: string;
 };
-
 type TalkRoomBookOrder = {
   isbn: string;
   title: string;
@@ -35,7 +32,6 @@ type TalkRoomBookOrder = {
   authors: string[];
   dateTime: string;
 };
-
 const page = () => {
   const { data: popularData } = useGetRooms({
     page: 1,
@@ -166,5 +162,4 @@ const page = () => {
     </div>
   );
 };
-
 export default page;
