@@ -62,7 +62,9 @@ const page = ({ params }: { params: { result: string } }) => {
           <div className="flex mt-[78px] mb-[23px]">
             <div className="flex items-center mb-[23px]">
               <div className="text-[30px] mr-[16px]">토크해요</div>
-              <RecentMakeTalkRoom />
+              <div className="w-[30px] h-[30px]">
+                <RecentMakeTalkRoom />
+              </div>
             </div>
           </div>
         </ThemeMain.MainTheme>
@@ -92,7 +94,7 @@ const page = ({ params }: { params: { result: string } }) => {
               <TalkRoomCard
                 key={data.id}
                 data={data}
-                isBest={false}
+                isBest={orderParam === "recommend"}
                 isLike={isLike}
               />
             );

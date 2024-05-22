@@ -25,7 +25,7 @@ export const useGetComments = (talkRoomId: number) => {
     queryKey: ["talkRoom", "comment", talkRoomId],
     queryFn: () =>
       axiosInstance
-        .get<any>(`/v1/talk-rooms/${talkRoomId}/comments`)
+        .get(`/v1/talk-rooms/${talkRoomId}/comments`)
         .then((data) => data.data),
     throwOnError: true,
   });

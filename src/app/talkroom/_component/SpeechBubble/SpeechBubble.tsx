@@ -62,12 +62,12 @@ const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
         </div>
         <div className="text-[20px] text-[#000]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
-          {data.commentImages.map((imgae: string) => (
+          {data.commentImages.map((image: string) => (
             <Image
               className="min-w-[120px] max-w-[120px] min-h-[120px] max-h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
               width={120}
               height={120}
-              src={imgae}
+              src={image}
               alt="댓글 이미지"
             />
           ))}

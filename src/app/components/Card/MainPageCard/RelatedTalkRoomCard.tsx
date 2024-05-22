@@ -1,7 +1,7 @@
 import BookTitleRelate from "@/assets/img/book-title-relate.svg";
 import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
-import NotLike from "@/assets/img/not-like.svg";
+import NotLike from "@/assets/img/not-like-white.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title-middle.svg";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
@@ -79,7 +79,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
                     <NotLike width={29} height={22} />
                   )}
                 </IconButton>
-                <div className="h-[22px] font-Inter font-regular text-[13px] text-[#656565]">
+                <div className="h-[22px] font-Inter font-regular text-[13px] text-white">
                   {count}
                 </div>
               </div>

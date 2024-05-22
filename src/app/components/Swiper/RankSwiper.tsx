@@ -17,12 +17,15 @@ interface BookSliderProps {
     authors: string[];
     dateTime: string;
   }[];
-  slidesPerView: number;
 }
 
-const SwiperSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
+const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
   return (
-    <section className="w-[1680px] h-[523px]">
+    <section
+      className="
+      min-x-[345px] min-h-[212px]
+      max-w-[1710px] max-h-[523px]"
+    >
       <ul className="h-full w-full">
         <Swiper
           navigation
@@ -30,9 +33,33 @@ const SwiperSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
           autoplay={true}
           loop={false}
           modules={[Navigation, Pagination]}
-          spaceBetween={20}
-          slidesPerView={slidesPerView}
-          slidesPerGroup={5}
+          breakpoints={{
+            319: {
+              slidesPerView: 2.7,
+              slidesPerGroup: 2,
+              spaceBetween: 10,
+            },
+            601: {
+              slidesPerView: 3,
+              slidesPerGroup: 3,
+              spaceBetween: 10,
+            },
+            901: {
+              slidesPerView: 3.5,
+              slidesPerGroup: 3,
+              spaceBetween: 15,
+            },
+            1201: {
+              slidesPerView: 4,
+              slidesPerGroup: 4,
+              spaceBetween: 20,
+            },
+            1801: {
+              slidesPerView: 5,
+              slidesPerGroup: 5,
+              spaceBetween: 20,
+            },
+          }}
         >
           {data?.map((data) => (
             <SwiperSlide key={data.isbn}>
@@ -54,4 +81,4 @@ const SwiperSlider: React.FC<BookSliderProps> = ({ data, slidesPerView }) => {
   );
 };
 
-export default SwiperSlider;
+export default RankSwiper;

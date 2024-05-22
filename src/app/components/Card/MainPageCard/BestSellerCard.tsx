@@ -21,9 +21,23 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   return (
     <BookMain>
       <BookMain.BookCover>
-        <div className="w-[320px] h-[450px]">
+        <div
+          className="
+          min-w-[120px] 
+          min-h-[170px]
+          w-[55vw]
+          h-[50vw]
+          max-w-[320px] max-h-[450px]
+          "
+        >
           <Image
-            className="border border-[#F4E4CE] rounded-[10px]"
+            className="border border-[#F4E4CE] 
+            sm:rounded-[5px]
+            md:rounded-[6px]
+            lg:rounded-[8px]
+            xl:rounded-[9px]
+            xl2:rounded-[10px]
+            "
             src={thumbnail ? thumbnail : NoImage}
             alt="책 표지"
             fill
@@ -32,20 +46,59 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
       </BookMain.BookCover>
       {ranking && <BookMain.RankBox>{ranking}</BookMain.RankBox>}
       <BookMain.BookTitle>
-        <div className="font-semibold mt-[12px] text-[#000] text-[21px] overflow-hidden line-clamp-1">
+        <div
+          className="
+          sm:text-[12px]
+          md:text-[15px]
+          lg:text-[17px]
+          xl:text-[19px]
+          xl2:text-[21px]
+          sm:mt-[8px]
+          md:mt-[9px]
+          lg:mt-[10px]
+          xl:mt-[11px]
+          xl2:mt-[12px]
+          font-semibold text-[#000] overflow-hidden line-clamp-1"
+        >
           {title}
         </div>
       </BookMain.BookTitle>
       <BookMain.Publisher>
-        <div className="text-lg overflow-hidden line-clamp-1">{publisher}</div>
+        <div
+          className="
+          sm:text-[11px]
+          md:text-[13px]
+          lg:text-[15px]
+          xl:text-[17px]
+          xl2:text-lg
+          overflow-hidden line-clamp-1"
+        >
+          {publisher}
+        </div>
       </BookMain.Publisher>
       <BookMain.Author>
-        <div className="text-lg overflow-hidden line-clamp-1">
+        <div
+          className="
+          sm:text-[11px]
+          md:text-[13px]
+          lg:text-[15px]
+          xl:text-[17px]
+          xl2:text-lg 
+          overflow-hidden line-clamp-1"
+        >
           {authors.join(", ")}
         </div>
       </BookMain.Author>
       <BookMain.Year>
-        <div className="text-lg overflow-hidden line-clamp-1">
+        <div
+          className="          
+          sm:text-[11px]
+          md:text-[13px]
+          lg:text-[15px]
+          xl:text-[17px]
+          xl2:text-lg
+          overflow-hidden line-clamp-1"
+        >
           {dateTime.slice(0, 4)}
         </div>
       </BookMain.Year>

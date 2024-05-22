@@ -6,7 +6,26 @@ const BookCover = ({ children }: BookProps) => {
 };
 const RankBox = ({ children }: BookProps) => {
   return (
-    <div className="w-9 h-9 text-[#FFF] text-[21px] bg-[#624E45] border rounded-[4px] text-center">
+    <div
+      className="
+      sm:w-4
+      md:w-5
+      lg:w-6
+      xl:w-7
+      xl2:w-9  
+      sm:h-4
+      md:h-5
+      lg:h-6
+      xl:h-7
+      xl2:h-9
+      sm:text-[9px]
+      md:text-[12px]
+      lg:text-[15px]
+      xl:text-[18px]
+      xl2:text-[21px]
+      text-[#FFF] bg-[#624E45] border rounded-[4px] text-center
+      "
+    >
       {children}
     </div>
   );
@@ -94,7 +113,22 @@ const Book = ({ children, className = "" }: BookProps) => {
       {rankBox.length > 0 ? (
         <div className="relative">
           {bookCover && <>{bookCover}</>}
-          <div className="absolute top-[10px] left-[10px]">{rankBox}</div>
+          <div
+            className="absolute 
+            sm:top-[3px] 
+            sm:left-[3px]
+            md:top-[5px] 
+            md:left-[5px]
+            lg:top-[7px] 
+            lg:left-[7px]
+            xl:top-[9px] 
+            xl:left-[9px]
+            xl2:top-[10px] 
+            xl2:left-[10px]
+          "
+          >
+            {rankBox}
+          </div>
         </div>
       ) : (
         <>{bookCover}</>
