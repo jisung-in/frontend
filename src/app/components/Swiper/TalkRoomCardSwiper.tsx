@@ -36,7 +36,11 @@ const TalkRoomCardSwiper = ({
       loop={false}
       modules={[Navigation, Pagination]}
       breakpoints={{
-        319: {
+        320: {
+          slidesPerView: 1,
+          slidesPerGroup: 1,
+        },
+        359: {
           slidesPerView: 1.1,
           slidesPerGroup: 1,
           spaceBetween: 8,
@@ -47,6 +51,11 @@ const TalkRoomCardSwiper = ({
           spaceBetween: 8,
         },
         901: {
+          slidesPerView: 2,
+          slidesPerGroup: 1,
+          spaceBetween: 10,
+        },
+        1301: {
           slidesPerView: 3,
           slidesPerGroup: 1,
           spaceBetween: 10,
