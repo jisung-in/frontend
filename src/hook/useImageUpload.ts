@@ -2,7 +2,7 @@ import { ChangeEvent, useState } from "react";
 
 type UseImageUpload = {
   encodeImageFileAsURL: (fileList: FileList, type: string) => void;
-  uploadImages: () => Response | undefined | null;
+  uploadImages: () => Response | undefined | null | Promise<any>;
   imagesBase64: FormData | undefined;
   previewImage: string[];
   isUploading: boolean;
@@ -49,23 +49,25 @@ const useImageUpload = (): UseImageUpload => {
     }
   };
 
-  const uploadImages = () => {
+  const uploadImages = async () => {
     if (!imagesBase64) return null;
 
-    fetch(`${process.env.NEXT_PUBLIC_SERVER}/v1/s3`, {
-      method: "POST",
-      body: imagesBase64,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setIsUploading(false);
-        return data;
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        setError(error);
-        setIsUploading(false);
+    try {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER}/v1/s3`, {
+        method: "POST",
+        body: imagesBase64,
       });
+
+      const data = await response.json();
+      setIsUploading(false);
+      console.log("리턴 데이터", data);
+      return data;
+    } catch (error: any) {
+      console.error("Error:", error);
+      setError(error);
+      setIsUploading(false);
+      return null;
+    }
   };
 
   return {

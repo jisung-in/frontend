@@ -1,5 +1,4 @@
 "use client";
-
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
@@ -16,7 +15,6 @@ import ResizeImage from "./components/ResizeImage/ResizeImage";
 import RankSwiper from "./components/Swiper/RankSwiper";
 import TalkRoomCardSwiper from "./components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "./components/Theme/Theme";
-
 type TalkRoom = {
   id: number;
   profileImage: string;
@@ -30,7 +28,6 @@ type TalkRoom = {
   readingStatuses: string[];
   registeredDateTime: string;
 };
-
 type TalkRoomBookOrder = {
   isbn: string;
   title: string;
@@ -39,7 +36,6 @@ type TalkRoomBookOrder = {
   authors: string[];
   dateTime: string;
 };
-
 const page = () => {
   const [isSwiper, setIsSwiper] = useState(false);
 
@@ -314,5 +310,4 @@ const page = () => {
     </div>
   );
 };
-
 export default page;

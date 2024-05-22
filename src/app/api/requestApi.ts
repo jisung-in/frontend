@@ -42,7 +42,7 @@ const onResponseRejected = (error: AxiosError) => {
   const { status: errorStatus } = error.response;
   if (errorStatus === 401) {
     localStorage.removeItem("token");
-    window.location.href = "/";
+    // window.location.href = "/";
   }
 
   return Promise.reject(error.response);

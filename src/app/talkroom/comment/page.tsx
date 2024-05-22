@@ -30,12 +30,14 @@ const CommentPage = () => {
     fileInputRef.current?.click();
   };
 
-  const onSubmitClick = () => {
+  const onSubmitClick = async () => {
     if (!error && previewImage.length) {
       console.log(previewImage);
-      // const response = uploadImages();
-      console.log("보낸다잉");
-      // mutate({ content: value, imageUrls: response?.data });
+      const response = await uploadImages();
+      console.log("보낸다잉", response);
+      if (response?.data) {
+        mutate({ content: value, imageUrls: response.data });
+      }
     } else {
       mutate({ content: value });
     }
