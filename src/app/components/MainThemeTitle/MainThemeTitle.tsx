@@ -15,7 +15,7 @@ const MainThemeTitle = ({ children, title }: MainThemeTitlePrps) => {
         <div className="flex mt-[18px] mb-[23px]">
           <div className="flex items-center mb-[23px]">
             <div className="text-[30px] mr-[16px]">{title}</div>
-            {children}
+            <div className="w-[30px] h-[30px]">{children}</div>
           </div>
         </div>
       </ThemeMain.MainTheme>
