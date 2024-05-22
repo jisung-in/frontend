@@ -1,5 +1,5 @@
 import axiosInstance from "@/app/api/requestApi";
-import { QueryFunction, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 type TalkRoomRequest = {
   page: number;
@@ -40,7 +40,7 @@ export const useGetRooms = ({
   sortbydate = "",
 }: TalkRoomRequest) => {
   return useQuery<TalkRoomInfo>({
-    queryKey: ["talk-room", "first"],
+    queryKey: ["talkroom", "popular", page, size, order, search, sortbydate],
     queryFn: () =>
       axiosInstance
         .get(
@@ -49,29 +49,4 @@ export const useGetRooms = ({
         .then(({ data }) => data),
     throwOnError: true,
   });
-};
-
-export const usePrefetchRooms: QueryFunction<
-  any,
-  [_1: string, _2: string]
-> = async ({ queryKey }) => {
-  const [_1, username] = queryKey;
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER}/talk-rooms?page=1&size=4&order=recommended`,
-    {
-      next: {
-        tags: ["talk-room", "first"],
-      },
-      cache: "no-store",
-    },
-  );
-  // The return value is *not* serialized
-  // You can return Date, Map, Set, etc.
-
-  if (!res.ok) {
-    // This will activate the closest `error.js` Error Boundary
-    throw new Error("Failed to fetch data");
-  }
-
-  return res.json();
 };
