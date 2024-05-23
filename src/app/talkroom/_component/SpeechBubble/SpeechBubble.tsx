@@ -24,7 +24,7 @@ interface SpeechBubbleProps {
 const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
   const [isLike, setIsLike] = useState<boolean>(initailIsLike);
-  const createCommentLike = useCreateCommentLike(data.commentId);
+  const createCommentLike = useCreateCommentLike();
   const deleteCommentLike = useDeleteCommentLike(data.commentId);
 
   const changeIsLike = () => {
@@ -32,7 +32,7 @@ const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
       deleteCommentLike.mutate();
       setCount((prevCount) => prevCount - 1);
     } else {
-      createCommentLike.mutate();
+      createCommentLike.mutate(data.commentId);
       setCount((prevCount) => prevCount + 1);
     }
     setIsLike(!isLike);

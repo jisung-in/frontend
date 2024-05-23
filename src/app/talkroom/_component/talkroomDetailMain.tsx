@@ -19,8 +19,8 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
   const { data: talkroomOneData } = useGetOneRoom({ talkRoomId });
   const [isLike, setIsLike] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
-  const addTalkRoomLike = useCreateRoomLike(talkRoomId);
-  const deleteTalkRoomLike = useDeleteRoomLike(talkRoomId);
+  const addTalkRoomLike = useCreateRoomLike();
+  const deleteTalkRoomLike = useDeleteRoomLike();
   useEffect(() => {
     if (talkroomOneData) {
       setCount(talkroomOneData.likeCount);
@@ -30,10 +30,10 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
 
   const changeIsLike = () => {
     if (isLike) {
-      deleteTalkRoomLike.mutate();
+      deleteTalkRoomLike.mutate(talkRoomId);
       setCount((prevCount) => prevCount - 1);
     } else {
-      addTalkRoomLike.mutate();
+      addTalkRoomLike.mutate(talkRoomId);
       setCount((prevCount) => prevCount + 1);
     }
     setIsLike(!isLike);

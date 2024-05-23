@@ -32,16 +32,16 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
 }) => {
   const [count, setCount] = useState<number>(data.likeCount);
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
-  const addTalkRoomLike = useCreateRoomLike(data.id);
-  const deleteTalkRoomLike = useDeleteRoomLike(data.id);
+  const addTalkRoomLike = useCreateRoomLike();
+  const deleteTalkRoomLike = useDeleteRoomLike();
 
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (isLike) {
-      deleteTalkRoomLike.mutate();
+      deleteTalkRoomLike.mutate(data.id);
       setCount((prevCount) => prevCount - 1);
     } else {
-      addTalkRoomLike.mutate();
+      addTalkRoomLike.mutate(data.id);
       setCount((prevCount) => prevCount + 1);
     }
     setIsLike(!isLike);
