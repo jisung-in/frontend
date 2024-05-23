@@ -23,7 +23,19 @@ const timeLapse = (createdDateTime: string): string => {
 
   // 일 단위로 경과한 시간 계산
   const timeLapseInDays = Math.floor(timeLapseInHours / 24);
-  return `${timeLapseInDays}일 전`;
+  if (timeLapseInDays < 30) {
+    return `${timeLapseInDays}일 전`;
+  }
+
+  // 달 단위로 경과한 시간 계산
+  const timeLapseInMonths = Math.floor(timeLapseInDays / 30);
+  if (timeLapseInMonths < 12) {
+    return `${timeLapseInMonths}달 전`;
+  }
+
+  // 년 단위로 경과한 시간 계산
+  const timeLapseInYears = Math.floor(timeLapseInMonths / 12);
+  return `${timeLapseInYears}년 전`;
 };
 
 export default timeLapse;
