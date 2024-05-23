@@ -1,12 +1,21 @@
 import BigStar from "@/assets/img/big-star.svg";
 import EmptyStar from "@/assets/img/empty-star.svg";
 import HalfStar from "@/assets/img/half-star.svg";
+import { useCreateStarRating } from "@/hook/reactQuery/book/useCreateStarRating";
 import { useEffect, useState } from "react";
 
-const BookStarRating = () => {
+type Isbn = {
+  isbn: string;
+};
+
+const BookStarRating = ({ isbn }: Isbn) => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [evaluate, setEvaluate] = useState<string>("평가하기");
+  const createStarRating = useCreateStarRating({
+    bookIsbn: isbn,
+    rating: myStarRate.toString(),
+  });
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -19,7 +28,8 @@ const BookStarRating = () => {
     if (myStarRate === starRate) {
       return setMyStarRate(0);
     }
-    return setMyStarRate(starRate);
+    setMyStarRate(starRate);
+    createStarRating.mutate({ bookIsbn: isbn, rating: starRate.toString() });
   };
 
   useEffect(() => {

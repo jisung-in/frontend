@@ -33,7 +33,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
       <div className="flex flex-col grow justify-start font-Pretendard font-medium">
         <div className="flex flex-row items-center mt-[30px] gap-x-[70px]">
           <div className="flex flex-col">
-            <BookStarRating />
+            <BookStarRating isbn={isbn} />
           </div>
           <div className="flex flex-col items-center">
             <div className="font-Inter text-[44px]">
