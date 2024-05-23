@@ -44,7 +44,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
 
       <div className="bg-white">
         <div className="max-w-[1680px] mx-[120px]">
-          <RegisterEvaluation />
+          <RegisterEvaluation isbn={params.isbn} />
 
           <div className="flex flex-row mt-[63px] mb-[28px] items-center">
             <div className="flex flex-row gap-x-[19px] flex-grow text-[30px] font-SpoqaHanSansNeo items-center">
