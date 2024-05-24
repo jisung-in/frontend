@@ -2,6 +2,9 @@ import BigStar from "@/assets/img/big-star.svg";
 import EmptyStar from "@/assets/img/empty-star.svg";
 import HalfStar from "@/assets/img/half-star.svg";
 import { useCreateStarRating } from "@/hook/reactQuery/book/useCreateStarRating";
+import { useDeleteStarRating } from "@/hook/reactQuery/book/useDeleteStarRating";
+import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";
+import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
 import { useEffect, useState } from "react";
 
 type Isbn = {
@@ -12,10 +15,16 @@ const BookStarRating = ({ isbn }: Isbn) => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [evaluate, setEvaluate] = useState<string>("평가하기");
-  const createStarRating = useCreateStarRating({
-    bookIsbn: isbn,
-    rating: myStarRate.toString(),
-  });
+  const { data: getStarRating, refetch: refetchStarRating } =
+    useGetStarRating(isbn);
+  const createStarRating = useCreateStarRating();
+  const deleteStarRating = useDeleteStarRating();
+
+  useEffect(() => {
+    getStarRating && setMyStarRate(getStarRating.rating);
+  }, [getStarRating]);
+
+  const patchStarRating = usePatchStarRating(getStarRating?.id || 0);
 
   const handleMouseMove = (
     e: React.MouseEvent<HTMLDivElement>,
@@ -24,12 +33,26 @@ const BookStarRating = ({ isbn }: Isbn) => {
     const half = e.nativeEvent.offsetX + index < 27.5;
     setStarRate(index + (half ? 0.5 : 1));
   };
-  const saveMyStarRate = () => {
+  const saveMyStarRate = async () => {
     if (myStarRate === starRate) {
-      return setMyStarRate(0);
+      setMyStarRate(0);
+      if (getStarRating?.id) {
+        await deleteStarRating.mutateAsync(getStarRating?.id);
+        await refetchStarRating(); // 별점 삭제 후 다시 불러오기
+      }
+    } else {
+      setMyStarRate(starRate);
+      if (getStarRating?.id) {
+        await patchStarRating.mutateAsync({ bookIsbn: isbn, rating: starRate });
+        await refetchStarRating(); // 별점 수정 후 다시 불러오기
+      } else {
+        await createStarRating.mutateAsync({
+          bookIsbn: isbn,
+          rating: starRate,
+        });
+        await refetchStarRating(); // 별점 생성 후 다시 불러오기
+      }
     }
-    setMyStarRate(starRate);
-    createStarRating.mutate({ bookIsbn: isbn, rating: starRate.toString() });
   };
 
   useEffect(() => {

@@ -3,20 +3,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type StarRatingRequest = {
   bookIsbn: string;
-  rating: string;
+  rating: number;
 };
 
-export const useCreateStarRating = ({
-  bookIsbn,
-  rating,
-}: StarRatingRequest) => {
+export const useCreateStarRating = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (request: StarRatingRequest) =>
       axiosInstance.post(`/v1/ratings`, request),
-    onSuccess: () =>
+    onSuccess: (_, variables) => {
       queryClient.invalidateQueries({
-        queryKey: ["book", "rating", bookIsbn],
-      }),
+        queryKey: ["starRating", variables.bookIsbn],
+      });
+    },
+    onError: (error) => {
+      console.error("An error occurred while creating the star rating:", error);
+    },
   });
 };
