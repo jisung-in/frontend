@@ -28,6 +28,7 @@ const page = () => {
   const currentUrl = usePathname();
   const orderParam = param.get("order");
   const sortByDateParam = param.get("sortbydate");
+  const pageParam = param.get("page");
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
@@ -40,8 +41,9 @@ const page = () => {
     sortByDateParam === "1d"
       ? sortByDateParam
       : "";
+  const page: number = Number(pageParam) || 1;
   const { data: talkRoomPopular } = useGetRooms({
-    page: 1,
+    page: page,
     size: 12,
     order: orderStatus,
     search: "",
@@ -52,6 +54,7 @@ const page = () => {
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,
     );
   };
+  console.log(talkRoomPopular);
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">

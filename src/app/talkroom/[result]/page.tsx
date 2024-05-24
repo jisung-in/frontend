@@ -30,6 +30,7 @@ const page = ({ params }: { params: { result: string } }) => {
   const orderParam = param.get("order");
   const sortByDateParam = param.get("sortbydate");
   const searchParam: string = param.get("search") || "";
+  const pageParam = param.get("page");
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
@@ -42,14 +43,16 @@ const page = ({ params }: { params: { result: string } }) => {
     sortByDateParam === "1d"
       ? sortByDateParam
       : "";
+  const page: number = Number(pageParam) || 1;
   const search = decodeURIComponent(params.result);
   const { data: talkRoomPopular } = useGetRooms({
-    page: 1,
+    page: page,
     size: 12,
     order: orderStatus,
     search: search,
     sortbydate: sortByDate,
   });
+  console.log(talkRoomPopular);
   const searchTalkRoom = (searchValue: string) => {
     router.push(
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,
