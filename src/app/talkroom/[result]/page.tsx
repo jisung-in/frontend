@@ -52,7 +52,6 @@ const page = ({ params }: { params: { result: string } }) => {
     search: search,
     sortbydate: sortByDate,
   });
-  console.log(talkRoomPopular);
   const searchTalkRoom = (searchValue: string) => {
     router.push(
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,

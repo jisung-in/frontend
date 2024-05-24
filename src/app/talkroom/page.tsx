@@ -54,7 +54,6 @@ const page = () => {
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,
     );
   };
-  console.log(talkRoomPopular);
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">
