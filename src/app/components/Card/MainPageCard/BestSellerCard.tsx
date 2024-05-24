@@ -23,12 +23,14 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
       <BookMain.BookCover>
         <div
           className="
-          min-w-[120px] 
+          relative
+          min-w-[120px]
           min-h-[170px]
-          w-[55vw]
-          h-[50vw]
-          max-w-[320px] max-h-[450px]
-          "
+          w-full
+          pt-[141.67%] /* 120 / 170 = 0.70588 = 70.588% */
+          max-w-[320px]
+          max-h-[450px]
+          overflow-hidden"
         >
           <Image
             className="border border-[#F4E4CE] 

@@ -28,12 +28,9 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
         <BookMain.BookCover>
           <div
             className="relative w-full cursor-pointer
+            pt-[135.48%] /* (126 / 93) * 100 = 135.48% */
             min-h-[126px]
-            max-h-[375px]
-            lg:h-[30vw]
-            xl:h-[23vw]
-            xl2:h-[38vw]
-            h-[41vw]"
+            max-h-[375px]"
           >
             <Image
               className="border border-[#F4E4CE]            
