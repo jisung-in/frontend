@@ -16,9 +16,14 @@ type BookInformation = {
 type BookInformationProps = {
   data: BookInformation;
   isbn: string;
+  onTotalRatingChange: () => void;
 };
 
-const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
+const BookInformation: React.FC<BookInformationProps> = ({
+  data,
+  isbn,
+  onTotalRatingChange,
+}) => {
   return (
     <div className="flex flex-row mt-[22px] mb-[96px] w-[1680px]">
       <div className="flex">
@@ -32,17 +37,11 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
       </div>
       <div className="flex flex-col grow justify-start font-Pretendard font-medium">
         <div className="flex flex-row items-center mt-[30px] gap-x-[70px]">
-          <div className="flex flex-col">
-            <BookStarRating isbn={isbn} />
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="font-Inter text-[44px]">
-              {data?.ratingAverage
-                ? parseFloat(data?.ratingAverage.toFixed(1))
-                : (0).toFixed(1).toString()}
-            </div>
-            <div className="text-base text-[#B1B1B1]">평균별점</div>
-          </div>
+          <BookStarRating
+            isbn={isbn}
+            ratingAverage={data.ratingAverage}
+            onTotalRatingChange={onTotalRatingChange}
+          />
 
           <div className="w-full flex flex-row gap-x-[26px] justify-end">
             <BookStatus isbn={isbn} />

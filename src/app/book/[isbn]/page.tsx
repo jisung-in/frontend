@@ -6,6 +6,7 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import Link from "next/link";
+import { useCallback } from "react";
 import BookInformation from "../_component/BookInformation";
 import RegisterEvaluation from "../_component/registerEvaluation";
 
@@ -21,9 +22,14 @@ type TalkRoom = {
   likeCount: number;
 };
 const page = ({ params }: { params: { isbn: string } }) => {
-  const { data: bookDetailData } = useGetBookInformation({
-    isbn: params?.isbn,
-  });
+  const { data: bookDetailData, refetch: refetchBookInformation } =
+    useGetBookInformation({
+      isbn: params?.isbn,
+    });
+  const totalRatingChange = useCallback(() => {
+    refetchBookInformation();
+  }, [refetchBookInformation]);
+
   const { data: relateData } = useGetBookRelatedTalkRoom({
     isbn: params?.isbn,
     page: 1,
@@ -36,7 +42,11 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <BestSeller />
         </MainThemeTitle>
         {bookDetailData ? (
-          <BookInformation data={bookDetailData} isbn={params.isbn} />
+          <BookInformation
+            data={bookDetailData}
+            isbn={params.isbn}
+            onTotalRatingChange={totalRatingChange}
+          />
         ) : (
           <HaveNotData content={"책의 정보가"} />
         )}
