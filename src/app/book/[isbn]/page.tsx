@@ -1,10 +1,12 @@
 "use client";
+import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
+import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import Link from "next/link";
 import { useCallback } from "react";
 import BookInformation from "../_component/BookInformation";
@@ -34,6 +36,12 @@ const page = ({ params }: { params: { isbn: string } }) => {
     isbn: params?.isbn,
     page: 1,
     size: 6,
+  });
+  const { data: reviewData } = useGetReview({
+    isbn: params?.isbn,
+    page: 1,
+    size: 8,
+    order: "recent",
   });
   return (
     <div>
@@ -69,10 +77,15 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </div>
 
           <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
-            {/* {bookEvaluationUser instanceof Array &&
-              bookEvaluationUser?.map((data: any) => (
-                <MiniEvaluationCard key={data.id} data={data} />
-              ))} */}
+            {reviewData && reviewData.data.content.length > 0 ? (
+              <>
+                {reviewData.data.content.map((data) => {
+                  return <MiniEvaluationCard key={data.reviewId} data={data} />;
+                })}
+              </>
+            ) : (
+              <HaveNotData content={"유저들의 평가가"} />
+            )}
           </div>
         </div>
       </div>

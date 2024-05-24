@@ -2,16 +2,11 @@
 
 import BookTitle from "@/assets/img/book-title-evaluation.svg";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
-import { useEvaluationUser } from "@/hook/reactQuery/evaluation/useEvaluationUser";
 import { useState } from "react";
-import EvaluationCard from "../components/Card/EvaluationCard/EvaluationCard";
 import DropDown from "../components/DropDown/DropDown";
-import HaveNotData from "../components/HaveNotData/HaveNotData";
 import MainThemeTitle from "../components/MainThemeTitle/MainThemeTitle";
 
 const page = () => {
-  const { data: evaluationUser } = useEvaluationUser();
-
   const [likeStandard, setLikeStandard] = useState<string>("좋아요 순");
   const standardType: string[] = [
     "좋아요 순",
@@ -57,7 +52,7 @@ const page = () => {
         </div>
       </div>
 
-      {evaluationUser ? (
+      {/* {evaluationUser ? (
         <div className="flex flex-col items-center">
           {evaluationUser.map((data: any) => (
             <EvaluationCard key={data.id} data={data} />
@@ -65,7 +60,7 @@ const page = () => {
         </div>
       ) : (
         <HaveNotData content={"아직 유저평가가"} />
-      )}
+      )} */}
     </div>
   );
 };
