@@ -3,16 +3,18 @@ import { Button } from "../../Button/Button";
 import React from "react";
 import { useRouter } from "next/navigation";
 import { useLogin } from "@/hook/useLogin";
+import { useGetMemberData } from "@/hook/reactQuery/auth/useGetMemberData";
 
 export const LoginComponent = () => {
   const router = useRouter();
-  const { isLoggedIn } = useLogin();
+  const { data: userData } = useGetMemberData();
+
   return (
     <div className="w-[100px] sm:w-[50px]">
-      {isLoggedIn ? (
+      {userData ? (
         <img
           alt="프로필"
-          src={localStorage.getItem("userImage") ?? ""}
+          src={userData?.data.userImage ?? "/img/profile.png"}
           className="rounded-[50%] w-[50px] h-[50px] cursor-pointer"
           onClick={() => router.push("/my")}
         />

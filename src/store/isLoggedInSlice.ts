@@ -1,8 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 
 type LoggedInState = { state: boolean };
 
-const initialState = { state: false } as LoggedInState;
+const initialState = {
+  state: Boolean(Cookies.get("accessToken")),
+} as LoggedInState;
 
 const loggedInSlice = createSlice({
   name: "isLoggedIn",
