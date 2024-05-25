@@ -22,7 +22,7 @@ interface BookSliderProps {
 const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
   return (
     <section>
-      <ul className="h-full w-full">
+      <ul className="max-w-[1680px] max-h-[513px]">
         <Swiper
           navigation
           pagination={{ type: "custom", clickable: true }}
