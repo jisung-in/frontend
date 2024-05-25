@@ -79,7 +79,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
               <div className="font-bold">유저들의 평가</div>
               <div className="font-medium text-[#74747B]">3000+</div>
             </div>
-            <Link href={`/evaluation/${params.isbn}`}>
+            <Link href={`/evaluation/${params.isbn}?order=like`}>
               <div className="text-[20px] text-[#74747B] font-Pretendard font-regular">
                 더보기 {">"}
               </div>

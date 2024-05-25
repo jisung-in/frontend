@@ -8,7 +8,8 @@ import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import Image from "next/image";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import DropDown from "../../components/DropDown/DropDown";
 import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
 
@@ -23,22 +24,34 @@ type UserEvaluation = {
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
+  const router = useRouter();
+  const orderParams = useSearchParams();
+  const order = orderParams.get("order") || "like";
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params.isbn,
   });
-  const { data: reviewData } = useGetReview({
+
+  const [likeStandard, setLikeStandard] = useState<string>("좋아요 순");
+  const standardType: Record<string, string> = {
+    "좋아요 순": "like",
+    "높은 평가 순": "rating_desc",
+    "낮은 평가 순": "rating_asc",
+    "작성 순": "recent",
+  };
+  const handleChangeStandard = (selectedStandard: string) => {
+    const order = standardType[selectedStandard];
+    setLikeStandard(selectedStandard);
+    router.push(`/evaluation/${params.isbn}?order=${order}`);
+  };
+  const { data: reviewData, refetch: refetchReviewData } = useGetReview({
     isbn: params.isbn,
     page: 1,
     size: 10,
-    order: "recent",
+    order: order,
   });
-  const [likeStandard, setLikeStandard] = useState<string>("좋아요 순");
-  const standardType: string[] = [
-    "좋아요 순",
-    "높은 평가 순",
-    "낮은 평가 순",
-    "작성 순",
-  ];
+  useEffect(() => {
+    refetchReviewData();
+  }, [order]);
 
   return (
     <div>
@@ -52,9 +65,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
 
       <div className="h-[60px] flex items-center justify-end bg-[white] pr-[114px]">
         <DropDown
-          items={standardType}
+          items={Object.keys(standardType)}
           selectedItem={likeStandard}
-          setSelectedItem={setLikeStandard}
+          setSelectedItem={handleChangeStandard}
         />
       </div>
 
