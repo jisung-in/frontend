@@ -1,3 +1,4 @@
+import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 import BookStarRating from "./BookStarRating";
 import BookStatus from "./BookStatus";
@@ -29,7 +30,7 @@ const BookInformation: React.FC<BookInformationProps> = ({
       <div className="flex">
         <Image
           className="min-w-[363px] min-h-[469px] max-w-[363px] max-h-[469px] mr-[37px]"
-          src={data?.thumbnail}
+          src={data ? data?.thumbnail : NoImage}
           alt="책표지"
           width={363}
           height={469}

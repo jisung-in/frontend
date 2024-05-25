@@ -23,22 +23,32 @@ type TalkRoom = {
   bookThumbnail: string;
   likeCount: number;
 };
+type UserEvaluation = {
+  reviewId: number;
+  ratingId: number;
+  username: string;
+  profileImage: string;
+  reviewContent: string;
+  starRating: number;
+  likeCount: number;
+};
+
 const page = ({ params }: { params: { isbn: string } }) => {
   const { data: bookDetailData, refetch: refetchBookInformation } =
     useGetBookInformation({
-      isbn: params?.isbn,
+      isbn: params.isbn,
     });
   const totalRatingChange = useCallback(() => {
     refetchBookInformation();
   }, [refetchBookInformation]);
 
   const { data: relateData } = useGetBookRelatedTalkRoom({
-    isbn: params?.isbn,
+    isbn: params.isbn,
     page: 1,
     size: 6,
   });
   const { data: reviewData } = useGetReview({
-    isbn: params?.isbn,
+    isbn: params.isbn,
     page: 1,
     size: 8,
     order: "recent",
@@ -69,7 +79,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
               <div className="font-bold">유저들의 평가</div>
               <div className="font-medium text-[#74747B]">3000+</div>
             </div>
-            <Link href={"/evaluation"}>
+            <Link href={`/evaluation/${params.isbn}`}>
               <div className="text-[20px] text-[#74747B] font-Pretendard font-regular">
                 더보기 {">"}
               </div>
@@ -79,7 +89,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <div className="flex flex-row justify-center">
             {reviewData && reviewData.data.content.length > 0 ? (
               <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
-                {reviewData.data.content.map((data) => {
+                {reviewData.data.content.map((data: UserEvaluation) => {
                   return <MiniEvaluationCard key={data.reviewId} data={data} />;
                 })}
               </div>
