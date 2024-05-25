@@ -36,11 +36,12 @@ const page = ({ params }: { params: { isbn: string } }) => {
         <div className="flex mt-[78px] mb-[23px]">
           <div className="flex items-center mb-[23px]">
             <div className="text-[30px] mr-[16px]">연관된 토크방</div>
-            <RecentMakeTalkRoom />
+            <div className="w-[30px] h-[30px]">
+              <RecentMakeTalkRoom />
+            </div>
           </div>
         </div>
       </ThemeMain.MainTheme>
-
       {relateData && relateData.response.queryResponse.length > 0 ? (
         <>
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">

@@ -76,13 +76,13 @@ const page = ({ params }: { params: { isbn: string } }) => {
             </Link>
           </div>
 
-          <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
+          <div className="flex flex-row justify-center">
             {reviewData && reviewData.data.content.length > 0 ? (
-              <>
+              <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
                 {reviewData.data.content.map((data) => {
                   return <MiniEvaluationCard key={data.reviewId} data={data} />;
                 })}
-              </>
+              </div>
             ) : (
               <HaveNotData content={"유저들의 평가가"} />
             )}
