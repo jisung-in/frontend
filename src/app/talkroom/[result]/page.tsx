@@ -45,7 +45,7 @@ const page = ({ params }: { params: { result: string } }) => {
       : "";
   const page: number = Number(pageParam) || 1;
   const search = decodeURIComponent(params.result);
-  const { data: talkRoomPopular } = useGetRooms({
+  const { data: talkRoomPopular, isLoading } = useGetRooms({
     page: page,
     size: 12,
     order: orderStatus,
@@ -105,20 +105,20 @@ const page = ({ params }: { params: { result: string } }) => {
       ) : (
         <HaveNotData content={"검색된 토크방이"} />
       )}
-      <Pagination
-        totalItems={talkRoomPopular?.response.totalCount}
-        pageCount={Math.ceil(
-          (talkRoomPopular?.response.totalCount ?? 0) /
-            (talkRoomPopular?.response.size ?? 1),
-        )}
-        postPage={talkRoomPopular?.response.size}
-        link={
-          sortByDate
-            ? currentUrl +
-              `?order=${orderParam}&search=${searchParam}&sortByDate=${sortByDate}`
-            : currentUrl + `?order=${orderParam}&search=${searchParam}`
-        }
-      />
+      {isLoading ? (
+        <></>
+      ) : (
+        <Pagination
+          totalItems={talkRoomPopular?.response.totalCount ?? 0}
+          postPage={talkRoomPopular?.response.size ?? 12}
+          link={
+            sortByDate
+              ? currentUrl +
+                `?order=${orderParam}&search=${searchParam}&sortByDate=${sortByDate}`
+              : currentUrl + `?order=${orderParam}&search=${searchParam}`
+          }
+        />
+      )}
     </div>
   );
 };

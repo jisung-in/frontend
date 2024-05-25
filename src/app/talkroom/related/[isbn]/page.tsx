@@ -24,7 +24,7 @@ type TalkRoom = {
 
 const page = ({ params }: { params: { isbn: string } }) => {
   const currentUrl = usePathname();
-  const { data: relateData } = useGetBookRelatedTalkRoom({
+  const { data: relateData, isLoading } = useGetBookRelatedTalkRoom({
     isbn: params?.isbn,
     page: 1,
     size: 12,
@@ -59,15 +59,15 @@ const page = ({ params }: { params: { isbn: string } }) => {
         <HaveNotData content={"연관된 토크방이"} />
       )}
 
-      <Pagination
-        totalItems={relateData?.response.totalCount}
-        pageCount={Math.ceil(
-          (relateData?.response.totalCount ?? 0) /
-            (relateData?.response.size ?? 1),
-        )}
-        postPage={relateData?.response.size}
-        link={currentUrl}
-      />
+      {isLoading ? (
+        <></>
+      ) : (
+        <Pagination
+          totalItems={relateData?.response.totalCount ?? 0}
+          postPage={relateData?.response.size ?? 12}
+          link={currentUrl}
+        />
+      )}
     </div>
   );
 };

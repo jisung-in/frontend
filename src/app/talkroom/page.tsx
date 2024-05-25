@@ -28,26 +28,16 @@ const page = () => {
   const currentUrl = usePathname();
   const orderParam = param.get("order");
   const sortByDateParam = param.get("sortbydate");
-  const pageParam = param.get("page");
-  const orderStatus: "recent" | "recommend" | "recent-comment" =
-    orderParam === "recent" ||
-    orderParam === "recommend" ||
-    orderParam === "recent-comment"
-      ? orderParam
-      : "recent";
   const sortByDate: "1m" | "1w" | "1d" | "" =
     sortByDateParam === "1m" ||
     sortByDateParam === "1w" ||
     sortByDateParam === "1d"
       ? sortByDateParam
       : "";
-  const page: number = Number(pageParam) || 1;
-  const { data: talkRoomPopular } = useGetRooms({
-    page: page,
+  const { data: talkRoomPopular, isLoading } = useGetRooms({
+    page: 1,
     size: 12,
-    order: orderStatus,
-    search: "",
-    sortbydate: sortByDate,
+    order: "recent",
   });
   const searchTalkRoom = (searchValue: string) => {
     router.push(
@@ -92,19 +82,19 @@ const page = () => {
       ) : (
         <HaveNotData content={"토크방이"} />
       )}
-      <Pagination
-        totalItems={talkRoomPopular?.response.totalCount}
-        pageCount={Math.ceil(
-          (talkRoomPopular?.response.totalCount ?? 0) /
-            (talkRoomPopular?.response.size ?? 1),
-        )}
-        postPage={talkRoomPopular?.response.size}
-        link={
-          sortByDate
-            ? currentUrl + `?order=${orderParam}&sortByDate=${sortByDate}`
-            : currentUrl + `?order=${orderParam}`
-        }
-      />
+      {isLoading ? (
+        <></>
+      ) : (
+        <Pagination
+          totalItems={talkRoomPopular?.response.totalCount ?? 0}
+          postPage={talkRoomPopular?.response.size ?? 12}
+          link={
+            sortByDate
+              ? currentUrl + `?order=${orderParam}&sortByDate=${sortByDate}`
+              : currentUrl + `?order=${orderParam}`
+          }
+        />
+      )}
     </div>
   );
 };
