@@ -42,31 +42,32 @@ const page = ({ params }: { params: { isbn: string } }) => {
       </ThemeMain.MainTheme>
 
       {relateData && relateData.response.queryResponse.length > 0 ? (
-        <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-          {relateData.response.queryResponse.map((data: TalkRoom) => {
-            const isLike = relateData.userLikeTalkRoomIds.includes(data.id);
-            return (
-              <TalkRoomCard
-                key={data.id}
-                data={data}
-                isBest={false}
-                isLike={isLike}
-              />
-            );
-          })}
-        </div>
+        <>
+          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+            {relateData.response.queryResponse.map((data: TalkRoom) => {
+              const isLike = relateData.userLikeTalkRoomIds.includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={false}
+                  isLike={isLike}
+                />
+              );
+            })}
+          </div>
+          {isLoading ? (
+            <></>
+          ) : (
+            <Pagination
+              totalItems={relateData?.response.totalCount ?? 0}
+              postPage={relateData?.response.size ?? 12}
+              link={currentUrl}
+            />
+          )}
+        </>
       ) : (
         <HaveNotData content={"연관된 토크방이"} />
-      )}
-
-      {isLoading ? (
-        <></>
-      ) : (
-        <Pagination
-          totalItems={relateData?.response.totalCount ?? 0}
-          postPage={relateData?.response.size ?? 12}
-          link={currentUrl}
-        />
       )}
     </div>
   );
