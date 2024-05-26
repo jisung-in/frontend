@@ -74,14 +74,21 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
               <div className="flex flex-col items-center">
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
-                    <Like width={29} height={22} />
+                    <>
+                      <Like width={29} height={22} />
+                      <div className="h-[22px] font-Inter font-regular text-[13px] text-[#F24D4D]">
+                        {count}
+                      </div>
+                    </>
                   ) : (
-                    <NotLike width={29} height={22} />
+                    <>
+                      <NotLike width={29} height={22} />
+                      <div className="h-[22px] font-Inter font-regular text-[13px] text-white">
+                        {count}
+                      </div>
+                    </>
                   )}
                 </IconButton>
-                <div className="h-[22px] font-Inter font-regular text-[13px] text-white">
-                  {count}
-                </div>
               </div>
             </div>
             <div className="flex flex-row my-3 font-semibold items-center gap-x-[7px]">
