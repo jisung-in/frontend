@@ -21,10 +21,10 @@ export const Header = () => {
   };
 
   return (
-    <div className="flex sticky z-20 top-0 items-center w-full px-[5%] bg-white h-[75px] opacity-[0.95] border-b-2">
+    <div className="flex sticky z-20 top-0 items-center w-full px-[5%] bg-white h-[75px] sm:h-[60px] opacity-[0.95] border-b-2">
       <div className="flex font-SpoqaHanSansNeo font-[500] items-center text-white text-3xl flex-1">
         <span
-          className="flex items-center cursor-pointer text-brown-60"
+          className="flex items-center cursor-pointer text-brown-60 sm:text-lg"
           onClick={() => router.push("/")}
         >
           JISUNGIN
@@ -33,16 +33,18 @@ export const Header = () => {
           </div>
         </span>
       </div>
-      <div className="flex gap-[46px] items-center sm:hidden">
+      <div className="flex gap-[46px] items-center">
         <form onSubmit={onSubmit}>
-          <div className="relative w-[414px]">
-            <Input
-              variant="main"
-              value={value}
-              onChange={handleChange}
-              reset={reset}
-              placeholder="이곳에 검색해보세요."
-            />
+          <div className="relative w-[414px] sm:hidden">
+            <div className="sm:hidden">
+              <Input
+                variant="main"
+                value={value}
+                onChange={handleChange}
+                reset={reset}
+                placeholder="이곳에 검색해보세요."
+              />
+            </div>
             {value.length > 0 && (
               <SearchedList
                 value={value}
