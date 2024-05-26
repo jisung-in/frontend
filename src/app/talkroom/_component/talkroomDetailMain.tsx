@@ -33,7 +33,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
       setCount(talkroomOneData.likeCount);
       setIsLike(
         isLoggedIn &&
-          talkRoomLikeIds?.talkRoomIds.includes(talkroomOneData?.id),
+          (talkRoomLikeIds?.talkRoomIds || []).includes(talkroomOneData?.id),
       );
     }
   }, [talkroomOneData]);
