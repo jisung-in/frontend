@@ -78,6 +78,7 @@ const page = () => {
     size: 12,
     order: "comment",
   });
+  useEffect(() => {}, []);
   return (
     <div className="bg-[#FFF] w-full">
       <div
@@ -142,7 +143,7 @@ const page = () => {
                     key={data.id}
                     data={data}
                     isBest={true}
-                    isLike={isLike || false}
+                    isLike={isLike}
                   />
                 );
               })}
@@ -245,7 +246,7 @@ const page = () => {
                     key={data.id}
                     data={data}
                     isBest={false}
-                    isLike={isLike || false}
+                    isLike={isLike}
                   />
                 );
               })}

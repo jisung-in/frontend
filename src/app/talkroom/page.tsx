@@ -98,7 +98,7 @@ const page = () => {
                   key={data.id}
                   data={data}
                   isBest={orderParam === "recommend"}
-                  isLike={isLike || false}
+                  isLike={isLike}
                 />
               );
             })}
