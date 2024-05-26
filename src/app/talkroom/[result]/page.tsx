@@ -4,6 +4,7 @@ import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
 import Pagination from "../../components/Pagination/Pagination";
 import { ThemeMain } from "../../components/Theme/Theme";
@@ -45,7 +46,11 @@ const page = ({ params }: { params: { result: string } }) => {
       : "";
   const page: number = Number(pageParam) || 1;
   const search = decodeURIComponent(params.result);
-  const { data: talkRoomPopular, isLoading } = useGetRooms({
+  const {
+    data: talkRoomPopular,
+    isLoading,
+    refetch: refetchTalkRoomData,
+  } = useGetRooms({
     page: page,
     size: 12,
     order: orderStatus,
@@ -57,6 +62,9 @@ const page = ({ params }: { params: { result: string } }) => {
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,
     );
   };
+  useEffect(() => {
+    refetchTalkRoomData();
+  }, [orderStatus, sortByDate, page]);
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">

@@ -3,6 +3,7 @@
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "../components/HaveNotData/HaveNotData";
 import Pagination from "../components/Pagination/Pagination";
@@ -28,22 +29,39 @@ const page = () => {
   const currentUrl = usePathname();
   const orderParam = param.get("order");
   const sortByDateParam = param.get("sortbydate");
+  const pageParam = param.get("page");
+  const orderStatus: "recent" | "recommend" | "recent-comment" =
+    orderParam === "recent" ||
+    orderParam === "recommend" ||
+    orderParam === "recent-comment"
+      ? orderParam
+      : "recent";
   const sortByDate: "1m" | "1w" | "1d" | "" =
     sortByDateParam === "1m" ||
     sortByDateParam === "1w" ||
     sortByDateParam === "1d"
       ? sortByDateParam
       : "";
-  const { data: talkRoomPopular, isLoading } = useGetRooms({
-    page: 1,
+  const page: number = Number(pageParam) || 1;
+  const {
+    data: talkRoomPopular,
+    isLoading,
+    refetch: refetchTalkRoomData,
+  } = useGetRooms({
+    page: page,
     size: 12,
-    order: "recent",
+    order: orderStatus,
+    sortbydate: sortByDate,
   });
   const searchTalkRoom = (searchValue: string) => {
     router.push(
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,
     );
   };
+  useEffect(() => {
+    refetchTalkRoomData();
+  }, [orderStatus, sortByDate, page]);
+
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">
