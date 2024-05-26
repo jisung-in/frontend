@@ -129,19 +129,20 @@ const page = () => {
             <TalkRoomCardSwiper
               talkRooms={popularData.queryResponse}
               isBest={true}
-              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
               {popularData.queryResponse.map((data: TalkRoom) => {
                 const isLike =
-                  isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+                  isLoggedIn &&
+                  (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
                 return (
                   <TalkRoomCard
                     key={data.id}
                     data={data}
                     isBest={true}
-                    isLike={isLike}
+                    isLike={isLike || false}
                   />
                 );
               })}
@@ -231,19 +232,20 @@ const page = () => {
             <TalkRoomCardSwiper
               talkRooms={recentData.queryResponse}
               isBest={false}
-              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
               {recentData.queryResponse.map((data: TalkRoom) => {
                 const isLike =
-                  isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+                  isLoggedIn &&
+                  (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
                 return (
                   <TalkRoomCard
                     key={data.id}
                     data={data}
                     isBest={false}
-                    isLike={isLike}
+                    isLike={isLike || false}
                   />
                 );
               })}

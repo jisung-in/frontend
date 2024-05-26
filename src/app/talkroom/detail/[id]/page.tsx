@@ -25,7 +25,7 @@ const Page = ({ params }: { params: { id: number } }) => {
   const { isLoggedIn } = useLogin();
   const { data: commentLikeIds } = isLoggedIn
     ? useGetCommentLike()
-    : { data: { commentLikeIds: [] } };
+    : { data: { commentIds: [] } };
 
   const { data: commentsData } = useGetComments(params.id);
   return (
@@ -83,7 +83,8 @@ const Page = ({ params }: { params: { id: number } }) => {
       {commentsData && commentsData.queryResponse.length > 0 ? (
         commentsData.queryResponse.map((data: CommentsData) => {
           const isLike =
-            isLoggedIn && commentLikeIds?.commentIds.includes(data.commentId);
+            isLoggedIn &&
+            (commentLikeIds?.commentIds || []).includes(data.commentId);
           return (
             <SpeechBubble key={data.commentId} data={data} isLike={isLike} />
           );

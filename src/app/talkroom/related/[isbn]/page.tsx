@@ -53,7 +53,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
             {relateData.queryResponse.map((data: TalkRoom) => {
               const isLike =
-                isLoggedIn && talkRoomLikeIds.talkRoomIds.includes(data.id);
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
                 <TalkRoomCard
                   key={data.id}

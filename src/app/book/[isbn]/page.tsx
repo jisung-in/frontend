@@ -43,7 +43,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
     : { data: { talkRoomIds: [] } };
   const { data: reviewLikeIds } = isLoggedIn
     ? useGetReviewLike()
-    : { data: { talkRoomIds: [] } };
+    : { data: { reviewIds: [] } };
   const { data: bookDetailData, refetch: refetchBookInformation } =
     useGetBookInformation({
       isbn: params.isbn,
@@ -102,7 +102,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                 {reviewData.data.content.map((data: UserEvaluation) => {
                   const isLike =
                     isLoggedIn &&
-                    reviewLikeIds?.reviewIds.includes(data.reviewId);
+                    (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
                   return (
                     <MiniEvaluationCard
                       key={data.reviewId}
@@ -134,7 +134,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
             {relateData.queryResponse.map((data: TalkRoom) => {
               const isLike =
-                isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
                 <RelatedTalkRoomCard
                   key={data.id}

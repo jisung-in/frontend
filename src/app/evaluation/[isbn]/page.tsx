@@ -32,7 +32,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { isLoggedIn } = useLogin();
   const { data: reviewLikeIds } = isLoggedIn
     ? useGetReviewLike()
-    : { data: { talkRoomIds: [] } };
+    : { data: { reviewIds: [] } };
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params.isbn,
   });
@@ -110,7 +110,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
         <div className="flex flex-col items-center">
           {reviewData.data.content.map((data: UserEvaluation) => {
             const isLike =
-              isLoggedIn && reviewLikeIds?.reviewIds.includes(data.reviewId);
+              isLoggedIn &&
+              (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
             return (
               <EvaluationCard key={data.reviewId} data={data} isLike={isLike} />
             );

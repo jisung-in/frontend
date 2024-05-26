@@ -25,11 +25,12 @@ const RoomCards = () => {
 
   return (
     <>
-      {bookData && bookData.length > 0 ? (
+      {bookData && bookData.queryResponse.length > 0 ? (
         <div className="grid gap-8 grid-cols-3">
           {bookData?.queryResponse.map((data: any) => {
             const isLike =
-              isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+              isLoggedIn &&
+              (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
             return (
               <TalkRoomCard
                 key={data.id}

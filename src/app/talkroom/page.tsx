@@ -91,13 +91,14 @@ const page = () => {
           <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
             {talkRoomPopular.queryResponse.map((data: TalkRoom) => {
               const isLike =
-                isLoggedIn && talkRoomLikeIds.talkRoomIds.includes(data.id);
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
                 <TalkRoomCard
                   key={data.id}
                   data={data}
                   isBest={orderParam === "recommend"}
-                  isLike={isLike}
+                  isLike={isLike || false}
                 />
               );
             })}

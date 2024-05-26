@@ -105,7 +105,8 @@ const page = ({ params }: { params: { result: string } }) => {
           <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
             {talkRoomPopular.queryResponse.map((data: TalkRoom) => {
               const isLike =
-                isLoggedIn && talkRoomLikeIds.talkRoomIds.includes(data.id);
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
                 <TalkRoomCard
                   key={data.id}

@@ -30,7 +30,8 @@ const MyTalkRoom = () => {
         <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-[20px] w-[80%]">
           {talkRoomPopular?.queryResponse.map((data: any) => {
             const isLike =
-              isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+              isLoggedIn &&
+              (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
             return (
               <TalkRoomCard
                 key={data.id}
