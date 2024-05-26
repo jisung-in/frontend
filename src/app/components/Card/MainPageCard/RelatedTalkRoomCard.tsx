@@ -8,7 +8,7 @@ import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike"
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
 type TalkRoomCardProps = {
@@ -35,6 +35,11 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
 
+  useEffect(() => {
+    setCount(data.likeCount);
+    setIsLike(initialIsLike);
+  }, [data.likeCount, initialIsLike]);
+
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (isLike) {
@@ -46,7 +51,6 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
     }
     setIsLike(!isLike);
   };
-
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
       <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">

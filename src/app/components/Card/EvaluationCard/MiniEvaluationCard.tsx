@@ -5,7 +5,7 @@ import Star from "@/assets/img/star.svg";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
@@ -30,6 +30,12 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createReviewLike = useCreateReviewLike();
   const deleteReviewLike = useDeleteReviewLike();
+
+  useEffect(() => {
+    setCount(data.likeCount);
+    setIsLike(initialIsLike);
+  }, [data.likeCount, initialIsLike]);
+
   const changeIsLike = () => {
     if (isLike) {
       deleteReviewLike.mutate(data.reviewId);
