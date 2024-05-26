@@ -1,7 +1,9 @@
 "use client";
 
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
+import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import { useLogin } from "@/hook/useLogin";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
@@ -43,6 +45,10 @@ const page = () => {
       ? sortByDateParam
       : "";
   const page: number = Number(pageParam) || 1;
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetCommentLike()
+    : { data: { talkRoomIds: [] } };
   const {
     data: talkRoomPopular,
     isLoading,
@@ -84,11 +90,14 @@ const page = () => {
         <>
           <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
             {talkRoomPopular.queryResponse.map((data: TalkRoom) => {
+              const isLike =
+                isLoggedIn && talkRoomLikeIds.talkRoomIds.includes(data.id);
               return (
                 <TalkRoomCard
                   key={data.id}
                   data={data}
                   isBest={orderParam === "recommend"}
+                  isLike={isLike}
                 />
               );
             })}

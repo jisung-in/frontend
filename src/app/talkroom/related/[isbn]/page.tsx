@@ -6,6 +6,8 @@ import Pagination from "@/app/components/Pagination/Pagination";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
+import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
+import { useLogin } from "@/hook/useLogin";
 import { usePathname } from "next/navigation";
 
 type TalkRoom = {
@@ -23,6 +25,10 @@ type TalkRoom = {
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetCommentLike()
+    : { data: { talkRoomIds: [] } };
   const currentUrl = usePathname();
   const { data: relateData, isLoading } = useGetBookRelatedTalkRoom({
     isbn: params?.isbn,
@@ -46,7 +52,16 @@ const page = ({ params }: { params: { isbn: string } }) => {
         <>
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
             {relateData.queryResponse.map((data: TalkRoom) => {
-              return <TalkRoomCard key={data.id} data={data} isBest={false} />;
+              const isLike =
+                isLoggedIn && talkRoomLikeIds.talkRoomIds.includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={false}
+                  isLike={isLike}
+                />
+              );
             })}
           </div>
           {isLoading ? (

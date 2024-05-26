@@ -7,6 +7,8 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
+import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
+import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { useCallback } from "react";
 import BookInformation from "../_component/BookInformation";
@@ -34,6 +36,10 @@ type UserEvaluation = {
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetCommentLike()
+    : { data: { talkRoomIds: [] } };
   const { data: bookDetailData, refetch: refetchBookInformation } =
     useGetBookInformation({
       isbn: params.isbn,
@@ -114,7 +120,15 @@ const page = ({ params }: { params: { isbn: string } }) => {
         {relateData && relateData.queryResponse.length > 0 ? (
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
             {relateData.queryResponse.map((data: TalkRoom) => {
-              return <RelatedTalkRoomCard key={data.id} data={data} />;
+              const isLike =
+                isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+              return (
+                <RelatedTalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isLike={isLike}
+                />
+              );
             })}
           </div>
         ) : (

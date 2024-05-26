@@ -2,9 +2,15 @@
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import { useLogin } from "@/hook/useLogin";
 
 const RoomCards = () => {
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetCommentLike()
+    : { data: { talkRoomIds: [] } };
   const { data: bookData, isLoading } = useGetRooms({
     page: 1,
     size: 6,
@@ -18,19 +24,26 @@ const RoomCards = () => {
   }
 
   return (
-    <div className="grid gap-8 grid-cols-3">
-      {bookData?.response.queryResponse?.map((data: any) => {
-        const isLike = bookData.userLikeTalkRoomIds.includes(data.id);
-        return (
-          <TalkRoomCard
-            key={data.id}
-            data={data}
-            isBest={false}
-            isLike={isLike}
-          />
-        );
-      })}
-    </div>
+    <>
+      {bookData && bookData.length > 0 ? (
+        <div className="grid gap-8 grid-cols-3">
+          {bookData?.queryResponse.map((data: any) => {
+            const isLike =
+              isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+            return (
+              <TalkRoomCard
+                key={data.id}
+                data={data}
+                isBest={false}
+                isLike={isLike}
+              />
+            );
+          })}
+        </div>
+      ) : (
+        <HaveNotData content={"관련 게시물이"} />
+      )}
+    </>
   );
 };
 

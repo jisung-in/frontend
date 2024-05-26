@@ -23,11 +23,15 @@ type TalkRoomCardProps = {
     bookThumbnail: string;
     likeCount: number;
   };
+  isLike: boolean;
 };
 
-const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
+const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
+  data,
+  isLike: initialIsLike,
+}) => {
   const [count, setCount] = useState<number>(data.likeCount);
-  const [isLike, setIsLike] = useState<boolean>(false);
+  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
 

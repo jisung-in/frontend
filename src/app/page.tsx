@@ -4,8 +4,10 @@ import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecentTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
+import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
 import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
@@ -38,6 +40,10 @@ type TalkRoomBookOrder = {
 };
 const page = () => {
   const [isSwiper, setIsSwiper] = useState(false);
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetCommentLike()
+    : { data: { talkRoomIds: [] } };
 
   useEffect(() => {
     const handleResize = () => {
@@ -123,11 +129,21 @@ const page = () => {
             <TalkRoomCardSwiper
               talkRooms={popularData.queryResponse}
               isBest={true}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
               {popularData.queryResponse.map((data: TalkRoom) => {
-                return <TalkRoomCard key={data.id} data={data} isBest={true} />;
+                const isLike =
+                  isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
+                return (
+                  <TalkRoomCard
+                    key={data.id}
+                    data={data}
+                    isBest={true}
+                    isLike={isLike}
+                  />
+                );
               })}
             </div>
           )
@@ -215,12 +231,20 @@ const page = () => {
             <TalkRoomCardSwiper
               talkRooms={recentData.queryResponse}
               isBest={false}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
               {recentData.queryResponse.map((data: TalkRoom) => {
+                const isLike =
+                  isLoggedIn && talkRoomLikeIds?.talkRoomIds.includes(data.id);
                 return (
-                  <TalkRoomCard key={data.id} data={data} isBest={false} />
+                  <TalkRoomCard
+                    key={data.id}
+                    data={data}
+                    isBest={false}
+                    isLike={isLike}
+                  />
                 );
               })}
             </div>
