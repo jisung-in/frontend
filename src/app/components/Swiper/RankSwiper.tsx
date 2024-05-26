@@ -21,12 +21,8 @@ interface BookSliderProps {
 
 const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
   return (
-    <section
-      className="
-      min-x-[345px] min-h-[212px]
-      max-w-[1710px] max-h-[523px]"
-    >
-      <ul className="h-full w-full">
+    <section>
+      <ul className="max-w-[1680px] max-h-[513px]">
         <Swiper
           navigation
           pagination={{ type: "custom", clickable: true }}
@@ -44,13 +40,23 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
               slidesPerGroup: 3,
               spaceBetween: 10,
             },
-            901: {
-              slidesPerView: 3.5,
+            1001: {
+              slidesPerView: 3.2,
               slidesPerGroup: 3,
               spaceBetween: 15,
             },
             1201: {
-              slidesPerView: 4,
+              slidesPerView: 3.5,
+              slidesPerGroup: 3,
+              spaceBetween: 20,
+            },
+            1401: {
+              slidesPerView: 4.2,
+              slidesPerGroup: 4,
+              spaceBetween: 20,
+            },
+            1601: {
+              slidesPerView: 4.5,
               slidesPerGroup: 4,
               spaceBetween: 20,
             },

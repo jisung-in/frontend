@@ -2,33 +2,48 @@
 import NextArrow from "@/assets/img/next-arrow.svg";
 import PrevArrow from "@/assets/img/prev-arrow.svg";
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 interface PagiNationProps {
-  totalItems?: number;
-  pageCount?: number;
-  postPage?: number;
-  link?: string;
+  totalItems: number;
+  postPage: number;
+  link: string;
 }
 
-const Pagination = ({
-  totalItems = 0,
-  pageCount = 0,
-  postPage = 0,
-  link = "",
-}: PagiNationProps) => {
-  const [currentPage, setCurrentPage] = useState<number>(1);
+const Pagination = ({ totalItems, postPage, link }: PagiNationProps) => {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pageParam = searchParams.get("page");
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(pageParam) || 1,
+  );
+
+  useEffect(() => {
+    const pageParam = searchParams.get("page");
+    if (pageParam) {
+      setCurrentPage(Number(pageParam));
+    }
+  }, [searchParams]);
+
+  const totalPages = Math.ceil(totalItems / postPage);
+
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [totalItems, postPage, totalPages]);
 
   const pageSize = 5;
   const currentPageGroup = Math.ceil(currentPage / pageSize);
   const startPage = (currentPageGroup - 1) * pageSize + 1;
-  const endPage = Math.min(
-    currentPageGroup * pageSize,
-    Math.ceil(totalItems / postPage),
-  );
+  const endPage = Math.min(currentPageGroup * pageSize, totalPages);
 
   const changePage = (number: number) => {
+    if (number < 1 || number > totalPages) return;
     setCurrentPage(number);
+    const newLink = `${link.split("&page=")[0]}&page=${number}`;
+    router.push(newLink);
   };
 
   const pageNumber = [];
@@ -39,10 +54,13 @@ const Pagination = ({
   return (
     <div className="flex items-center justify-center mt-[59px] mb-[70px]">
       <div className="mr-[17px]">
-        {pageCount > 1 && currentPage !== 1 && (
+        {currentPage > 1 && (
           <Link
             href={`${link.split("&page=")[0]}&page=${currentPage - 1}`}
-            onClick={() => changePage(currentPage - 1)}
+            onClick={(e) => {
+              e.preventDefault();
+              changePage(currentPage - 1);
+            }}
             passHref
             key="prev"
           >
@@ -64,7 +82,10 @@ const Pagination = ({
             <Link
               className="px-[17px] py-[12px]"
               href={`${link.split("&page=")[0]}&page=${pageNum}`}
-              onClick={() => changePage(pageNum)}
+              onClick={(e) => {
+                e.preventDefault();
+                changePage(pageNum);
+              }}
               passHref
             >
               {pageNum}
@@ -73,10 +94,13 @@ const Pagination = ({
         </div>
       ))}
       <div>
-        {currentPage < pageCount && (
+        {currentPage < totalPages && (
           <Link
             href={`${link.split("&page=")[0]}&page=${currentPage + 1}`}
-            onClick={() => changePage(currentPage + 1)}
+            onClick={(e) => {
+              e.preventDefault();
+              changePage(currentPage + 1);
+            }}
             passHref
             key="next"
           >

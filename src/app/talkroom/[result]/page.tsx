@@ -4,6 +4,7 @@ import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
 import Pagination from "../../components/Pagination/Pagination";
 import { ThemeMain } from "../../components/Theme/Theme";
@@ -30,6 +31,7 @@ const page = ({ params }: { params: { result: string } }) => {
   const orderParam = param.get("order");
   const sortByDateParam = param.get("sortbydate");
   const searchParam: string = param.get("search") || "";
+  const pageParam = param.get("page");
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
@@ -42,9 +44,14 @@ const page = ({ params }: { params: { result: string } }) => {
     sortByDateParam === "1d"
       ? sortByDateParam
       : "";
+  const page: number = Number(pageParam) || 1;
   const search = decodeURIComponent(params.result);
-  const { data: talkRoomPopular } = useGetRooms({
-    page: 1,
+  const {
+    data: talkRoomPopular,
+    isLoading,
+    refetch: refetchTalkRoomData,
+  } = useGetRooms({
+    page: page,
     size: 12,
     order: orderStatus,
     search: search,
@@ -55,6 +62,9 @@ const page = ({ params }: { params: { result: string } }) => {
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,
     );
   };
+  useEffect(() => {
+    refetchTalkRoomData();
+  }, [orderStatus, sortByDate, page]);
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">
@@ -85,38 +95,40 @@ const page = ({ params }: { params: { result: string } }) => {
       </div>
 
       {talkRoomPopular && talkRoomPopular.response.queryResponse.length > 0 ? (
-        <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-          {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => {
-            const isLike = talkRoomPopular.userLikeTalkRoomIds.includes(
-              data.id,
-            );
-            return (
-              <TalkRoomCard
-                key={data.id}
-                data={data}
-                isBest={orderParam === "recommend"}
-                isLike={isLike}
-              />
-            );
-          })}
-        </div>
+        <>
+          <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
+            {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => {
+              const isLike = talkRoomPopular.userLikeTalkRoomIds.includes(
+                data.id,
+              );
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={orderParam === "recommend"}
+                  isLike={isLike}
+                />
+              );
+            })}
+          </div>
+          {isLoading ? (
+            <></>
+          ) : (
+            <Pagination
+              totalItems={talkRoomPopular?.response.totalCount ?? 0}
+              postPage={talkRoomPopular?.response.size ?? 12}
+              link={
+                sortByDate
+                  ? currentUrl +
+                    `?order=${orderParam}&search=${searchParam}&sortByDate=${sortByDate}`
+                  : currentUrl + `?order=${orderParam}&search=${searchParam}`
+              }
+            />
+          )}
+        </>
       ) : (
         <HaveNotData content={"검색된 토크방이"} />
       )}
-      <Pagination
-        totalItems={talkRoomPopular?.response.totalCount}
-        pageCount={Math.ceil(
-          (talkRoomPopular?.response.totalCount ?? 0) /
-            (talkRoomPopular?.response.size ?? 1),
-        )}
-        postPage={talkRoomPopular?.response.size}
-        link={
-          sortByDate
-            ? currentUrl +
-              `?order=${orderParam}&search=${searchParam}&sortByDate=${sortByDate}`
-            : currentUrl + `?order=${orderParam}&search=${searchParam}`
-        }
-      />
     </div>
   );
 };

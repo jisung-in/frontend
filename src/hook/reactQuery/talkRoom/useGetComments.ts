@@ -11,7 +11,7 @@ type TalkRoomResponse = {
         content: string;
         commentLikeCount: number;
         commentImages: [];
-        createTime: string;
+        registeredDateTime: string;
       },
     ];
     totalCount: number;

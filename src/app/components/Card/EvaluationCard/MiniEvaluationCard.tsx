@@ -8,18 +8,19 @@ import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
 type MiniEvaluationProps = {
-  id: number;
-  image: string;
-  starRate: number;
-  userName: string;
-  comment: string;
-  like: number;
+  reviewId: number;
+  ratingId: number;
+  username: string;
+  profileImage: string;
+  reviewContent: string;
+  starRating: number;
+  likeCount: number;
 };
 
 const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
   data,
 }) => {
-  const [count, setCount] = useState<number>(data.like);
+  const [count, setCount] = useState<number>(data.likeCount);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
     setIsLike(!isLike);
@@ -27,23 +28,34 @@ const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="w-[405px] min-h-[290px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">
+    <div className="w-[405px] max-h-[279px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">
       <div className="mt-[18px] ml-[15px] mr-[13px] w-auto">
         <div className="flex flex-row mb-[16px]">
           <div className="flex flex-row items-center flex-grow gap-x-[10px]">
-            <Image src={Profile} alt="프로필" width={40} height={40} priority />
-            <div className="font-medium text-[20px]">{data.userName}</div>
+            <Image
+              className="rounded-[50%] min-w-[40px] max-w-[40px] min-h-[40px] max-h-[40px]"
+              src={data.profileImage ? data.profileImage : Profile}
+              alt="프로필"
+              width={40}
+              height={40}
+              priority
+            />
+            <div className="font-medium text-[20px]">{data.username}</div>
           </div>
-          <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px] justify-center">
-            <Star />
-            <div className="flex grow justify-center items-center">
-              {data.starRate}
+          {data.starRating ? (
+            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px] justify-center">
+              <Star />
+              <div className="flex grow justify-center items-center">
+                {data.starRating.toFixed(1)}
+              </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
         </div>
 
-        <div className="font-regular text-[20px] min-h-[112px]">
-          {data.comment}
+        <div className="font-regular text-[20px] h-[98px]">
+          {data.reviewContent}
         </div>
 
         <div className="flex flex-row">

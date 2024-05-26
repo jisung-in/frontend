@@ -6,18 +6,12 @@ type BookStateRequest = {
   readingStatus: string;
 };
 
-type BookStateResponse = {
-  id: number;
-  status: string;
-  hasReadingStatus: boolean;
-};
-
-export const useCreateBookState = (isbn: string) => {
+export const useCreateBookState = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (request: BookStateRequest) =>
       axiosInstance.post(`/v1/user-libraries`, request),
-    onSuccess: () =>
+    onSuccess: (_, { isbn }) =>
       queryClient.invalidateQueries({ queryKey: ["book", "state", isbn] }),
   });
 };
