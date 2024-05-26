@@ -16,13 +16,15 @@ interface SpeechBubbleProps {
     profileImage: string;
     content: string;
     commentLikeCount: number;
-    commentImages: [];
+    commentImages: string[];
     registeredDateTime: string;
   };
+  isLike: boolean;
 }
-const SpeechBubble = ({ data }: SpeechBubbleProps) => {
+const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
+  console.log(initialIsLike);
   const [count, setCount] = useState<number>(data.commentLikeCount);
-  const [isLike, setIsLike] = useState<boolean>(false);
+  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createCommentLike = useCreateCommentLike();
   const deleteCommentLike = useDeleteCommentLike();
   const changeIsLike = () => {
