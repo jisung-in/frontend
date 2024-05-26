@@ -6,7 +6,7 @@ import Pagination from "@/app/components/Pagination/Pagination";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
-import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import { usePathname } from "next/navigation";
 
@@ -27,7 +27,7 @@ type TalkRoom = {
 const page = ({ params }: { params: { isbn: string } }) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
-    ? useGetCommentLike()
+    ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
   const currentUrl = usePathname();
   const { data: relateData, isLoading } = useGetBookRelatedTalkRoom({

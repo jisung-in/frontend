@@ -2,7 +2,7 @@
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
-import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import { useContext } from "react";
@@ -12,7 +12,7 @@ import { TabContext } from "./TabProvider";
 const MyTalkRoom = () => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
-    ? useGetCommentLike()
+    ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
   const { tab } = useContext(TabContext);
   const { data: talkRoomPopular } = useGetRooms({

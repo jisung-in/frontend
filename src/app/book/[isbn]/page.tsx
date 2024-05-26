@@ -7,7 +7,7 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
-import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { useCallback } from "react";
@@ -38,7 +38,7 @@ type UserEvaluation = {
 const page = ({ params }: { params: { isbn: string } }) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
-    ? useGetCommentLike()
+    ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
   const { data: bookDetailData, refetch: refetchBookInformation } =
     useGetBookInformation({

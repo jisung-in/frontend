@@ -1,7 +1,7 @@
 "use client";
 
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
-import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -47,7 +47,7 @@ const page = () => {
   const page: number = Number(pageParam) || 1;
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
-    ? useGetCommentLike()
+    ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
   const {
     data: talkRoomPopular,
