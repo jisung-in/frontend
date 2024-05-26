@@ -19,19 +19,15 @@ type TalkRoomCardProps = {
     title: string;
     content: string;
     bookName: string;
-    bookAuthor: string;
+    bookAuthors: string;
     bookThumbnail: string;
     likeCount: number;
   };
-  isLike: boolean;
 };
 
-const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
-  data,
-  isLike: initialIsLike,
-}) => {
+const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({ data }) => {
   const [count, setCount] = useState<number>(data.likeCount);
-  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
+  const [isLike, setIsLike] = useState<boolean>(false);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
 
@@ -69,7 +65,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 <div className="text-[19px] font-semibold mb-1 overflow-hidden line-clamp-1">
                   {data.bookName}
                 </div>
-                <div className="text-base">{data.bookAuthor}</div>
+                <div className="text-base">{data.bookAuthors}</div>
               </div>
               <div className="flex flex-col items-center">
                 <IconButton onClick={changeIsLike}>

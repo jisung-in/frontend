@@ -19,11 +19,10 @@ interface SpeechBubbleProps {
     commentImages: [];
     registeredDateTime: string;
   };
-  isLike: boolean;
 }
-const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
+const SpeechBubble = ({ data }: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
-  const [isLike, setIsLike] = useState<boolean>(initailIsLike);
+  const [isLike, setIsLike] = useState<boolean>(false);
   const createCommentLike = useCreateCommentLike();
   const deleteCommentLike = useDeleteCommentLike();
   const changeIsLike = () => {

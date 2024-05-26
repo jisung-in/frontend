@@ -94,19 +94,15 @@ const page = ({ params }: { params: { result: string } }) => {
         </div>
       </div>
 
-      {talkRoomPopular && talkRoomPopular.response.queryResponse.length > 0 ? (
+      {talkRoomPopular && talkRoomPopular.queryResponse.length > 0 ? (
         <>
           <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-            {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => {
-              const isLike = talkRoomPopular.userLikeTalkRoomIds.includes(
-                data.id,
-              );
+            {talkRoomPopular.queryResponse.map((data: TalkRoom) => {
               return (
                 <TalkRoomCard
                   key={data.id}
                   data={data}
                   isBest={orderParam === "recommend"}
-                  isLike={isLike}
                 />
               );
             })}
@@ -115,8 +111,8 @@ const page = ({ params }: { params: { result: string } }) => {
             <></>
           ) : (
             <Pagination
-              totalItems={talkRoomPopular?.response.totalCount ?? 0}
-              postPage={talkRoomPopular?.response.size ?? 12}
+              totalItems={talkRoomPopular?.totalCount ?? 0}
+              postPage={talkRoomPopular?.size ?? 12}
               link={
                 sortByDate
                   ? currentUrl +

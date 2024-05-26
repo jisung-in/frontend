@@ -10,12 +10,9 @@ type TalkRoomRequest = {
 };
 
 type TalkRoomInfo = {
-  response: {
-    queryResponse: TalkRoom[];
-    totalCount: number;
-    size: number;
-  };
-  userLikeTalkRoomIds: number[];
+  queryResponse: TalkRoom[];
+  totalCount: number;
+  size: number;
 };
 
 type TalkRoom = {

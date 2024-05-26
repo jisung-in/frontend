@@ -19,7 +19,7 @@ type TalkRoom = {
   title: string;
   content: string;
   bookName: string;
-  bookAuthor: string;
+  bookAuthors: string;
   bookThumbnail: string;
   likeCount: number;
 };
@@ -111,17 +111,10 @@ const page = ({ params }: { params: { isbn: string } }) => {
             </div>
           </Link>
         </div>
-        {relateData && relateData.response.queryResponse.length > 0 ? (
+        {relateData && relateData.queryResponse.length > 0 ? (
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-            {relateData.response.queryResponse.map((data: TalkRoom) => {
-              const isLike = relateData.userLikeTalkRoomIds.includes(data.id);
-              return (
-                <RelatedTalkRoomCard
-                  key={data.id}
-                  data={data}
-                  isLike={isLike}
-                />
-              );
+            {relateData.queryResponse.map((data: TalkRoom) => {
+              return <RelatedTalkRoomCard key={data.id} data={data} />;
             })}
           </div>
         ) : (

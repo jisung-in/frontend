@@ -118,27 +118,16 @@ const page = () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {popularData && popularData.response.queryResponse.length > 0 ? (
+        {popularData && popularData.queryResponse.length > 0 ? (
           isSwiper ? (
             <TalkRoomCardSwiper
-              talkRooms={popularData.response.queryResponse}
-              userLikeTalkRoomIds={popularData.userLikeTalkRoomIds}
+              talkRooms={popularData.queryResponse}
               isBest={true}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
-              {popularData.response.queryResponse.map((data: TalkRoom) => {
-                const isLike = popularData.userLikeTalkRoomIds.includes(
-                  data.id,
-                );
-                return (
-                  <TalkRoomCard
-                    key={data.id}
-                    data={data}
-                    isBest={true}
-                    isLike={isLike}
-                  />
-                );
+              {popularData.queryResponse.map((data: TalkRoom) => {
+                return <TalkRoomCard key={data.id} data={data} isBest={true} />;
               })}
             </div>
           )
@@ -221,24 +210,17 @@ const page = () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {recentData && recentData.response.queryResponse.length > 0 ? (
+        {recentData && recentData.queryResponse.length > 0 ? (
           isSwiper ? (
             <TalkRoomCardSwiper
-              talkRooms={recentData.response.queryResponse}
-              userLikeTalkRoomIds={recentData.userLikeTalkRoomIds}
+              talkRooms={recentData.queryResponse}
               isBest={false}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
-              {recentData.response.queryResponse.map((data: TalkRoom) => {
-                const isLike = recentData.userLikeTalkRoomIds.includes(data.id);
+              {recentData.queryResponse.map((data: TalkRoom) => {
                 return (
-                  <TalkRoomCard
-                    key={data.id}
-                    data={data}
-                    isBest={false}
-                    isLike={isLike}
-                  />
+                  <TalkRoomCard key={data.id} data={data} isBest={false} />
                 );
               })}
             </div>

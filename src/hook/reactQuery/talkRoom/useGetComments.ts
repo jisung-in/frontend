@@ -2,22 +2,19 @@ import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
 type TalkRoomResponse = {
-  response: {
-    queryResponse: [
-      {
-        commentId: number;
-        userName: string;
-        profileImage: string;
-        content: string;
-        commentLikeCount: number;
-        commentImages: [];
-        registeredDateTime: string;
-      },
-    ];
-    totalCount: number;
-    size: number;
-  };
-  userLikeCommentIds: number[];
+  queryResponse: [
+    {
+      commentId: number;
+      userName: string;
+      profileImage: string;
+      content: string;
+      commentLikeCount: number;
+      commentImages: [];
+      registeredDateTime: string;
+    },
+  ];
+  totalCount: number;
+  size: number;
 };
 
 export const useGetComments = (talkRoomId: number) => {

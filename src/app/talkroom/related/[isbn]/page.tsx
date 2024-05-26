@@ -42,27 +42,19 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </div>
         </div>
       </ThemeMain.MainTheme>
-      {relateData && relateData.response.queryResponse.length > 0 ? (
+      {relateData && relateData.queryResponse.length > 0 ? (
         <>
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-            {relateData.response.queryResponse.map((data: TalkRoom) => {
-              const isLike = relateData.userLikeTalkRoomIds.includes(data.id);
-              return (
-                <TalkRoomCard
-                  key={data.id}
-                  data={data}
-                  isBest={false}
-                  isLike={isLike}
-                />
-              );
+            {relateData.queryResponse.map((data: TalkRoom) => {
+              return <TalkRoomCard key={data.id} data={data} isBest={false} />;
             })}
           </div>
           {isLoading ? (
             <></>
           ) : (
             <Pagination
-              totalItems={relateData?.response.totalCount ?? 0}
-              postPage={relateData?.response.size ?? 12}
+              totalItems={relateData?.totalCount ?? 0}
+              postPage={relateData?.size ?? 12}
               link={currentUrl}
             />
           )}

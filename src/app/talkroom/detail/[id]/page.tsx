@@ -50,21 +50,16 @@ const Page = ({ params }: { params: { id: number } }) => {
 
       <div className="font-Pretendard font-semibold text-[21px] text-[#818181] mb-[28px]">
         의견{" "}
-        {commentsData && commentsData.response.totalCount > 999
+        {commentsData && commentsData.totalCount > 999
           ? "999+"
-          : commentsData?.response.totalCount}
+          : commentsData?.totalCount}
       </div>
 
       {/* <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} /> */}
 
-      {commentsData && commentsData.response.queryResponse.length > 0 ? (
-        commentsData.response.queryResponse.map((data) => {
-          const isLike = commentsData.userLikeCommentIds.includes(
-            data.commentId,
-          );
-          return (
-            <SpeechBubble key={data.commentId} data={data} isLike={isLike} />
-          );
+      {commentsData && commentsData.queryResponse.length > 0 ? (
+        commentsData.queryResponse.map((data: any) => {
+          return <SpeechBubble key={data.commentId} data={data} />;
         })
       ) : (
         <HaveNotData content={"아직 의견이"} />

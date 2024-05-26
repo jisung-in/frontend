@@ -26,16 +26,11 @@ type TalkRoomCardProps = {
     registeredDateTime?: string;
   };
   isBest: boolean;
-  isLike: boolean;
 };
 
-const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
-  data,
-  isBest,
-  isLike: initialIsLike,
-}) => {
+const TalkRoomCard: React.FC<TalkRoomCardProps> = ({ data, isBest }) => {
   const [count, setCount] = useState<number>(data.likeCount);
-  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
+  const [isLike, setIsLike] = useState<boolean>(false);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
