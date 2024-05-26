@@ -7,6 +7,7 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
+import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
@@ -39,6 +40,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
+    : { data: { talkRoomIds: [] } };
+  const { data: reviewLikeIds } = isLoggedIn
+    ? useGetReviewLike()
     : { data: { talkRoomIds: [] } };
   const { data: bookDetailData, refetch: refetchBookInformation } =
     useGetBookInformation({
@@ -96,7 +100,16 @@ const page = ({ params }: { params: { isbn: string } }) => {
             {reviewData && reviewData.data.content.length > 0 ? (
               <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
                 {reviewData.data.content.map((data: UserEvaluation) => {
-                  return <MiniEvaluationCard key={data.reviewId} data={data} />;
+                  const isLike =
+                    isLoggedIn &&
+                    reviewLikeIds?.reviewIds.includes(data.reviewId);
+                  return (
+                    <MiniEvaluationCard
+                      key={data.reviewId}
+                      data={data}
+                      isLike={isLike}
+                    />
+                  );
                 })}
               </div>
             ) : (
