@@ -22,9 +22,11 @@ type TalkRoom = {
   title: string;
   content: string;
   bookName: string;
-  bookAuthors: string;
+  bookAuthor: string;
   bookThumbnail: string;
   likeCount: number;
+  readingStatuses: string[];
+  registeredDateTime?: string;
 };
 type UserEvaluation = {
   reviewId: number;
