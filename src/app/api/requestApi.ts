@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import axios, {
   AxiosError,
   AxiosResponse,
@@ -24,11 +25,12 @@ const onRequestRejected = (error: AxiosError) => {
 
 const onRequestFulfilled = (config: InternalAxiosRequestConfig) => {
   // 쿠키 방식
-  // const accessToken = localStorage.getItem("token");
+  // const accessToken = 토큰 가져오기
 
   // if (accessToken) {
   //   config.headers.Authorization = `Bearer ${accessToken}`;
   // }
+  // 현재는 토큰 방식이 아니니 생략
 
   return config;
 };
@@ -41,8 +43,9 @@ const onResponseRejected = (error: AxiosError) => {
   if (!isAxiosError(error) || !error.response) return Promise.reject(error);
   const { status: errorStatus } = error.response;
   if (errorStatus === 401) {
-    localStorage.removeItem("token");
-    // window.location.href = "/";
+    // 권한 오류라면 로그인 페이지로 redirect
+    Cookies.remove("accessToken");
+    window.location.href = "/login";
   }
 
   return Promise.reject(error.response);
