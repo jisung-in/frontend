@@ -55,8 +55,9 @@ const SearchedList = ({
 
       <span className="font-bold">최근 검색어</span>
       <ul>
-        {searches.map((item: string) => (
+        {searches.map((item: string, index: number) => (
           <li
+            key={index}
             className="flex gap-2 cursor-pointer"
             onClick={() => onListClicked(item)}
           >
