@@ -78,7 +78,6 @@ const page = () => {
     size: 12,
     order: "comment",
   });
-  useEffect(() => {}, []);
   return (
     <div className="bg-[#FFF] w-full">
       <div
