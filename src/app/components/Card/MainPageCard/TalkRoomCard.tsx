@@ -8,7 +8,7 @@ import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike"
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
 type TalkRoomCardProps = {
@@ -38,6 +38,12 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
+
+  useEffect(() => {
+    setCount(data.likeCount);
+    setIsLike(initialIsLike);
+  }, [data.likeCount, initialIsLike]);
+
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (isLike) {

@@ -6,6 +6,8 @@ import Pagination from "@/app/components/Pagination/Pagination";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
+import { useLogin } from "@/hook/useLogin";
 import { usePathname } from "next/navigation";
 
 type TalkRoom = {
@@ -23,6 +25,10 @@ type TalkRoom = {
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetRoomLike()
+    : { data: { talkRoomIds: [] } };
   const currentUrl = usePathname();
   const { data: relateData, isLoading } = useGetBookRelatedTalkRoom({
     isbn: params?.isbn,
@@ -42,11 +48,13 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </div>
         </div>
       </ThemeMain.MainTheme>
-      {relateData && relateData.response.queryResponse.length > 0 ? (
+      {relateData && relateData.queryResponse.length > 0 ? (
         <>
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-            {relateData.response.queryResponse.map((data: TalkRoom) => {
-              const isLike = relateData.userLikeTalkRoomIds.includes(data.id);
+            {relateData.queryResponse.map((data: TalkRoom) => {
+              const isLike =
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
                 <TalkRoomCard
                   key={data.id}
@@ -61,8 +69,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
             <></>
           ) : (
             <Pagination
-              totalItems={relateData?.response.totalCount ?? 0}
-              postPage={relateData?.response.size ?? 12}
+              totalItems={relateData?.totalCount ?? 0}
+              postPage={relateData?.size ?? 12}
               link={currentUrl}
             />
           )}

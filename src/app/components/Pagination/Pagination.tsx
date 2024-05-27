@@ -1,23 +1,23 @@
-"use client";
 import NextArrow from "@/assets/img/next-arrow.svg";
 import PrevArrow from "@/assets/img/prev-arrow.svg";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
-interface PagiNationProps {
+interface PaginationProps {
   totalItems: number;
   postPage: number;
   link: string;
 }
 
-const Pagination = ({ totalItems, postPage, link }: PagiNationProps) => {
+const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pageParam = searchParams.get("page");
   const [currentPage, setCurrentPage] = useState<number>(
     Number(pageParam) || 1,
   );
+  const [originalPostPage] = useState<number>(postPage); // postPage의 초기값을 저장, 그래야 추 후 size가 변해도 에러가 발생하지 않음
 
   useEffect(() => {
     const pageParam = searchParams.get("page");
@@ -26,18 +26,13 @@ const Pagination = ({ totalItems, postPage, link }: PagiNationProps) => {
     }
   }, [searchParams]);
 
-  const totalPages = Math.ceil(totalItems / postPage);
+  const totalPages = Math.ceil(totalItems / originalPostPage); // postPage 대신 originalPostPage 사용
 
   useEffect(() => {
     if (currentPage > totalPages) {
       setCurrentPage(totalPages);
     }
-  }, [totalItems, postPage, totalPages]);
-
-  const pageSize = 5;
-  const currentPageGroup = Math.ceil(currentPage / pageSize);
-  const startPage = (currentPageGroup - 1) * pageSize + 1;
-  const endPage = Math.min(currentPageGroup * pageSize, totalPages);
+  }, [currentPage, totalPages]);
 
   const changePage = (number: number) => {
     if (number < 1 || number > totalPages) return;
@@ -45,6 +40,11 @@ const Pagination = ({ totalItems, postPage, link }: PagiNationProps) => {
     const newLink = `${link.split("&page=")[0]}&page=${number}`;
     router.push(newLink);
   };
+
+  const pageSize = 5;
+  const currentPageGroup = Math.ceil(currentPage / pageSize);
+  const startPage = (currentPageGroup - 1) * pageSize + 1;
+  const endPage = Math.min(currentPageGroup * pageSize, totalPages);
 
   const pageNumber = [];
   for (let i = startPage; i <= endPage; i++) {

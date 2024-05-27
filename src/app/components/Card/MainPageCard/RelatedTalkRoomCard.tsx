@@ -8,7 +8,7 @@ import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike"
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
 type TalkRoomCardProps = {
@@ -19,7 +19,7 @@ type TalkRoomCardProps = {
     title: string;
     content: string;
     bookName: string;
-    bookAuthor: string;
+    bookAuthors: string;
     bookThumbnail: string;
     likeCount: number;
   };
@@ -35,6 +35,11 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
 
+  useEffect(() => {
+    setCount(data.likeCount);
+    setIsLike(initialIsLike);
+  }, [data.likeCount, initialIsLike]);
+
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (isLike) {
@@ -46,7 +51,6 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
     }
     setIsLike(!isLike);
   };
-
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
       <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">
@@ -69,19 +73,26 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 <div className="text-[19px] font-semibold mb-1 overflow-hidden line-clamp-1">
                   {data.bookName}
                 </div>
-                <div className="text-base">{data.bookAuthor}</div>
+                <div className="text-base">{data.bookAuthors}</div>
               </div>
               <div className="flex flex-col items-center">
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
-                    <Like width={29} height={22} />
+                    <>
+                      <Like width={29} height={22} />
+                      <div className="h-[22px] font-Inter font-regular text-[13px] text-[#F24D4D]">
+                        {count}
+                      </div>
+                    </>
                   ) : (
-                    <NotLike width={29} height={22} />
+                    <>
+                      <NotLike width={29} height={22} />
+                      <div className="h-[22px] font-Inter font-regular text-[13px] text-white">
+                        {count}
+                      </div>
+                    </>
                   )}
                 </IconButton>
-                <div className="h-[22px] font-Inter font-regular text-[13px] text-white">
-                  {count}
-                </div>
               </div>
             </div>
             <div className="flex flex-row my-3 font-semibold items-center gap-x-[7px]">

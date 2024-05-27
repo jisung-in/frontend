@@ -1,7 +1,9 @@
 "use client";
 
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import { useLogin } from "@/hook/useLogin";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
@@ -43,6 +45,10 @@ const page = () => {
       ? sortByDateParam
       : "";
   const page: number = Number(pageParam) || 1;
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetRoomLike()
+    : { data: { talkRoomIds: [] } };
   const {
     data: talkRoomPopular,
     isLoading,
@@ -61,7 +67,6 @@ const page = () => {
   useEffect(() => {
     refetchTalkRoomData();
   }, [orderStatus, sortByDate, page]);
-
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">
@@ -81,13 +86,13 @@ const page = () => {
         </div>
       </div>
 
-      {talkRoomPopular && talkRoomPopular.response.queryResponse.length > 0 ? (
+      {talkRoomPopular && talkRoomPopular.queryResponse.length > 0 ? (
         <>
           <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-            {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => {
-              const isLike = talkRoomPopular.userLikeTalkRoomIds.includes(
-                data.id,
-              );
+            {talkRoomPopular.queryResponse.map((data: TalkRoom) => {
+              const isLike =
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
                 <TalkRoomCard
                   key={data.id}
@@ -102,8 +107,8 @@ const page = () => {
             <></>
           ) : (
             <Pagination
-              totalItems={talkRoomPopular?.response.totalCount ?? 0}
-              postPage={talkRoomPopular?.response.size ?? 12}
+              totalItems={talkRoomPopular?.totalCount ?? 0}
+              postPage={talkRoomPopular?.size ?? 12}
               link={
                 sortByDate
                   ? currentUrl + `?order=${orderParam}&sortByDate=${sortByDate}`

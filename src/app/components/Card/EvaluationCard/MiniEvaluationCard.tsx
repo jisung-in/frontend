@@ -2,30 +2,49 @@ import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import Star from "@/assets/img/star.svg";
+import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
+import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 
 type MiniEvaluationProps = {
-  reviewId: number;
-  ratingId: number;
-  username: string;
-  profileImage: string;
-  reviewContent: string;
-  starRating: number;
-  likeCount: number;
+  data: {
+    reviewId: number;
+    ratingId: number;
+    username: string;
+    profileImage: string;
+    reviewContent: string;
+    starRating: number;
+    likeCount: number;
+  };
+  isLike: boolean;
 };
 
-const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
+const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   data,
+  isLike: initialIsLike,
 }) => {
   const [count, setCount] = useState<number>(data.likeCount);
-  const [isLike, setIsLike] = useState<boolean>(false);
-  const changeIsLike = (isLike: boolean) => {
+  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
+  const createReviewLike = useCreateReviewLike();
+  const deleteReviewLike = useDeleteReviewLike();
+
+  useEffect(() => {
+    setCount(data.likeCount);
+    setIsLike(initialIsLike);
+  }, [data.likeCount, initialIsLike]);
+
+  const changeIsLike = () => {
+    if (isLike) {
+      deleteReviewLike.mutate(data.reviewId);
+      setCount((prevCount) => prevCount - 1);
+    } else {
+      createReviewLike.mutate(data.reviewId);
+      setCount((prevCount) => prevCount + 1);
+    }
     setIsLike(!isLike);
-    setCount(count + 1);
-    if (isLike) setCount(count - 1);
   };
   return (
     <div className="w-[405px] max-h-[279px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">
@@ -61,7 +80,7 @@ const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
         <div className="flex flex-row">
           <div className="flex flex-col justify-start">
             <div className="flex flex-row mt-[18px] ml-[7px]">
-              <IconButton onClick={() => changeIsLike(isLike)}>
+              <IconButton onClick={changeIsLike}>
                 {isLike ? (
                   <LikeSpeechBubble width={16} height={15} />
                 ) : (
@@ -78,7 +97,7 @@ const MiniEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
         <hr className="w-full border border-[#F4E4CE] mt-[5px] mb-[10px]" />
 
         <div className="flex justify-start mb-[11px]">
-          <LikeButton isLike={isLike} onClick={() => changeIsLike(isLike)} />
+          <LikeButton isLike={isLike} onClick={changeIsLike} />
         </div>
       </div>
     </div>

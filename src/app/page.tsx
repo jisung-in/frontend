@@ -5,7 +5,9 @@ import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecentTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
 import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
@@ -38,6 +40,10 @@ type TalkRoomBookOrder = {
 };
 const page = () => {
   const [isSwiper, setIsSwiper] = useState(false);
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetRoomLike()
+    : { data: { talkRoomIds: [] } };
 
   useEffect(() => {
     const handleResize = () => {
@@ -72,6 +78,7 @@ const page = () => {
     size: 12,
     order: "comment",
   });
+  useEffect(() => {}, []);
   return (
     <div className="bg-[#FFF] w-full">
       <div
@@ -118,19 +125,19 @@ const page = () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {popularData && popularData.response.queryResponse.length > 0 ? (
+        {popularData && popularData.queryResponse.length > 0 ? (
           isSwiper ? (
             <TalkRoomCardSwiper
-              talkRooms={popularData.response.queryResponse}
-              userLikeTalkRoomIds={popularData.userLikeTalkRoomIds}
+              talkRooms={popularData.queryResponse}
               isBest={true}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
-              {popularData.response.queryResponse.map((data: TalkRoom) => {
-                const isLike = popularData.userLikeTalkRoomIds.includes(
-                  data.id,
-                );
+              {popularData.queryResponse.map((data: TalkRoom) => {
+                const isLike =
+                  isLoggedIn &&
+                  (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
                 return (
                   <TalkRoomCard
                     key={data.id}
@@ -221,17 +228,19 @@ const page = () => {
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {recentData && recentData.response.queryResponse.length > 0 ? (
+        {recentData && recentData.queryResponse.length > 0 ? (
           isSwiper ? (
             <TalkRoomCardSwiper
-              talkRooms={recentData.response.queryResponse}
-              userLikeTalkRoomIds={recentData.userLikeTalkRoomIds}
+              talkRooms={recentData.queryResponse}
               isBest={false}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
-              {recentData.response.queryResponse.map((data: TalkRoom) => {
-                const isLike = recentData.userLikeTalkRoomIds.includes(data.id);
+              {recentData.queryResponse.map((data: TalkRoom) => {
+                const isLike =
+                  isLoggedIn &&
+                  (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
                 return (
                   <TalkRoomCard
                     key={data.id}

@@ -18,7 +18,6 @@ type TalkRoomResponse = {
   readingStatuses: string[];
   registeredDateTime: string;
   images: string[];
-  likeTalkRoom: boolean;
 };
 
 export const useGetOneRoom = ({ talkRoomId }: TalkRoomRequest) => {

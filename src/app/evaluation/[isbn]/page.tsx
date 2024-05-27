@@ -7,6 +7,8 @@ import NoImage from "@/assets/img/no-image.png";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
+import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
+import { useLogin } from "@/hook/useLogin";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -27,6 +29,10 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const router = useRouter();
   const orderParams = useSearchParams();
   const order = orderParams.get("order") || "like";
+  const { isLoggedIn } = useLogin();
+  const { data: reviewLikeIds } = isLoggedIn
+    ? useGetReviewLike()
+    : { data: { reviewIds: [] } };
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params.isbn,
   });
@@ -102,9 +108,14 @@ const page = ({ params }: { params: { isbn: string } }) => {
 
       {reviewData && reviewData.data.content.length > 0 ? (
         <div className="flex flex-col items-center">
-          {reviewData.data.content.map((data: UserEvaluation) => (
-            <EvaluationCard key={data.reviewId} data={data} />
-          ))}
+          {reviewData.data.content.map((data: UserEvaluation) => {
+            const isLike =
+              isLoggedIn &&
+              (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
+            return (
+              <EvaluationCard key={data.reviewId} data={data} isLike={isLike} />
+            );
+          })}
         </div>
       ) : (
         <HaveNotData content={"아직 유저평가가"} />

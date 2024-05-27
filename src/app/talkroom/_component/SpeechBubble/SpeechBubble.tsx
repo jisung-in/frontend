@@ -5,7 +5,7 @@ import { useCreateCommentLike } from "@/hook/reactQuery/talkRoom/useCreateCommen
 import { useDeleteCommentLike } from "@/hook/reactQuery/talkRoom/useDeleteCommentLike";
 import timeLapse from "@/util/timeLapse";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../../components/IconButton/IconButton";
 import LikeButton from "../../../components/LikeButton/LikeButton";
 
@@ -16,16 +16,22 @@ interface SpeechBubbleProps {
     profileImage: string;
     content: string;
     commentLikeCount: number;
-    commentImages: [];
+    commentImages: string[];
     registeredDateTime: string;
   };
   isLike: boolean;
 }
-const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
+const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
-  const [isLike, setIsLike] = useState<boolean>(initailIsLike);
+  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createCommentLike = useCreateCommentLike();
   const deleteCommentLike = useDeleteCommentLike();
+
+  useEffect(() => {
+    setCount(data.commentLikeCount);
+    setIsLike(initialIsLike);
+  }, [data.commentLikeCount, initialIsLike]);
+
   const changeIsLike = () => {
     if (isLike) {
       deleteCommentLike.mutate(data.commentId);
