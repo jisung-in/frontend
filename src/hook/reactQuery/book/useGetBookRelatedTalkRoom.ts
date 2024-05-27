@@ -19,7 +19,7 @@ type BookStateResponse = {
       bookAuthor: string;
       bookThumbnail: string;
       likeCount: number;
-      readingStatuses?: string[];
+      readingStatuses: string[];
       registeredDateTime?: string;
     },
   ];

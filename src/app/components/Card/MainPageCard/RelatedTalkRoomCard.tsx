@@ -19,9 +19,11 @@ type TalkRoomCardProps = {
     title: string;
     content: string;
     bookName: string;
-    bookAuthors: string;
+    bookAuthor: string;
     bookThumbnail: string;
     likeCount: number;
+    readingStatuses: string[];
+    registeredDateTime?: string;
   };
   isLike: boolean;
 };
@@ -73,7 +75,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 <div className="text-[19px] font-semibold mb-1 overflow-hidden line-clamp-1">
                   {data.bookName}
                 </div>
-                <div className="text-base">{data.bookAuthors}</div>
+                <div className="text-base">{data.bookAuthor}</div>
               </div>
               <div className="flex flex-col items-center">
                 <IconButton onClick={changeIsLike}>
@@ -99,9 +101,6 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
               <ThemeTitle />
               <div className="flex flex-row overflow-hidden line-clamp-1 text-[22px]">
                 {data.title}
-              </div>
-              <div className="flex items-center bg-transparent leading-tight text-[15px] text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[11px] py-0.5">
-                BEST
               </div>
             </div>
 
