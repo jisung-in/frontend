@@ -5,7 +5,7 @@ import { useCreateCommentLike } from "@/hook/reactQuery/talkRoom/useCreateCommen
 import { useDeleteCommentLike } from "@/hook/reactQuery/talkRoom/useDeleteCommentLike";
 import timeLapse from "@/util/timeLapse";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../../components/IconButton/IconButton";
 import LikeButton from "../../../components/LikeButton/LikeButton";
 
@@ -16,23 +16,28 @@ interface SpeechBubbleProps {
     profileImage: string;
     content: string;
     commentLikeCount: number;
-    commentImages: [];
-    createTime: string;
+    commentImages: string[];
+    registeredDateTime: string;
   };
   isLike: boolean;
 }
-const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
+const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
-  const [isLike, setIsLike] = useState<boolean>(initailIsLike);
-  const createCommentLike = useCreateCommentLike(data.commentId);
-  const deleteCommentLike = useDeleteCommentLike(data.commentId);
+  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
+  const createCommentLike = useCreateCommentLike();
+  const deleteCommentLike = useDeleteCommentLike();
+
+  useEffect(() => {
+    setCount(data.commentLikeCount);
+    setIsLike(initialIsLike);
+  }, [data.commentLikeCount, initialIsLike]);
 
   const changeIsLike = () => {
     if (isLike) {
-      deleteCommentLike.mutate();
+      deleteCommentLike.mutate(data.commentId);
       setCount((prevCount) => prevCount - 1);
     } else {
-      createCommentLike.mutate();
+      createCommentLike.mutate(data.commentId);
       setCount((prevCount) => prevCount + 1);
     }
     setIsLike(!isLike);
@@ -57,17 +62,17 @@ const SpeechBubble = ({ data, isLike: initailIsLike }: SpeechBubbleProps) => {
             </div>
           </div>
           <div className="text-[#17px] text-[#7E7E7E]">
-            {timeLapse(data.createTime)}
+            {timeLapse(data.registeredDateTime)}
           </div>
         </div>
         <div className="text-[20px] text-[#000]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
-          {data.commentImages.map((imgae: string) => (
+          {data.commentImages.map((image: string) => (
             <Image
               className="min-w-[120px] max-w-[120px] min-h-[120px] max-h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
               width={120}
               height={120}
-              src={imgae}
+              src={image}
               alt="댓글 이미지"
             />
           ))}

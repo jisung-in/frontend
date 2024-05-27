@@ -8,26 +8,23 @@ type params = {
 };
 
 type BookStateResponse = {
-  response: {
-    queryResponse: [
-      {
-        id: number;
-        profileImage: string;
-        username: string;
-        title: string;
-        content: string;
-        bookName: string;
-        bookAuthor: string;
-        bookThumbnail: string;
-        likeCount: number;
-        readingStatuses?: string[];
-        registeredDateTime?: string;
-      },
-    ];
-    totalCount: number;
-    size: number;
-  };
-  userLikeTalkRoomIds: number[];
+  queryResponse: [
+    {
+      id: number;
+      profileImage: string;
+      username: string;
+      title: string;
+      content: string;
+      bookName: string;
+      bookAuthor: string;
+      bookThumbnail: string;
+      likeCount: number;
+      readingStatuses: string[];
+      registeredDateTime?: string;
+    },
+  ];
+  totalCount: number;
+  size: number;
 };
 
 export const useGetBookRelatedTalkRoom = ({

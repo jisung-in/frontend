@@ -1,3 +1,4 @@
+import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 import BookStarRating from "./BookStarRating";
 import BookStatus from "./BookStatus";
@@ -16,15 +17,20 @@ type BookInformation = {
 type BookInformationProps = {
   data: BookInformation;
   isbn: string;
+  onTotalRatingChange: () => void;
 };
 
-const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
+const BookInformation: React.FC<BookInformationProps> = ({
+  data,
+  isbn,
+  onTotalRatingChange,
+}) => {
   return (
     <div className="flex flex-row mt-[22px] mb-[96px] w-[1680px]">
       <div className="flex">
         <Image
           className="min-w-[363px] min-h-[469px] max-w-[363px] max-h-[469px] mr-[37px]"
-          src={data?.thumbnail}
+          src={data ? data?.thumbnail : NoImage}
           alt="책표지"
           width={363}
           height={469}
@@ -32,17 +38,11 @@ const BookInformation: React.FC<BookInformationProps> = ({ data, isbn }) => {
       </div>
       <div className="flex flex-col grow justify-start font-Pretendard font-medium">
         <div className="flex flex-row items-center mt-[30px] gap-x-[70px]">
-          <div className="flex flex-col">
-            <BookStarRating />
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="font-Inter text-[44px]">
-              {data?.ratingAverage
-                ? parseFloat(data?.ratingAverage.toFixed(1))
-                : (0).toFixed(1).toString()}
-            </div>
-            <div className="text-base text-[#B1B1B1]">평균별점</div>
-          </div>
+          <BookStarRating
+            isbn={isbn}
+            ratingAverage={data.ratingAverage}
+            onTotalRatingChange={onTotalRatingChange}
+          />
 
           <div className="w-full flex flex-row gap-x-[26px] justify-end">
             <BookStatus isbn={isbn} />

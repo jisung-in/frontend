@@ -2,8 +2,11 @@
 
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
+import { useLogin } from "@/hook/useLogin";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
 import Pagination from "../../components/Pagination/Pagination";
 import { ThemeMain } from "../../components/Theme/Theme";
@@ -30,6 +33,7 @@ const page = ({ params }: { params: { result: string } }) => {
   const orderParam = param.get("order");
   const sortByDateParam = param.get("sortbydate");
   const searchParam: string = param.get("search") || "";
+  const pageParam = param.get("page");
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
@@ -42,9 +46,18 @@ const page = ({ params }: { params: { result: string } }) => {
     sortByDateParam === "1d"
       ? sortByDateParam
       : "";
+  const page: number = Number(pageParam) || 1;
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetRoomLike()
+    : { data: { talkRoomIds: [] } };
   const search = decodeURIComponent(params.result);
-  const { data: talkRoomPopular } = useGetRooms({
-    page: 1,
+  const {
+    data: talkRoomPopular,
+    isLoading,
+    refetch: refetchTalkRoomData,
+  } = useGetRooms({
+    page: page,
     size: 12,
     order: orderStatus,
     search: search,
@@ -55,6 +68,9 @@ const page = ({ params }: { params: { result: string } }) => {
       `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=&page=1`,
     );
   };
+  useEffect(() => {
+    refetchTalkRoomData();
+  }, [orderStatus, sortByDate, page]);
   return (
     <div className="flex flex-col items-center">
       <div className="w-[1255px]">
@@ -62,7 +78,9 @@ const page = ({ params }: { params: { result: string } }) => {
           <div className="flex mt-[78px] mb-[23px]">
             <div className="flex items-center mb-[23px]">
               <div className="text-[30px] mr-[16px]">토크해요</div>
-              <RecentMakeTalkRoom />
+              <div className="w-[30px] h-[30px]">
+                <RecentMakeTalkRoom />
+              </div>
             </div>
           </div>
         </ThemeMain.MainTheme>
@@ -82,39 +100,41 @@ const page = ({ params }: { params: { result: string } }) => {
         </div>
       </div>
 
-      {talkRoomPopular && talkRoomPopular.response.queryResponse.length > 0 ? (
-        <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-          {talkRoomPopular.response.queryResponse.map((data: TalkRoom) => {
-            const isLike = talkRoomPopular.userLikeTalkRoomIds.includes(
-              data.id,
-            );
-            return (
-              <TalkRoomCard
-                key={data.id}
-                data={data}
-                isBest={false}
-                isLike={isLike}
-              />
-            );
-          })}
-        </div>
+      {talkRoomPopular && talkRoomPopular.queryResponse.length > 0 ? (
+        <>
+          <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
+            {talkRoomPopular.queryResponse.map((data: TalkRoom) => {
+              const isLike =
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={orderParam === "recommend"}
+                  isLike={isLike}
+                />
+              );
+            })}
+          </div>
+          {isLoading ? (
+            <></>
+          ) : (
+            <Pagination
+              totalItems={talkRoomPopular?.totalCount ?? 0}
+              postPage={talkRoomPopular?.size ?? 12}
+              link={
+                sortByDate
+                  ? currentUrl +
+                    `?order=${orderParam}&search=${searchParam}&sortByDate=${sortByDate}`
+                  : currentUrl + `?order=${orderParam}&search=${searchParam}`
+              }
+            />
+          )}
+        </>
       ) : (
         <HaveNotData content={"검색된 토크방이"} />
       )}
-      <Pagination
-        totalItems={talkRoomPopular?.response.totalCount}
-        pageCount={Math.ceil(
-          (talkRoomPopular?.response.totalCount ?? 0) /
-            (talkRoomPopular?.response.size ?? 1),
-        )}
-        postPage={talkRoomPopular?.response.size}
-        link={
-          sortByDate
-            ? currentUrl +
-              `?order=${orderParam}&search=${searchParam}&sortByDate=${sortByDate}`
-            : currentUrl + `?order=${orderParam}&search=${searchParam}`
-        }
-      />
     </div>
   );
 };

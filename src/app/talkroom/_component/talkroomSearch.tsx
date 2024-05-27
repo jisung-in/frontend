@@ -13,7 +13,7 @@ type TalkRoomButtonsProps = {
   searchParam: string;
 };
 
-const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
+const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
   onSearchSubmit,
   searchParam,
 }) => {
@@ -106,4 +106,4 @@ const TalkRoomButtons: React.FC<TalkRoomButtonsProps> = ({
   );
 };
 
-export default TalkRoomButtons;
+export default TalkRoomSearch;

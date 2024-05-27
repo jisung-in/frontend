@@ -36,8 +36,8 @@ const BookStatus: React.FC<Isbn> = ({ isbn }) => {
     }
   }, [statusData]);
 
-  const createBookState = useCreateBookState(isbn);
-  const deleteBookState = useDeleteBookState(statusData?.id || 0);
+  const createBookState = useCreateBookState();
+  const deleteBookState = useDeleteBookState();
   const patchBookState = usePatchBookState(statusData?.id || 0);
 
   const changeStatus = (statusName: string) => {
@@ -46,7 +46,7 @@ const BookStatus: React.FC<Isbn> = ({ isbn }) => {
       createBookState.mutate({ isbn, readingStatus: statusName });
     } else if (statusName === status) {
       setStatus("");
-      deleteBookState.mutate();
+      deleteBookState.mutate(statusData?.id || 0);
     } else {
       setStatus(statusName);
       patchBookState.mutate({ isbn, readingStatus: statusName });

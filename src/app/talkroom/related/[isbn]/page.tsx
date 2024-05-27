@@ -6,6 +6,8 @@ import Pagination from "@/app/components/Pagination/Pagination";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
+import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
+import { useLogin } from "@/hook/useLogin";
 import { usePathname } from "next/navigation";
 
 type TalkRoom = {
@@ -23,8 +25,12 @@ type TalkRoom = {
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetRoomLike()
+    : { data: { talkRoomIds: [] } };
   const currentUrl = usePathname();
-  const { data: relateData } = useGetBookRelatedTalkRoom({
+  const { data: relateData, isLoading } = useGetBookRelatedTalkRoom({
     isbn: params?.isbn,
     page: 1,
     size: 12,
@@ -36,38 +42,42 @@ const page = ({ params }: { params: { isbn: string } }) => {
         <div className="flex mt-[78px] mb-[23px]">
           <div className="flex items-center mb-[23px]">
             <div className="text-[30px] mr-[16px]">연관된 토크방</div>
-            <RecentMakeTalkRoom />
+            <div className="w-[30px] h-[30px]">
+              <RecentMakeTalkRoom />
+            </div>
           </div>
         </div>
       </ThemeMain.MainTheme>
-
-      {relateData && relateData.response.queryResponse.length > 0 ? (
-        <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-          {relateData.response.queryResponse.map((data: TalkRoom) => {
-            const isLike = relateData.userLikeTalkRoomIds.includes(data.id);
-            return (
-              <TalkRoomCard
-                key={data.id}
-                data={data}
-                isBest={false}
-                isLike={isLike}
-              />
-            );
-          })}
-        </div>
+      {relateData && relateData.queryResponse.length > 0 ? (
+        <>
+          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+            {relateData.queryResponse.map((data: TalkRoom) => {
+              const isLike =
+                isLoggedIn &&
+                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+              return (
+                <TalkRoomCard
+                  key={data.id}
+                  data={data}
+                  isBest={false}
+                  isLike={isLike}
+                />
+              );
+            })}
+          </div>
+          {isLoading ? (
+            <></>
+          ) : (
+            <Pagination
+              totalItems={relateData?.totalCount ?? 0}
+              postPage={relateData?.size ?? 12}
+              link={currentUrl}
+            />
+          )}
+        </>
       ) : (
         <HaveNotData content={"연관된 토크방이"} />
       )}
-
-      <Pagination
-        totalItems={relateData?.response.totalCount}
-        pageCount={Math.ceil(
-          (relateData?.response.totalCount ?? 0) /
-            (relateData?.response.size ?? 1),
-        )}
-        postPage={relateData?.response.size}
-        link={currentUrl}
-      />
     </div>
   );
 };

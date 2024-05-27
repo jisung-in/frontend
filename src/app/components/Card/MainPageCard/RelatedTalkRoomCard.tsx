@@ -1,14 +1,14 @@
 import BookTitleRelate from "@/assets/img/book-title-relate.svg";
 import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
-import NotLike from "@/assets/img/not-like.svg";
+import NotLike from "@/assets/img/not-like-white.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title-middle.svg";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 
 type TalkRoomCardProps = {
@@ -22,6 +22,8 @@ type TalkRoomCardProps = {
     bookAuthor: string;
     bookThumbnail: string;
     likeCount: number;
+    readingStatuses: string[];
+    registeredDateTime?: string;
   };
   isLike: boolean;
 };
@@ -32,21 +34,25 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
 }) => {
   const [count, setCount] = useState<number>(data.likeCount);
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
-  const addTalkRoomLike = useCreateRoomLike(data.id);
-  const deleteTalkRoomLike = useDeleteRoomLike(data.id);
+  const addTalkRoomLike = useCreateRoomLike();
+  const deleteTalkRoomLike = useDeleteRoomLike();
+
+  useEffect(() => {
+    setCount(data.likeCount);
+    setIsLike(initialIsLike);
+  }, [data.likeCount, initialIsLike]);
 
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (isLike) {
-      deleteTalkRoomLike.mutate();
+      deleteTalkRoomLike.mutate(data.id);
       setCount((prevCount) => prevCount - 1);
     } else {
-      addTalkRoomLike.mutate();
+      addTalkRoomLike.mutate(data.id);
       setCount((prevCount) => prevCount + 1);
     }
     setIsLike(!isLike);
   };
-
   return (
     <Link href={`/talkroom/detail/${data.id}`}>
       <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">
@@ -74,23 +80,27 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
               <div className="flex flex-col items-center">
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
-                    <Like width={29} height={22} />
+                    <>
+                      <Like width={29} height={22} />
+                      <div className="h-[22px] font-Inter font-regular text-[13px] text-[#F24D4D]">
+                        {count}
+                      </div>
+                    </>
                   ) : (
-                    <NotLike width={29} height={22} />
+                    <>
+                      <NotLike width={29} height={22} />
+                      <div className="h-[22px] font-Inter font-regular text-[13px] text-white">
+                        {count}
+                      </div>
+                    </>
                   )}
                 </IconButton>
-                <div className="h-[22px] font-Inter font-regular text-[13px] text-[#656565]">
-                  {count}
-                </div>
               </div>
             </div>
             <div className="flex flex-row my-3 font-semibold items-center gap-x-[7px]">
               <ThemeTitle />
               <div className="flex flex-row overflow-hidden line-clamp-1 text-[22px]">
                 {data.title}
-              </div>
-              <div className="flex items-center bg-transparent leading-tight text-[15px] text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[11px] py-0.5">
-                BEST
               </div>
             </div>
 
