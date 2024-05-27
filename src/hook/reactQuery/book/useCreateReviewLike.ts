@@ -6,7 +6,7 @@ export const useCreateReviewLike = () => {
   return useMutation({
     mutationFn: (reviewId: number) =>
       axiosInstance.post(`/v1/reviews/${reviewId}/likes`),
-    onSuccess: (reviewId: number) =>
+    onSuccess: (_, reviewId) =>
       queryClient.invalidateQueries({
         queryKey: ["review", "likes", reviewId],
       }),
