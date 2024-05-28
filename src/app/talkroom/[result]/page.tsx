@@ -122,7 +122,7 @@ const page = ({ params }: { params: { result: string } }) => {
           ) : (
             <Pagination
               totalItems={talkRoomPopular?.totalCount ?? 0}
-              postPage={talkRoomPopular?.size ?? 12}
+              postPage={12}
               link={
                 sortByDate
                   ? currentUrl +

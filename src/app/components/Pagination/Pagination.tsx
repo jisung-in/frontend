@@ -17,8 +17,6 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
   const [currentPage, setCurrentPage] = useState<number>(
     Number(pageParam) || 1,
   );
-  const [originalPostPage] = useState<number>(postPage); // postPage의 초기값을 저장, 그래야 추 후 size가 변해도 에러가 발생하지 않음
-
   useEffect(() => {
     const pageParam = searchParams.get("page");
     if (pageParam) {
@@ -26,7 +24,7 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
     }
   }, [searchParams]);
 
-  const totalPages = Math.ceil(totalItems / originalPostPage); // postPage 대신 originalPostPage 사용
+  const totalPages = Math.ceil(totalItems / postPage);
 
   useEffect(() => {
     if (currentPage > totalPages) {
