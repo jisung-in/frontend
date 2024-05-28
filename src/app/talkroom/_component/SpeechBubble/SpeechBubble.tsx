@@ -21,9 +21,14 @@ interface SpeechBubbleProps {
     registeredDateTime: string;
     creatorId: number;
   };
+  userId: number;
   isLike: boolean;
 }
-const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
+const SpeechBubble = ({
+  data,
+  userId,
+  isLike: initialIsLike,
+}: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createCommentLike = useCreateCommentLike();
@@ -35,14 +40,18 @@ const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
   }, [data.commentLikeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (isLike) {
-      deleteCommentLike.mutate(data.commentId);
-      setCount((prevCount) => prevCount - 1);
+    if (data.creatorId !== userId) {
+      if (isLike) {
+        deleteCommentLike.mutate(data.commentId);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        createCommentLike.mutate(data.commentId);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
     } else {
-      createCommentLike.mutate(data.commentId);
-      setCount((prevCount) => prevCount + 1);
+      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
     }
-    setIsLike(!isLike);
   };
   return (
     <div className="relative bg-[#fff] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">

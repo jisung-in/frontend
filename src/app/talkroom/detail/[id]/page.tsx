@@ -4,6 +4,7 @@ import { Button } from "@/app/components/Button/Button";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
 import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
 import { useLogin } from "@/hook/useLogin";
@@ -27,7 +28,9 @@ const Page = ({ params }: { params: { id: number } }) => {
   const { data: commentLikeIds } = isLoggedIn
     ? useGetCommentLike()
     : { data: { commentIds: [] } };
-
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
   const { data: commentsData } = useGetComments(params.id);
   return (
     <div>
@@ -35,7 +38,10 @@ const Page = ({ params }: { params: { id: number } }) => {
         <PopularTalkRoom />
       </MainThemeTitle>
 
-      <TalkRoomDetailMain talkRoomId={params.id} />
+      <TalkRoomDetailMain
+        talkRoomId={params.id}
+        userId={myDetailData?.userId || -1}
+      />
 
       <hr className="border-[6px] border-[#F5EFE5] mt-[47px] mb-[42px]" />
 
@@ -87,7 +93,12 @@ const Page = ({ params }: { params: { id: number } }) => {
             isLoggedIn &&
             (commentLikeIds?.commentIds || []).includes(data.commentId);
           return (
-            <SpeechBubble key={data.commentId} data={data} isLike={isLike} />
+            <SpeechBubble
+              key={data.commentId}
+              data={data}
+              userId={myDetailData?.userId || -1}
+              isLike={isLike}
+            />
           );
         })
       ) : (

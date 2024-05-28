@@ -20,11 +20,13 @@ type MiniEvaluationProps = {
     starRating: number;
     likeCount: number;
   };
+  userId: number;
   isLike: boolean;
 };
 
 const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   data,
+  userId,
   isLike: initialIsLike,
 }) => {
   const [count, setCount] = useState<number>(data.likeCount);
@@ -38,14 +40,18 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   }, [data.likeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (isLike) {
-      deleteReviewLike.mutate(data.reviewId);
-      setCount((prevCount) => prevCount - 1);
+    if (data.creatorId !== userId) {
+      if (isLike) {
+        deleteReviewLike.mutate(data.reviewId);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        createReviewLike.mutate(data.reviewId);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
     } else {
-      createReviewLike.mutate(data.reviewId);
-      setCount((prevCount) => prevCount + 1);
+      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
     }
-    setIsLike(!isLike);
   };
   return (
     <div className="w-[405px] max-h-[279px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">

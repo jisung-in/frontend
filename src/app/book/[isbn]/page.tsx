@@ -8,6 +8,7 @@ import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformat
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
@@ -48,6 +49,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { data: reviewLikeIds } = isLoggedIn
     ? useGetReviewLike()
     : { data: { reviewIds: [] } };
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
   const { data: bookDetailData, refetch: refetchBookInformation } =
     useGetBookInformation({
       isbn: params.isbn,
@@ -111,6 +115,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                     <MiniEvaluationCard
                       key={data.reviewId}
                       data={data}
+                      userId={myDetailData?.userId || -1}
                       isLike={isLike}
                     />
                   );
@@ -144,6 +149,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                 <RelatedTalkRoomCard
                   key={data.id}
                   data={data}
+                  userId={myDetailData?.userId || -1}
                   isLike={isLike}
                 />
               );

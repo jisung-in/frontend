@@ -26,12 +26,14 @@ type TalkRoomCardProps = {
     registeredDateTime?: string;
     creatorId: number;
   };
+  userId: number;
   isBest: boolean;
   isLike: boolean;
 };
 
 const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
   data,
+  userId,
   isBest,
   isLike: initialIsLike,
 }) => {
@@ -47,14 +49,18 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
 
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (isLike) {
-      deleteTalkRoomLike.mutate(data.id);
-      setCount((prevCount) => prevCount - 1);
+    if (data.creatorId !== userId) {
+      if (isLike) {
+        deleteTalkRoomLike.mutate(data.id);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        addTalkRoomLike.mutate(data.id);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
     } else {
-      addTalkRoomLike.mutate(data.id);
-      setCount((prevCount) => prevCount + 1);
+      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
     }
-    setIsLike(!isLike);
   };
   return (
     <div

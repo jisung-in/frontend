@@ -4,6 +4,7 @@ import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import RecentTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
@@ -45,6 +46,9 @@ const page = () => {
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
 
   useEffect(() => {
     const handleResize = () => {
@@ -79,6 +83,7 @@ const page = () => {
     size: 12,
     order: "comment",
   });
+
   return (
     <div className="bg-[#FFF] w-full">
       <div
@@ -129,6 +134,7 @@ const page = () => {
           isSwiper ? (
             <TalkRoomCardSwiper
               talkRooms={popularData.queryResponse}
+              userId={myDetailData?.userId || -1}
               isBest={true}
               userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
@@ -142,6 +148,7 @@ const page = () => {
                   <TalkRoomCard
                     key={data.id}
                     data={data}
+                    userId={myDetailData?.userId || -1}
                     isBest={true}
                     isLike={isLike}
                   />
@@ -232,6 +239,7 @@ const page = () => {
           isSwiper ? (
             <TalkRoomCardSwiper
               talkRooms={recentData.queryResponse}
+              userId={myDetailData?.userId || -1}
               isBest={false}
               userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
@@ -245,6 +253,7 @@ const page = () => {
                   <TalkRoomCard
                     key={data.id}
                     data={data}
+                    userId={myDetailData?.userId || -1}
                     isBest={false}
                     isLike={isLike}
                   />

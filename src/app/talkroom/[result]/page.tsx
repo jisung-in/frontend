@@ -2,6 +2,7 @@
 
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
@@ -52,6 +53,9 @@ const page = ({ params }: { params: { result: string } }) => {
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
   const search = decodeURIComponent(params.result);
   const {
     data: talkRoomPopular,
@@ -112,6 +116,7 @@ const page = ({ params }: { params: { result: string } }) => {
                 <TalkRoomCard
                   key={data.id}
                   data={data}
+                  userId={myDetailData?.userId || -1}
                   isBest={orderParam === "recommend"}
                   isLike={isLike}
                 />

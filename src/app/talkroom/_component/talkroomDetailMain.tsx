@@ -16,8 +16,9 @@ import { useEffect, useState } from "react";
 
 interface TalkRoomId {
   talkRoomId: number;
+  userId: number;
 }
-const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
+const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -39,14 +40,18 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
   }, [talkroomOneData]);
 
   const changeIsLike = () => {
-    if (isLike) {
-      deleteTalkRoomLike.mutate(talkRoomId);
-      setCount((prevCount) => prevCount - 1);
+    if (talkroomOneData?.creatorId !== userId) {
+      if (isLike) {
+        deleteTalkRoomLike.mutate(talkRoomId);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        addTalkRoomLike.mutate(talkRoomId);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
     } else {
-      addTalkRoomLike.mutate(talkRoomId);
-      setCount((prevCount) => prevCount + 1);
+      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
     }
-    setIsLike(!isLike);
   };
 
   if (!talkroomOneData) {
