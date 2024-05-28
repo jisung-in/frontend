@@ -156,7 +156,7 @@ const BookStarRating = ({ isbn, ratingAverage, onTotalRatingChange }: Isbn) => {
       <div className="flex flex-col items-center">
         <div className="font-Inter text-[44px]">
           {ratingAverage
-            ? parseFloat(ratingAverage.toFixed(1))
+            ? ratingAverage.toFixed(1).toString()
             : (0).toFixed(1).toString()}
         </div>
         <div className="text-base text-[#B1B1B1]">평균별점</div>

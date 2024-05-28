@@ -2,6 +2,7 @@ import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import { useInput } from "@/hook/useInput";
 import changeIsDate from "@/util/searchTalkRoomDate";
 import changeIsStatus from "@/util/searchTalkRoomStatus";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../../components/Button/Button";
@@ -96,10 +97,12 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
           </form>
         </div>
         <div className="w-[167px]">
-          <Button>
-            <MakeTalkRoom />
-            토크방 생성하기
-          </Button>
+          <Link href={"/talkroom/comment"}>
+            <Button>
+              <MakeTalkRoom />
+              토크방 생성하기
+            </Button>
+          </Link>
         </div>
       </div>
     </>

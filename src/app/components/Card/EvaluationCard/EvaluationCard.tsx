@@ -51,7 +51,14 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
       <div className="mt-[20px] ml-[30px] mr-[26px] w-auto">
         <div className="flex flex-row mb-[23px]">
           <div className="flex flex-row items-center flex-grow gap-x-[10px]">
-            <Image src={Profile} alt="프로필" width={40} height={40} priority />
+            <Image
+              className="rounded-[50%]"
+              src={data ? data.profileImage : Profile}
+              alt="프로필"
+              width={40}
+              height={40}
+              priority
+            />
             <div className="font-medium text-[20px]">{data.username}</div>
           </div>
           {data.starRating ? (
