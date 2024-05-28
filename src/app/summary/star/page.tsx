@@ -17,7 +17,8 @@ const filterList: string[] = [
 
 const StarPage = () => {
   const [starFilter, setStartFilter] = useState("별점 순");
-  const { data: starData } = useGetMyStar();
+  const { data: starData } = useGetMyStar({ order: starFilter.split(" ")[0] });
+  console.log(starFilter.split(" ")[0]);
 
   return (
     <div className="flex flex-col w-full h-full items-center">
