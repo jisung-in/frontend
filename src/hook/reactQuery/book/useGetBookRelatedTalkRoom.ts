@@ -21,6 +21,7 @@ type BookStateResponse = {
       likeCount: number;
       readingStatuses: string[];
       registeredDateTime?: string;
+      creatorId: number;
     },
   ];
   totalCount: number;

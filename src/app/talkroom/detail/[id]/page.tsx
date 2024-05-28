@@ -19,6 +19,7 @@ type CommentsData = {
   commentLikeCount: number;
   commentImages: string[];
   registeredDateTime: string;
+  creatorId: number;
 };
 
 const Page = ({ params }: { params: { id: number } }) => {

@@ -19,6 +19,7 @@ interface SpeechBubbleProps {
     commentLikeCount: number;
     commentImages: string[];
     registeredDateTime: string;
+    creatorId: number;
   };
   isLike: boolean;
 }

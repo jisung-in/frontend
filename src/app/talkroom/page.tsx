@@ -23,6 +23,7 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses: string[];
   registeredDateTime: string;
+  creatorId: number;
 };
 
 const page = () => {

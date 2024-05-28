@@ -1,6 +1,6 @@
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import IconButton from "@/app/components/IconButton/IconButton";
-import BookTitleBihImg from "@/assets/img/book-title-big.svg";
+import BookTitleBigImg from "@/assets/img/book-title-big.svg";
 import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
 import NotLike from "@/assets/img/not-like.svg";
@@ -106,7 +106,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId }) => {
 
                 <div className="flex items-center text-[#656565] mb-[20px] text-[28px]">
                   <div className="mr-[7px]">
-                    <BookTitleBihImg />
+                    <BookTitleBigImg />
                   </div>
                   {talkroomOneData.bookName}
                 </div>

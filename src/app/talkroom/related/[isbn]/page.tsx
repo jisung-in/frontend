@@ -22,6 +22,7 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses?: string[];
   registeredDateTime?: string;
+  creatorId: number;
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {

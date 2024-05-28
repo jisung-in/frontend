@@ -29,6 +29,7 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses: string[];
   registeredDateTime: string;
+  creatorId: number;
 };
 type TalkRoomBookOrder = {
   isbn: string;

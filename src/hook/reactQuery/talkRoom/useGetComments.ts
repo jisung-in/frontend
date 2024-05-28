@@ -9,8 +9,9 @@ type TalkRoomResponse = {
       profileImage: string;
       content: string;
       commentLikeCount: number;
-      commentImages: [];
+      commentImages: string[];
       registeredDateTime: string;
+      creatorId: number;
     },
   ];
   totalCount: number;

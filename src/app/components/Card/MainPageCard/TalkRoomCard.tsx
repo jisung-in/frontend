@@ -24,6 +24,7 @@ type TalkRoomCardProps = {
     likeCount: number;
     readingStatuses?: string[];
     registeredDateTime?: string;
+    creatorId: number;
   };
   isBest: boolean;
   isLike: boolean;

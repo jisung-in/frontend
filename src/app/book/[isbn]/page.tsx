@@ -27,6 +27,7 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses: string[];
   registeredDateTime?: string;
+  creatorId: number;
 };
 type UserEvaluation = {
   reviewId: number;
