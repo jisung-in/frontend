@@ -22,9 +22,9 @@ export const useLogin = () => {
 
   const handleLogout = () => {
     Cookies.remove("accessToken");
+    dispatch(logout());
     localStorage.clear();
     router.replace("/");
-    dispatch(logout());
   };
 
   return { username, userProfile, isLoggedIn, handleLogin, handleLogout };

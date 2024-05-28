@@ -1,28 +1,28 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-// type TalkRoomRequest = {
-//   talkRoomId: string;
-// };
+type TalkRoomRequest = {
+  order: string;
+};
 
-// type TalkRoomResponse = {
-//   response: {
-//     queryResponse: [
-//       {
-//         commentId: number;
-//         userName: string;
-//         content: string;
-//         commentLikeCount: number;
-//         createTime: string;
-//       },
-//     ];
-//     totalCount: number;
-//     size: number;
-//   };
-//   userLikeCommentIds: number[];
-// };
+type TalkRoomResponse = {
+  response: {
+    queryResponse: [
+      {
+        commentId: number;
+        userName: string;
+        content: string;
+        commentLikeCount: number;
+        createTime: string;
+      },
+    ];
+    totalCount: number;
+    size: number;
+  };
+  userLikeCommentIds: number[];
+};
 
-export const useGetMyStar = () => {
+export const useGetMyStar = ({ order }: TalkRoomRequest) => {
   return useQuery<any>({
     queryKey: ["my", "starRate"],
     queryFn: () =>

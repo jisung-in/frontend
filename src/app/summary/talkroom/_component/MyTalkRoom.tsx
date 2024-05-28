@@ -9,6 +9,7 @@ import { useLogin } from "@/hook/useLogin";
 import { useContext } from "react";
 import Tab from "./Tab";
 import { TabContext } from "./TabProvider";
+import { useGetMyTalkRooms } from "@/hook/reactQuery/my/useGetMyTalkRooms";
 
 const MyTalkRoom = () => {
   const { isLoggedIn } = useLogin();
@@ -19,13 +20,9 @@ const MyTalkRoom = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
   const { tab } = useContext(TabContext);
-  const { data: talkRoomPopular } = useGetRooms({
-    page: 1,
-    size: 10,
-    order: "recent",
-    search: tab,
-    sortbydate: "",
-  });
+  const { data: talkRoomPopular } = useGetMyTalkRooms("liked");
+
+  console.log(talkRoomPopular, tab);
 
   return (
     <div className="flex flex-col w-full gap-[20px] items-center">
