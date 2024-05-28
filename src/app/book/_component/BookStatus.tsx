@@ -1,3 +1,4 @@
+import Modal from "@/app/components/Modal/Modal";
 import PasueOn from "@/assets/img/pasue-on.svg";
 import PasueOff from "@/assets/img/pause-off.svg";
 import ReadOff from "@/assets/img/read-off.svg";
@@ -14,8 +15,9 @@ import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { usePatchBookState } from "@/hook/reactQuery/book/usePatchBookState";
 import { useEffect, useState } from "react";
 
-type Isbn = {
+type BookStatusCondition = {
   isbn: string;
+  isLogin: boolean;
 };
 
 const statusMap: { [key: string]: string } = {
@@ -26,7 +28,7 @@ const statusMap: { [key: string]: string } = {
   중단: "stop",
 };
 
-const BookStatus: React.FC<Isbn> = ({ isbn }) => {
+const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
   const { data: statusData } = useGetBookState(isbn);
   const [status, setStatus] = useState<string>("");
 
@@ -39,19 +41,29 @@ const BookStatus: React.FC<Isbn> = ({ isbn }) => {
   const createBookState = useCreateBookState();
   const deleteBookState = useDeleteBookState();
   const patchBookState = usePatchBookState(statusData?.id || 0);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const changeStatus = (statusName: string) => {
-    if (status === "") {
-      setStatus(statusName);
-      createBookState.mutate({ isbn, readingStatus: statusName });
-    } else if (statusName === status) {
-      setStatus("");
-      deleteBookState.mutate(statusData?.id || 0);
+    if (isLogin) {
+      if (status === "") {
+        setStatus(statusName);
+        createBookState.mutate({ isbn, readingStatus: statusName });
+      } else if (statusName === status) {
+        setStatus("");
+        deleteBookState.mutate(statusData?.id || 0);
+      } else {
+        setStatus(statusName);
+        patchBookState.mutate({ isbn, readingStatus: statusName });
+      }
     } else {
-      setStatus(statusName);
-      patchBookState.mutate({ isbn, readingStatus: statusName });
+      setShowModal(!showModal);
     }
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
       <div className="cursor-pointer" onClick={() => changeStatus("want")}>
@@ -69,6 +81,15 @@ const BookStatus: React.FC<Isbn> = ({ isbn }) => {
       <div className="cursor-pointer" onClick={() => changeStatus("stop")}>
         {status === "stop" ? <PasueOn /> : <PasueOff />}
       </div>
+      {!isLogin && (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      )}
     </>
   );
 };
