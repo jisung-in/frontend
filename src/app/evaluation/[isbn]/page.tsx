@@ -18,6 +18,7 @@ import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
 type UserEvaluation = {
   reviewId: number;
   ratingId: number;
+  creatorId: number;
   username: string;
   profileImage: string;
   reviewContent: string;
