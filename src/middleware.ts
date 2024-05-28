@@ -4,7 +4,7 @@ export async function middleware(request: NextRequest) {
 
   return token
     ? NextResponse.next()
-    : NextResponse.redirect(new URL("/", request.url));
+    : NextResponse.redirect(new URL("/login", request.url));
 }
 
 export const config = {

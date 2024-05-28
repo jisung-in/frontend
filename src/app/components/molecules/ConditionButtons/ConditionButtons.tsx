@@ -22,7 +22,7 @@ const ConditionButtons = ({ buttonState, setButtonState }: Props) => {
   return (
     <div className="flex gap-[2%] flex-wrap">
       {buttonState?.map((item: ButtonProps, index: number) => (
-        <div className="w-[100px]">
+        <div className="w-[100px]" key={index}>
           <Button
             key={index}
             variant={item.actived ? "main" : "gray"}
