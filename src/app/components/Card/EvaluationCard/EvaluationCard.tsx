@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
+import Modal from "../../Modal/Modal";
 
 type UserEvaluation = {
   data: {
@@ -33,6 +34,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createReviewLike = useCreateReviewLike();
   const deleteReviewLike = useDeleteReviewLike();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.likeCount);
@@ -40,7 +42,9 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
   }, [data.likeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (data.creatorId !== userId) {
+    if (userId === -1) {
+      setShowModal(!showModal);
+    } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteReviewLike.mutate(data.reviewId);
         setCount((prevCount) => prevCount - 1);
@@ -50,9 +54,14 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
       }
       setIsLike(!isLike);
     } else {
-      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
+      setShowModal(!showModal);
     }
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="w-[910px] min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] border border-[#F4E4CE] font-Pretendard font-medium">
       <div className="mt-[20px] ml-[30px] mr-[26px] w-auto">
@@ -105,6 +114,24 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
           <LikeButton isLike={isLike} onClick={changeIsLike} />
         </div>
       </div>
+
+      {userId === -1 ? (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      ) : (
+        <Modal
+          title="좋아요 실패"
+          content="본인이 작성한 평가에는 좋아요를 할 수 없습니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      )}
     </div>
   );
 };

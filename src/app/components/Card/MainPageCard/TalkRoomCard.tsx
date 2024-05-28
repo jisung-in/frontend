@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
+import Modal from "../../Modal/Modal";
 
 type TalkRoomCardProps = {
   data: {
@@ -41,6 +42,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.likeCount);
@@ -49,7 +51,9 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
 
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (data.creatorId !== userId) {
+    if (userId === -1) {
+      setShowModal(!showModal);
+    } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteTalkRoomLike.mutate(data.id);
         setCount((prevCount) => prevCount - 1);
@@ -59,9 +63,14 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
       }
       setIsLike(!isLike);
     } else {
-      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
+      setShowModal(!showModal);
     }
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div
       className="relative 
@@ -348,6 +357,24 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
           </div>
         </div>
       </Link>
+
+      {userId === -1 ? (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      ) : (
+        <Modal
+          title="좋아요 실패"
+          content="본인이 작성한 토크방에는 좋아요를 할 수 없습니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      )}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
+import Modal from "../../Modal/Modal";
 
 type MiniEvaluationProps = {
   data: {
@@ -33,6 +34,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createReviewLike = useCreateReviewLike();
   const deleteReviewLike = useDeleteReviewLike();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.likeCount);
@@ -40,7 +42,9 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   }, [data.likeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (data.creatorId !== userId) {
+    if (userId === -1) {
+      setShowModal(!showModal);
+    } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteReviewLike.mutate(data.reviewId);
         setCount((prevCount) => prevCount - 1);
@@ -50,9 +54,14 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
       }
       setIsLike(!isLike);
     } else {
-      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
+      setShowModal(!showModal);
     }
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="w-[405px] max-h-[279px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">
       <div className="mt-[18px] ml-[15px] mr-[13px] w-auto">
@@ -107,6 +116,24 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
           <LikeButton isLike={isLike} onClick={changeIsLike} />
         </div>
       </div>
+
+      {userId === -1 ? (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      ) : (
+        <Modal
+          title="좋아요 실패"
+          content="본인이 작성한 평가에는 좋아요를 할 수 없습니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      )}
     </div>
   );
 };

@@ -1,3 +1,4 @@
+import Modal from "@/app/components/Modal/Modal";
 import BubbleArrow from "@/assets/img/bubble-arrow.svg";
 import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import NotLike from "@/assets/img/not-like.svg";
@@ -33,6 +34,7 @@ const SpeechBubble = ({
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createCommentLike = useCreateCommentLike();
   const deleteCommentLike = useDeleteCommentLike();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.commentLikeCount);
@@ -40,7 +42,9 @@ const SpeechBubble = ({
   }, [data.commentLikeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (data.creatorId !== userId) {
+    if (userId === -1) {
+      setShowModal(!showModal);
+    } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteCommentLike.mutate(data.commentId);
         setCount((prevCount) => prevCount - 1);
@@ -50,9 +54,14 @@ const SpeechBubble = ({
       }
       setIsLike(!isLike);
     } else {
-      alert("내가 쓴 글에는 좋아요를 할 수 없습니다.");
+      setShowModal(!showModal);
     }
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="relative bg-[#fff] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">
       <div className="pt-[20px] pb-[12px] mx-[20px]">
@@ -112,6 +121,24 @@ const SpeechBubble = ({
       <div className="absolute left-[5%] bottom-[-48.8px] w-[87px] h-[52px]">
         <BubbleArrow />
       </div>
+
+      {userId === -1 ? (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      ) : (
+        <Modal
+          title="좋아요 실패"
+          content="본인이 작성한 의견에는 좋아요를 할 수 없습니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+        />
+      )}
     </div>
   );
 };
