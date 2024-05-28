@@ -20,21 +20,22 @@ type BookStatusCondition = {
   isLogin: boolean;
 };
 
-const statusMap: { [key: string]: string } = {
-  "읽고 싶은": "want",
-  "읽는 중": "reading",
-  읽음: "read",
-  "잠시 멈춤": "pause",
-  중단: "stop",
-};
-
 const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
-  const { data: statusData } = useGetBookState(isbn);
+  const { data: statusData, refetch } = useGetBookState(isbn);
   const [status, setStatus] = useState<string>("");
+  const statusMap: { [key: string]: string } = {
+    "읽고 싶은": "want",
+    "읽는 중": "reading",
+    읽음: "read",
+    "잠시 멈춤": "pause",
+    중단: "stop",
+  };
 
   useEffect(() => {
     if (statusData?.status) {
       setStatus(statusMap[statusData.status] || "");
+    } else {
+      setStatus("");
     }
   }, [statusData]);
 
@@ -46,14 +47,32 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
   const changeStatus = (statusName: string) => {
     if (isLogin) {
       if (status === "") {
-        setStatus(statusName);
-        createBookState.mutate({ isbn, readingStatus: statusName });
+        createBookState.mutate(
+          { isbn, readingStatus: statusName },
+          {
+            onSuccess: () => {
+              setStatus(statusName);
+              refetch();
+            },
+          },
+        );
       } else if (statusName === status) {
-        setStatus("");
-        deleteBookState.mutate(statusData?.id || 0);
+        deleteBookState.mutate(statusData?.id || 0, {
+          onSuccess: () => {
+            setStatus("");
+            refetch();
+          },
+        });
       } else {
-        setStatus(statusName);
-        patchBookState.mutate({ isbn, readingStatus: statusName });
+        patchBookState.mutate(
+          { isbn, readingStatus: statusName },
+          {
+            onSuccess: () => {
+              setStatus(statusName);
+              refetch();
+            },
+          },
+        );
       }
     } else {
       setShowModal(!showModal);
