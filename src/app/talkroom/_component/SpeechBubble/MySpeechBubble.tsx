@@ -1,41 +1,88 @@
+import DeleteButton from "@/app/components/DeleteButton/DeleteButton";
+import Modal from "@/app/components/Modal/Modal";
 import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
+import MyBubbleArrow from "@/assets/img/my-bubble-arrow.svg";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
+import { useDeleteComment } from "@/hook/reactQuery/talkRoom/useDeleteComment";
+import timeLapse from "@/util/timeLapse";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import IconButton from "../../../components/IconButton/IconButton";
 import LikeButton from "../../../components/LikeButton/LikeButton";
 
 interface SpeechBubbleProps {
-  content?: string;
+  data: {
+    commentId: number;
+    userName: string;
+    profileImage: string;
+    content: string;
+    commentLikeCount: number;
+    commentImages: string[];
+    registeredDateTime: string;
+    creatorId: number;
+  };
 }
 
-const SpeechBubble = ({ content }: SpeechBubbleProps) => {
-  const [count, setCount] = useState<number>(0);
+const SpeechBubble = ({ data }: SpeechBubbleProps) => {
+  const [count, setCount] = useState<number>(data.commentLikeCount);
   const [isLike, setIsLike] = useState<boolean>(false);
-  const changeIsLike = (isLike: boolean) => {
-    setIsLike(!isLike);
-    setCount(count + 1);
-    if (isLike) setCount(count - 1);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [deleteShowModal, setDeleteShowModal] = useState<boolean>(false);
+  const deleteComment = useDeleteComment();
+
+  useEffect(() => {
+    setCount(data.commentLikeCount);
+  }, [data.commentLikeCount]);
+
+  const closeModal = () => {
+    setShowModal(!showModal);
   };
+
+  const deleteMyComment = () => {
+    deleteComment.mutate(data.commentId, {
+      onSuccess: () => {
+        window.location.reload();
+      },
+    });
+  };
+
+  const closeDeleteShowModal = () => {
+    setDeleteShowModal(!deleteShowModal);
+  };
+
   return (
-    <div className="relative bg-[#FAECD9] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">
+    <div className="relative bg-[#F3F3F3] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#80685D]">
       <div className="pt-[20px] pb-[12px] mx-[20px]">
         <div className="flex items-center mb-4">
           <div className="flex grow items-center">
-            <Image src={Profile} alt="프로필" width={40} height={40} priority />
+            <Image
+              className="rounded-[50%]"
+              src={data.profileImage ? data.profileImage : Profile}
+              alt="프로필"
+              width={40}
+              height={40}
+              priority
+            />
             <div>
-              <div className="font-medium text-[20px] ml-[6px]">이름</div>
+              <div className="font-medium text-[20px] ml-[6px]">
+                {data.userName}
+              </div>
             </div>
           </div>
-          <div className="text-[#17px] text-[#7E7E7E]">20시간 전</div>
+          <div className="text-[#17px] text-[#7E7E7E]">
+            {timeLapse(data.registeredDateTime)}
+          </div>
         </div>
-        <div className="text-[20px] text-[#000]">{content}</div>
+        <div className="text-[20px] text-[#000]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
-          {new Array(3).fill(1).map((index: number) => (
-            <div
-              key={index}
-              className="bg-[#D9D9D9] w-[120px] h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
+          {data.commentImages.map((image: string) => (
+            <Image
+              className="min-w-[120px] max-w-[120px] min-h-[120px] max-h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
+              width={120}
+              height={120}
+              src={image}
+              alt="댓글 이미지"
             />
           ))}
         </div>
@@ -43,13 +90,10 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
           <hr className="border-2 border-solid border-[#FFF] mb-[9px]" />
           <div className="flex grow items-center font-medium text-[17px] text-[#656565]">
             <div className="mr-[13px]">
-              <LikeButton
-                isLike={isLike}
-                onClick={() => changeIsLike(isLike)}
-              />
+              <LikeButton isLike={isLike} onClick={closeModal} />
             </div>
             <div className="flex items-center gap-x-[3px] grow">
-              <IconButton onClick={() => changeIsLike(isLike)}>
+              <IconButton onClick={closeModal}>
                 {isLike ? (
                   <LikeSpeechBubble width={16} height={15} />
                 ) : (
@@ -60,13 +104,28 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
                 {count > 999 ? "999+" : count}
               </div>
             </div>
-            <div className="flex items-center justify-center font-medium text-[18px] text-[#624E45] border border-solid rounded-[3px] bg-[#FFF] px-[12px] py-[3px] cursor-pointer">
-              삭제
-            </div>
+            <DeleteButton onClick={closeDeleteShowModal} />
           </div>
         </div>
       </div>
-      <div className="skew-x-[60deg] absolute bottom-[-65px] right-[3%] border-solid border-transparent border-[70px] border-[#F4E4CE] border-t-[#FAECD9] border-l-0 border-b-0 border-r-[80px]" />
+      <div className="absolute right-[5%] bottom-[-43.1px] w-[87px] h-[52px]">
+        <MyBubbleArrow />
+      </div>
+
+      <Modal
+        title="좋아요 실패"
+        content="본인이 작성한 의견에는 좋아요를 할 수 없습니다"
+        isOpen={showModal}
+        onClose={closeModal}
+        onConfirm={closeModal}
+      />
+      <Modal
+        title="의견 삭제"
+        content="내 의견을 삭제하시겠습니까?"
+        isOpen={deleteShowModal}
+        onClose={closeDeleteShowModal}
+        onConfirm={deleteMyComment}
+      />
     </div>
   );
 };

@@ -122,18 +122,10 @@ const SpeechBubble = ({
         <BubbleArrow />
       </div>
 
-      {userId === -1 ? (
+      {userId === -1 && (
         <Modal
           title="로그인"
           content="로그인을 해야 이용할 수 있는 기능입니다"
-          isOpen={showModal}
-          onClose={closeModal}
-          onConfirm={closeModal}
-        />
-      ) : (
-        <Modal
-          title="좋아요 실패"
-          content="본인이 작성한 의견에는 좋아요를 할 수 없습니다"
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
