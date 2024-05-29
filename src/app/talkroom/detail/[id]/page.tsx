@@ -93,7 +93,7 @@ const Page = ({ params }: { params: { id: number } }) => {
             (commentLikeIds?.commentIds || []).includes(data.commentId);
           return (
             <div key={data.commentId}>
-              {data.creatorId !== myDetailData?.userId ? (
+              {data.creatorId === myDetailData?.userId ? (
                 <MySpeechBubble key={data.commentId} data={data} />
               ) : (
                 <SpeechBubble
