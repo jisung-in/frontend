@@ -126,8 +126,9 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
         </div>
 
         <hr className="w-full border border-[#F4E4CE] mt-[5px] mb-[10px]" />
+
         <div className="flex">
-          <div className="flex justify-start mb-[11px] grow">
+          <div className="flex grow justify-start mb-[11px]">
             <LikeButton isLike={isLike} onClick={changeIsLike} />
           </div>
           <div>

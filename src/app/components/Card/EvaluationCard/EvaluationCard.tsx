@@ -3,6 +3,7 @@ import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import Star from "@/assets/img/star.svg";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
+import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -34,7 +35,9 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createReviewLike = useCreateReviewLike();
   const deleteReviewLike = useDeleteReviewLike();
+  const deleteReview = useDeleteReview();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [deleteShowModal, setDeleteShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.likeCount);
@@ -60,6 +63,18 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const deleteMyReview = () => {
+    deleteReview.mutate(data.reviewId, {
+      onSuccess: () => {
+        window.location.reload();
+      },
+    });
+  };
+
+  const closeDeleteShowModal = () => {
+    setDeleteShowModal(!deleteShowModal);
   };
 
   return (
@@ -110,8 +125,20 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
 
         <hr className="w-full border border-[#F4E4CE] mt-[8px] mb-[16px]" />
 
-        <div className="flex justify-start mb-[19px]">
-          <LikeButton isLike={isLike} onClick={changeIsLike} />
+        <div className="flex">
+          <div className="flex grow justify-start mb-[19px]">
+            <LikeButton isLike={isLike} onClick={changeIsLike} />
+          </div>
+          <div>
+            {data.creatorId === userId && (
+              <div
+                className="flex items-center justify-center text-[21px] text-[#656565] px-[10px] border-[#D9D9D9] border border-solid rounded-[3px] bg-[#FFF] hover:bg-[#FBFBFB] hover:border-[#80685D] cursor-pointer"
+                onClick={closeDeleteShowModal}
+              >
+                삭제
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -132,6 +159,13 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
           onConfirm={closeModal}
         />
       )}
+      <Modal
+        title="한줄평 삭제"
+        content="한줄평을 삭제하시겠습니까?"
+        isOpen={deleteShowModal}
+        onClose={closeDeleteShowModal}
+        onConfirm={deleteMyReview}
+      />
     </div>
   );
 };
