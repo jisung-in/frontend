@@ -17,4 +17,13 @@ module.exports = {
 
     return config;
   },
+  async redirects() {
+    return [
+      {
+        source: "/book",
+        destination: "/not-found",
+        permanent: false,
+      },
+    ];
+  },
 };

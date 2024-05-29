@@ -4,10 +4,12 @@ import { Button } from "@/app/components/Button/Button";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
 import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
+import MySpeechBubble from "../../_component/SpeechBubble/MySpeechBubble";
 import SpeechBubble from "../../_component/SpeechBubble/SpeechBubble";
 import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
 
@@ -19,6 +21,7 @@ type CommentsData = {
   commentLikeCount: number;
   commentImages: string[];
   registeredDateTime: string;
+  creatorId: number;
 };
 
 const Page = ({ params }: { params: { id: number } }) => {
@@ -26,7 +29,9 @@ const Page = ({ params }: { params: { id: number } }) => {
   const { data: commentLikeIds } = isLoggedIn
     ? useGetCommentLike()
     : { data: { commentIds: [] } };
-
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
   const { data: commentsData } = useGetComments(params.id);
   return (
     <div>
@@ -34,7 +39,10 @@ const Page = ({ params }: { params: { id: number } }) => {
         <PopularTalkRoom />
       </MainThemeTitle>
 
-      <TalkRoomDetailMain talkRoomId={params.id} />
+      <TalkRoomDetailMain
+        talkRoomId={params.id}
+        userId={myDetailData?.userId || -1}
+      />
 
       <hr className="border-[6px] border-[#F5EFE5] mt-[47px] mb-[42px]" />
 
@@ -78,15 +86,24 @@ const Page = ({ params }: { params: { id: number } }) => {
           : commentsData?.totalCount}
       </div>
 
-      {/* <BestSpeechBubble content={"베스트 토크 의견 내용 들어갈 곳 입니다."} /> */}
-
       {commentsData && commentsData.queryResponse.length > 0 ? (
         commentsData.queryResponse.map((data: CommentsData) => {
           const isLike =
             isLoggedIn &&
             (commentLikeIds?.commentIds || []).includes(data.commentId);
           return (
-            <SpeechBubble key={data.commentId} data={data} isLike={isLike} />
+            <div key={data.commentId}>
+              {data.creatorId === myDetailData?.userId ? (
+                <MySpeechBubble key={data.commentId} data={data} />
+              ) : (
+                <SpeechBubble
+                  key={data.commentId}
+                  data={data}
+                  userId={myDetailData?.userId || -1}
+                  isLike={isLike}
+                />
+              )}
+            </div>
           );
         })
       ) : (

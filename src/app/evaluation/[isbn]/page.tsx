@@ -8,6 +8,7 @@ import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useLogin } from "@/hook/useLogin";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -18,6 +19,7 @@ import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
 type UserEvaluation = {
   reviewId: number;
   ratingId: number;
+  creatorId: number;
   username: string;
   profileImage: string;
   reviewContent: string;
@@ -33,6 +35,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { data: reviewLikeIds } = isLoggedIn
     ? useGetReviewLike()
     : { data: { reviewIds: [] } };
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
   const { data: bookDetailData } = useGetBookInformation({
     isbn: params.isbn,
   });
@@ -113,7 +118,12 @@ const page = ({ params }: { params: { isbn: string } }) => {
               isLoggedIn &&
               (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
             return (
-              <EvaluationCard key={data.reviewId} data={data} isLike={isLike} />
+              <EvaluationCard
+                key={data.reviewId}
+                data={data}
+                userId={myDetailData?.userId || -1}
+                isLike={isLike}
+              />
             );
           })}
         </div>

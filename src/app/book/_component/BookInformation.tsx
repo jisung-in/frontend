@@ -17,12 +17,14 @@ type BookInformation = {
 type BookInformationProps = {
   data: BookInformation;
   isbn: string;
+  isLogin: boolean;
   onTotalRatingChange: () => void;
 };
 
 const BookInformation: React.FC<BookInformationProps> = ({
   data,
   isbn,
+  isLogin,
   onTotalRatingChange,
 }) => {
   return (
@@ -40,12 +42,13 @@ const BookInformation: React.FC<BookInformationProps> = ({
         <div className="flex flex-row items-center mt-[30px] gap-x-[70px]">
           <BookStarRating
             isbn={isbn}
+            isLogin={isLogin}
             ratingAverage={data.ratingAverage}
             onTotalRatingChange={onTotalRatingChange}
           />
 
           <div className="w-full flex flex-row gap-x-[26px] justify-end">
-            <BookStatus isbn={isbn} />
+            <BookStatus isbn={isbn} isLogin={isLogin} />
           </div>
         </div>
         <hr className="w-full border border-[#F4E4CE] mt-[18px] mb-[32px]" />

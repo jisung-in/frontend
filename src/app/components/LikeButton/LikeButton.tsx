@@ -10,7 +10,7 @@ const LikeButton = ({ isLike, onClick }: LikeButtonProps) => {
     </div>
   ) : (
     <div
-      className="flex items-center justify-center font-Pretendard font-medium text-[21px] text-[#656565] px-[10px] border-[#D9D9D9] border border-solid rounded-[3px] bg-[#FFF] hover:bg-[#FBFBFB] cursor-pointer"
+      className="flex items-center justify-center font-Pretendard font-medium text-[21px] text-[#656565] px-[10px] border-[#D9D9D9] border border-solid rounded-[3px] bg-[#FFF] hover:bg-[#FBFBFB] hover:border-[#80685D] cursor-pointer"
       onClick={onClick}
     >
       좋아요
