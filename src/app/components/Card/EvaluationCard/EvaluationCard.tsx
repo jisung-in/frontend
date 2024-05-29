@@ -7,6 +7,7 @@ import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import DeleteButton from "../../DeleteButton/DeleteButton";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
 import Modal from "../../Modal/Modal";
@@ -131,12 +132,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
           </div>
           <div>
             {data.creatorId === userId && (
-              <div
-                className="flex items-center justify-center text-[21px] text-[#656565] px-[10px] border-[#D9D9D9] border border-solid rounded-[3px] bg-[#FFF] hover:bg-[#FBFBFB] hover:border-[#80685D] cursor-pointer"
-                onClick={closeDeleteShowModal}
-              >
-                삭제
-              </div>
+              <DeleteButton onClick={closeDeleteShowModal} />
             )}
           </div>
         </div>
