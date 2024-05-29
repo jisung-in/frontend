@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
+import Modal from "../../Modal/Modal";
 
 type TalkRoomCardProps = {
   data: {
@@ -24,18 +25,22 @@ type TalkRoomCardProps = {
     likeCount: number;
     readingStatuses: string[];
     registeredDateTime?: string;
+    creatorId: number;
   };
+  userId: number;
   isLike: boolean;
 };
 
 const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
   data,
+  userId,
   isLike: initialIsLike,
 }) => {
   const [count, setCount] = useState<number>(data.likeCount);
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.likeCount);
@@ -44,18 +49,29 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
 
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (isLike) {
-      deleteTalkRoomLike.mutate(data.id);
-      setCount((prevCount) => prevCount - 1);
+    if (userId === -1) {
+      setShowModal(!showModal);
+    } else if (data.creatorId !== userId) {
+      if (isLike) {
+        deleteTalkRoomLike.mutate(data.id);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        addTalkRoomLike.mutate(data.id);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
     } else {
-      addTalkRoomLike.mutate(data.id);
-      setCount((prevCount) => prevCount + 1);
+      setShowModal(!showModal);
     }
-    setIsLike(!isLike);
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
-    <Link href={`/talkroom/detail/${data.id}`}>
-      <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">
+    <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">
+      <Link href={`/talkroom/detail/${data.id}`}>
         <div className="absolute inset-0 transform -skew-y-[10deg] h-[200px] bg-[#80685D] top-[-15%]"></div>
         <div className="absolute inset-0 flex justify-center items-center">
           <div className="flex flex-col mx-8 mt-[31px] mb-3 w-full">
@@ -127,8 +143,28 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
             </div>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+
+      {userId === -1 ? (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      ) : (
+        <Modal
+          title="좋아요 실패"
+          content="본인이 작성한 토크방에는 좋아요를 할 수 없습니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      )}
+    </div>
   );
 };
 

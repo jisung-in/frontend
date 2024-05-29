@@ -8,7 +8,7 @@ export const useDeleteComment = () => {
       axiosInstance.delete(`/v1/comments/${commentId}`),
     onSuccess: (_, commentId) => {
       queryClient.invalidateQueries({
-        queryKey: ["talkroom", "like", commentId],
+        queryKey: ["talkroom", commentId],
       });
     },
   });

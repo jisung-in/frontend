@@ -1,3 +1,4 @@
+import Modal from "@/app/components/Modal/Modal";
 import BigStar from "@/assets/img/big-star.svg";
 import EmptyStar from "@/assets/img/empty-star.svg";
 import HalfStar from "@/assets/img/half-star.svg";
@@ -7,15 +8,22 @@ import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";
 import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
 import { useEffect, useState } from "react";
 
-type Isbn = {
+type BookStarRatingCondition = {
   isbn: string;
+  isLogin: boolean;
   ratingAverage: number;
   onTotalRatingChange: () => void;
 };
 
-const BookStarRating = ({ isbn, ratingAverage, onTotalRatingChange }: Isbn) => {
+const BookStarRating = ({
+  isbn,
+  isLogin,
+  ratingAverage,
+  onTotalRatingChange,
+}: BookStarRatingCondition) => {
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [evaluate, setEvaluate] = useState<string>("평가하기");
   const { data: getStarRating, refetch: refetchStarRating } =
     useGetStarRating(isbn);
@@ -36,27 +44,34 @@ const BookStarRating = ({ isbn, ratingAverage, onTotalRatingChange }: Isbn) => {
     setStarRate(index + (half ? 0.5 : 1));
   };
   const saveMyStarRate = async () => {
-    if (myStarRate === starRate) {
-      setMyStarRate(0);
-      if (getStarRating?.id) {
-        await deleteStarRating.mutateAsync(getStarRating?.id);
-        await refetchStarRating(); // 별점 삭제 후 다시 불러오기
-        onTotalRatingChange(); // 평균 별점 변경 이벤트 호출
+    if (isLogin) {
+      if (myStarRate === starRate) {
+        setMyStarRate(0);
+        if (getStarRating?.id) {
+          await deleteStarRating.mutateAsync(getStarRating?.id);
+          await refetchStarRating(); // 별점 삭제 후 다시 불러오기
+          onTotalRatingChange(); // 평균 별점 변경 이벤트 호출
+        }
+      } else {
+        setMyStarRate(starRate);
+        if (getStarRating?.id) {
+          await patchStarRating.mutateAsync({
+            bookIsbn: isbn,
+            rating: starRate,
+          });
+          await refetchStarRating(); // 별점 수정 후 다시 불러오기
+          onTotalRatingChange(); // 평균 별점 변경 이벤트 호출
+        } else {
+          await createStarRating.mutateAsync({
+            bookIsbn: isbn,
+            rating: starRate,
+          });
+          await refetchStarRating(); // 별점 생성 후 다시 불러오기
+          onTotalRatingChange(); // 평균 별점 변경 이벤트 호출
+        }
       }
     } else {
-      setMyStarRate(starRate);
-      if (getStarRating?.id) {
-        await patchStarRating.mutateAsync({ bookIsbn: isbn, rating: starRate });
-        await refetchStarRating(); // 별점 수정 후 다시 불러오기
-        onTotalRatingChange(); // 평균 별점 변경 이벤트 호출
-      } else {
-        await createStarRating.mutateAsync({
-          bookIsbn: isbn,
-          rating: starRate,
-        });
-        await refetchStarRating(); // 별점 생성 후 다시 불러오기
-        onTotalRatingChange(); // 평균 별점 변경 이벤트 호출
-      }
+      setShowModal(!showModal);
     }
   };
 
@@ -118,6 +133,11 @@ const BookStarRating = ({ isbn, ratingAverage, onTotalRatingChange }: Isbn) => {
       return <EmptyStar />;
     }
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
       <div className="flex flex-col">
@@ -161,6 +181,16 @@ const BookStarRating = ({ isbn, ratingAverage, onTotalRatingChange }: Isbn) => {
         </div>
         <div className="text-base text-[#B1B1B1]">평균별점</div>
       </div>
+      {!isLogin && (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      )}
     </>
   );
 };

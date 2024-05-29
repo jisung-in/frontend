@@ -1,18 +1,38 @@
 import { Button } from "@/app/components/Button/Button";
+import Modal from "@/app/components/Modal/Modal";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import { useCreateReview } from "@/hook/reactQuery/book/useCreateReview";
 import { useInput } from "@/hook/useInput";
+import { useState } from "react";
 
-type Isbn = {
+type RegisterCondition = {
   isbn: string;
+  isLogin: boolean;
 };
 
-const registerEvaluation = ({ isbn }: Isbn) => {
+const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
   const { value: review, handleChange: onCreateReview } = useInput("");
   const createReview = useCreateReview();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleReviewSubmit = () => {
-    createReview.mutate({ bookIsbn: isbn, content: review });
+    if (isLogin) {
+      if (review.length > 0) {
+        createReview.mutate({ bookIsbn: isbn, content: review });
+      }
+      setShowModal(!showModal);
+    } else {
+      setShowModal(!showModal);
+    }
+  };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const refreshPage = () => {
+    setShowModal(false);
+    window.location.reload();
   };
 
   return (
@@ -37,6 +57,34 @@ const registerEvaluation = ({ isbn }: Isbn) => {
           </Button>
         </div>
       </div>
+      {!isLogin ? (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      ) : review.length > 0 ? (
+        <Modal
+          title="한줄평 작성 완료"
+          content="한줄평이 등록되었습니다"
+          isOpen={showModal}
+          onClose={refreshPage}
+          onConfirm={refreshPage}
+          buttonTitle="확인"
+        />
+      ) : (
+        <Modal
+          title="한줄평"
+          content="한줄평을 적어주세요"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      )}
     </>
   );
 };

@@ -6,6 +6,7 @@ import Pagination from "@/app/components/Pagination/Pagination";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import { usePathname } from "next/navigation";
@@ -22,6 +23,7 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses?: string[];
   registeredDateTime?: string;
+  creatorId: number;
 };
 
 const page = ({ params }: { params: { isbn: string } }) => {
@@ -29,6 +31,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
   const currentUrl = usePathname();
   const { data: relateData, isLoading } = useGetBookRelatedTalkRoom({
     isbn: params?.isbn,
@@ -59,6 +64,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                 <TalkRoomCard
                   key={data.id}
                   data={data}
+                  userId={myDetailData?.userId || -1}
                   isBest={false}
                   isLike={isLike}
                 />

@@ -3,33 +3,42 @@ import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import Star from "@/assets/img/star.svg";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
+import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import DeleteButton from "../../DeleteButton/DeleteButton";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
+import Modal from "../../Modal/Modal";
 
 type MiniEvaluationProps = {
   data: {
     reviewId: number;
     ratingId: number;
+    creatorId: number;
     username: string;
     profileImage: string;
     reviewContent: string;
     starRating: number;
     likeCount: number;
   };
+  userId: number;
   isLike: boolean;
 };
 
 const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   data,
+  userId,
   isLike: initialIsLike,
 }) => {
   const [count, setCount] = useState<number>(data.likeCount);
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createReviewLike = useCreateReviewLike();
   const deleteReviewLike = useDeleteReviewLike();
+  const deleteReview = useDeleteReview();
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [deleteShowModal, setDeleteShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.likeCount);
@@ -37,15 +46,38 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   }, [data.likeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (isLike) {
-      deleteReviewLike.mutate(data.reviewId);
-      setCount((prevCount) => prevCount - 1);
+    if (userId === -1) {
+      setShowModal(!showModal);
+    } else if (data.creatorId !== userId) {
+      if (isLike) {
+        deleteReviewLike.mutate(data.reviewId);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        createReviewLike.mutate(data.reviewId);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
     } else {
-      createReviewLike.mutate(data.reviewId);
-      setCount((prevCount) => prevCount + 1);
+      setShowModal(!showModal);
     }
-    setIsLike(!isLike);
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const deleteMyReview = () => {
+    deleteReview.mutate(data.reviewId, {
+      onSuccess: () => {
+        window.location.reload();
+      },
+    });
+  };
+
+  const closeDeleteShowModal = () => {
+    setDeleteShowModal(!deleteShowModal);
+  };
+
   return (
     <div className="w-[405px] max-h-[279px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">
       <div className="mt-[18px] ml-[15px] mr-[13px] w-auto">
@@ -96,10 +128,45 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
 
         <hr className="w-full border border-[#F4E4CE] mt-[5px] mb-[10px]" />
 
-        <div className="flex justify-start mb-[11px]">
-          <LikeButton isLike={isLike} onClick={changeIsLike} />
+        <div className="flex">
+          <div className="flex grow justify-start mb-[11px]">
+            <LikeButton isLike={isLike} onClick={changeIsLike} />
+          </div>
+          <div>
+            {data.creatorId === userId && (
+              <DeleteButton onClick={closeDeleteShowModal} />
+            )}
+          </div>
         </div>
       </div>
+
+      {userId === -1 ? (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      ) : (
+        <Modal
+          title="좋아요 실패"
+          content="본인이 작성한 평가에는 좋아요를 할 수 없습니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      )}
+      <Modal
+        title="한줄평 삭제"
+        content="한줄평을 삭제하시겠습니까?"
+        isOpen={deleteShowModal}
+        onClose={closeDeleteShowModal}
+        onConfirm={deleteMyReview}
+        buttonTitle="삭제"
+      />
     </div>
   );
 };

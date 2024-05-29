@@ -27,6 +27,7 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses: string[];
   registeredDateTime: string;
+  creatorId: number;
 };
 
 export const useGetRooms = ({

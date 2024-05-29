@@ -15,16 +15,19 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses: string[];
   registeredDateTime: string;
+  creatorId: number;
 };
 
 type Props = {
   talkRooms: TalkRoom[];
+  userId: number;
   userLikeTalkRoomIds: number[];
   isBest: boolean;
 };
 
 const TalkRoomCardSwiper = ({
   talkRooms,
+  userId,
   userLikeTalkRoomIds,
   isBest,
 }: Props) => {
@@ -66,7 +69,12 @@ const TalkRoomCardSwiper = ({
         const isLike = userLikeTalkRoomIds.includes(data.id);
         return (
           <SwiperSlide key={data.id}>
-            <TalkRoomCard data={data} isBest={isBest} isLike={isLike} />
+            <TalkRoomCard
+              data={data}
+              userId={userId}
+              isBest={isBest}
+              isLike={isLike}
+            />
           </SwiperSlide>
         );
       })}

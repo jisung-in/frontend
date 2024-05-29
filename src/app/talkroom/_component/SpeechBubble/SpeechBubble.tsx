@@ -1,3 +1,4 @@
+import Modal from "@/app/components/Modal/Modal";
 import BubbleArrow from "@/assets/img/bubble-arrow.svg";
 import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import NotLike from "@/assets/img/not-like.svg";
@@ -19,14 +20,21 @@ interface SpeechBubbleProps {
     commentLikeCount: number;
     commentImages: string[];
     registeredDateTime: string;
+    creatorId: number;
   };
+  userId: number;
   isLike: boolean;
 }
-const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
+const SpeechBubble = ({
+  data,
+  userId,
+  isLike: initialIsLike,
+}: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
   const createCommentLike = useCreateCommentLike();
   const deleteCommentLike = useDeleteCommentLike();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
     setCount(data.commentLikeCount);
@@ -34,15 +42,26 @@ const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
   }, [data.commentLikeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (isLike) {
-      deleteCommentLike.mutate(data.commentId);
-      setCount((prevCount) => prevCount - 1);
+    if (userId === -1) {
+      setShowModal(!showModal);
+    } else if (data.creatorId !== userId) {
+      if (isLike) {
+        deleteCommentLike.mutate(data.commentId);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        createCommentLike.mutate(data.commentId);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
     } else {
-      createCommentLike.mutate(data.commentId);
-      setCount((prevCount) => prevCount + 1);
+      setShowModal(!showModal);
     }
-    setIsLike(!isLike);
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <div className="relative bg-[#fff] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">
       <div className="pt-[20px] pb-[12px] mx-[20px]">
@@ -102,6 +121,17 @@ const SpeechBubble = ({ data, isLike: initialIsLike }: SpeechBubbleProps) => {
       <div className="absolute left-[5%] bottom-[-48.8px] w-[87px] h-[52px]">
         <BubbleArrow />
       </div>
+
+      {userId === -1 && (
+        <Modal
+          title="로그인"
+          content="로그인을 해야 이용할 수 있는 기능입니다"
+          isOpen={showModal}
+          onClose={closeModal}
+          onConfirm={closeModal}
+          buttonTitle="확인"
+        />
+      )}
     </div>
   );
 };

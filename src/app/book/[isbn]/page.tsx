@@ -8,6 +8,7 @@ import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformat
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
+import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
@@ -27,10 +28,12 @@ type TalkRoom = {
   likeCount: number;
   readingStatuses: string[];
   registeredDateTime?: string;
+  creatorId: number;
 };
 type UserEvaluation = {
   reviewId: number;
   ratingId: number;
+  creatorId: number;
   username: string;
   profileImage: string;
   reviewContent: string;
@@ -46,6 +49,9 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { data: reviewLikeIds } = isLoggedIn
     ? useGetReviewLike()
     : { data: { reviewIds: [] } };
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
   const { data: bookDetailData, refetch: refetchBookInformation } =
     useGetBookInformation({
       isbn: params.isbn,
@@ -75,6 +81,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <BookInformation
             data={bookDetailData}
             isbn={params.isbn}
+            isLogin={isLoggedIn}
             onTotalRatingChange={totalRatingChange}
           />
         ) : (
@@ -84,7 +91,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
 
       <div className="bg-white">
         <div className="max-w-[1680px] mx-[120px]">
-          <RegisterEvaluation isbn={params.isbn} />
+          <RegisterEvaluation isbn={params.isbn} isLogin={isLoggedIn} />
 
           <div className="flex flex-row mt-[63px] mb-[28px] items-center">
             <div className="flex flex-row gap-x-[19px] flex-grow text-[30px] font-SpoqaHanSansNeo items-center">
@@ -109,6 +116,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                     <MiniEvaluationCard
                       key={data.reviewId}
                       data={data}
+                      userId={myDetailData?.userId || -1}
                       isLike={isLike}
                     />
                   );
@@ -142,6 +150,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                 <RelatedTalkRoomCard
                   key={data.id}
                   data={data}
+                  userId={myDetailData?.userId || -1}
                   isLike={isLike}
                 />
               );
