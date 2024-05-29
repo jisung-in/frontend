@@ -1,3 +1,4 @@
+import DeleteButton from "@/app/components/DeleteButton/DeleteButton";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import IconButton from "@/app/components/IconButton/IconButton";
 import Modal from "@/app/components/Modal/Modal";
@@ -7,12 +8,14 @@ import NoImage from "@/assets/img/no-image.png";
 import NotLike from "@/assets/img/not-like.svg";
 import TitleThemeBigImg from "@/assets/img/theme-title-big.svg";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
+import { useDeleteRoom } from "@/hook/reactQuery/talkRoom/useDeleteRoom";
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import { useGetOneRoom } from "@/hook/reactQuery/talkRoom/useGetOneRoom";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import timeLapse from "@/util/timeLapse";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 interface TalkRoomId {
@@ -20,6 +23,7 @@ interface TalkRoomId {
   userId: number;
 }
 const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
+  const router = useRouter();
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -28,9 +32,12 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
   const { data: talkroomOneData } = useGetOneRoom({ talkRoomId });
   const [isLike, setIsLike] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [deleteShowModal, setDeleteShowModal] = useState<boolean>(false);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const deleteRoom = useDeleteRoom();
+
   useEffect(() => {
     if (talkroomOneData) {
       setCount(talkroomOneData.likeCount);
@@ -64,6 +71,18 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
 
   const closeModal = () => {
     setShowModal(false);
+  };
+
+  const deleteMyRoom = () => {
+    deleteRoom.mutate(talkRoomId, {
+      onSuccess: () => {
+        router.push("/talkroom/?order=recent&page=1");
+      },
+    });
+  };
+
+  const closeDeleteShowModal = () => {
+    setDeleteShowModal(!deleteShowModal);
   };
 
   return (
@@ -157,7 +176,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
 
             <div className="font-semibold text-2xl mb-[18px]">이미지</div>
             {talkroomOneData.images.length > 0 ? (
-              <div className="flex gap-x-[23px] mb-[51px]">
+              <div className="flex gap-x-[23px] mb-10">
                 {talkroomOneData.images.map((image: string, index: number) => (
                   <Image
                     key={`image_${index}`}
@@ -170,6 +189,12 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
               </div>
             ) : (
               <HaveNotData content="이미지가" />
+            )}
+
+            {talkroomOneData.creatorId === userId && (
+              <div className="flex justify-end  gap-x-3 mb-6">
+                <DeleteButton onClick={closeDeleteShowModal} />
+              </div>
             )}
           </div>
 
@@ -190,6 +215,13 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
               onConfirm={closeModal}
             />
           )}
+          <Modal
+            title="토크방 삭제"
+            content="토크방을 삭제하시겠습니까?"
+            isOpen={deleteShowModal}
+            onClose={closeDeleteShowModal}
+            onConfirm={deleteMyRoom}
+          />
         </div>
       )}
     </>
