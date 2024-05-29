@@ -7,6 +7,7 @@ interface ModalProps {
   onClose: () => void;
   onConfirm: () => void;
   isOpen: boolean;
+  buttonTitle: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -15,6 +16,7 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   onConfirm,
   isOpen,
+  buttonTitle,
 }) => {
   if (!isOpen) return null;
 
@@ -35,7 +37,7 @@ const Modal: React.FC<ModalProps> = ({
         </div>
         <div className="flex">
           <Button onClick={onConfirm} rounded="none">
-            확인
+            {buttonTitle}
           </Button>
         </div>
       </div>

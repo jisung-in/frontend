@@ -145,6 +145,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       ) : (
         <Modal
@@ -153,6 +154,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       )}
       <Modal
@@ -161,6 +163,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
         isOpen={deleteShowModal}
         onClose={closeDeleteShowModal}
         onConfirm={deleteMyReview}
+        buttonTitle="삭제"
       />
     </div>
   );

@@ -64,6 +64,7 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       ) : review.length > 0 ? (
         <Modal
@@ -72,6 +73,7 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
           isOpen={showModal}
           onClose={refreshPage}
           onConfirm={refreshPage}
+          buttonTitle="확인"
         />
       ) : (
         <Modal
@@ -80,6 +82,7 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       )}
     </>

@@ -118,6 +118,7 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
         isOpen={showModal}
         onClose={closeModal}
         onConfirm={closeModal}
+        buttonTitle="확인"
       />
       <Modal
         title="의견 삭제"
@@ -125,6 +126,7 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
         isOpen={deleteShowModal}
         onClose={closeDeleteShowModal}
         onConfirm={deleteMyComment}
+        buttonTitle="삭제"
       />
     </div>
   );

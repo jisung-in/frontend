@@ -205,6 +205,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
               isOpen={showModal}
               onClose={closeModal}
               onConfirm={closeModal}
+              buttonTitle="확인"
             />
           ) : (
             <Modal
@@ -213,6 +214,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
               isOpen={showModal}
               onClose={closeModal}
               onConfirm={closeModal}
+              buttonTitle="확인"
             />
           )}
           <Modal
@@ -221,6 +223,7 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
             isOpen={deleteShowModal}
             onClose={closeDeleteShowModal}
             onConfirm={deleteMyRoom}
+            buttonTitle="삭제"
           />
         </div>
       )}

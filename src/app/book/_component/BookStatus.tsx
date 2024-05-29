@@ -107,6 +107,7 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       )}
     </>

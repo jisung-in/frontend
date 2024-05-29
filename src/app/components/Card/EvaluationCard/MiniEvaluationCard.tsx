@@ -147,6 +147,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       ) : (
         <Modal
@@ -155,6 +156,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       )}
       <Modal
@@ -163,6 +165,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
         isOpen={deleteShowModal}
         onClose={closeDeleteShowModal}
         onConfirm={deleteMyReview}
+        buttonTitle="삭제"
       />
     </div>
   );

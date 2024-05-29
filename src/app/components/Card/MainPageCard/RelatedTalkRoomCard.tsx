@@ -152,6 +152,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       ) : (
         <Modal
@@ -160,6 +161,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       )}
     </div>

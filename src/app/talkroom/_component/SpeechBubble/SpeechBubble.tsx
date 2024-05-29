@@ -129,6 +129,7 @@ const SpeechBubble = ({
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}
+          buttonTitle="확인"
         />
       )}
     </div>
