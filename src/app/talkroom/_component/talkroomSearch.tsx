@@ -58,7 +58,7 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
               <DropDown
                 items={dateType}
                 selectedItem={isDate}
-                setSelectedItem={(date) => {
+                setSelectedItem={(date: any) => {
                   setIsDate(date);
                   router.push(changeIsDate(date, searchParam));
                 }}
