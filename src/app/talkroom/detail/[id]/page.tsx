@@ -57,7 +57,7 @@ const Page = ({ params }: { params: { id: number } }) => {
               height="xl2"
               className="font-Pretendard font-semibold text-[28px]"
             >
-              <Link className="w-full" href={"/talkroom/comment"}>
+              <Link className="w-full" href={`/talkroom/comment/${params.id}`}>
                 등록하기
               </Link>
             </Button>

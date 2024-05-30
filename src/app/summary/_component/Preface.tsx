@@ -8,7 +8,8 @@ const Preface = () => {
   return (
     <div className="flex flex-col w-full text-[30px] sm:text-[18px] font-bold">
       {TAB_INDEX.map(
-        (item, index) => path.includes(item.path) && <div>{item.text}</div>,
+        (item, index) =>
+          path.includes(item.path) && <div key={index}>{item.text}</div>,
       )}
     </div>
   );

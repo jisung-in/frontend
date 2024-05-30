@@ -1,33 +1,63 @@
 "use client";
 
-import { BookMain } from "@/app/components/Book/Book";
-import { useGetKakaoResults } from "@/hook/reactQuery/search/useGetKakaoResults";
+import {
+  BookInfo,
+  useGetKakaoResults,
+} from "@/hook/reactQuery/search/useGetKakaoResults";
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import NoImage from "@/assets/img/no-image.png";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
+import { useState } from "react";
+import Modal from "@/app/components/Modal/Modal";
+import { useCreateBook } from "@/hook/reactQuery/book/useCreateBook";
 
 const BookCards = () => {
+  const [onModal, setOnModal] = useState(false);
+  const [toBeUploadedBook, setToBeUploadedBook] = useState<BookInfo>();
+  const { mutate } = useCreateBook();
   const params = useSearchParams();
   const router = useRouter();
   const { data: bookData, isLoading } = useGetKakaoResults({
-    target: params.get("name") ?? "",
+    target: params.get("name")!,
   });
 
-  const onBookClicked = (isbn: string) => {
-    const splitedIsbn = isbn.split(" ").at(1);
-    router.push(`/book/${splitedIsbn}`);
+  const onBookClicked = async (data: BookInfo) => {
+    const splitedIsbn = data.isbn.split(" ").at(1);
+    try {
+      if (!splitedIsbn) return;
+      const { data } = useGetBookInformation({ isbn: splitedIsbn });
+      router.push(`/book/${splitedIsbn}`);
+    } catch (error) {
+      setToBeUploadedBook(data);
+      setOnModal(true);
+    }
+  };
+
+  const clickedCreating = () => {
+    mutate({
+      title: toBeUploadedBook?.title!,
+      contents: toBeUploadedBook?.contents!,
+      isbn: toBeUploadedBook?.isbn.split(" ").at(1)!,
+      authors: toBeUploadedBook?.authors!,
+      publisher: toBeUploadedBook?.publisher!,
+      thumbnail: toBeUploadedBook?.thumbnail!,
+      datetime: toBeUploadedBook?.datetime!,
+    });
+
+    router.push(`/book/${toBeUploadedBook?.isbn.split(" ").at(1)}`);
   };
 
   if (isLoading) return <HaveNotData content="관련 도서가" />;
 
   return (
     <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] px-[5%]">
-      {(bookData as any)?.documents?.map((data: any) => (
+      {bookData?.documents?.map((data: BookInfo) => (
         <div
           className="w-[263px]"
           key={data.isbn}
-          onClick={() => onBookClicked(data.isbn)}
+          onClick={() => onBookClicked(data)}
         >
           <div className="relative w-full h-[375px] cursor-pointer">
             <Image
@@ -45,6 +75,13 @@ const BookCards = () => {
           </div>
         </div>
       ))}
+      <Modal
+        content="존재하지 않는 책이에요! 등록하시겠어요?"
+        title="없는 책..."
+        onClose={() => setOnModal(false)}
+        onConfirm={clickedCreating}
+        isOpen={onModal}
+      />
     </div>
   );
 };

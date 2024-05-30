@@ -5,7 +5,7 @@ interface DropdownProps {
   items: string[];
   selectedItem: string;
   className?: string;
-  setSelectedItem: (item: string) => void;
+  setSelectedItem: any;
 }
 
 const Dropdown = ({

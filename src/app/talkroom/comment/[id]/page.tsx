@@ -9,6 +9,7 @@ import { useCreateComment } from "@/hook/reactQuery/talkRoom/useCreateComment";
 import useImageUpload from "@/hook/useImageUpload";
 import { useInput } from "@/hook/useInput";
 import Image from "next/image";
+import { usePathname, useRouter } from "next/navigation";
 import { ChangeEvent, useRef, useState } from "react";
 
 const CommentPage = () => {
@@ -17,6 +18,8 @@ const CommentPage = () => {
   const { encodeImageFileAsURL, previewImage, error, uploadImages } =
     useImageUpload();
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
+  const id = usePathname().split("/").at(-1);
 
   const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -31,16 +34,16 @@ const CommentPage = () => {
   };
 
   const onSubmitClick = async () => {
+    if (!id) return;
     if (!error && previewImage.length) {
-      console.log(previewImage);
       const response = await uploadImages();
-      console.log("보낸다잉", response);
       if (response?.data) {
-        mutate({ content: value, imageUrls: response.data });
+        mutate({ content: value, imageUrls: response.data, talkRoomId: id });
       }
     } else {
-      mutate({ content: value });
+      mutate({ content: value, talkRoomId: id });
     }
+    router.back();
   };
 
   return (

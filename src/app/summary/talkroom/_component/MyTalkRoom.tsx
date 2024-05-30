@@ -22,27 +22,22 @@ const MyTalkRoom = () => {
   const { tab } = useContext(TabContext);
   const { data: talkRoomPopular } = useGetMyTalkRooms("liked");
 
-  console.log(talkRoomPopular, tab);
+  console.log(talkRoomPopular?.data.queryResponse, tab);
 
   return (
     <div className="flex flex-col w-full gap-[20px] items-center">
       <Tab />
-      {talkRoomPopular && talkRoomPopular.queryResponse.length > 0 ? (
+      {talkRoomPopular?.data.queryResponse ? (
         <div className="grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 gap-[20px] w-[80%]">
-          {talkRoomPopular?.queryResponse.map((data: any) => {
-            const isLike =
-              isLoggedIn &&
-              (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
-            return (
-              <TalkRoomCard
-                key={data.id}
-                userId={myDetailData?.userId || -1}
-                data={data}
-                isBest={false}
-                isLike={isLike}
-              />
-            );
-          })}
+          {talkRoomPopular?.data?.queryResponse?.map((data: any) => (
+            <TalkRoomCard
+              key={data.id}
+              userId={myDetailData?.userId || -1}
+              data={data}
+              isBest={false}
+              isLike={true}
+            />
+          ))}
         </div>
       ) : (
         <HaveNotData content={"나의 토크방이"} />

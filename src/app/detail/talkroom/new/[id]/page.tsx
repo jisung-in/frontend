@@ -5,12 +5,13 @@ import { Input } from "@/app/components/Input/Input";
 import BackButton from "@/app/summary/_component/BackButton";
 import { BUTTON_INDEX } from "@/constants/buttonIndex";
 import { Textarea } from "@/app/components/Textarea/Textarea";
-import SearchedList from "./_component/SearchedList";
+import SearchedList from "../_component/SearchedList";
 import { useState } from "react";
 import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
 import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
 import { useCreateRoom } from "@/hook/reactQuery/talkRoom/useCreateRoom";
 import { useInput } from "@/hook/useInput";
+import { useRouter } from "next/navigation";
 
 const NewTalkRoom = () => {
   const [input, setInput] = useState({
@@ -22,10 +23,10 @@ const NewTalkRoom = () => {
   const { value: content, handleChange: contentChange } = useInput("");
   const [buttonState, setButtonState] = useState(BUTTON_INDEX);
   const { mutate } = useCreateRoom();
+  const router = useRouter();
 
   const onSubmitClicked = () => {
     const splitedIsbn = bookInfo?.isbn.split(" ").at(1);
-    console.log(splitedIsbn);
     if (!bookInfo || !splitedIsbn) return;
     mutate({
       bookIsbn: splitedIsbn,
@@ -35,6 +36,7 @@ const NewTalkRoom = () => {
         .filter((state) => state.actived)
         .map((state) => state.content),
     });
+    router.back();
   };
 
   return (
@@ -82,7 +84,7 @@ const NewTalkRoom = () => {
             {bookInfo?.title || "책 제목"}
           </span>
           <span className="text-[1rem] font-bold text-gray-50">
-            {bookInfo?.author} {bookInfo?.publisher}{" "}
+            {bookInfo?.authors} {bookInfo?.publisher}{" "}
             {bookInfo?.datetime.slice(0, 4)}
           </span>
 
