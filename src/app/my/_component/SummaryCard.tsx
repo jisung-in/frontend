@@ -10,7 +10,7 @@ const SummaryCard = ({ data }: { data: Props }) => {
   const router = useRouter();
   return (
     <button onClick={() => router.push(data.path)}>
-      <div className="flex justify-center items-center rounded-lg w-[100px] h-[100px] bg-gray-30 border-2">
+      <div className="flex justify-center items-center rounded-lg w-[100px] h-[100px] bg-ivory-40 border-2">
         {data.icon}
       </div>
       <div className="pt-[20px] font-bold text-center text-[22px]">

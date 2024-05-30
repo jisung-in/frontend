@@ -1,11 +1,11 @@
 "use client";
 import { Button } from "@/app/components/Button/Button";
-import { useState } from "react";
 
 type Props = {
   buttonState: ButtonProps[];
   setButtonState: (props: ButtonProps[]) => void;
 };
+
 type ButtonProps = { content: string; actived: boolean };
 const ConditionButtons = ({ buttonState, setButtonState }: Props) => {
   const onClicked = (idx: number) => {

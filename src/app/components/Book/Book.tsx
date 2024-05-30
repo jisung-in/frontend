@@ -1,5 +1,6 @@
 import { Children, ReactNode, isValidElement } from "react";
-import { BookProps } from "./Book.types";
+import { BookProps, StarProps } from "./Book.types";
+import { createStars } from "@/util/createStars";
 
 const BookCover = ({ children }: BookProps) => {
   return <div>{children}</div>;
@@ -42,8 +43,12 @@ const Publisher = ({ children }: BookProps) => {
 const Year = ({ children }: BookProps) => {
   return <div className="font-Inter">{children}</div>;
 };
-const StarRating = ({ children }: BookProps) => {
-  return <div>{children}</div>;
+const StarRating = ({ children, starsCnt }: StarProps) => {
+  return (
+    <div className="text-brown-40">
+      <span className="sm:hidden">평균별점</span> {createStars(starsCnt)}
+    </div>
+  );
 };
 
 const BookCoverType = (<BookCover />).type;
@@ -52,7 +57,7 @@ const BookTitleType = (<BookTitle />).type;
 const AuthorType = (<Author />).type;
 const PublisherType = (<Publisher />).type;
 const YearType = (<Year />).type;
-const StarRatingType = (<StarRating />).type;
+const StarRatingType = (<StarRating starsCnt={5} />).type;
 
 const getBookCover = (children: ReactNode) => {
   const childrenArray = Children.toArray(children);

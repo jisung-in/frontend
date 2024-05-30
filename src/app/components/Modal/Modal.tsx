@@ -7,7 +7,7 @@ interface ModalProps {
   onClose: () => void;
   onConfirm: () => void;
   isOpen: boolean;
-  buttonTitle: string;
+  buttonTitle?: string;
 }
 
 const Modal: React.FC<ModalProps> = ({
@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({
   onClose,
   onConfirm,
   isOpen,
-  buttonTitle,
+  buttonTitle = "확인",
 }) => {
   if (!isOpen) return null;
 

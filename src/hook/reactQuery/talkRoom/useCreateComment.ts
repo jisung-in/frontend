@@ -3,6 +3,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type CommentRequest = {
   content: string;
+  talkRoomId: string;
   imageUrls?: string[];
 };
 
@@ -17,7 +18,7 @@ export const useCreateComment = () => {
   return useMutation({
     mutationFn: (request: CommentRequest) =>
       axiosInstance.post<CommentResponse>(
-        `${process.env.NEXT_PUBLIC_SERVER}/v1/talk-rooms/630/comments`,
+        `${process.env.NEXT_PUBLIC_SERVER}/v1/talk-rooms/${request.talkRoomId}/comments`,
         request,
       ),
     onSuccess: () =>
