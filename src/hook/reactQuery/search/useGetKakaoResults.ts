@@ -10,7 +10,7 @@ type SearchingResponse = {
 };
 
 export type BookInfo = {
-  author: string[];
+  authors: string[];
   contents: string;
   datetime: string;
   isbn: string;
