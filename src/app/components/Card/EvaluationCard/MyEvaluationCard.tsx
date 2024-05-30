@@ -15,6 +15,12 @@ type MiniEvaluationProps = {
   userName: string;
   comment: string;
   like: number;
+
+  content: string;
+  rating: number;
+  title: string;
+  userImage: string;
+  bookImage: string;
 };
 
 const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
@@ -28,34 +34,49 @@ const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="w-[830px] h-[430px] bg-[#FFF] shadow-lg shadow-[#E7E7E7] mb-[30px] rounded-[11px] font-Pretendard font-medium">
-      <div className="mt-[30px] mx-[43px] w-auto">
-        <div className="flex flex-row mb-[19px]">
-          <div className="flex flex-row items-center flex-grow gap-x-3">
-            <Image src={Profile} alt="프로필" width={48} height={48} priority />
+    <div className="w-[100%] h-[430px] bg-[#FFF] shadow-lg shadow-[#E7E7E7] rounded-[11px] font-Pretendard font-medium">
+      <div className="p-[5%]">
+        <div className="flex w-full flex-row items-center justify-between h-[80px]">
+          <div className="flex items-center flex-grow gap-3">
+            <div className="w-[50px] h-[50px]">
+              <Image
+                src={data.userImage}
+                alt="프로필"
+                width={48}
+                height={48}
+                className="rounded-[50%] min-w-[50px] min-h-[50px]"
+                priority
+              />
+            </div>
             <div className="font-medium text-[20px]">{data.userName}</div>
           </div>
           <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px] justify-center">
             <Star />
             <div className="flex grow justify-center items-center">
-              {data.starRate}
+              {data.rating}
             </div>
           </div>
         </div>
 
-        <div className="flex flex-row gap-x-8">
-          <div className="bg-[#000] w-[150px] h-[200px]" />
+        <div className="flex gap-8 py-[5%]">
+          <Image
+            className="bg-[#000] w-[150px] h-[200px]"
+            width={100}
+            height={200}
+            src={data.bookImage}
+            alt="책 이미지"
+          />
           <div className="flex flex-col w-[513px]">
-            <div className="flex flex-row items-center mt-1 gap-x-2">
+            <div className="flex items-center gap-2">
               <BookTitle />
               <div className="font=semibold text-[22px]">책 제목</div>
             </div>
-            <div className="flex flex-row items-center text-lg text-[#656565] gap-x-3 my-1">
+            <div className="flex items-center text-lg text-[#656565] gap-3">
               <div>저자</div>
               <div>출판사</div>
             </div>
-            <div className="font-regular text-lg min-h-[112px] max-h-[115px]">
-              {data.comment}
+            <div className="font-regular text-lg max-h-[115px]">
+              {data.content}
             </div>
           </div>
         </div>
