@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/app/components/Button/Button";
+import { useLogin } from "@/hook/useLogin";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import React from "react";
@@ -8,6 +9,7 @@ import React from "react";
 type Props = { children?: React.ReactNode; width?: number; path?: string };
 const MyButton = ({ children, width = 100, path = "/" }: Props) => {
   const router = useRouter();
+  const { handleLogout } = useLogin();
 
   const onClick = () => {
     const handleOAuthKakao = async () => {
@@ -17,6 +19,7 @@ const MyButton = ({ children, width = 100, path = "/" }: Props) => {
           null,
           { withCredentials: true },
         );
+        handleLogout();
         router.push("/");
       } catch (error) {
         console.log(error);
