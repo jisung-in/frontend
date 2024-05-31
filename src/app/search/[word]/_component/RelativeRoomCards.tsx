@@ -3,16 +3,15 @@
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
+import { useGetRelativeReooms } from "@/hook/reactQuery/talkRoom/useGetRelativeTalkroom";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
-import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 
 type Props = {
-  order?: string;
-  search?: string;
+  isbn: string;
 };
 
-const RoomCards = ({ order = "recommend", search = "" }: Props) => {
+const RelativeRoomCards = ({ isbn }: Props) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -20,12 +19,10 @@ const RoomCards = ({ order = "recommend", search = "" }: Props) => {
   const { data: myDetailData } = isLoggedIn
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
-  const { data: bookData } = useGetRooms({
+  const { data: bookData } = useGetRelativeReooms({
+    isbn: isbn,
     page: 1,
-    size: 6,
-    order: order,
-    search: search,
-    sortbydate: "",
+    size: 10,
   });
 
   return (
@@ -54,4 +51,11 @@ const RoomCards = ({ order = "recommend", search = "" }: Props) => {
   );
 };
 
-export default RoomCards;
+export default RelativeRoomCards;
+function useGetRelativeRooms(arg0: {
+  isbn: string;
+  page: number;
+  size: number;
+}): { data: any } {
+  throw new Error("Function not implemented.");
+}

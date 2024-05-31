@@ -23,7 +23,10 @@ const SearchedList = ({
   const router = useRouter();
 
   const onListClicked = (book: any) => {
-    router.push(`/search/book?name=${book.title ?? book}`);
+    if (!book.isbn) return;
+    router.push(
+      `/search/book?name=${book.title ?? book}&isbn=${book.isbn.split(" ").at(1)}`,
+    );
     setSearches(book.title ?? book);
     reset();
   };

@@ -12,7 +12,7 @@ export const LoginComponent = () => {
   const { isLoggedIn } = useLogin();
 
   return (
-    <div className="w-[100px] sm:w-[50px]">
+    <div>
       {userData && isLoggedIn ? (
         <Image
           alt="프로필"
@@ -23,9 +23,11 @@ export const LoginComponent = () => {
           onClick={() => router.push("/my")}
         />
       ) : (
-        <Button height="md" onClick={() => router.push("/login")}>
-          로그인
-        </Button>
+        <div className="w-[100px] sm:w-[70px]">
+          <Button height="md" onClick={() => router.push("/login")}>
+            로그인
+          </Button>
+        </div>
       )}
     </div>
   );
