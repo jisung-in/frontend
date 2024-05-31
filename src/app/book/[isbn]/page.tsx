@@ -67,7 +67,6 @@ const page = ({ params }: { params: { isbn: string } }) => {
   });
   const { data: reviewData } = useGetReview({
     isbn: params.isbn,
-    page: 1,
     size: 8,
     order: "recent",
   });
@@ -106,19 +105,20 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </div>
 
           <div className="flex flex-row justify-center">
-            {reviewData && reviewData.data.content.length > 0 ? (
+            {reviewData && reviewData.pages[0].content.length > 0 ? (
               <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
-                {reviewData.data.content.map((data: UserEvaluation) => {
+                {reviewData.pages[0].content.map((data: UserEvaluation) => {
                   const isLike =
                     isLoggedIn &&
                     (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
                   return (
-                    <MiniEvaluationCard
-                      key={data.reviewId}
-                      data={data}
-                      userId={myDetailData?.userId || -1}
-                      isLike={isLike}
-                    />
+                    <div key={data.reviewId}>
+                      <MiniEvaluationCard
+                        data={data}
+                        userId={myDetailData?.userId || -1}
+                        isLike={isLike}
+                      />
+                    </div>
                   );
                 })}
               </div>

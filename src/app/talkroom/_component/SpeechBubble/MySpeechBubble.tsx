@@ -57,7 +57,7 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
         <div className="flex items-center mb-4">
           <div className="flex grow items-center">
             <Image
-              className="rounded-[50%]"
+              className="min-w-[40px] min-h-[40px] max-w-[40px] max-h-[40px] rounded-[50%]"
               src={data.profileImage ? data.profileImage : Profile}
               alt="프로필"
               width={40}
@@ -74,17 +74,19 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
             {timeLapse(data.registeredDateTime)}
           </div>
         </div>
-        <div className="text-[20px] text-[#000]">{data.content}</div>
+        <div className="text-[20px] text-[#000] mb-[34px]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
-          {data.commentImages.map((image: string) => (
-            <Image
-              className="min-w-[120px] max-w-[120px] min-h-[120px] max-h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
-              width={120}
-              height={120}
-              src={image}
-              alt="댓글 이미지"
-            />
-          ))}
+          {data.commentImages.length > 0 &&
+            data.commentImages[0] !== "" &&
+            data.commentImages.map((image: string) => (
+              <Image
+                className="min-w-[120px] max-w-[120px] min-h-[120px] max-h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
+                width={120}
+                height={120}
+                src={image}
+                alt="댓글 이미지"
+              />
+            ))}
         </div>
         <div className="flex flex-col">
           <hr className="border-2 border-solid border-[#FFF] mb-[9px]" />
