@@ -12,7 +12,7 @@ import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useLogin } from "@/hook/useLogin";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import DropDown from "../../components/DropDown/DropDown";
 import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
 
@@ -27,7 +27,7 @@ type UserEvaluation = {
   likeCount: number;
 };
 
-const page = ({ params }: { params: { isbn: string } }) => {
+const Page = ({ params }: { params: { isbn: string } }) => {
   const router = useRouter();
   const orderParams = useSearchParams();
   const order = orderParams.get("order") || "like";
@@ -54,15 +54,35 @@ const page = ({ params }: { params: { isbn: string } }) => {
     setLikeStandard(selectedStandard);
     router.push(`/evaluation/${params.isbn}?order=${order}`);
   };
-  const { data: reviewData, refetch: refetchReviewData } = useGetReview({
+
+  const {
+    data: reviewData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetReview({
     isbn: params.isbn,
-    page: 1,
     size: 10,
     order: order,
   });
-  useEffect(() => {
-    refetchReviewData();
-  }, [order]);
+
+  const observer = useRef<IntersectionObserver>();
+  const lastReviewElementRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasNextPage) {
+            fetchNextPage();
+          }
+        },
+        { rootMargin: "200px" },
+      );
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage],
+  );
 
   return (
     <div>
@@ -111,27 +131,42 @@ const page = ({ params }: { params: { isbn: string } }) => {
         </div>
       </div>
 
-      {reviewData && reviewData.data.content.length > 0 ? (
+      {reviewData &&
+      reviewData.pages.length > 0 &&
+      reviewData.pages[0].content.length > 0 ? (
         <div className="flex flex-col items-center">
-          {reviewData.data.content.map((data: UserEvaluation) => {
-            const isLike =
-              isLoggedIn &&
-              (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
-            return (
-              <EvaluationCard
-                key={data.reviewId}
-                data={data}
-                userId={myDetailData?.userId || -1}
-                isLike={isLike}
-              />
-            );
-          })}
+          {reviewData.pages.map(
+            (page, pageIndex) =>
+              page.content &&
+              page.content.length > 0 &&
+              page.content.map((data: UserEvaluation, index: number) => {
+                const isLike =
+                  isLoggedIn &&
+                  (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
+                const isLastElement =
+                  pageIndex === reviewData.pages.length - 1 &&
+                  index === page.content.length - 1;
+                return (
+                  <div
+                    key={data.reviewId}
+                    ref={isLastElement ? lastReviewElementRef : null}
+                  >
+                    <EvaluationCard
+                      data={data}
+                      userId={myDetailData?.userId || -1}
+                      isLike={isLike}
+                    />
+                  </div>
+                );
+              }),
+          )}
         </div>
       ) : (
         <HaveNotData content={"아직 유저평가가"} />
       )}
+      {isFetchingNextPage && <div>Loading...</div>}
     </div>
   );
 };
 
-export default page;
+export default Page;
