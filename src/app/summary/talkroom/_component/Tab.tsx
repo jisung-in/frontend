@@ -5,8 +5,8 @@ import { useContext } from "react";
 
 export default function Tab() {
   const { tab, setTab } = useContext(TabContext);
-  const onClickCreated = () => {
-    setTab("created");
+  const onClickrecent = () => {
+    setTab("recent");
   };
   const onClickReplied = () => {
     setTab("replied");
@@ -20,8 +20,8 @@ export default function Tab() {
       <div className="w-[70px]">
         <Button
           height="sm"
-          variant={tab === "created" ? "main" : "empty"}
-          onClick={onClickCreated}
+          variant={tab === "recent" ? "main" : "empty"}
+          onClick={onClickrecent}
         >
           생성
         </Button>

@@ -2,11 +2,9 @@ import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
 type TalkRoomRequest = {
-  page: number;
-  size: number;
-  order: string;
-  search?: string;
-  sortbydate?: "1m" | "1w" | "1d" | "";
+  isbn: string;
+  page?: number;
+  size?: number;
 };
 
 type TalkRoomInfo = {
@@ -30,20 +28,12 @@ type TalkRoom = {
   creatorId: number;
 };
 
-export const useGetRooms = ({
-  page = 1,
-  size = 10,
-  order = "recent",
-  search = "",
-  sortbydate = "",
-}: TalkRoomRequest) => {
+export const useGetRelativeReooms = ({ isbn, page, size }: TalkRoomRequest) => {
   return useQuery<TalkRoomInfo>({
-    queryKey: ["talkroom", "popular", page, size, order, search, sortbydate],
+    queryKey: ["talkroom", "relative", isbn, (page = 1), (size = 10)],
     queryFn: () =>
       axiosInstance
-        .get(
-          `/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}&day=${sortbydate}`,
-        )
+        .get(`/v1/books/${isbn}/talk-rooms?page=${page}&size=${size}`)
         .then(({ data }) => data),
     throwOnError: true,
   });
