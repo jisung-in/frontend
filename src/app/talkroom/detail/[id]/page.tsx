@@ -9,6 +9,7 @@ import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike"
 import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import MySpeechBubble from "../../_component/SpeechBubble/MySpeechBubble";
 import SpeechBubble from "../../_component/SpeechBubble/SpeechBubble";
 import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
@@ -26,6 +27,7 @@ type CommentsData = {
 
 const Page = ({ params }: { params: { id: number } }) => {
   const { isLoggedIn } = useLogin();
+  const [hydrated, setHydrated] = useState(false);
   const { data: commentLikeIds } = isLoggedIn
     ? useGetCommentLike()
     : { data: { commentIds: [] } };
@@ -33,6 +35,15 @@ const Page = ({ params }: { params: { id: number } }) => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
   const { data: commentsData } = useGetComments(params.id);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, [isLoggedIn]);
+
+  if (!hydrated) {
+    return null;
+  }
+
   return (
     <div>
       <MainThemeTitle title="토크해요">
@@ -109,7 +120,6 @@ const Page = ({ params }: { params: { id: number } }) => {
       ) : (
         <HaveNotData content={"아직 의견이"} />
       )}
-      {/* <MySpeechBubble content={"나의 의견 내용 들어갈 곳 입니다."} /> */}
     </div>
   );
 };

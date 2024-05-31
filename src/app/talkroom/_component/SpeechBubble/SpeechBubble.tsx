@@ -88,7 +88,6 @@ const SpeechBubble = ({
         <div className="text-[20px] text-[#000] mb-[34px]">{data.content}</div>
         <div className="flex gap-x-[10px] mb-[18px]">
           {data.commentImages.length > 0 &&
-            data.commentImages[0] !== "" &&
             data.commentImages.map((image: string) => (
               <Image
                 className="min-w-[120px] max-w-[120px] min-h-[120px] max-h-[120px] border border-solid border-[#FBF7F0] rounded-[4px]"
