@@ -34,7 +34,7 @@ const StarPage = () => {
           setSelectedItem={setStartFilter}
         />
       </div>
-      <div className="grid grid-cols-6 gap-[20px] w-[90%]">
+      <div className="grid grid-cols-6 sm:grid-cols-2 md:grid-cols-4 gap-[20px] w-[90%]">
         {(starData as any)?.data?.queryResponse.map((book: any) => (
           <MyBookCard
             onClick={() => router.push(`/book/${book.isbn}`)}
