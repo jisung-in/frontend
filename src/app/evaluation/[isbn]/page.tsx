@@ -12,7 +12,7 @@ import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useLogin } from "@/hook/useLogin";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DropDown from "../../components/DropDown/DropDown";
 import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
 
@@ -60,6 +60,7 @@ const Page = ({ params }: { params: { isbn: string } }) => {
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
+    refetch: refetchReviewData,
   } = useGetReview({
     isbn: params.isbn,
     size: 10,
@@ -83,6 +84,10 @@ const Page = ({ params }: { params: { isbn: string } }) => {
     },
     [isFetchingNextPage, hasNextPage, fetchNextPage],
   );
+
+  useEffect(() => {
+    refetchReviewData();
+  }, [order]);
 
   return (
     <div>
