@@ -21,7 +21,7 @@ const data = [
   {
     title: "토크방",
     icon: <Create />,
-    path: "/summary/room",
+    path: "/summary/talkroom",
   },
   {
     title: "독서상태",
