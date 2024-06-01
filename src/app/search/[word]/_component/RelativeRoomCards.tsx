@@ -5,25 +5,27 @@ import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRelativeReooms } from "@/hook/reactQuery/talkRoom/useGetRelativeTalkroom";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 
 type Props = {
-  isbn: string;
+  name: string;
 };
 
-const RelativeRoomCards = ({ isbn }: Props) => {
+const RelativeRoomCards = ({ name }: Props) => {
   const { isLoggedIn } = useLogin();
+  console.log(name);
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
   const { data: myDetailData } = isLoggedIn
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
-  const { data: bookData } = useGetRelativeReooms({
-    isbn: isbn,
-    page: 1,
-    size: 10,
+  const { data: bookData } = useGetRooms({
+    search: name,
   });
+
+  console.log(bookData, "북 데이터");
 
   return (
     <>

@@ -11,11 +11,10 @@ const MainContent = () => {
   const { tab } = useContext(TabContext);
   const params = useSearchParams();
   const name = params.get("name");
-  const isbn = params.get("isbn");
 
   if (tab === "book") return <BookCards />;
 
-  return <>{isbn && <RelativeRoomCards isbn={isbn} />}</>;
+  return <>{name && <RelativeRoomCards name={name ?? ""} />}</>;
 };
 
 export default MainContent;

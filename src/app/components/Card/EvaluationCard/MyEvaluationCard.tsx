@@ -7,6 +7,7 @@ import Image from "next/image";
 import { useState } from "react";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
+import { useRouter } from "next/navigation";
 
 type MiniEvaluationProps = {
   id: number;
@@ -21,11 +22,15 @@ type MiniEvaluationProps = {
   title: string;
   userImage: string;
   bookImage: string;
+  publisher: string;
+  authors: string;
+  isbn: string;
 };
 
 const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
   data,
 }) => {
+  const router = useRouter();
   const [count, setCount] = useState<number>(data.like);
   const [isLike, setIsLike] = useState<boolean>(false);
   const changeIsLike = (isLike: boolean) => {
@@ -34,7 +39,10 @@ const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
     if (isLike) setCount(count - 1);
   };
   return (
-    <div className="w-[100%] bg-[#FFF] shadow-lg shadow-[#E7E7E7] rounded-[11px] font-Pretendard font-medium">
+    <div
+      className="w-[100%] bg-[#FFF] shadow-lg shadow-[#E7E7E7] rounded-[11px] font-Pretendard font-medium cursor-pointer"
+      onClick={() => router.push(`/book/${data.isbn}`)}
+    >
       <div className="flex flex-col justify-between h-full p-[3%]">
         <div className="flex w-full flex-row items-center justify-between h-[80px]">
           <div className="flex items-center flex-grow gap-3">
@@ -71,8 +79,8 @@ const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
               <div className="font=semibold text-[22px]">책 제목</div>
             </div>
             <div className="flex items-center text-lg text-[#656565] gap-3">
-              <div>저자</div>
-              <div>출판사</div>
+              <div>{data.authors}</div>
+              <div>{data.publisher}</div>
             </div>
             <div className="font-regular text-lg max-h-[115px] overflow-hidden">
               {data.content}

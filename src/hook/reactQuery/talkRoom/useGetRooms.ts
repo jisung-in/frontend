@@ -2,9 +2,9 @@ import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
 type TalkRoomRequest = {
-  page: number;
-  size: number;
-  order: string;
+  page?: number;
+  size?: number;
+  order?: string;
   search?: string;
   sortbydate?: "1m" | "1w" | "1d" | "";
 };
