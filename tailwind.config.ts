@@ -16,6 +16,7 @@ const config: Config = {
         Pretendard: ["var(--font-Pretendard)"],
         SpoqaHanSansNeo: ["var(--font-SpoqaHanSansNeo)"],
         Inter: ["var(--font-Inter)"],
+        Kalufo: ["var(--font-Kalufo)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
