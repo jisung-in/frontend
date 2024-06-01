@@ -63,6 +63,7 @@ const StatePage = () => {
       <div className="grid grid-cols-5 gap-[20px] w-[80%]">
         {stateData?.data.queryResponse.map((book: any) => (
           <MyBookCard
+            key={book.isbn}
             postId={book.postId}
             title={book.bookTitle}
             image={book.bookImage}
