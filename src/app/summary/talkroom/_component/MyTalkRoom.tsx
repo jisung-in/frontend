@@ -20,9 +20,9 @@ const MyTalkRoom = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
   const { tab } = useContext(TabContext);
-  const { data: talkRoomPopular } = useGetMyTalkRooms("liked");
+  const { data: talkRoomPopular } = useGetMyTalkRooms(tab);
 
-  console.log(talkRoomPopular?.data.queryResponse, tab);
+  console.log(talkRoomPopular, "ㅎㅎ");
 
   return (
     <div className="flex flex-col w-full gap-[20px] items-center">

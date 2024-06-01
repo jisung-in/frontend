@@ -18,8 +18,6 @@ const ReviewPage = () => {
     order: filterList[starFilter],
   });
 
-  console.log(evaluationUser?.reviewContents);
-
   return (
     <div className="flex flex-col w-full h-full items-center">
       <div className="flex w-full justify-end pr-[10%] pb-[10px]">

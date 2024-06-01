@@ -1,9 +1,12 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-// type TalkRoomRequest = {
-//   talkRoomId: string;
-// };
+type Request = {
+  page?: number;
+  size?: number;
+  order?: string;
+  status?: string;
+};
 
 // type TalkRoomResponse = {
 //   response: {
@@ -22,12 +25,17 @@ import { useQuery } from "@tanstack/react-query";
 //   userLikeCommentIds: number[];
 // };
 
-export const useGetMyState = () => {
+export const useGetMyState = ({
+  page = 1,
+  size = 10,
+  order,
+  status,
+}: Request) => {
   return useQuery<any>({
-    queryKey: ["my", "state"],
+    queryKey: ["my", "state", page, order, status],
     queryFn: () =>
       axiosInstance.get<any>(
-        `${process.env.NEXT_PUBLIC_SERVER}/v1/users/statuses?page=1&size=4&order=dictionary&status=want`,
+        `${process.env.NEXT_PUBLIC_SERVER}/v1/users/statuses?page=1&size=4&order=${order}&status=${status}`,
       ),
     throwOnError: true,
   });
