@@ -31,38 +31,23 @@ const SearchedList = ({
     reset();
   };
 
+  const onRecentListClicked = (serach: string) => {
+    router.push(`/search/book?name=${serach}}`);
+  };
+
   const onRemoveClicked = (content: string) => {
     removeSearch(content);
   };
 
   return (
     <div className="absolute flex flex-col w-full shadow-md bg-[#F5F5F7] rounded-md p-4 gap-[10px]">
-      <span className="font-bold">인기 검색어</span>
-      <div className="flex w-full gap-[3%]">
-        <div className="max-w-[70px]">
-          <Button variant="ivory" height="sm">
-            키워드
-          </Button>
-        </div>
-        <div className="max-w-[70px]">
-          <Button variant="ivory" height="sm">
-            키워드
-          </Button>
-        </div>
-        <div className="max-w-[70px]">
-          <Button variant="ivory" height="sm">
-            키워드
-          </Button>
-        </div>
-      </div>
-
       <span className="font-bold">최근 검색어</span>
       <ul>
         {searches.map((item: string, index: number) => (
           <li
             key={index}
             className="flex gap-2 cursor-pointer"
-            onClick={() => onListClicked(item)}
+            onClick={() => onRecentListClicked(item)}
           >
             {item}{" "}
             <span
