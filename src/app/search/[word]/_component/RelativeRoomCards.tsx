@@ -14,7 +14,6 @@ type Props = {
 
 const RelativeRoomCards = ({ name }: Props) => {
   const { isLoggedIn } = useLogin();
-  console.log(name);
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
@@ -24,8 +23,6 @@ const RelativeRoomCards = ({ name }: Props) => {
   const { data: bookData } = useGetRooms({
     search: name,
   });
-
-  console.log(bookData, "북 데이터");
 
   return (
     <>

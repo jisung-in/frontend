@@ -97,7 +97,7 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
           </form>
         </div>
         <div className="w-[167px]">
-          <Link href={"/talkroom/comment"}>
+          <Link href={"/detail/talkroom/new"}>
             <Button>
               <MakeTalkRoom />
               토크방 생성하기

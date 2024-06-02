@@ -19,8 +19,4 @@ export const BUTTON_INDEX = [
     content: "중단",
     actived: false,
   },
-  {
-    content: "상관없음",
-    actived: false,
-  },
 ];
