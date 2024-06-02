@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 type TalkRoomRequest = {
   order: number | "";
+  page: number;
 };
 
 type TalkRoomResponse = {
@@ -22,12 +23,12 @@ type TalkRoomResponse = {
   userLikeCommentIds: number[];
 };
 
-export const useGetMyStar = ({ order }: TalkRoomRequest) => {
+export const useGetMyStar = ({ order, page }: TalkRoomRequest) => {
   return useQuery<any>({
-    queryKey: ["my", "starRate", order],
+    queryKey: ["my", "starRate", order, page],
     queryFn: () =>
       axiosInstance.get<any>(
-        `${process.env.NEXT_PUBLIC_SERVER}/v1/users/ratings?page=1&size=4&order=rating_asc&rating=${order}`,
+        `${process.env.NEXT_PUBLIC_SERVER}/v1/users/ratings?page=${page}&size=12&order=rating_asc&rating=${order}`,
       ),
     throwOnError: true,
   });

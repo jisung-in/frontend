@@ -5,11 +5,11 @@ import { useContext } from "react";
 
 export default function Tab() {
   const { tab, setTab } = useContext(TabContext);
-  const onClickrecent = () => {
-    setTab("recent");
+  const onClickMine = () => {
+    setTab("mine");
   };
-  const onClickReplied = () => {
-    setTab("replied");
+  const onClickComment = () => {
+    setTab("comment");
   };
   const onClickLiked = () => {
     setTab("liked");
@@ -20,17 +20,17 @@ export default function Tab() {
       <div className="w-[70px]">
         <Button
           height="sm"
-          variant={tab === "recent" ? "main" : "empty"}
-          onClick={onClickrecent}
+          variant={tab === "mine" ? "main" : "empty"}
+          onClick={onClickMine}
         >
           생성
         </Button>
       </div>
       <div className="w-[70px]">
         <Button
-          variant={tab === "replied" ? "main" : "empty"}
+          variant={tab === "comment" ? "main" : "empty"}
           height="sm"
-          onClick={onClickReplied}
+          onClick={onClickComment}
         >
           답글
         </Button>
