@@ -2,7 +2,7 @@ import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 import { QueryFunction } from "@tanstack/query-core";
 
-type BookInformation = {
+export type BookInformation = {
   title: string;
   content: string;
   isbn: string;
