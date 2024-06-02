@@ -2,7 +2,9 @@
 
 import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
 import Dropdown from "@/app/components/DropDown/DropDown";
+import Pagination from "@/app/components/Pagination/Pagination";
 import { useGetMyState } from "@/hook/reactQuery/my/useGetMyState";
+import { useGetPageParams } from "@/hook/useGetPageParams";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -31,6 +33,7 @@ const letterOrStarRateList: Record<LetterOrStarRateListKey, string> = {
 
 const StatePage = () => {
   const router = useRouter();
+  const { currentUrl, page } = useGetPageParams();
   const [filter, setFilter] = useState<readFilterListKey>("가나다 순");
   const [letterOrStarRateFilter, setLetterOrStarRateFilter] =
     useState<LetterOrStarRateListKey>("읽고 싶은");
@@ -38,9 +41,8 @@ const StatePage = () => {
   const { data: stateData } = useGetMyState({
     status: letterOrStarRateList[letterOrStarRateFilter],
     order: readFilterList[filter],
+    page: page,
   });
-
-  console.log(stateData);
 
   return (
     <main className="flex flex-col justify-center items-center w-full">
@@ -72,6 +74,13 @@ const StatePage = () => {
           />
         ))}
       </div>
+      {stateData?.data.totalCount && (
+        <Pagination
+          totalItems={stateData?.data.totalCount ?? 0}
+          postPage={12}
+          link={currentUrl + `order=${filter}&status=${letterOrStarRateFilter}`}
+        />
+      )}
     </main>
   );
 };

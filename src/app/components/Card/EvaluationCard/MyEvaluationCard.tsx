@@ -78,7 +78,7 @@ const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
               <BookTitle />
               <div className="font=semibold text-[22px]">책 제목</div>
             </div>
-            <div className="flex items-center text-lg text-[#656565] gap-3">
+            <div className="flex items-center text-lg text-[#656565] gap-3 sm:hidden">
               <div>{data.authors}</div>
               <div>{data.publisher}</div>
             </div>

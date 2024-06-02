@@ -1,7 +1,9 @@
 "use client";
 import MyBookCard from "@/app/components/Card/MyInfoCard/MyBookCard";
 import Dropdown from "@/app/components/DropDown/DropDown";
+import Pagination from "@/app/components/Pagination/Pagination";
 import { useGetMyStar } from "@/hook/reactQuery/my/useGetMyStars";
+import { useGetPageParams } from "@/hook/useGetPageParams";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -20,8 +22,10 @@ const filterList: { [key: string]: number | "" } = {
 
 const StarPage = () => {
   const [starFilter, setStartFilter] = useState("별점 순");
+  const { currentUrl, page } = useGetPageParams();
   const { data: starData } = useGetMyStar({
     order: filterList[starFilter],
+    page: page,
   });
   const router = useRouter();
 
@@ -37,6 +41,7 @@ const StarPage = () => {
       <div className="grid grid-cols-6 sm:grid-cols-2 md:grid-cols-4 gap-[20px] w-[90%]">
         {(starData as any)?.data?.queryResponse.map((book: any) => (
           <MyBookCard
+            key={book.isbn}
             onClick={() => router.push(`/book/${book.isbn}`)}
             postId={book.postId}
             title={book.title}
@@ -45,6 +50,13 @@ const StarPage = () => {
           />
         ))}
       </div>
+      {starData?.data.totalCount && (
+        <Pagination
+          totalItems={starData?.data.totalCount ?? 0}
+          postPage={12}
+          link={currentUrl + `?order=${starFilter}`}
+        />
+      )}
     </div>
   );
 };

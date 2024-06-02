@@ -35,7 +35,7 @@ export const useGetMyState = ({
     queryKey: ["my", "state", page, order, status],
     queryFn: () =>
       axiosInstance.get<any>(
-        `${process.env.NEXT_PUBLIC_SERVER}/v1/users/statuses?page=1&size=4&order=${order}&status=${status}`,
+        `${process.env.NEXT_PUBLIC_SERVER}/v1/users/statuses?page=${page}&size=${size}&order=${order}&status=${status}`,
       ),
     throwOnError: true,
   });

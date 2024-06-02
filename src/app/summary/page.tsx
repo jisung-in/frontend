@@ -27,27 +27,6 @@ const SummaryPage = () => {
           setSelectedItem={setFilter}
         />
       </div>
-
-      {/* <Tabs.Content value="tab1">
-          <div className="flex flex-col items-center justify-center px-[5%]">
-            <div className="grid grid-cols-8 gap-[20px]">
-              {new Array(50).fill(1).map((_, index) => (
-                <MyBookCard key={index} />
-              ))}
-            </div>
-          </div>
-        </Tabs.Content>
-
-        <Tabs.Content value="tab2">
-          <div className="flex flex-col items-center justify-center">
-            <div className="grid w-[80%] grid-cols-2 gap-[20px]">
-              {new Array(50).fill(1).map((_, index) => (
-                <ReviewCard key={index} />
-              ))}
-            </div>
-          </div>
-        </Tabs.Content>
-      </Tabs.Root> */}
     </div>
   );
 };

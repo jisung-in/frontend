@@ -22,13 +22,19 @@ import { useQuery } from "@tanstack/react-query";
 //   userLikeCommentIds: number[];
 // };
 
-export const useGetMyReview = ({ order }: { order: string }) => {
+export const useGetMyReview = ({
+  order,
+  page,
+}: {
+  order: string;
+  page: number;
+}) => {
   return useQuery<any>({
-    queryKey: ["my", "review", order],
+    queryKey: ["my", "review", order, page],
     queryFn: () =>
       axiosInstance
         .get<any>(
-          `${process.env.NEXT_PUBLIC_SERVER}/v1/users/reviews?page=1&size=10&order=${order}`,
+          `${process.env.NEXT_PUBLIC_SERVER}/v1/users/reviews?page=${page}&size=6&order=${order}`,
         )
         .then((data) => data.data),
     throwOnError: true,
