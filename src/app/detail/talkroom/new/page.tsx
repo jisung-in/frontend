@@ -5,13 +5,16 @@ import { Input } from "@/app/components/Input/Input";
 import BackButton from "@/app/summary/_component/BackButton";
 import { BUTTON_INDEX } from "@/constants/buttonIndex";
 import { Textarea } from "@/app/components/Textarea/Textarea";
-import SearchedList from "../_component/SearchedList";
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
 import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
 import { useCreateRoom } from "@/hook/reactQuery/talkRoom/useCreateRoom";
 import { useInput } from "@/hook/useInput";
 import { useRouter } from "next/navigation";
+import SearchedList from "./_component/SearchedList";
+import useImageUpload from "@/hook/useImageUpload";
+import Camera from "@/assets/img/camera.svg";
+import Image from "next/image";
 
 const NewTalkRoom = () => {
   const [input, setInput] = useState({
@@ -23,28 +26,55 @@ const NewTalkRoom = () => {
   const { value: content, handleChange: contentChange } = useInput("");
   const [buttonState, setButtonState] = useState(BUTTON_INDEX);
   const { mutate } = useCreateRoom();
+  const { encodeImageFileAsURL, previewImage, error, uploadImages } =
+    useImageUpload();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const onSubmitClicked = () => {
+  const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) {
+      return;
+    }
+    encodeImageFileAsURL(files, "comment");
+  };
+
+  const handleSubmitClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const onSubmitClicked = async () => {
     const splitedIsbn = bookInfo?.isbn.split(" ").at(1);
     if (!bookInfo || !splitedIsbn) return;
-    mutate({
-      bookIsbn: splitedIsbn,
-      title,
-      content,
-      readingStatus: buttonState
-        .filter((state) => state.actived)
-        .map((state) => state.content),
-    });
+    const response = await uploadImages();
+    if (response?.data) {
+      mutate({
+        bookIsbn: splitedIsbn,
+        title,
+        content,
+        readingStatus: buttonState
+          .filter((state) => state.actived)
+          .map((state) => state.content),
+        imageUrls: response.data,
+      });
+    } else {
+      mutate({
+        bookIsbn: splitedIsbn,
+        title,
+        content,
+        readingStatus: buttonState
+          .filter((state) => state.actived)
+          .map((state) => state.content),
+      });
+    }
+
     router.back();
   };
 
   return (
-    <div className="flex flex-col w-full p-8">
+    <main className="flex flex-col w-full p-8">
       <BackButton />
-      <span className="text-[30px] font-bold py-4 border-b-[1px]">
-        토크방 생성
-      </span>
+      <h1 className="text-[30px] font-bold py-4 border-b-[1px]">토크방 생성</h1>
 
       <span className="text-[25px] font-bold py-4">책 찾기</span>
 
@@ -102,14 +132,45 @@ const NewTalkRoom = () => {
       <Textarea variant="white" value={title} onChange={titleChange} />
 
       <span className="text-[25px] font-bold py-4">토크방 주제 작성</span>
-      <Textarea variant="white" value={content} onChange={contentChange} />
+      <div className="w-[100%] h-[50dvh] relative">
+        <Textarea value={content} onChange={contentChange} />
+        <span
+          className="flex absolute gap-1 cursor-pointer bottom-[5%] pt-[1%] pl-[1%] w-full border-t-2 font-bold text-gray-70"
+          onClick={handleSubmitClick}
+        >
+          <Camera />
+          사진 첨부
+        </span>
+        <input
+          accept="image/*"
+          type="file"
+          onChange={onUpload}
+          ref={fileInputRef}
+          multiple
+          className="hidden"
+        />
+      </div>
+      <div className="grid grid-cols-4 pt-4">
+        {previewImage?.slice(0, 4).map((src, index) => (
+          <div key={index} className="w-29 h-44 relative">
+            <Image
+              src={src}
+              alt={`이미지 ${index + 1}`}
+              layout="fill"
+              objectFit="cover"
+            />
+          </div>
+        ))}
+      </div>
 
       <div className="flex w-full justify-end pt-8">
         <div className="w-[120px] md:w-full">
-          <Button onClick={onSubmitClicked}>생성하기</Button>
+          <Button onClick={onSubmitClicked} disabled={title.length > 0}>
+            생성하기
+          </Button>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 
