@@ -132,7 +132,7 @@ const NewTalkRoom = () => {
       <Textarea variant="white" value={title} onChange={titleChange} />
 
       <span className="text-[25px] font-bold py-4">토크방 주제 작성</span>
-      <div className="w-[100%] h-[50dvh] relative">
+      <div className="h-[20dvh] relative">
         <Textarea value={content} onChange={contentChange} />
         <span
           className="flex absolute gap-1 cursor-pointer bottom-[5%] pt-[1%] pl-[1%] w-full border-t-2 font-bold text-gray-70"
