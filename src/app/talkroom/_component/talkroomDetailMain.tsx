@@ -180,10 +180,11 @@ const talkroomDetailMain: React.FC<TalkRoomId> = ({ talkRoomId, userId }) => {
                 {talkroomOneData.images.map((image: string, index: number) => (
                   <Image
                     key={`image_${index}`}
-                    className="w-[160px] h-[160px] border border-solid border-[#FBF7F0] rounded-[4px]"
+                    className="min-w-[160px] max-w-[160px] min-h-[160px] max-h-[160px] border border-solid border-[#FBF7F0] rounded-[4px]"
                     src={image}
                     alt="이미지"
-                    fill
+                    width={160}
+                    height={160}
                   />
                 ))}
               </div>
