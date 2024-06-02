@@ -1,7 +1,5 @@
 "use client";
 import { useState } from "react";
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu";
-import Arrow from "@/assets/img/arrow.svg";
 import Dropdown from "../components/DropDown/DropDown";
 
 const filterList: string[] = [
