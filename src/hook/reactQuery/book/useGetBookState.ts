@@ -3,17 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 
 type BookStateResponse = {
   id: number;
+  bookIsbn: string;
   status: string;
-  hasReadingStatus: boolean;
 };
 
-export const useGetBookState = (isbn: string) => {
+export const useGetBookState = () => {
   return useQuery<BookStateResponse>({
-    queryKey: ["book", "state", isbn],
-    queryFn: () =>
-      axiosInstance
-        .get(`/v1/user-libraries?isbn=${isbn}`)
-        .then((data) => data.data),
+    queryKey: ["state"],
+    queryFn: () => axiosInstance.get(`/v1/libraries`).then((data) => data.data),
     throwOnError: true,
   });
 };

@@ -11,6 +11,7 @@ type TalkRoomResponse = {
   username: string;
   title: string;
   content: string;
+  bookIsbn: string;
   bookName: string;
   bookThumbnail: string;
   bookAuthor: string;
