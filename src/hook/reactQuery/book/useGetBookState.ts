@@ -5,7 +5,7 @@ type BookStateResponse = {
   id: number;
   bookIsbn: string;
   status: string;
-};
+}[];
 
 export const useGetBookState = () => {
   return useQuery<BookStateResponse>({

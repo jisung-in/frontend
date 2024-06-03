@@ -27,6 +27,12 @@ type CommentsData = {
   creatorId: number;
 };
 
+type Book = {
+  id: number;
+  bookIsbn: string;
+  status: string;
+};
+
 const Page = ({ params }: { params: { id: number } }) => {
   const { isLoggedIn } = useLogin();
   const [hydrated, setHydrated] = useState(false);
@@ -52,10 +58,12 @@ const Page = ({ params }: { params: { id: number } }) => {
     if (!Array.isArray(getBookState)) {
       return false;
     }
-    return getBookState.some(
-      (book: { bookIsbn: string }) =>
-        book.bookIsbn === talkroomOneData?.bookIsbn,
-    );
+    return getBookState.some((book: Book) => {
+      return (
+        book.bookIsbn === talkroomOneData?.bookIsbn &&
+        talkroomOneData?.readingStatuses.includes(book.status)
+      );
+    });
   };
 
   return (
