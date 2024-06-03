@@ -21,8 +21,9 @@ type BookStatusCondition = {
 };
 
 const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
-  const { data: statusData, refetch } = useGetBookState(isbn);
+  const { data: statusData, refetch } = useGetBookState();
   const [status, setStatus] = useState<string>("");
+  const [bookStateId, setBookStateId] = useState<number | null>(null);
   const statusMap: { [key: string]: string } = {
     "읽고 싶은": "want",
     "읽는 중": "reading",
@@ -32,16 +33,21 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
   };
 
   useEffect(() => {
-    if (statusData?.status) {
-      setStatus(statusMap[statusData.status] || "");
+    const bookState = Array.isArray(statusData)
+      ? statusData.find((book) => book.bookIsbn === isbn)
+      : null;
+    if (bookState) {
+      setStatus(statusMap[bookState.status] || "");
+      setBookStateId(bookState.id);
     } else {
       setStatus("");
+      setBookStateId(null);
     }
-  }, [statusData]);
+  }, [statusData, isbn]);
 
   const createBookState = useCreateBookState();
   const deleteBookState = useDeleteBookState();
-  const patchBookState = usePatchBookState(statusData?.id || 0);
+  const patchBookState = usePatchBookState(bookStateId || 0);
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const changeStatus = (statusName: string) => {
@@ -57,22 +63,26 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
           },
         );
       } else if (statusName === status) {
-        deleteBookState.mutate(statusData?.id || 0, {
-          onSuccess: () => {
-            setStatus("");
-            refetch();
-          },
-        });
-      } else {
-        patchBookState.mutate(
-          { isbn, readingStatus: statusName },
-          {
+        if (bookStateId !== null) {
+          deleteBookState.mutate(bookStateId, {
             onSuccess: () => {
-              setStatus(statusName);
+              setStatus("");
               refetch();
             },
-          },
-        );
+          });
+        }
+      } else {
+        if (bookStateId !== null) {
+          patchBookState.mutate(
+            { isbn, readingStatus: statusName },
+            {
+              onSuccess: () => {
+                setStatus(statusName);
+                refetch();
+              },
+            },
+          );
+        }
       }
     } else {
       setShowModal(!showModal);
