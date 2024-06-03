@@ -7,6 +7,7 @@ import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
+import { useGetReviewCount } from "@/hook/reactQuery/book/useGetReviewCount";
 import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
@@ -56,6 +57,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
     useGetBookInformation({
       isbn: params.isbn,
     });
+  const { data: reviewCount } = useGetReviewCount(params.isbn);
   const totalRatingChange = useCallback(() => {
     refetchBookInformation();
   }, [refetchBookInformation]);
@@ -95,7 +97,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <div className="flex flex-row mt-[63px] mb-[28px] items-center">
             <div className="flex flex-row gap-x-[19px] flex-grow text-[30px] font-SpoqaHanSansNeo items-center">
               <div className="font-bold">유저들의 평가</div>
-              <div className="font-medium text-[#74747B]">3000+</div>
+              <div className="font-medium text-[#74747B]">{reviewCount}</div>
             </div>
             <Link href={`/evaluation/${params.isbn}?order=like`}>
               <div className="text-[20px] text-[#74747B] font-Pretendard font-regular">
