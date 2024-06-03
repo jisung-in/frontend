@@ -10,7 +10,7 @@ export const useCreateBookState = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (request: BookStateRequest) =>
-      axiosInstance.post(`/v1/user-libraries`, request),
+      axiosInstance.post(`/v1/libraries`, request),
     onSuccess: (_, { isbn }) =>
       queryClient.invalidateQueries({ queryKey: ["book", "state", isbn] }),
   });

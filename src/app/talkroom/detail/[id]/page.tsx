@@ -4,9 +4,11 @@ import { Button } from "@/app/components/Button/Button";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
+import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike";
 import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
+import { useGetOneRoom } from "@/hook/reactQuery/talkRoom/useGetOneRoom";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -28,6 +30,8 @@ type CommentsData = {
 const Page = ({ params }: { params: { id: number } }) => {
   const { isLoggedIn } = useLogin();
   const [hydrated, setHydrated] = useState(false);
+  const { data: talkroomOneData } = useGetOneRoom({ talkRoomId: params.id });
+  const { data: getBookState } = isLoggedIn ? useGetBookState() : { data: [] };
   const { data: commentLikeIds } = isLoggedIn
     ? useGetCommentLike()
     : { data: { commentIds: [] } };
@@ -44,6 +48,16 @@ const Page = ({ params }: { params: { id: number } }) => {
     return null;
   }
 
+  const isCondition = (): boolean => {
+    if (!Array.isArray(getBookState)) {
+      return false;
+    }
+    return getBookState.some(
+      (book: { bookIsbn: string }) =>
+        book.bookIsbn === talkroomOneData?.bookIsbn,
+    );
+  };
+
   return (
     <div>
       <MainThemeTitle title="토크해요">
@@ -51,14 +65,14 @@ const Page = ({ params }: { params: { id: number } }) => {
       </MainThemeTitle>
 
       <TalkRoomDetailMain
-        talkRoomId={params.id}
+        data={talkroomOneData}
         userId={myDetailData?.userId || -1}
       />
 
       <hr className="border-[6px] border-[#F5EFE5] mt-[47px] mb-[42px]" />
 
       <div className="flex flex-col items-center mt-[37px] mb-[31px]">
-        {isLoggedIn ? (
+        {isLoggedIn && isCondition() ? (
           <>
             <div className="font-SpoqaHanSansNeo font-bold text-[#80685D] text-[30px] mb-[43px]">
               참가 조건에 부합하여 의견 작성이 가능합니다
