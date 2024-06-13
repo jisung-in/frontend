@@ -12,6 +12,17 @@
   
 ![last commit](https://img.shields.io/github/last-commit/jisung-in/frontend?color=green)
 ![most language](https://img.shields.io/github/languages/top/jisung-in/frontend)
+
+![Discord](https://img.shields.io/badge/Discord-7289DA?style=for-the-badge&logo=discord&logoColor=white)
+![SLACK](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
+<br/>
+
+![Next.js](https://img.shields.io/badge/Next.js-000?logo=nextdotjs&logoColor=fff&style=for-the-badge)
+![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Redux](https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white)
+![Tailwind Css](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
 </div>
 
 <br/>
@@ -31,6 +42,8 @@
   - [6.유저들의 평가](#6유저들의-평가)
   - [7.연관된 토크방](#7연관된-토크방)
 - [👨‍💻 기술 스택](#-기술-스택)
+  - [프론트엔드 기술 스택](#프론트엔드-기술-스택)
+  - [기타 툴](#기타-툴) 
 - [💻 업무 분배](#-업무-분배)
 - [⚙️ 주요 기능 & 로직](#-주요-기능-&-로직)
 
@@ -210,3 +223,26 @@
 **책 상세보기 페이지**에서 **연관된 토크방 더보기**를 누르면 접근 할 수 있는 페이지 입니다.  
 
 **책과 관련된 토크방**만을 보여줍니다.
+
+<br/>
+
+## 👨‍💻 기술 스택
+ ### 프론트엔드 기술 스택
+ - **프레임워크** : Next.js 14
+ - **언어** : Typescript
+ - **상태 관리** : React-query, Redux
+ - **API** : axios
+ - **CSS** : Tailwind CSS
+ - **오픈 소스 라이브러리** : Story book, MSW, Faker.js
+### 기타 툴
+  - **이슈 관리** : Github Issue  
+  - **커뮤니케이션** : Slack, Discord
+
+<br/>
+
+## 💻 업무 분배
+
+|변승훈|정준형|
+| :---: | :---: |
+|[@SeungHun6450](https://github.com/SeungHun6450)|[@jungjunhyung99](https://github.com/jungjunhyung99)|
+| **1. 메인 페이지**<br/>인기있는 토크방, 베스트 셀러, <br/>최근 생성된 토크방, 토크 많은 책 카테고리 구현 <br/>1. 각 토크방 옆의 전체보기 클릭 시, <br/>조건에 맞게 필터링하여 토크해요 페이지로 이동<br/>2. 책 표지 클릭 시, 책 상세보기 페이지로 이동<br/>3. 토크방 클릭 시, 토크방 상세보기 페이지로 이동<br/><br/>**2. 토크방**<br/>메인 페이지, 토크해요 페이지, 연관된 토크방 페이지에서 보이는 토크방(토크방 카드)제작<br/><br/>**3. 토크방 상세보기**<br/>토크방을 눌렀을 때, 해당 페이지로 이동<br/>참가조건에 부합하면 의견을 작성 가능<br/><br/>**4. 토크해요**<br/>1. 최신순, 인기순, 날짜별 총 3개의 필터를 가진 사용자들이 작성한 토크방을 보여주는 페이지<br/>2. 제목을 검색하여 원하는 토크방을 찾기<br/><br/>**5. 책 상세보기**<br/>1. 책에 대한 정보를 확인<br/>2. 책에 대한 별점을 남기기<br/>3. 독서 상태 기록, 이는 토크방의 참가조건에 해당<br/> 4. 책에 대한 한줄 평 작성<br/>5. 유저들의 평가를 확인 가능<br/>6. 연관된 토크방 확인 가능<br/><br/>**6. 유저들의 평가**<br/>1. 선택한 책의 유저들의 한줄 평을 확인<br/>2. 좋아요, 평점, 최신순으로 필터링 가능<br/><br/>**7. 연관된 토크방**<br/>선택한 책을 주제로 한 토크방들을 확인 가능|**로그인**|
