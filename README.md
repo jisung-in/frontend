@@ -1,12 +1,5 @@
 ![지성인배너02](https://github.com/jisung-in/frontend/assets/65530775/e437b4b7-dde1-46df-8863-208186685b72)
 
-<div align="center">
-  <p>책과 관련된 주제로 자유롭게 이야기를 나누는 곳</p>
-  <a href="https://jisungin.co.kr" target="_blank">
-    <p>https://jisungin.co.kr</p>
-  </a>
-</div>
-
 <br/>
 <div align="center">
   
@@ -28,6 +21,15 @@
 <br/>
 
 # 📖 지성인
+
+<br/>
+
+<div align="center">
+  <p>책과 관련된 주제로 자유롭게 이야기를 나누는 곳을 서비스 중입니다.</p>
+  <a href="https://jisungin.co.kr" target="_blank">
+    <p>https://jisungin.co.kr</p>
+  </a>
+</div>
 
 ## 📑 목차
 
@@ -237,6 +239,7 @@
  - **API** : axios
  - **CSS** : Tailwind CSS
  - **오픈 소스 라이브러리** : Story book, MSW, Faker.js, Swiper
+ - **배포** : Vercel (도메인과 연동하여 배포)
 ### 기타 툴
   - **이슈 관리** : Github Issue  
   - **커뮤니케이션** : Slack, Discord
