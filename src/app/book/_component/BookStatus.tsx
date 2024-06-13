@@ -13,6 +13,7 @@ import { useCreateBookState } from "@/hook/reactQuery/book/useCreateBookState";
 import { useDeleteBookState } from "@/hook/reactQuery/book/useDeleteBookState";
 import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { usePatchBookState } from "@/hook/reactQuery/book/usePatchBookState";
+import { useLogin } from "@/hook/useLogin";
 import { useEffect, useState } from "react";
 
 type BookStatusCondition = {
@@ -21,7 +22,10 @@ type BookStatusCondition = {
 };
 
 const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
-  const { data: statusData, refetch } = useGetBookState();
+  const { isLoggedIn } = useLogin();
+  const { data: statusData, refetch } = isLoggedIn
+    ? useGetBookState()
+    : { data: [], refetch: () => {} };
   const [status, setStatus] = useState<string>("");
   const [bookStateId, setBookStateId] = useState<number | null>(null);
   const statusMap: { [key: string]: string } = {
