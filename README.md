@@ -298,14 +298,14 @@
 6. **axios**
       - 데이터를 호출할 때 `axios`를 사용하여 호출했습니다.
 7. **React-query hook 사용**
-      - `custom hook`을 사용하여 `refetch, useInfiniteQuery`등의 기능을 사용해 구현했습니다.
+      - `custom hook`을 제작하여 `refetch, useInfiniteQuery`등의 기능을 사용해 구현했습니다.
 8. **Story Book**
     - Story Book을 이용하여 공통된 버튼이나 `textarea`를 관리하였습니다.
 9. **MSW**
-    - 백엔드에서 작업이 끝난 상태가 아니였을 때 MSW를 사용하여 UI작업을 진행하였습니다.
-    - 이후 서버가 닫혀도 MSW를 이용하여 더미데이터로 화면을 보여줄 예정입니다.
+    - 백엔드 API 개발에 의존적인 프론트엔드 개발의 의존성을 타파하기 위해 MSW를 사용하였습니다.
+    - MSW를 사용함으로써 API 개발 이후에도 코드의 수정 없이, 서비스 로직을 그대로 유지할 수 있었습니다.
 10. **Faker.js**
-    - Faker.js를 이용하여 임시 이미지를 부여해 MSW와 같이 사용했습니다.
+    - Faker.js를 이용하여 임시 이미지를 부여해 MSW와 함께 사용했습니다.
 
 ### 로직
 1. **공통 util 함수**
