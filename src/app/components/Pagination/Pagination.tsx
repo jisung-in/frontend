@@ -73,12 +73,12 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
       {pageNumber.map((pageNum: number) => (
         <div key={pageNum} className="mr-[17px] text-[15px] text-[#A3A3A3]">
           {currentPage === pageNum ? (
-            <span className="bg-[#80685D] rounded-[5px] text-white px-[17px] py-[12px]">
+            <span className="text-[#80685D] bg-[#fff] border border-[#80685D] rounded-[5px] px-[17px] py-[12px]">
               {pageNum}
             </span>
           ) : (
             <Link
-              className="px-[17px] py-[12px]"
+              className="px-[17px] py-[12px] border border-transparent rounded-[5px] hover:border-[#EAEAEA]"
               href="#"
               onClick={(e) => {
                 e.preventDefault();
@@ -91,6 +91,7 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
           )}
         </div>
       ))}
+
       <div>
         {currentPage < totalPages && (
           <Link
