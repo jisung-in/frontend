@@ -60,7 +60,7 @@ const page = () => {
         <div className="grow mb-[25px] flex justify-end">
           <Link href={"/detail/talkroom/new"}>
             <Button
-              className="px-3 w-[167px]"
+              className="px-4 w-[167px]"
               variant={"mainPage"}
               weight={"semi"}
             >

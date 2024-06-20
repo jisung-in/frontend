@@ -13,7 +13,7 @@ const buttonVariants = cva(
         ivory: "bg-ivory-40 text-brown-50",
         notCondition: "bg-[#E7E7E7]",
         mainPage:
-          "bg-[#fff] text-[#80685D] text-[17px] border border-rounded border-[#80685D] rounded-[5px] hover:bg-brown-50 hover:text-white",
+          "bg-[#fff] px-4 text-[#80685D] text-[17px] border border-rounded border-[#80685D] rounded-[5px] hover:bg-brown-50 hover:text-white",
       },
       rounded: {
         none: "rounded-none",
