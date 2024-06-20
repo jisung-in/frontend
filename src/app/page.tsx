@@ -4,8 +4,10 @@ import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
+import { usePathname, useSearchParams } from "next/navigation";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
+import Pagination from "./components/Pagination/Pagination";
 type TalkRoom = {
   id: number;
   profileImage: string;
@@ -20,16 +22,12 @@ type TalkRoom = {
   registeredDateTime: string;
   creatorId: number;
 };
-type TalkRoomBookOrder = {
-  isbn: string;
-  title: string;
-  publisher: string;
-  thumbnail: string;
-  authors: string[];
-  dateTime: string;
-};
+
 const page = () => {
   const { isLoggedIn } = useLogin();
+  const currentUrl = usePathname();
+  const param = useSearchParams();
+  const pageParam = param.get("page");
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
@@ -37,8 +35,8 @@ const page = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data: recentData } = useGetRooms({
-    page: 1,
+  const { data: recentData, isLoading } = useGetRooms({
+    page: Number(pageParam ? pageParam : 1),
     size: 3,
     order: "recent",
     search: "",
@@ -79,6 +77,15 @@ const page = () => {
         )}
       </div>
 
+      {isLoading ? (
+        <></>
+      ) : (
+        <Pagination
+          totalItems={recentData?.totalCount ?? 0}
+          postPage={3}
+          link={currentUrl}
+        />
+      )}
       {/* <div className=":my-[56px] px-[120px] ">
         <ThemeMain.MainTheme>
           <div

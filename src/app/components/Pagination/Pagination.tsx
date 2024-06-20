@@ -35,7 +35,11 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
   const changePage = (number: number) => {
     if (number < 1 || number > totalPages) return;
     setCurrentPage(number);
-    const newLink = `${link.split("&page=")[0]}&page=${number}`;
+    const baseLink = link.split("?")[0];
+    const params = new URLSearchParams(link.split("?")[1]);
+    params.set("page", number.toString());
+
+    const newLink = `${baseLink}?${params.toString()}`;
     router.push(newLink);
   };
 
@@ -54,7 +58,7 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
       <div className="mr-[17px]">
         {currentPage > 1 && (
           <Link
-            href={`${link.split("&page=")[0]}&page=${currentPage - 1}`}
+            href="#"
             onClick={(e) => {
               e.preventDefault();
               changePage(currentPage - 1);
@@ -69,17 +73,13 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
       {pageNumber.map((pageNum: number) => (
         <div key={pageNum} className="mr-[17px] text-[15px] text-[#A3A3A3]">
           {currentPage === pageNum ? (
-            <Link
-              className="bg-[#80685D] rounded-[5px] text-white px-[17px] py-[12px]"
-              passHref
-              href="#"
-            >
+            <span className="bg-[#80685D] rounded-[5px] text-white px-[17px] py-[12px]">
               {pageNum}
-            </Link>
+            </span>
           ) : (
             <Link
               className="px-[17px] py-[12px]"
-              href={`${link.split("&page=")[0]}&page=${pageNum}`}
+              href="#"
               onClick={(e) => {
                 e.preventDefault();
                 changePage(pageNum);
@@ -94,7 +94,7 @@ const Pagination = ({ totalItems, postPage, link }: PaginationProps) => {
       <div>
         {currentPage < totalPages && (
           <Link
-            href={`${link.split("&page=")[0]}&page=${currentPage + 1}`}
+            href="#"
             onClick={(e) => {
               e.preventDefault();
               changePage(currentPage + 1);
