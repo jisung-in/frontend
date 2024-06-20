@@ -59,11 +59,7 @@ const page = () => {
       <div className="flex flex-col">
         <div className="grow mb-[25px] flex justify-end">
           <Link href={"/detail/talkroom/new"}>
-            <Button
-              className="px-4 w-[167px]"
-              variant={"mainPage"}
-              weight={"semi"}
-            >
+            <Button className="w-[167px]" variant={"mainPage"} weight={"semi"}>
               <CreateTalkRoom />
               토크방 생성하기
             </Button>
