@@ -1,10 +1,13 @@
 "use client";
+import CreateTalkRoom from "@/assets/img/create-talk-room.svg";
 import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
+import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { Button } from "./components/Button/Button";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
 import Pagination from "./components/Pagination/Pagination";
@@ -53,8 +56,19 @@ const page = () => {
         {/* 기록, 질문, 평가 컴포넌트 위치 */}
       </div>
 
-      <div className="">
-        <div className="mb-[25px]">{/* 버튼 */}</div>
+      <div className="flex flex-col">
+        <div className="grow mb-[25px] flex justify-end">
+          <Link href={"/detail/talkroom/new"}>
+            <Button
+              className="px-3 w-[167px]"
+              variant={"mainPage"}
+              weight={"semi"}
+            >
+              <CreateTalkRoom />
+              토크방 생성하기
+            </Button>
+          </Link>
+        </div>
         {recentData && recentData.queryResponse.length > 0 ? (
           <div className="flex flex-col gap-y-[25px]">
             {recentData.queryResponse.map((data: TalkRoom) => {

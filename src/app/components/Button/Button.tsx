@@ -12,6 +12,8 @@ const buttonVariants = cva(
         gray: "text-gray-80 font-[500] border-2",
         ivory: "bg-ivory-40 text-brown-50",
         notCondition: "bg-[#E7E7E7]",
+        mainPage:
+          "bg-[#fff] text-[#80685D] text-[17px] border border-rounded border-[#80685D] rounded-[5px] hover:bg-brown-50 hover:text-white",
       },
       rounded: {
         none: "rounded-none",
