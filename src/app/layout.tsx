@@ -24,11 +24,15 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
             <ReduxProvider>
-              <Header />
-              <div className="flex flex-col items-center w-[100%]">
+              <div className="flex">
+                <Header />
+              </div>
+              <div className="flex flex-col grow items-center w-[100%]">
                 {children}
               </div>
-              <Footer />
+              <div className="flex">
+                <Footer />
+              </div>
             </ReduxProvider>
           </ReactQueryProvider>
         </div>
