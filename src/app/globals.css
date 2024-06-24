@@ -42,6 +42,15 @@
 .swiper-button-next::after {
   background-image: url("../assets/img//swiper-next-button.png") !important;
 }
+.swiper-slide {
+  border-right: 1px solid #f4e4ce; /* 슬라이드 사이의 경계선 색상과 두께 설정 */
+  padding-right: 15px; /* 슬라이드 내 패딩 설정 */
+  box-sizing: border-box; /* 패딩과 경계선 포함한 크기 설정 */
+}
+
+.swiper-slide:last-child {
+  border-right: none; /* 마지막 슬라이드에는 경계선 없애기 */
+}
 
 body {
   background-color: #fff;
