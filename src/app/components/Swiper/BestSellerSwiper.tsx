@@ -30,7 +30,7 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({ data }) => {
           modules={[Navigation, Pagination]}
           slidesPerView={2}
           slidesPerGroup={2}
-          spaceBetween={35} // 슬라이드 간격 설정
+          spaceBetween={35}
         >
           {data?.map((data) => (
             <SwiperSlide key={data.isbn}>
