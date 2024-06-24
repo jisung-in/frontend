@@ -77,7 +77,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
     <div className="min-w-[328px] w-[84vw] max-w-[1280px] max-h-[236px] rounded-[17px] bg-[#fff] border border-[#F4E4CE] font-Pretendard overflow-hidden">
       <Link href={`/talkroom/detail/${data.id}`}>
         <div className="flex justify-center mx-[32px] my-[35px]">
-          <div className="flex grow">
+          <div className="flex">
             <div className="relative min-w-[110px] max-w-[110px] min-h-[150px] max-h-[150px]">
               {data.bookThumbnail ? (
                 <Image
@@ -109,9 +109,27 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                     </div>
                   )}
                 </div>
-
-                <div className="flex text-[17px] text-[#7E7E7E]">
-                  {timeLapse(data.registeredDateTime)}
+                <div className="flex flex-col items-center mt-1.5 ml-3">
+                  <IconButton onClick={changeIsLike}>
+                    {isLike ? (
+                      <div>
+                        <Like width={21} height={19} />
+                        <div
+                          className="text-[13px] 
+                        font-Inter font-regular text-[#F24D4D]"
+                        >
+                          {count}
+                        </div>
+                      </div>
+                    ) : (
+                      <>
+                        <NotLike width={21} height={19} />
+                        <div className="text-[13px] font-Inter font-regular text-[#624E45]">
+                          {count}
+                        </div>
+                      </>
+                    )}
+                  </IconButton>
                 </div>
               </div>
 
@@ -122,7 +140,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 </div>
               </div>
 
-              <div className="flex flex-row gap-x-2.5 items-center">
+              <div className="flex flex-row gap-x-2.5 items-center text-base">
                 <div>
                   <Image
                     className="w-[18px] h-[18px] rounded-[50%]"
@@ -137,8 +155,10 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                     priority
                   />
                 </div>
-                <div className="text-base font-medium text-[#777]">
-                  {data.username}
+                <div className="font-medium text-[#777]">{data.username}</div>
+                <div className="">|</div>
+                <div className="text-[#7E7E7E]">
+                  {timeLapse(data.registeredDateTime)}
                 </div>
               </div>
 
@@ -159,29 +179,6 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 )}
               </div>
             </div>
-          </div>
-
-          <div className="flex flex-col items-center mt-1.5 ml-3">
-            <IconButton onClick={changeIsLike}>
-              {isLike ? (
-                <div>
-                  <Like width={21} height={19} />
-                  <div
-                    className="text-[13px] 
-                        font-Inter font-regular text-[#F24D4D]"
-                  >
-                    {count}
-                  </div>
-                </div>
-              ) : (
-                <>
-                  <NotLike width={21} height={19} />
-                  <div className="text-[13px] font-Inter font-regular text-[#624E45]">
-                    {count}
-                  </div>
-                </>
-              )}
-            </IconButton>
           </div>
         </div>
       </Link>
