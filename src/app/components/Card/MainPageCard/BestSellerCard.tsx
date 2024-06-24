@@ -1,110 +1,63 @@
+import BookTitle from "@/assets/img/book-title.svg";
 import NoImage from "@/assets/img/no-image.png";
+import Rank1 from "@/assets/img/rank1.svg";
+import Rank2 from "@/assets/img/rank2.svg";
+import Rank3 from "@/assets/img/rank3.svg";
 import Image from "next/image";
+import Link from "next/link";
 import { BookMain } from "../../Book/Book";
 
 type BestSellerCardProps = {
-  ranking: number;
+  isbn: string;
   title: string;
-  publisher: string;
   thumbnail: string;
-  authors: string[];
-  dateTime: string;
 };
 const BestSellerCard: React.FC<BestSellerCardProps> = ({
-  ranking,
+  isbn,
   title,
-  publisher,
   thumbnail,
-  authors,
-  dateTime,
 }) => {
   return (
-    <BookMain>
-      <BookMain.BookCover>
-        <div
-          className="
-          relative
-          min-w-[120px]
-          min-h-[170px]
-          w-full
-          pt-[141.67%] /* 120 / 170 = 0.70588 = 70.588% */
-          max-w-[320px]
-          max-h-[450px]
-          overflow-hidden"
-        >
-          <Image
-            className="border border-[#F4E4CE] 
-            sm:rounded-[5px]
-            md:rounded-[6px]
-            lg:rounded-[8px]
-            xl:rounded-[9px]
-            xl2:rounded-[10px]
-            "
-            src={thumbnail ? thumbnail : NoImage}
-            alt="책 표지"
-            fill
-          />
+    <div className="flex flex-row grow font-Pretendard text-[#000]">
+      <Link href={`/book/${isbn}`}>
+        <BookMain className="w-[180px] flex flex-col mr-[26px]">
+          <BookMain.BookCover>
+            <div className="relative min-w-[180px] min-h-[250px] max-w-[180px] max-h-[250px]">
+              <Image
+                className="border border-[#F4E4CE]"
+                src={thumbnail ? thumbnail : NoImage}
+                alt="책 표지"
+                fill
+              />
+            </div>
+          </BookMain.BookCover>
+          <BookMain.BookTitle>
+            <div className="flex flex-row mt-[7px] items-center gap-x-2.5">
+              <div className="w-[15px]">
+                <BookTitle />
+              </div>
+              <div className="text-[19px] font-medium text-[#000] overflow-hidden line-clamp-1">
+                {title}
+              </div>
+            </div>
+          </BookMain.BookTitle>
+        </BookMain>
+      </Link>
+      <div className="flex flex-col font-semibold">
+        <div className="flex flex-row items-center">
+          <Rank1 />
+          읽기 전 참고할 내용
         </div>
-      </BookMain.BookCover>
-      {ranking && <BookMain.RankBox>{ranking}</BookMain.RankBox>}
-      <BookMain.BookTitle>
-        <div
-          className="
-          sm:text-[12px]
-          md:text-[15px]
-          lg:text-[17px]
-          xl:text-[19px]
-          xl2:text-[21px]
-          sm:mt-[8px]
-          md:mt-[9px]
-          lg:mt-[10px]
-          xl:mt-[11px]
-          xl2:mt-[12px]
-          font-semibold text-[#000] overflow-hidden line-clamp-1"
-        >
-          {title}
+        <div className="flex flex-row items-center">
+          <Rank2 />
+          읽기 전 참고할 내용
+        </div>{" "}
+        <div className="flex flex-row items-center">
+          <Rank3 />
+          읽기 전 참고할 내용
         </div>
-      </BookMain.BookTitle>
-      <BookMain.Publisher>
-        <div
-          className="
-          sm:text-[11px]
-          md:text-[13px]
-          lg:text-[15px]
-          xl:text-[17px]
-          xl2:text-lg
-          overflow-hidden line-clamp-1"
-        >
-          {publisher}
-        </div>
-      </BookMain.Publisher>
-      <BookMain.Author>
-        <div
-          className="
-          sm:text-[11px]
-          md:text-[13px]
-          lg:text-[15px]
-          xl:text-[17px]
-          xl2:text-lg 
-          overflow-hidden line-clamp-1"
-        >
-          {authors.join(", ")}
-        </div>
-      </BookMain.Author>
-      <BookMain.Year>
-        <div
-          className="          
-          sm:text-[11px]
-          md:text-[13px]
-          lg:text-[15px]
-          xl:text-[17px]
-          xl2:text-lg
-          overflow-hidden line-clamp-1"
-        >
-          {dateTime.slice(0, 4)}
-        </div>
-      </BookMain.Year>
-    </BookMain>
+      </div>
+    </div>
   );
 };
 
