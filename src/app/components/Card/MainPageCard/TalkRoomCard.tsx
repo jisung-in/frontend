@@ -114,10 +114,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                     {isLike ? (
                       <div>
                         <Like width={21} height={19} />
-                        <div
-                          className="text-[13px] 
-                        font-Inter font-regular text-[#F24D4D]"
-                        >
+                        <div className="text-[13px] font-Inter font-regular text-[#F24D4D]">
                           {count}
                         </div>
                       </div>
