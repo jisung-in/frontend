@@ -16,9 +16,17 @@ interface BookSliderProps {
     authors: string[];
     dateTime: string;
   }[];
+  isLoggedIn: boolean;
+  myDetailData: { userId: number; userImage: string; userName: string };
+  talkRoomLikeIds: number[];
 }
 
-const BestSellerSwiper: React.FC<BookSliderProps> = ({ data }) => {
+const BestSellerSwiper: React.FC<BookSliderProps> = ({
+  data,
+  isLoggedIn,
+  myDetailData,
+  talkRoomLikeIds,
+}) => {
   return (
     <section>
       <ul className="max-w-[1280px] max-h-[513px]">
@@ -38,6 +46,9 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({ data }) => {
                 isbn={data.isbn}
                 thumbnail={data.thumbnail}
                 title={data.title}
+                isLoggedIn={isLoggedIn}
+                talkRoomLikeIds={talkRoomLikeIds}
+                myDetailData={myDetailData}
               />
             </SwiperSlide>
           ))}
