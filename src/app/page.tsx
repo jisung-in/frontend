@@ -108,7 +108,14 @@ const page = () => {
           </div>
         </ThemeMain.MainTheme>
         {bookRankData && bookRankData.length > 0 ? (
-          <BestSellerSwiper data={bookRankData} />
+          <BestSellerSwiper
+            data={bookRankData}
+            isLoggedIn={isLoggedIn}
+            talkRoomLikeIds={talkRoomLikeIds?.talkRoomIds || []}
+            myDetailData={
+              myDetailData || { userId: -1, userImage: "", userName: "" }
+            }
+          />
         ) : (
           <HaveNotData content={"베스트 셀러가"} />
         )}
