@@ -1,22 +1,51 @@
 import BookTitle from "@/assets/img/book-title.svg";
 import NoImage from "@/assets/img/no-image.png";
-import Rank1 from "@/assets/img/rank1.svg";
-import Rank2 from "@/assets/img/rank2.svg";
-import Rank3 from "@/assets/img/rank3.svg";
+import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import Image from "next/image";
 import Link from "next/link";
 import { BookMain } from "../../Book/Book";
+import HaveNotData from "../../HaveNotData/HaveNotData";
+import BestSellerTalkRoomCard from "./BestSellerTalkRoomCard";
 
 type BestSellerCardProps = {
   isbn: string;
   title: string;
   thumbnail: string;
+  isLoggedIn: boolean;
+  myDetailData: { userId: number; userImage: string; userName: string };
+  talkRoomLikeIds: number[];
 };
+
+type TalkRoom = {
+  id: number;
+  profileImage: string;
+  username: string;
+  title: string;
+  content: string;
+  bookName: string;
+  bookAuthor: string;
+  bookThumbnail: string;
+  likeCount: number;
+  readingStatuses: string[];
+  registeredDateTime: string;
+  creatorId: number;
+};
+
 const BestSellerCard: React.FC<BestSellerCardProps> = ({
   isbn,
   title,
   thumbnail,
+  isLoggedIn,
+  myDetailData,
+  talkRoomLikeIds,
 }) => {
+  const { data: recentData } = useGetRooms({
+    page: 1,
+    size: 3,
+    order: "recent",
+    search: "",
+    sortbydate: "",
+  });
   return (
     <div className="flex flex-row grow font-Pretendard text-[#000]">
       <Link href={`/book/${isbn}`}>
@@ -43,20 +72,24 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
           </BookMain.BookTitle>
         </BookMain>
       </Link>
-      <div className="flex flex-col font-semibold">
-        <div className="flex flex-row items-center">
-          <Rank1 />
-          읽기 전 참고할 내용
+      {recentData && recentData.queryResponse.length > 0 ? (
+        <div className="flex flex-col w-[370px]">
+          {recentData.queryResponse.map((data: TalkRoom, index) => {
+            const isLike = isLoggedIn && talkRoomLikeIds.includes(data.id);
+            return (
+              <BestSellerTalkRoomCard
+                rank={index}
+                key={data.id}
+                data={data}
+                userId={myDetailData.userId}
+                isLike={isLike}
+              />
+            );
+          })}
         </div>
-        <div className="flex flex-row items-center">
-          <Rank2 />
-          읽기 전 참고할 내용
-        </div>{" "}
-        <div className="flex flex-row items-center">
-          <Rank3 />
-          읽기 전 참고할 내용
-        </div>
-      </div>
+      ) : (
+        <HaveNotData content={"최근 생성된 토크방이"} />
+      )}
     </div>
   );
 };
