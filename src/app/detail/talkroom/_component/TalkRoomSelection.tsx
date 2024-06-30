@@ -5,6 +5,7 @@ import MainSelectionCard from "@/app/components/MainSelectionCard/MainSelectionC
 import BackButton from "@/app/summary/_component/BackButton";
 import clsx from "clsx";
 import { useState } from "react";
+import TalkRoomIcon from "@/assets/img/talk-icon.svg";
 
 const TalkRoomSelection = () => {
   const [selection, setSelection] = useState("record");
@@ -13,12 +14,16 @@ const TalkRoomSelection = () => {
     <div className="flex flex-col w-full min-h-[800px] bg-white px-[20%] py-10">
       <BackButton />
 
-      <h1 className="text-[30px] font-bold py-4 border-b-[1px]">토크방 생성</h1>
+      <span className="flex items-center gap-4 text-[30px] font-bold py-4 border-b-[1px]">
+        토크방 생성
+        <TalkRoomIcon />
+      </span>
       <div className="flex flex-col gap-8">
         <div
           className={clsx(
-            "flex items-center hover:bg-purple-40 duration-500 hover:border-purple-50 cursor-pointer border-2 rounded-xl p-2 gap-4",
-            selection === "record" && "bg-purple-40 border-purple-50",
+            "flex items-center hover:bg-purple-40 duration-500 hover:border-purple-50 cursor-pointer border-2 rounded-xl p-2 gap-4 text-lg font-bold text-gray-60",
+            selection === "record" &&
+              "bg-purple-40 border-purple-50 text-black",
           )}
           onClick={() => setSelection("record")}
         >
@@ -34,8 +39,9 @@ const TalkRoomSelection = () => {
         </div>
         <div
           className={clsx(
-            "flex items-center hover:bg-yellow-40 duration-500 hover:border-yellow-50 cursor-pointer border-2 rounded-xl p-2 gap-4",
-            selection === "question" && "bg-yellow-40 border-yellow-50",
+            "flex items-center hover:bg-yellow-40 duration-500 hover:border-yellow-50 cursor-pointer border-2 rounded-xl p-2 gap-4 font-bold text-gray-60",
+            selection === "question" &&
+              "bg-yellow-40 border-yellow-50 text-black",
           )}
           onClick={() => setSelection("question")}
         >
