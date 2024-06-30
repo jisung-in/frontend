@@ -5,7 +5,7 @@ import { Input } from "@/app/components/Input/Input";
 import BackButton from "@/app/summary/_component/BackButton";
 import { BUTTON_INDEX } from "@/constants/buttonIndex";
 import { Textarea } from "@/app/components/Textarea/Textarea";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
 import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
 import { useCreateRoom } from "@/hook/reactQuery/talkRoom/useCreateRoom";
@@ -70,6 +70,8 @@ const NewTalkRoom = () => {
 
     router.back();
   };
+
+  useEffect(() => {}, []);
 
   return (
     <main className="flex flex-col w-full p-8">
