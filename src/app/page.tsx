@@ -122,23 +122,6 @@ const page = () => {
               type="evaluation"
             />
           </div>
-          <div className="flex w-[550px] gap-4">
-            <MainSelectionCard
-              isMain={false}
-              rounded={false}
-              type="smallerRecord"
-            />
-            <MainSelectionCard
-              isMain={false}
-              rounded={false}
-              type="smallerQuestion"
-            />
-            <MainSelectionCard
-              isMain={false}
-              rounded={false}
-              type="smallerEvaluation"
-            />
-          </div>
           <ThemeMain>
             <ThemeMain.MainTheme>
               <div
