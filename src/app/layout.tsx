@@ -25,7 +25,9 @@ export default function RootLayout({
           <ReactQueryProvider>
             <ReduxProvider>
               <Header />
-              <div className="flex flex-grow flex-col w-[100%]">{children}</div>
+              <div className="flex flex-grow flex-col w-[100%] h-full">
+                {children}
+              </div>
               <Footer />
             </ReduxProvider>
           </ReactQueryProvider>
