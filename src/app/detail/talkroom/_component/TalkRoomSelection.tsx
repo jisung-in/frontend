@@ -23,7 +23,7 @@ const TalkRoomSelection = () => {
           className={clsx(
             "flex items-center hover:bg-purple-40 duration-500 hover:border-purple-50 cursor-pointer border-2 rounded-xl p-2 gap-4 text-lg font-bold text-gray-60",
             selection === "record" &&
-              "bg-purple-40 border-purple-50 text-black",
+              "bg-purple-40 border-purple-50 text-[#000000]",
           )}
           onClick={() => setSelection("record")}
         >
@@ -39,9 +39,9 @@ const TalkRoomSelection = () => {
         </div>
         <div
           className={clsx(
-            "flex items-center hover:bg-yellow-40 duration-500 hover:border-yellow-50 cursor-pointer border-2 rounded-xl p-2 gap-4 font-bold text-gray-60",
+            "flex items-center hover:bg-yellow-40 duration-500 hover:border-yellow-50 cursor-pointer border-2 rounded-xl p-2 gap-4 text-lg font-bold text-gray-60",
             selection === "question" &&
-              "bg-yellow-40 border-yellow-50 text-black",
+              "text-[#000000] bg-yellow-40 border-yellow-50",
           )}
           onClick={() => setSelection("question")}
         >
