@@ -18,6 +18,7 @@ import ResizeImage from "./components/ResizeImage/ResizeImage";
 import RankSwiper from "./components/Swiper/RankSwiper";
 import TalkRoomCardSwiper from "./components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "./components/Theme/Theme";
+import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard";
 type TalkRoom = {
   id: number;
   profileImage: string;
@@ -112,6 +113,32 @@ const page = () => {
           xl:mb-[24px]
           xl2:mb-[26px]"
         >
+          <div className="flex w-full gap-[2%] pb-4">
+            <MainSelectionCard isMain={true} rounded={false} type="record" />
+            <MainSelectionCard isMain={true} rounded={false} type="question" />
+            <MainSelectionCard
+              isMain={true}
+              rounded={false}
+              type="evaluation"
+            />
+          </div>
+          <div className="flex w-[550px] gap-4">
+            <MainSelectionCard
+              isMain={false}
+              rounded={false}
+              type="smallerRecord"
+            />
+            <MainSelectionCard
+              isMain={false}
+              rounded={false}
+              type="smallerQuestion"
+            />
+            <MainSelectionCard
+              isMain={false}
+              rounded={false}
+              type="smallerEvaluation"
+            />
+          </div>
           <ThemeMain>
             <ThemeMain.MainTheme>
               <div
