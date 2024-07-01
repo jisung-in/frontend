@@ -20,5 +20,13 @@ export const colors = {
   red: {
     40: "#FF4444",
   },
+  purple: {
+    40: "#F2E5FF",
+    50: "#C08CF8",
+  },
+  yellow: {
+    40: "#FFFAEC",
+    50: "#FFCE55",
+  },
   white: "#F5F5F7",
 };
