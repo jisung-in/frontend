@@ -11,6 +11,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { Button } from "./components/Button/Button";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
+import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard";
 import Pagination from "./components/Pagination/Pagination";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
 import BestSellerSwiper from "./components/Swiper/BestSellerSwiper";
@@ -53,8 +54,39 @@ const page = () => {
   const { data: bookRankData } = useGetBookRank();
   return (
     <div className="flex flex-col items-center max-w-[1280px]">
-      <div className="mt-[85px] mb-[73px]">
-        {/* 기록, 질문, 평가 컴포넌트 위치 */}
+      <div className="mt-[85px] mb-[73px] flex flex-row gap-x-[21px]">
+        <div className="w-[413px] h-[270px]">
+          <MainSelectionCard isMain={true} type="record" rounded={true} />
+        </div>
+        <div className="w-[413px] h-[270px]">
+          <MainSelectionCard isMain={true} type="question" rounded={true} />
+        </div>
+        <div className="w-[413px] h-[270px]">
+          <MainSelectionCard isMain={true} type="evaluation" rounded={true} />
+        </div>
+      </div>
+
+      <div className="mb-[160px]">
+        <ThemeMain.MainTheme>
+          <div className="flex mb-[21px]">
+            <div className="flex grow items-center gap-x-3 ">
+              <div>지성인의 베스트 셀러</div>
+              <ResizeImage src={BestSeller} alt="베스트 셀러" />
+            </div>
+          </div>
+        </ThemeMain.MainTheme>
+        {bookRankData && bookRankData.length > 0 ? (
+          <BestSellerSwiper
+            data={bookRankData}
+            isLoggedIn={isLoggedIn}
+            talkRoomLikeIds={talkRoomLikeIds?.talkRoomIds || []}
+            myDetailData={
+              myDetailData || { userId: -1, userImage: "", userName: "" }
+            }
+          />
+        ) : (
+          <HaveNotData content={"베스트 셀러가"} />
+        )}
       </div>
 
       <div className="flex flex-col">
@@ -97,29 +129,6 @@ const page = () => {
           link={currentUrl}
         />
       )}
-
-      <div className="mb-[160px]">
-        <ThemeMain.MainTheme>
-          <div className="flex mb-[21px]">
-            <div className="flex grow items-center gap-x-3 ">
-              <div>지성인의 베스트 셀러</div>
-              <ResizeImage src={BestSeller} alt="베스트 셀러" />
-            </div>
-          </div>
-        </ThemeMain.MainTheme>
-        {bookRankData && bookRankData.length > 0 ? (
-          <BestSellerSwiper
-            data={bookRankData}
-            isLoggedIn={isLoggedIn}
-            talkRoomLikeIds={talkRoomLikeIds?.talkRoomIds || []}
-            myDetailData={
-              myDetailData || { userId: -1, userImage: "", userName: "" }
-            }
-          />
-        ) : (
-          <HaveNotData content={"베스트 셀러가"} />
-        )}
-      </div>
     </div>
   );
 };
