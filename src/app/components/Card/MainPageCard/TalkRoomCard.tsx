@@ -159,7 +159,8 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 </div>
               </div>
 
-              <div className="flex items-center mt-[10px] bg-[#FBF7F0] max-h-[40px] rounded-[8px] px-[20px] py-[17px]">
+              <div className="relative flex items-center mt-[10px] bg-[#FBF7F0] max-h-[40px] rounded-[8px] px-[20px] py-[17px]">
+                <div className="absolute top-[10%] left-[-10px] border-r-[20px] border-r-[#FBF7F0] border-t-[8px] border-t-transparent border-b-[10px] border-b-transparent"></div>
                 {commentsData?.queryResponse[0] ? (
                   <div className="flex items-center gap-x-2">
                     <div className="font-medium text-[15px] text-[#777]">
