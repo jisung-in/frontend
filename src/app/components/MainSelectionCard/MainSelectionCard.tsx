@@ -1,6 +1,6 @@
-import RecordComponent from "@/assets/img/record.svg";
-import QuestionComponent from "@/assets/img/question.svg";
 import EvaluationComponent from "@/assets/img/evalutaion.svg";
+import QuestionComponent from "@/assets/img/question.svg";
+import RecordComponent from "@/assets/img/record.svg";
 import clsx from "clsx";
 
 type MainSelectionCardType = {
@@ -61,7 +61,7 @@ const MainSelectionCard = ({
         className="flex flex-col rounded-lg flex-1 text-brown-60 hover:text-white duration-200 cursor-pointer"
         style={{ backgroundColor: color }}
       >
-        <span className="flex w-full text-[40px] pl-4 pt-4 font-bold">
+        <span className="flex w-full text-[40px] pl-4 pt-4 font-Jalnan2">
           {text}
         </span>
         <div className="flex w-full justify-end pr-4">{file}</div>

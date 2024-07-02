@@ -4,7 +4,14 @@ import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
 import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
-import { GurmukhiMN, Inter, Kalufo, Pretendard, SpoqaHanSansNeo } from "./font";
+import {
+  GurmukhiMN,
+  Inter,
+  Jalnan2,
+  Kalufo,
+  Pretendard,
+  SpoqaHanSansNeo,
+} from "./font";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -20,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${Inter.variable} ${GurmukhiMN.variable} ${Kalufo.variable}`}
+        className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${Inter.variable} ${GurmukhiMN.variable} ${Kalufo.variable} ${Jalnan2.variable}`}
       >
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
