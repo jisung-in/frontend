@@ -3,9 +3,9 @@
 import { Button } from "@/app/components/Button/Button";
 import MainSelectionCard from "@/app/components/MainSelectionCard/MainSelectionCard";
 import BackButton from "@/app/summary/_component/BackButton";
+import TalkRoomIcon from "@/assets/img/talk-icon.svg";
 import clsx from "clsx";
 import { useState } from "react";
-import TalkRoomIcon from "@/assets/img/talk-icon.svg";
 
 const TalkRoomSelection = () => {
   const [selection, setSelection] = useState("record");
@@ -21,7 +21,7 @@ const TalkRoomSelection = () => {
       <div className="flex flex-col gap-8">
         <div
           className={clsx(
-            "flex items-center hover:bg-purple-40 duration-500 hover:border-purple-50 cursor-pointer border-2 rounded-xl p-2 gap-4 text-lg font-bold text-gray-60",
+            "flex items-center hover:bg-purple-40 duration-500 hover:border-purple-50 cursor-pointer border-2 rounded-xl p-2 gap-4 text-lg text-gray-60",
             selection === "record" &&
               "bg-purple-40 border-purple-50 text-[#000000]",
           )}
@@ -39,7 +39,7 @@ const TalkRoomSelection = () => {
         </div>
         <div
           className={clsx(
-            "flex items-center hover:bg-yellow-40 duration-500 hover:border-yellow-50 cursor-pointer border-2 rounded-xl p-2 gap-4 text-lg font-bold text-gray-60",
+            "flex items-center hover:bg-yellow-40 duration-500 hover:border-yellow-50 cursor-pointer border-2 rounded-xl p-2 gap-4 text-lg text-gray-60",
             selection === "question" &&
               "text-[#000000] bg-yellow-40 border-yellow-50",
           )}

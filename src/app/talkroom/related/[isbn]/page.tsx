@@ -1,10 +1,5 @@
 "use client";
 
-import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
-import Pagination from "@/app/components/Pagination/Pagination";
-import { ThemeMain } from "@/app/components/Theme/Theme";
-import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
@@ -42,7 +37,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
   });
 
   return (
-    <div className="flex flex-col">
+    <>
+      {/* <div className="flex flex-col">
       <ThemeMain.MainTheme>
         <div className="flex mt-[78px] mb-[23px]">
           <div className="flex items-center mb-[23px]">
@@ -84,7 +80,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
       ) : (
         <HaveNotData content={"연관된 토크방이"} />
       )}
-    </div>
+    </div> */}
+    </>
   );
 };
 
