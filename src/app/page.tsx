@@ -54,7 +54,7 @@ const page = () => {
   const { data: bookRankData } = useGetBookRank();
   return (
     <div className="flex flex-col items-center max-w-[1280px]">
-      <div className="mt-[85px] mb-[73px] flex flex-row gap-x-[21px]">
+      <div className="mt-[85px] mb-[38px] flex flex-row gap-x-[21px]">
         <div className="w-[413px] h-[270px]">
           <MainSelectionCard isMain={true} type="record" rounded={true} />
         </div>
@@ -66,7 +66,7 @@ const page = () => {
         </div>
       </div>
 
-      <div className="mb-[160px]">
+      <div className="mb-[47px]">
         <ThemeMain.MainTheme>
           <div className="flex mb-[21px]">
             <div className="flex grow items-center gap-x-3 ">
@@ -90,7 +90,10 @@ const page = () => {
       </div>
 
       <div className="flex flex-col">
-        <div className="grow mb-[25px] flex justify-end">
+        <div className="grow mb-[25px] flex items-center">
+          <div className="font-SpoqaHanSansNeo font-bold text-2xl flex grow">
+            토크방 보기
+          </div>
           <Link href={"/detail/talkroom/new"}>
             <Button className="w-[167px]" variant={"mainPage"} weight={"semi"}>
               <CreateTalkRoom />
