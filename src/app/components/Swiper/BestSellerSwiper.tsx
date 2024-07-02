@@ -29,7 +29,7 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({
 }) => {
   return (
     <section>
-      <ul className="max-w-[1380px] max-h-[513px]">
+      <ul className="max-w-[1330px] max-h-[513px]">
         <Swiper
           navigation
           pagination={{ type: "custom", clickable: true }}
