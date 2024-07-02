@@ -69,7 +69,7 @@ const page = () => {
       <div className="mb-[47px]">
         <ThemeMain.MainTheme>
           <div className="flex mb-[21px]">
-            <div className="flex grow items-center gap-x-3 ">
+            <div className="flex grow items-center gap-x-3">
               <div>지성인의 베스트 셀러</div>
               <ResizeImage src={BestSeller} alt="베스트 셀러" />
             </div>
