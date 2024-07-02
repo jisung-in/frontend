@@ -9,6 +9,9 @@ type MainSelectionCardType = {
     | "record"
     | "question"
     | "evaluation"
+    | "middleRecord"
+    | "middleQuestion"
+    | "middleEvaluation"
     | "smallerRecord"
     | "smallerQuestion"
     | "smallerEvaluation";
@@ -31,6 +34,21 @@ const obj = {
     file: <EvaluationComponent className="w-40 h-40" />,
     text: "평가",
   },
+  middleRecord: {
+    color: "#C08CF8",
+    file: <RecordComponent className="w-12 h-12" />,
+    text: "기록",
+  },
+  middleQuestion: {
+    color: "#FFCE55",
+    file: <QuestionComponent className="w-12 h-12" />,
+    text: "질문",
+  },
+  middleEvaluation: {
+    color: "#FF9597",
+    file: <EvaluationComponent className="w-12 h-12" />,
+    text: "평가",
+  },
   smallerRecord: {
     color: "#C08CF8",
     file: <RecordComponent className="w-8 h-8" />,
@@ -43,7 +61,7 @@ const obj = {
   },
   smallerEvaluation: {
     color: "#FF9597",
-    file: <EvaluationComponent className="w-6 h-6" />,
+    file: <EvaluationComponent className="w-8 h-8" />,
     text: "평가",
   },
 };
@@ -58,13 +76,13 @@ const MainSelectionCard = ({
   if (isMain) {
     return (
       <div
-        className="flex flex-col rounded-lg flex-1 text-brown-60 hover:text-white duration-200 cursor-pointer"
+        className="flex flex-col rounded-[30px] flex-1 text-brown-60 hover:text-white duration-200 cursor-pointer"
         style={{ backgroundColor: color }}
       >
-        <span className="flex w-full text-[40px] pl-4 pt-4 font-Jalnan2">
+        <span className="flex w-full text-[40px] ml-9 mt-8 font-Jalnan2">
           {text}
         </span>
-        <div className="flex w-full justify-end pr-4">{file}</div>
+        <div className="flex w-full justify-end pr-5 pb-2">{file}</div>
       </div>
     );
   }
@@ -72,12 +90,23 @@ const MainSelectionCard = ({
   return (
     <div
       className={clsx(
-        "flex items-center justify-center rounded-lg p-2 px-4 gap-2",
-        rounded && "rounded-[40px]",
+        "flex items-center justify-center",
+        rounded
+          ? "rounded-[40px] gap-x-2 px-4 pt-[10px] pb-[11px]"
+          : "rounded-[13px] gap-x-3 px-4 py-3",
       )}
       style={{ backgroundColor: color }}
     >
-      <span className="flex text-[25px] font-bold text-brown-60">{text}</span>
+      <span
+        className={clsx(
+          "flex text-brown-60 font-Jalnan2",
+          type.slice(0, 1) === "m"
+            ? "w-[67px] text-[33px] pt-1.5"
+            : "w-[47px] text-[23px] pt-1.5",
+        )}
+      >
+        {text}
+      </span>
       {file}
     </div>
   );
