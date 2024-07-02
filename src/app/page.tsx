@@ -15,7 +15,6 @@ import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard"
 import Pagination from "./components/Pagination/Pagination";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
 import BestSellerSwiper from "./components/Swiper/BestSellerSwiper";
-import { ThemeMain } from "./components/Theme/Theme";
 
 type TalkRoom = {
   id: number;
@@ -66,30 +65,30 @@ const page = () => {
         </div>
       </div>
 
-      <div className="mb-[47px]">
-        <ThemeMain.MainTheme>
-          <div className="flex mb-[21px]">
-            <div className="flex grow items-center gap-x-3">
-              <div>지성인의 베스트 셀러</div>
-              <ResizeImage src={BestSeller} alt="베스트 셀러" />
+      <div className="max-w-[1280px]">
+        <div className="flex mb-[30px] w-[84vw]">
+          <div className="flex items-center gap-x-3">
+            <div className="font-SpoqaHanSansNeo font-bold text-2xl">
+              지성인의 베스트 셀러
             </div>
+            <ResizeImage src={BestSeller} alt="베스트 셀러" />
           </div>
-        </ThemeMain.MainTheme>
-        {bookRankData && bookRankData.length > 0 ? (
-          <BestSellerSwiper
-            data={bookRankData}
-            isLoggedIn={isLoggedIn}
-            talkRoomLikeIds={talkRoomLikeIds?.talkRoomIds || []}
-            myDetailData={
-              myDetailData || { userId: -1, userImage: "", userName: "" }
-            }
-          />
-        ) : (
-          <HaveNotData content={"베스트 셀러가"} />
-        )}
+        </div>
       </div>
+      {bookRankData && bookRankData.length > 0 ? (
+        <BestSellerSwiper
+          data={bookRankData}
+          isLoggedIn={isLoggedIn}
+          talkRoomLikeIds={talkRoomLikeIds?.talkRoomIds || []}
+          myDetailData={
+            myDetailData || { userId: -1, userImage: "", userName: "" }
+          }
+        />
+      ) : (
+        <HaveNotData content={"베스트 셀러가"} />
+      )}
 
-      <div className="flex flex-col">
+      <div className="flex flex-col mt-[47px]">
         <div className="grow mb-[25px] flex items-center">
           <div className="font-SpoqaHanSansNeo font-bold text-2xl flex grow">
             토크방 보기

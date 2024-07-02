@@ -29,7 +29,7 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({
 }) => {
   return (
     <section>
-      <ul className="max-w-[1280px] max-h-[513px]">
+      <ul className="max-w-[1380px] max-h-[513px]">
         <Swiper
           navigation
           pagination={{ type: "custom", clickable: true }}
@@ -38,7 +38,6 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({
           modules={[Navigation, Pagination]}
           slidesPerView={2}
           slidesPerGroup={2}
-          spaceBetween={35}
         >
           {data?.map((data) => (
             <SwiperSlide key={data.isbn}>

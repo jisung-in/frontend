@@ -47,7 +47,7 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
     sortbydate: "",
   });
   return (
-    <div className="flex flex-row grow font-Pretendard text-[#000]">
+    <div className="flex flex-row justify-center grow font-Pretendard text-[#000]">
       <Link href={`/book/${isbn}`}>
         <BookMain className="w-[180px] flex flex-col mr-[26px]">
           <BookMain.BookCover>

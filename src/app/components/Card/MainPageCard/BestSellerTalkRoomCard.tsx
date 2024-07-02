@@ -84,7 +84,7 @@ const BestSellerTalkRoomCard: React.FC<TalkRoomCardProps> = ({
         </div>
         <div className="flex flex-col grow justify-start gap-y-1">
           <div className="flex">{data.title}</div>
-          <div className="flex flex-row gap-x-2">
+          <div className="flex flex-row gap-x-2 items-center">
             <div>
               <Image
                 className="w-[18px] h-[18px] rounded-[50%]"
