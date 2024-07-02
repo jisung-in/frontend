@@ -96,7 +96,7 @@ const page = () => {
           </div>
           <Link href={"/detail/talkroom/new"}>
             <Button className="w-[167px]" variant={"mainPage"} weight={"semi"}>
-              <div className="flex items-center gap-x-3 px-4">
+              <div className="flex items-center gap-x-2 px-4">
                 <CreateTalkRoom />
                 토크방 생성하기
               </div>
