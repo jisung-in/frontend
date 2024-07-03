@@ -1,6 +1,7 @@
 import EvaluationComponent from "@/assets/img/evalutaion.svg";
 import QuestionComponent from "@/assets/img/question.svg";
 import RecordComponent from "@/assets/img/record.svg";
+import { Skeleton } from "@nextui-org/skeleton";
 import clsx from "clsx";
 
 type MainSelectionCardType = {
@@ -16,6 +17,7 @@ type MainSelectionCardType = {
     | "smallerQuestion"
     | "smallerEvaluation";
   rounded: boolean;
+  isLoading: boolean;
 };
 
 const obj = {
@@ -70,6 +72,7 @@ const MainSelectionCard = ({
   isMain,
   type,
   rounded,
+  isLoading,
 }: MainSelectionCardType) => {
   const { color, file, text } = obj[type];
 
@@ -79,10 +82,21 @@ const MainSelectionCard = ({
         className="flex flex-col rounded-[30px] flex-1 text-brown-60 hover:text-white duration-200 cursor-pointer"
         style={{ backgroundColor: color }}
       >
-        <span className="flex w-full text-[40px] ml-9 mt-8 font-Jalnan2">
-          {text}
-        </span>
-        <div className="flex w-full justify-end pr-5 pb-2">{file}</div>
+        {isLoading ? (
+          <Skeleton className="rounded-[30px]">
+            <span className="flex w-full text-[40px] ml-9 mt-8 font-Jalnan2">
+              {text}
+            </span>
+            <div className="flex w-full justify-end pr-5 pb-2">{file}</div>
+          </Skeleton>
+        ) : (
+          <>
+            <span className="flex w-full text-[40px] ml-9 mt-8 font-Jalnan2">
+              {text}
+            </span>
+            <div className="flex w-full justify-end pr-5 pb-2">{file}</div>
+          </>
+        )}
       </div>
     );
   }
@@ -97,17 +111,41 @@ const MainSelectionCard = ({
       )}
       style={{ backgroundColor: color }}
     >
-      <span
-        className={clsx(
-          "flex text-brown-60 font-Jalnan2",
-          type.slice(0, 1) === "m"
-            ? "w-[67px] text-[33px] pt-1.5"
-            : "w-[47px] text-[23px] pt-1.5",
-        )}
-      >
-        {text}
-      </span>
-      {file}
+      {isLoading ? (
+        <Skeleton
+          className={clsx(
+            rounded
+              ? "rounded-[40px] gap-x-2 px-4 pt-[10px] pb-[11px]"
+              : "rounded-[13px] gap-x-3 px-4 py-3",
+          )}
+        >
+          <span
+            className={clsx(
+              "flex text-brown-60 font-Jalnan2",
+              type.slice(0, 1) === "m"
+                ? "w-[67px] text-[33px] pt-1.5"
+                : "w-[47px] text-[23px] pt-1.5",
+            )}
+          >
+            {text}
+          </span>
+          {file}
+        </Skeleton>
+      ) : (
+        <>
+          <span
+            className={clsx(
+              "flex text-brown-60 font-Jalnan2",
+              type.slice(0, 1) === "m"
+                ? "w-[67px] text-[33px] pt-1.5"
+                : "w-[47px] text-[23px] pt-1.5",
+            )}
+          >
+            {text}
+          </span>
+          {file}
+        </>
+      )}
     </div>
   );
 };

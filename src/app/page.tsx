@@ -8,6 +8,7 @@ import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { Button } from "./components/Button/Button";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
@@ -36,6 +37,7 @@ const page = () => {
   const currentUrl = usePathname();
   const param = useSearchParams();
   const pageParam = param.get("page");
+  const [isAllLoading, setIsAllLoading] = useState(true);
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
@@ -43,25 +45,50 @@ const page = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data: recentData, isLoading } = useGetRooms({
+  const { data: recentData, isLoading: getRoomLoading } = useGetRooms({
     page: Number(pageParam ? pageParam : 1),
     size: 3,
     order: "recent",
     search: "",
     sortbydate: "",
   });
-  const { data: bookRankData } = useGetBookRank();
+  const { data: bookRankData, isLoading: getBookRankLoading } =
+    useGetBookRank();
+
+  useEffect(() => {
+    if (!getRoomLoading && !getBookRankLoading) {
+      setIsAllLoading(false);
+    } else {
+      setIsAllLoading(true);
+    }
+  }, [getRoomLoading, getBookRankLoading]);
+
   return (
     <div className="flex flex-col items-center max-w-[1280px]">
       <div className="mt-[85px] mb-[38px] flex flex-row gap-x-[21px]">
         <div className="w-[413px] h-[270px]">
-          <MainSelectionCard isMain={true} type="record" rounded={true} />
+          <MainSelectionCard
+            isMain={true}
+            type="record"
+            rounded={true}
+            isLoading={isAllLoading}
+          />
         </div>
         <div className="w-[413px] h-[270px]">
-          <MainSelectionCard isMain={true} type="question" rounded={true} />
+          <MainSelectionCard
+            isMain={true}
+            type="question"
+            rounded={true}
+            isLoading={isAllLoading}
+          />
         </div>
         <div className="w-[413px] h-[270px]">
-          <MainSelectionCard isMain={true} type="evaluation" rounded={true} />
+          <MainSelectionCard
+            isMain={true}
+            type="evaluation"
+            rounded={true}
+            isLoading={isAllLoading}
+          />
         </div>
       </div>
 
@@ -75,7 +102,8 @@ const page = () => {
           </div>
         </div>
       </div>
-      {bookRankData && bookRankData.length > 0 ? (
+      {getBookRankLoading ||
+      (!getBookRankLoading && bookRankData && bookRankData.length > 0) ? (
         <BestSellerSwiper
           data={bookRankData}
           isLoggedIn={isLoggedIn}
@@ -124,7 +152,7 @@ const page = () => {
         )}
       </div>
 
-      {isLoading ? (
+      {getRoomLoading ? (
         <></>
       ) : (
         <Pagination
