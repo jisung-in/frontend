@@ -13,6 +13,7 @@ import {
   SpoqaHanSansNeo,
 } from "./font";
 import "./globals.css";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "지성인",
@@ -32,15 +33,17 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
             <ReduxProvider>
-              <div className="flex">
-                <Header />
-              </div>
-              <div className="flex flex-col grow items-center w-[100%]">
-                <Suspense>{children}</Suspense>
-              </div>
-              <div className="flex">
-                <Footer />
-              </div>
+              <Providers>
+                <div className="flex">
+                  <Header />
+                </div>
+                <div className="flex flex-col grow items-center w-[100%]">
+                  <Suspense>{children}</Suspense>
+                </div>
+                <div className="flex">
+                  <Footer />
+                </div>
+              </Providers>
             </ReduxProvider>
           </ReactQueryProvider>
         </div>
