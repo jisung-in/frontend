@@ -10,13 +10,12 @@ import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Button } from "./components/Button/Button";
-import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
 import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard";
-import Pagination from "./components/Pagination/Pagination";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
 import DeferredComponent from "./components/SkeletonUI/DeferredComponent ";
 import SkeletonLoadingSwiper from "./components/SkeletonUI/SkeletonLoadingSwiper";
+import SkeletonTalkRoomCard from "./components/SkeletonUI/SkeletonTalkRoomCard";
 
 type TalkRoom = {
   id: number;
@@ -36,6 +35,9 @@ type TalkRoom = {
 const page = () => {
   const BestSellerSwiper = lazy(
     () => import("./components/Swiper/BestSellerSwiper"),
+  );
+  const TalkRoomCard = lazy(
+    () => import("./components/Card/MainPageCard/TalkRoomCard"),
   );
 
   const { isLoggedIn } = useLogin();
@@ -125,7 +127,7 @@ const page = () => {
         />
       </Suspense>
 
-      <div className="flex flex-col mt-[47px]">
+      <div className="flex flex-col mt-[47px] mb-[138px] min-w-[328px] w-[84vw] max-w-[1280px]">
         <div className="grow mb-[25px] flex items-center">
           <div className="font-SpoqaHanSansNeo font-bold text-2xl flex grow">
             토크방 보기
@@ -139,38 +141,36 @@ const page = () => {
             </Button>
           </Link>
         </div>
+
         {recentData && recentData.queryResponse.length > 0 ? (
           <div className="flex flex-col gap-y-[25px]">
-            {recentData?.queryResponse.map((data: TalkRoom) => {
+            {recentData.queryResponse.map((data: TalkRoom) => {
               const isLike =
                 isLoggedIn &&
                 (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
-                <TalkRoomCard
-                  key={data.id}
-                  data={data}
-                  userId={myDetailData?.userId || -1}
-                  isBest={false}
-                  isLike={isLike}
-                  isLoading={getRoomLoading}
-                />
+                <Suspense
+                  fallback={
+                    <DeferredComponent>
+                      <SkeletonTalkRoomCard />
+                    </DeferredComponent>
+                  }
+                >
+                  <TalkRoomCard
+                    key={data.id}
+                    data={data}
+                    userId={myDetailData?.userId || -1}
+                    isBest={false}
+                    isLike={isLike}
+                  />
+                </Suspense>
               );
             })}
           </div>
         ) : (
-          <HaveNotData content={"최근 생성된 토크방이"} />
+          !getRoomLoading && <HaveNotData content={"토크방이"} />
         )}
       </div>
-
-      {getRoomLoading ? (
-        <></>
-      ) : (
-        <Pagination
-          totalItems={recentData?.totalCount ?? 0}
-          postPage={3}
-          link={currentUrl}
-        />
-      )}
     </div>
   );
 };
