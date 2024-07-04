@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
@@ -13,7 +12,6 @@ import {
   SpoqaHanSansNeo,
 } from "./font";
 import "./globals.css";
-import { Providers } from "./providers";
 
 export const metadata: Metadata = {
   title: "지성인",
@@ -33,17 +31,15 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
             <ReduxProvider>
-              <Providers>
-                <div className="flex">
-                  <Header />
-                </div>
-                <div className="flex flex-col grow items-center w-[100%]">
-                  <Suspense>{children}</Suspense>
-                </div>
-                <div className="flex">
-                  <Footer />
-                </div>
-              </Providers>
+              <div className="flex">
+                <Header />
+              </div>
+              <div className="flex flex-col grow items-center w-[100%]">
+                {children}
+              </div>
+              <div className="flex">
+                <Footer />
+              </div>
             </ReduxProvider>
           </ReactQueryProvider>
         </div>
