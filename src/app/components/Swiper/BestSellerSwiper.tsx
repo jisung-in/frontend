@@ -5,9 +5,10 @@ import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BestSellerCard from "../Card/MainPageCard/BestSellerCard";
+import HaveNotData from "../HaveNotData/HaveNotData";
 
 interface BookSliderProps {
-  data: {
+  data?: {
     ranking: number;
     isbn: string;
     title: string;
@@ -19,6 +20,7 @@ interface BookSliderProps {
   isLoggedIn: boolean;
   myDetailData: { userId: number; userImage: string; userName: string };
   talkRoomLikeIds: number[];
+  isLoading: boolean;
 }
 
 const BestSellerSwiper: React.FC<BookSliderProps> = ({
@@ -26,7 +28,11 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({
   isLoggedIn,
   myDetailData,
   talkRoomLikeIds,
+  isLoading,
 }) => {
+  if (!isLoading && data?.length === 0)
+    return <HaveNotData content={"베스트 셀러가"} />;
+
   return (
     <section>
       <ul className="max-w-[1330px] max-h-[513px]">
@@ -48,6 +54,7 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({
                 isLoggedIn={isLoggedIn}
                 talkRoomLikeIds={talkRoomLikeIds}
                 myDetailData={myDetailData}
+                isLoading={isLoading}
               />
             </SwiperSlide>
           ))}

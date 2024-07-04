@@ -8,6 +8,7 @@ import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike"
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import HaveNotData from "../../HaveNotData/HaveNotData";
 import IconButton from "../../IconButton/IconButton";
 
 type TalkRoomCardProps = {
@@ -28,6 +29,7 @@ type TalkRoomCardProps = {
   rank: number;
   userId: number;
   isLike: boolean;
+  isLoading: boolean;
 };
 
 const BestSellerTalkRoomCard: React.FC<TalkRoomCardProps> = ({
@@ -35,23 +37,20 @@ const BestSellerTalkRoomCard: React.FC<TalkRoomCardProps> = ({
   data,
   userId,
   isLike: initialIsLike,
+  isLoading,
 }) => {
-  const [count, setCount] = useState<number>(data.likeCount);
-  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
+  const [isLike, setIsLike] = useState<boolean>(
+    initialIsLike ? initialIsLike : false,
+  );
+  const [count, setCount] = useState<number>(data ? data.likeCount : 0);
+  const [showModal, setShowModal] = useState<boolean>(false);
   const addTalkRoomLike = useCreateRoomLike();
   const deleteTalkRoomLike = useDeleteRoomLike();
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  useEffect(() => {
-    setCount(data.likeCount);
-    setIsLike(initialIsLike);
-  }, [data.likeCount, initialIsLike]);
-
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (userId === -1) {
       setShowModal(!showModal);
-    } else if (data.creatorId !== userId) {
+    } else if (data && data.creatorId !== userId) {
       if (isLike) {
         deleteTalkRoomLike.mutate(data.id);
         setCount((prevCount) => prevCount - 1);
@@ -65,10 +64,16 @@ const BestSellerTalkRoomCard: React.FC<TalkRoomCardProps> = ({
     }
   };
 
+  useEffect(() => {
+    data && setCount(data.likeCount);
+    initialIsLike && setIsLike(initialIsLike);
+  }, [data?.likeCount, initialIsLike]);
+
   const closeModal = () => {
     setShowModal(false);
   };
 
+  if (!isLoading && !data) return <HaveNotData content={"토크방이"} />;
   return (
     <>
       {rank === 1 || rank === 2 ? (
@@ -83,13 +88,15 @@ const BestSellerTalkRoomCard: React.FC<TalkRoomCardProps> = ({
           {rank === 2 && <Rank3 />}
         </div>
         <div className="flex flex-col grow justify-start gap-y-1">
-          <div className="flex">{data.title}</div>
+          <div className="flex">{data?.title}</div>
           <div className="flex flex-row gap-x-2 items-center">
             <div>
               <Image
                 className="w-[18px] h-[18px] rounded-[50%]"
                 src={
-                  data.profileImage !== "image" ? data.profileImage : Profile
+                  data && data.profileImage !== "image"
+                    ? data?.profileImage
+                    : Profile
                 }
                 alt="프로필"
                 width={18}
@@ -98,13 +105,13 @@ const BestSellerTalkRoomCard: React.FC<TalkRoomCardProps> = ({
               />
             </div>
             <div className="font-medium text-[15px] text-[#777]">
-              {data.username}
+              <>{data?.username}</>
             </div>
           </div>
         </div>
         <div className="flex flex-col items-center mt-2 ml-3">
           <IconButton onClick={changeIsLike}>
-            {isLike ? (
+            {data && isLike ? (
               <div>
                 <Like width={21} height={19} />
                 <div className="text-[13px] font-Inter font-regular text-[#F24D4D]">

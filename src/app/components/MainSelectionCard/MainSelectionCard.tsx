@@ -1,6 +1,7 @@
 import EvaluationComponent from "@/assets/img/evalutaion.svg";
 import QuestionComponent from "@/assets/img/question.svg";
 import RecordComponent from "@/assets/img/record.svg";
+import { Skeleton } from "@nextui-org/skeleton";
 import clsx from "clsx";
 
 type MainSelectionCardType = {
@@ -16,6 +17,7 @@ type MainSelectionCardType = {
     | "smallerQuestion"
     | "smallerEvaluation";
   rounded: boolean;
+  isLoading?: boolean;
 };
 
 const obj = {
@@ -70,6 +72,7 @@ const MainSelectionCard = ({
   isMain,
   type,
   rounded,
+  isLoading,
 }: MainSelectionCardType) => {
   const { color, file, text } = obj[type];
 
@@ -79,10 +82,16 @@ const MainSelectionCard = ({
         className="flex flex-col rounded-[30px] flex-1 text-brown-60 hover:text-white duration-200 cursor-pointer"
         style={{ backgroundColor: color }}
       >
-        <span className="flex w-full text-[40px] ml-9 mt-8 font-Jalnan2">
-          {text}
-        </span>
-        <div className="flex w-full justify-end pr-5 pb-2">{file}</div>
+        {isLoading ? (
+          <Skeleton className="w-[413px] h-[270px] rounded-[30px]" />
+        ) : (
+          <>
+            <span className="flex w-full text-[40px] ml-9 mt-8 font-Jalnan2">
+              {text}
+            </span>
+            <div className="flex w-full justify-end pr-5 pb-2">{file}</div>
+          </>
+        )}
       </div>
     );
   }

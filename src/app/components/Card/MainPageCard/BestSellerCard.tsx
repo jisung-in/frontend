@@ -14,6 +14,7 @@ type BestSellerCardProps = {
   isLoggedIn: boolean;
   myDetailData: { userId: number; userImage: string; userName: string };
   talkRoomLikeIds: number[];
+  isLoading: boolean;
 };
 
 type TalkRoom = {
@@ -38,14 +39,17 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   isLoggedIn,
   myDetailData,
   talkRoomLikeIds,
+  isLoading,
 }) => {
-  const { data: recentData } = useGetRooms({
+  const { data: recentData, isLoading: dataIsLoading } = useGetRooms({
     page: 1,
     size: 3,
     order: "recent",
     search: "",
     sortbydate: "",
   });
+  if (!isLoading && recentData?.queryResponse.length === 0)
+    return <HaveNotData content={"토크방이"} />;
   return (
     <div className="flex flex-row justify-center grow font-Pretendard text-[#000]">
       <Link href={`/book/${isbn}`}>
@@ -72,24 +76,23 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
           </BookMain.BookTitle>
         </BookMain>
       </Link>
-      {recentData && recentData.queryResponse.length > 0 ? (
-        <div className="flex flex-col w-[370px]">
-          {recentData.queryResponse.map((data: TalkRoom, index) => {
-            const isLike = isLoggedIn && talkRoomLikeIds.includes(data.id);
+      <div className="flex flex-col w-[370px]">
+        {recentData &&
+          recentData.queryResponse.length > 0 &&
+          recentData?.queryResponse.map((data: TalkRoom, index) => {
+            const isLike = isLoggedIn && talkRoomLikeIds?.includes(data.id);
             return (
               <BestSellerTalkRoomCard
                 rank={index}
                 key={data.id}
                 data={data}
-                userId={myDetailData.userId}
+                userId={myDetailData?.userId}
                 isLike={isLike}
+                isLoading={dataIsLoading}
               />
             );
           })}
-        </div>
-      ) : (
-        <HaveNotData content={"최근 생성된 토크방이"} />
-      )}
+      </div>
     </div>
   );
 };

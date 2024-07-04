@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Suspense } from "react";
 import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
@@ -36,7 +35,7 @@ export default function RootLayout({
                 <Header />
               </div>
               <div className="flex flex-col grow items-center w-[100%]">
-                <Suspense>{children}</Suspense>
+                {children}
               </div>
               <div className="flex">
                 <Footer />

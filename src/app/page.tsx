@@ -7,14 +7,14 @@ import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Button } from "./components/Button/Button";
-import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
 import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard";
-import Pagination from "./components/Pagination/Pagination";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
-import BestSellerSwiper from "./components/Swiper/BestSellerSwiper";
+import DeferredComponent from "./components/SkeletonUI/DeferredComponent ";
+import SkeletonLoadingSwiper from "./components/SkeletonUI/SkeletonLoadingSwiper";
+import SkeletonTalkRoomCard from "./components/SkeletonUI/SkeletonTalkRoomCard";
 
 type TalkRoom = {
   id: number;
@@ -32,10 +32,15 @@ type TalkRoom = {
 };
 
 const page = () => {
+  const BestSellerSwiper = lazy(
+    () => import("./components/Swiper/BestSellerSwiper"),
+  );
+  const TalkRoomCard = lazy(
+    () => import("./components/Card/MainPageCard/TalkRoomCard"),
+  );
+
   const { isLoggedIn } = useLogin();
-  const currentUrl = usePathname();
-  const param = useSearchParams();
-  const pageParam = param.get("page");
+  const [isAllLoading, setIsAllLoading] = useState(true);
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
@@ -43,25 +48,50 @@ const page = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data: recentData, isLoading } = useGetRooms({
-    page: Number(pageParam ? pageParam : 1),
+  const { data: recentData, isLoading: getRoomLoading } = useGetRooms({
+    page: 1,
     size: 3,
     order: "recent",
     search: "",
     sortbydate: "",
   });
-  const { data: bookRankData } = useGetBookRank();
+  const { data: bookRankData, isLoading: getBookRankLoading } =
+    useGetBookRank();
+
+  useEffect(() => {
+    if (!getRoomLoading && !getBookRankLoading) {
+      setIsAllLoading(false);
+    } else {
+      setIsAllLoading(true);
+    }
+  }, [getRoomLoading, getBookRankLoading]);
+
   return (
     <div className="flex flex-col items-center max-w-[1280px]">
       <div className="mt-[85px] mb-[38px] flex flex-row gap-x-[21px]">
         <div className="w-[413px] h-[270px]">
-          <MainSelectionCard isMain={true} type="record" rounded={true} />
+          <MainSelectionCard
+            isMain={true}
+            type="record"
+            rounded={true}
+            isLoading={isAllLoading}
+          />
         </div>
         <div className="w-[413px] h-[270px]">
-          <MainSelectionCard isMain={true} type="question" rounded={true} />
+          <MainSelectionCard
+            isMain={true}
+            type="question"
+            rounded={true}
+            isLoading={isAllLoading}
+          />
         </div>
         <div className="w-[413px] h-[270px]">
-          <MainSelectionCard isMain={true} type="evaluation" rounded={true} />
+          <MainSelectionCard
+            isMain={true}
+            type="evaluation"
+            rounded={true}
+            isLoading={isAllLoading}
+          />
         </div>
       </div>
 
@@ -75,7 +105,13 @@ const page = () => {
           </div>
         </div>
       </div>
-      {bookRankData && bookRankData.length > 0 ? (
+      <Suspense
+        fallback={
+          <DeferredComponent>
+            <SkeletonLoadingSwiper />
+          </DeferredComponent>
+        }
+      >
         <BestSellerSwiper
           data={bookRankData}
           isLoggedIn={isLoggedIn}
@@ -83,12 +119,11 @@ const page = () => {
           myDetailData={
             myDetailData || { userId: -1, userImage: "", userName: "" }
           }
+          isLoading={getBookRankLoading}
         />
-      ) : (
-        <HaveNotData content={"베스트 셀러가"} />
-      )}
+      </Suspense>
 
-      <div className="flex flex-col mt-[47px]">
+      <div className="flex flex-col mt-[47px] mb-[138px] min-w-[328px] w-[84vw] max-w-[1280px]">
         <div className="grow mb-[25px] flex items-center">
           <div className="font-SpoqaHanSansNeo font-bold text-2xl flex grow">
             토크방 보기
@@ -102,6 +137,7 @@ const page = () => {
             </Button>
           </Link>
         </div>
+
         {recentData && recentData.queryResponse.length > 0 ? (
           <div className="flex flex-col gap-y-[25px]">
             {recentData.queryResponse.map((data: TalkRoom) => {
@@ -109,30 +145,28 @@ const page = () => {
                 isLoggedIn &&
                 (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
-                <TalkRoomCard
-                  key={data.id}
-                  data={data}
-                  userId={myDetailData?.userId || -1}
-                  isBest={false}
-                  isLike={isLike}
-                />
+                <Suspense
+                  fallback={
+                    <DeferredComponent>
+                      <SkeletonTalkRoomCard />
+                    </DeferredComponent>
+                  }
+                >
+                  <TalkRoomCard
+                    key={data.id}
+                    data={data}
+                    userId={myDetailData?.userId || -1}
+                    isBest={false}
+                    isLike={isLike}
+                  />
+                </Suspense>
               );
             })}
           </div>
         ) : (
-          <HaveNotData content={"최근 생성된 토크방이"} />
+          !getRoomLoading && <HaveNotData content={"토크방이"} />
         )}
       </div>
-
-      {isLoading ? (
-        <></>
-      ) : (
-        <Pagination
-          totalItems={recentData?.totalCount ?? 0}
-          postPage={3}
-          link={currentUrl}
-        />
-      )}
     </div>
   );
 };
