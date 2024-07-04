@@ -7,7 +7,6 @@ import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Button } from "./components/Button/Button";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
@@ -41,9 +40,6 @@ const page = () => {
   );
 
   const { isLoggedIn } = useLogin();
-  const currentUrl = usePathname();
-  const param = useSearchParams();
-  const pageParam = param.get("page");
   const [isAllLoading, setIsAllLoading] = useState(true);
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -53,7 +49,7 @@ const page = () => {
     : { data: { userId: -1, userImage: "", userName: "" } };
 
   const { data: recentData, isLoading: getRoomLoading } = useGetRooms({
-    page: Number(pageParam ? pageParam : 1),
+    page: 1,
     size: 3,
     order: "recent",
     search: "",
