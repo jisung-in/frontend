@@ -8,14 +8,15 @@ import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Button } from "./components/Button/Button";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
 import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard";
 import Pagination from "./components/Pagination/Pagination";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
-import BestSellerSwiper from "./components/Swiper/BestSellerSwiper";
+import DeferredComponent from "./components/SkeletonUI/DeferredComponent ";
+import SkeletonLoadingSwiper from "./components/SkeletonUI/SkeletonLoadingSwiper";
 
 type TalkRoom = {
   id: number;
@@ -33,6 +34,10 @@ type TalkRoom = {
 };
 
 const page = () => {
+  const BestSellerSwiper = lazy(
+    () => import("./components/Swiper/BestSellerSwiper"),
+  );
+
   const { isLoggedIn } = useLogin();
   const currentUrl = usePathname();
   const param = useSearchParams();
@@ -102,8 +107,13 @@ const page = () => {
           </div>
         </div>
       </div>
-      {getBookRankLoading ||
-      (!getBookRankLoading && bookRankData && bookRankData.length > 0) ? (
+      <Suspense
+        fallback={
+          <DeferredComponent>
+            <SkeletonLoadingSwiper />
+          </DeferredComponent>
+        }
+      >
         <BestSellerSwiper
           data={bookRankData}
           isLoggedIn={isLoggedIn}
@@ -111,10 +121,9 @@ const page = () => {
           myDetailData={
             myDetailData || { userId: -1, userImage: "", userName: "" }
           }
+          isLoading={getBookRankLoading}
         />
-      ) : (
-        <HaveNotData content={"베스트 셀러가"} />
-      )}
+      </Suspense>
 
       <div className="flex flex-col mt-[47px]">
         <div className="grow mb-[25px] flex items-center">
@@ -132,7 +141,7 @@ const page = () => {
         </div>
         {recentData && recentData.queryResponse.length > 0 ? (
           <div className="flex flex-col gap-y-[25px]">
-            {recentData.queryResponse.map((data: TalkRoom) => {
+            {recentData?.queryResponse.map((data: TalkRoom) => {
               const isLike =
                 isLoggedIn &&
                 (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
@@ -143,6 +152,7 @@ const page = () => {
                   userId={myDetailData?.userId || -1}
                   isBest={false}
                   isLike={isLike}
+                  isLoading={getRoomLoading}
                 />
               );
             })}
