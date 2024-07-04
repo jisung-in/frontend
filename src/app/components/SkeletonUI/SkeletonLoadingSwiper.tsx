@@ -20,11 +20,11 @@ const SkeletonLoadingSwiper = () => {
           slidesPerGroup={2}
         >
           {Array.from({ length: 4 }).map((_, index) => (
-            <SwiperSlide key={index}>
-              <div className="flex flex-row justify-center grow font-Pretendard text-[#000]">
+            <SwiperSlide key={`swiper-slide-${index}`}>
+              <div className="flex flex-row justify-center grow">
                 <BookMain className="w-[180px] flex flex-col mr-[26px]">
                   <BookMain.BookCover>
-                    <div className="relative min-w-[180px] min-h-[250px] max-w-[180px] max-h-[250px]">
+                    <div className="min-w-[180px] min-h-[250px] max-w-[180px] max-h-[250px]">
                       <Skeleton className="w-[180px] h-[250px]" />
                     </div>
                   </BookMain.BookCover>
@@ -36,7 +36,7 @@ const SkeletonLoadingSwiper = () => {
                   </BookMain.BookTitle>
                 </BookMain>
                 <div className="flex flex-col w-[370px]">
-                  <div className="flex flex-row font-semibold">
+                  <div className="flex flex-row">
                     <div className="felx items-center mr-[5px]">
                       <Skeleton className="w-[45px] h-[45px]" />
                     </div>
@@ -46,7 +46,7 @@ const SkeletonLoadingSwiper = () => {
                       </div>
                       <div className="flex flex-row gap-x-2 items-center">
                         <Skeleton className="w-[18px] h-[18px] rounded-50%" />
-                        <div className="font-medium text-[15px] text-[#777]">
+                        <div>
                           <Skeleton className="w-[220px] h-[22.5px]" />
                         </div>
                       </div>
@@ -56,7 +56,7 @@ const SkeletonLoadingSwiper = () => {
                     </div>
                   </div>
                   <hr className="w-full border border-[#F4E4CE] my-[20px]" />
-                  <div className="flex flex-row font-semibold">
+                  <div className="flex flex-row">
                     <div className="felx items-center mr-[5px]">
                       <Skeleton className="w-[45px] h-[45px]" />
                     </div>
@@ -66,7 +66,7 @@ const SkeletonLoadingSwiper = () => {
                       </div>
                       <div className="flex flex-row gap-x-2 items-center">
                         <Skeleton className="w-[18px] h-[18px] rounded-50%" />
-                        <div className="font-medium text-[15px] text-[#777]">
+                        <div>
                           <Skeleton className="w-[220px] h-[22.5px]" />
                         </div>
                       </div>
@@ -76,7 +76,7 @@ const SkeletonLoadingSwiper = () => {
                     </div>
                   </div>
                   <hr className="w-full border border-[#F4E4CE] my-[20px]" />
-                  <div className="flex flex-row font-semibold">
+                  <div className="flex flex-row">
                     <div className="felx items-center mr-[5px]">
                       <Skeleton className="w-[45px] h-[45px]" />
                     </div>
@@ -86,7 +86,7 @@ const SkeletonLoadingSwiper = () => {
                       </div>
                       <div className="flex flex-row gap-x-2 items-center">
                         <Skeleton className="w-[18px] h-[18px] rounded-50%" />
-                        <div className="font-medium text-[15px] text-[#777]">
+                        <div>
                           <Skeleton className="w-[220px] h-[22.5px]" />
                         </div>
                       </div>
