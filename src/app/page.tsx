@@ -7,7 +7,14 @@ import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
-import { lazy, Suspense, useEffect, useState } from "react";
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Button } from "./components/Button/Button";
 import HaveNotData from "./components/HaveNotData/HaveNotData";
 import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard";
@@ -48,15 +55,39 @@ const page = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data: recentData, isLoading: getRoomLoading } = useGetRooms({
-    page: 1,
+  const {
+    data: talkRoomData,
+    isLoading: getRoomLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGetRooms({
     size: 3,
     order: "recent",
     search: "",
     sortbydate: "",
   });
+
   const { data: bookRankData, isLoading: getBookRankLoading } =
     useGetBookRank();
+
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastReviewElementRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasNextPage) {
+            fetchNextPage();
+          }
+        },
+        { rootMargin: "0px" },
+      );
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage],
+  );
 
   useEffect(() => {
     if (!getRoomLoading && !getBookRankLoading) {
@@ -128,7 +159,7 @@ const page = () => {
           <div className="font-SpoqaHanSansNeo font-bold text-2xl flex grow">
             토크방 보기
           </div>
-          <Link href={"/detail/talkroom/new"}>
+          <Link href={"/detail/talkroom"}>
             <Button className="w-[167px]" variant={"mainPage"} weight={"semi"}>
               <div className="flex items-center gap-x-2 px-4">
                 <CreateTalkRoom />
@@ -138,30 +169,44 @@ const page = () => {
           </Link>
         </div>
 
-        {recentData && recentData.queryResponse.length > 0 ? (
+        {talkRoomData &&
+        talkRoomData.pages.length > 0 &&
+        talkRoomData.pages[0].content.length > 0 ? (
           <div className="flex flex-col gap-y-[25px]">
-            {recentData.queryResponse.map((data: TalkRoom) => {
-              const isLike =
-                isLoggedIn &&
-                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
-              return (
-                <Suspense
-                  fallback={
-                    <DeferredComponent>
-                      <SkeletonTalkRoomCard />
-                    </DeferredComponent>
-                  }
-                >
-                  <TalkRoomCard
-                    key={data.id}
-                    data={data}
-                    userId={myDetailData?.userId || -1}
-                    isBest={false}
-                    isLike={isLike}
-                  />
-                </Suspense>
-              );
-            })}
+            {talkRoomData.pages.map(
+              (page, pageIndex) =>
+                page.content &&
+                page.content.length > 0 &&
+                page.content.map((data: TalkRoom, index: number) => {
+                  const isLike =
+                    isLoggedIn &&
+                    (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+                  const isLastElement =
+                    pageIndex === talkRoomData.pages.length - 1 &&
+                    index === page.content.length - 1;
+                  return (
+                    <div
+                      key={data.id}
+                      ref={isLastElement ? lastReviewElementRef : null}
+                    >
+                      <Suspense
+                        fallback={
+                          <DeferredComponent>
+                            <SkeletonTalkRoomCard />
+                          </DeferredComponent>
+                        }
+                      >
+                        <TalkRoomCard
+                          data={data}
+                          userId={myDetailData?.userId || -1}
+                          isBest={false}
+                          isLike={isLike}
+                        />
+                      </Suspense>
+                    </div>
+                  );
+                }),
+            )}
           </div>
         ) : (
           !getRoomLoading && <HaveNotData content={"토크방이"} />
