@@ -9,7 +9,6 @@ import { useLogin } from "@/hook/useLogin";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
-import Pagination from "../../components/Pagination/Pagination";
 import { ThemeMain } from "../../components/Theme/Theme";
 import TalkRoomSearch from "../_component/talkroomSearch";
 
@@ -105,10 +104,10 @@ const page = ({ params }: { params: { result: string } }) => {
         </div>
       </div>
 
-      {talkRoomPopular && talkRoomPopular.queryResponse.length > 0 ? (
+      {talkRoomPopular && talkRoomPopular.pages[0].content.length > 0 ? (
         <>
           <div className="flex flex-row flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
-            {talkRoomPopular.queryResponse.map((data: TalkRoom) => {
+            {talkRoomPopular.pages[0].content.map((data: TalkRoom) => {
               const isLike =
                 isLoggedIn &&
                 (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
@@ -123,20 +122,6 @@ const page = ({ params }: { params: { result: string } }) => {
               );
             })}
           </div>
-          {isLoading ? (
-            <></>
-          ) : (
-            <Pagination
-              totalItems={talkRoomPopular?.totalCount ?? 0}
-              postPage={12}
-              link={
-                sortByDate
-                  ? currentUrl +
-                    `?order=${orderParam}&search=${searchParam}&sortByDate=${sortByDate}`
-                  : currentUrl + `?order=${orderParam}&search=${searchParam}`
-              }
-            />
-          )}
         </>
       ) : (
         <HaveNotData content={"검색된 토크방이"} />

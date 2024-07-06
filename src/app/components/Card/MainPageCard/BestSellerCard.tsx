@@ -41,14 +41,14 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   talkRoomLikeIds,
   isLoading,
 }) => {
-  const { data: recentData, isLoading: dataIsLoading } = useGetRooms({
+  const { data: talkRoomData, isLoading: dataIsLoading } = useGetRooms({
     page: 1,
     size: 3,
     order: "recent",
     search: "",
     sortbydate: "",
   });
-  if (!isLoading && recentData?.queryResponse.length === 0)
+  if (!isLoading && talkRoomData?.pages[0].content.length === 0)
     return <HaveNotData content={"토크방이"} />;
   return (
     <div className="flex flex-row justify-center grow font-Pretendard text-[#000]">
@@ -77,9 +77,9 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
         </BookMain>
       </Link>
       <div className="flex flex-col w-[370px]">
-        {recentData &&
-          recentData.queryResponse.length > 0 &&
-          recentData?.queryResponse.map((data: TalkRoom, index) => {
+        {talkRoomData &&
+          talkRoomData.pages[0].content.length > 0 &&
+          talkRoomData.pages[0].content.map((data: TalkRoom, index) => {
             const isLike = isLoggedIn && talkRoomLikeIds?.includes(data.id);
             return (
               <BestSellerTalkRoomCard
