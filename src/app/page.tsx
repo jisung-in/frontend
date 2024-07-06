@@ -82,7 +82,7 @@ const page = () => {
             fetchNextPage();
           }
         },
-        { rootMargin: "0px" },
+        { rootMargin: "0px 0px -400px 0px" },
       );
       if (node) observer.current.observe(node);
     },
