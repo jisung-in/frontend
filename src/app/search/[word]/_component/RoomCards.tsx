@@ -30,9 +30,9 @@ const RoomCards = ({ order = "recommend", search = "" }: Props) => {
 
   return (
     <>
-      {bookData && bookData.queryResponse.length > 0 ? (
+      {bookData && bookData.pages[0].content.length > 0 ? (
         <div className="grid gap-8 grid-cols-3">
-          {bookData?.queryResponse.map((data: any) => {
+          {bookData.pages[0].content.map((data: any) => {
             const isLike =
               isLoggedIn &&
               (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);

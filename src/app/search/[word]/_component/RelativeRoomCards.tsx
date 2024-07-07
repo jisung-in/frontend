@@ -3,7 +3,6 @@
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
-import { useGetRelativeReooms } from "@/hook/reactQuery/talkRoom/useGetRelativeTalkroom";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
@@ -26,9 +25,9 @@ const RelativeRoomCards = ({ name }: Props) => {
 
   return (
     <>
-      {bookData && bookData.queryResponse.length > 0 ? (
+      {bookData && bookData.pages[0].content.length > 0 ? (
         <div className="grid gap-8 grid-cols-3">
-          {bookData?.queryResponse.map((data: any) => {
+          {bookData?.pages[0].content.map((data: any) => {
             const isLike =
               isLoggedIn &&
               (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
