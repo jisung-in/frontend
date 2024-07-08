@@ -100,7 +100,7 @@ const page = () => {
   return (
     <div className="flex flex-col items-center max-w-[1280px]">
       <div className="mt-[85px] mb-[38px] flex flex-row gap-x-[21px]">
-        <Link href={"/talkroom/record"}>
+        <Link href={"/talkroom/record?order=recent&search="}>
           <div className="w-[413px] h-[270px]">
             <MainSelectionCard
               isMain={true}
