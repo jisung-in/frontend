@@ -1,29 +1,26 @@
-import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
+import CreateTalkRoom from "@/assets/img/create-talk-room.svg";
 import { useInput } from "@/hook/useInput";
-import changeIsDate from "@/util/searchTalkRoomDate";
 import changeIsStatus from "@/util/searchTalkRoomStatus";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 import { Button } from "../../components/Button/Button";
-import DropDown from "../../components/DropDown/DropDown";
 import { Input } from "../../components/Input/Input";
 
 type TalkRoomButtonsProps = {
   onSearchSubmit: (searchValue: string) => void;
+  currentUrl: string;
   searchParam: string;
 };
 
 const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
   onSearchSubmit,
+  currentUrl,
   searchParam,
 }) => {
   const router = useRouter();
   const params = useSearchParams();
   const orderParam = params.get("order");
   const { value, handleChange, reset } = useInput("");
-  const [isDate, setIsDate] = useState<string>("날짜별");
-  const dateType: string[] = ["~한달 전", "7일전", "하루 전"];
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
@@ -42,40 +39,32 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
           <>
             <div className="flex">
               <div
-                className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer mr-[11px]"
+                className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-regular text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer mr-[11px]"
                 onClick={() => {
-                  setIsDate("날짜별");
-                  router.push(changeIsStatus("recent", searchParam));
+                  router.push(
+                    changeIsStatus("recent", currentUrl, searchParam),
+                  );
                 }}
               >
                 최신순
               </div>
-              <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#FFF] border-[#80685D] border border-solid rounded-[5px] bg-[#80685D] pointer-events-none">
+              <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-bold text-[17px] text-[#80685D] border-[#80685D] border border-solid rounded-[5px] bg-[#fff] pointer-events-none">
                 인기순
               </div>
-            </div>
-            <div className="flex items-center ml-[26px]">
-              <DropDown
-                items={dateType}
-                selectedItem={isDate}
-                setSelectedItem={(date: any) => {
-                  setIsDate(date);
-                  router.push(changeIsDate(date, searchParam));
-                }}
-                className="left-[-35px]"
-              />
             </div>
           </>
         )}
         {orderStatus === "recent" && (
           <div className="flex">
-            <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#FFF] border-[#80685D] border border-solid rounded-[5px] bg-[#80685D] mr-[11px] pointer-events-none">
+            <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-bold text-[17px] text-[#80685D] border-[#80685D] border border-solid rounded-[5px] bg-[#fff] mr-[11px] pointer-events-none">
               최신순
             </div>
             <div
-              className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer"
+              className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-regular text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer"
               onClick={() =>
-                router.push(changeIsStatus("recommend", searchParam))
+                router.push(
+                  changeIsStatus("recommend", currentUrl, searchParam),
+                )
               }
             >
               인기순
@@ -83,8 +72,8 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
           </div>
         )}
       </div>
-      <div className="flex h-[40px]">
-        <div className="w-[567px] mr-[11px]">
+      <div className="flex h-[40px] items-center">
+        <div className="w-[567px] mr-2.5">
           <form onSubmit={searchTalkRoom}>
             <Input
               className="font-Pretendard font-[400]"
@@ -96,14 +85,14 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
             />
           </form>
         </div>
-        <div className="w-[167px]">
-          <Link href={"/detail/talkroom/new"}>
-            <Button>
-              <MakeTalkRoom />
+        <Link href={"/detail/talkroom"}>
+          <Button className="w-[167px]" variant={"mainPage"} weight={"semi"}>
+            <div className="flex items-center gap-x-2 px-4">
+              <CreateTalkRoom />
               토크방 생성하기
-            </Button>
-          </Link>
-        </div>
+            </div>
+          </Button>
+        </Link>
       </div>
     </>
   );
