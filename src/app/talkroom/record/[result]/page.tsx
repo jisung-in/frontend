@@ -1,6 +1,8 @@
 "use client";
 
+import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
@@ -8,9 +10,7 @@ import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
-import { ThemeMain } from "../../components/Theme/Theme";
-import TalkRoomSearch from "../_component/talkroomSearch";
+import TalkRoomSearch from "../../_component/talkroomSearch";
 
 type TalkRoom = {
   id: number;
@@ -99,6 +99,7 @@ const page = ({ params }: { params: { result: string } }) => {
             <TalkRoomSearch
               onSearchSubmit={searchTalkRoom}
               searchParam={search}
+              currentUrl={""}
             />
           </div>
         </div>
