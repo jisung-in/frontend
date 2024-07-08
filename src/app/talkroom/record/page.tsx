@@ -86,7 +86,7 @@ const page = () => {
       </div>
 
       {talkRoomPopular && talkRoomPopular.pages[0].content.length > 0 ? (
-        <div className="flex flex-row items-center justify-center flex-wrap gap-x-[40px] gap-y-[30px] w-[1295px]">
+        <div className="flex flex-row items-center justify-center flex-wrap gap-x-[40px] gap-y-[30px] w-[1280px] mb-[117px]">
           {talkRoomPopular.pages[0].content.map((data: TalkRoom) => {
             const isLike =
               isLoggedIn &&

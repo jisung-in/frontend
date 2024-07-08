@@ -5,10 +5,10 @@ const changeIsStatus = (
 ) => {
   if (searchParam) {
     if (status === "recent") {
-      return `${currentUrl}/${searchParam}/?order=recent&search=${searchParam}`;
+      return `${currentUrl}/?order=recent&search=${searchParam}`;
     }
     if (status === "recommend") {
-      return `${currentUrl}/${searchParam}/?order=recommend&search=${searchParam}`;
+      return `${currentUrl}/?order=recommend&search=${searchParam}`;
     }
   } else {
     if (status === "recent") {
