@@ -1,15 +1,16 @@
 "use client";
 
-import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainSelectionCard from "@/app/components/MainSelectionCard/MainSelectionCard";
+import DeferredComponent from "@/app/components/SkeletonUI/DeferredComponent ";
+import SkeletonTalkRoomCard from "@/app/components/SkeletonUI/SkeletonTalkRoomCard";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { lazy, Suspense, useCallback, useEffect, useRef } from "react";
 import TalkRoomSearch from "../../_component/talkroomSearch";
 
 type TalkRoom = {
@@ -28,19 +29,21 @@ type TalkRoom = {
 };
 
 const page = ({ params }: { params: { result: string } }) => {
+  const TalkRoomCard = lazy(
+    () => import("@/app/components/Card/MainPageCard/TalkRoomCard"),
+  );
+
   const router = useRouter();
   const param = useSearchParams();
   const currentUrl = usePathname();
   const orderParam = param.get("order");
   const searchParam: string = param.get("search") || "";
-  const pageParam = param.get("page");
   const orderStatus: "recent" | "recommend" | "recent-comment" =
     orderParam === "recent" ||
     orderParam === "recommend" ||
     orderParam === "recent-comment"
       ? orderParam
       : "recent";
-  const page: number = Number(pageParam) || 1;
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -49,16 +52,38 @@ const page = ({ params }: { params: { result: string } }) => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
   const search = decodeURIComponent(params.result);
+
   const {
-    data: talkRoomPopular,
-    isLoading,
+    data: talkRoomData,
+    isLoading: getRoomLoading,
     refetch: refetchTalkRoomData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
   } = useGetRooms({
-    page: page,
     size: 12,
     order: orderStatus,
     search: search,
   });
+
+  const observer = useRef<IntersectionObserver | null>(null);
+  const lastReviewElementRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting && hasNextPage) {
+            fetchNextPage();
+          }
+        },
+        { rootMargin: "0px 0px -400px 0px" },
+      );
+      if (node) observer.current.observe(node);
+    },
+    [isFetchingNextPage, hasNextPage, fetchNextPage],
+  );
+
   const searchTalkRoom = (searchValue: string) => {
     router.push(
       `/talkroom/record/${searchValue}/?order=${orderParam}&search=${searchValue}`,
@@ -94,27 +119,47 @@ const page = ({ params }: { params: { result: string } }) => {
         </div>
       </div>
 
-      {talkRoomPopular && talkRoomPopular.pages[0].content.length > 0 ? (
-        <>
-          <div className="flex flex-row items-center justify-center flex-wrap gap-x-[40px] gap-y-[30px] w-[1280px] mb-[117px]">
-            {talkRoomPopular.pages[0].content.map((data: TalkRoom) => {
-              const isLike =
-                isLoggedIn &&
-                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
-              return (
-                <TalkRoomCard
-                  key={data.id}
-                  data={data}
-                  userId={myDetailData?.userId || -1}
-                  isBest={orderParam === "recommend"}
-                  isLike={isLike}
-                />
-              );
-            })}
-          </div>
-        </>
+      {talkRoomData &&
+      talkRoomData.pages.length > 0 &&
+      talkRoomData.pages[0].content.length > 0 ? (
+        <div className="flex flex-col gap-y-[25px] mb-[117px]">
+          {talkRoomData.pages.map(
+            (page, pageIndex) =>
+              page.content &&
+              page.content.length > 0 &&
+              page.content.map((data: TalkRoom, index: number) => {
+                const isLike =
+                  isLoggedIn &&
+                  (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+                const isLastElement =
+                  pageIndex === talkRoomData.pages.length - 1 &&
+                  index === page.content.length - 1;
+                return (
+                  <div
+                    key={data.id}
+                    ref={isLastElement ? lastReviewElementRef : null}
+                  >
+                    <Suspense
+                      fallback={
+                        <DeferredComponent>
+                          <SkeletonTalkRoomCard />
+                        </DeferredComponent>
+                      }
+                    >
+                      <TalkRoomCard
+                        userId={myDetailData?.userId || -1}
+                        data={data}
+                        isBest={orderParam === "recommend"}
+                        isLike={isLike}
+                      />
+                    </Suspense>
+                  </div>
+                );
+              }),
+          )}
+        </div>
       ) : (
-        <HaveNotData content={"검색된 토크방이"} />
+        !getRoomLoading && <HaveNotData content={"토크방이"} />
       )}
     </div>
   );
