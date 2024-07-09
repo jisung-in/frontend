@@ -82,7 +82,7 @@ const page = () => {
 
   const searchTalkRoom = (searchValue: string) => {
     router.push(
-      `${currentUrl}/${searchValue}/?order=${orderParam}&search=${searchValue}`,
+      `${currentUrl}/${searchValue}?order=${orderParam}&search=${searchValue}`,
     );
   };
   useEffect(() => {
