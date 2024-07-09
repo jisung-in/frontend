@@ -3,22 +3,9 @@ const changeIsStatus = (
   currentUrl: string,
   searchParam: string,
 ) => {
-  if (searchParam) {
-    if (status === "recent") {
-      return `${currentUrl}/?order=recent&search=${searchParam}`;
-    }
-    if (status === "recommend") {
-      return `${currentUrl}/?order=recommend&search=${searchParam}`;
-    }
-  } else {
-    if (status === "recent") {
-      return `${currentUrl}/?order=recent`;
-    }
-    if (status === "recommend") {
-      return `${currentUrl}/?order=recommend`;
-    }
-  }
-  return "not-found";
+  const order = status === "recent" ? "recent" : "recommend";
+  const search = searchParam ? `&search=${searchParam}` : "";
+  return `${currentUrl}/?order=${order}${search}`;
 };
 
 export default changeIsStatus;
