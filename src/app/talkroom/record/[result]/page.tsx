@@ -61,7 +61,7 @@ const page = ({ params }: { params: { result: string } }) => {
     hasNextPage,
     isFetchingNextPage,
   } = useGetRooms({
-    size: 12,
+    size: 7,
     order: orderStatus,
     search: search,
   });

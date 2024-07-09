@@ -40,11 +40,9 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
             <div className="flex">
               <div
                 className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-regular text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer mr-[11px]"
-                onClick={() => {
-                  router.push(
-                    changeIsStatus("recent", currentUrl, searchParam),
-                  );
-                }}
+                onClick={() =>
+                  router.push(changeIsStatus("recent", currentUrl, searchParam))
+                }
               >
                 최신순
               </div>

@@ -58,7 +58,7 @@ const page = () => {
     hasNextPage,
     isFetchingNextPage,
   } = useGetRooms({
-    size: 12,
+    size: 7,
     order: orderStatus,
   });
 
@@ -87,12 +87,12 @@ const page = () => {
   };
   useEffect(() => {
     refetchTalkRoomData();
-  }, [orderStatus, page]);
+  }, [orderStatus]);
   return (
     <div className="flex flex-col items-center">
       <div className="max-w-[1280px] w-[84vw]">
         <div className="w-[168px] h-[80px] mt-[85px]">
-          <Link href={"/talkroom/record?order=recent&search="}>
+          <Link href={"/talkroom/record?order=recent"}>
             <MainSelectionCard
               isMain={false}
               type="middleRecord"
