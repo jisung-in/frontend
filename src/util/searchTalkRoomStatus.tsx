@@ -5,7 +5,7 @@ const changeIsStatus = (
 ) => {
   const order = status === "recent" ? "recent" : "recommend";
   const search = searchParam ? `&search=${searchParam}` : "";
-  return `${currentUrl}/?order=${order}${search}`;
+  return `${currentUrl}?order=${order}${search}`;
 };
 
 export default changeIsStatus;
