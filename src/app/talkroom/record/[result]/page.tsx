@@ -85,13 +85,11 @@ const page = ({ params }: { params: { result: string } }) => {
   );
 
   const searchTalkRoom = (searchValue: string) => {
-    router.push(
-      `/talkroom/record/${searchValue}/?order=${orderParam}&search=${searchValue}`,
-    );
+    router.push(`${searchValue}?order=${orderParam}&search=${searchValue}`);
   };
   useEffect(() => {
     refetchTalkRoomData();
-  }, [orderStatus, page]);
+  }, [orderStatus]);
   return (
     <div className="flex flex-col items-center">
       <div className="max-w-[1280px] w-[84vw]">
