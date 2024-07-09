@@ -11,7 +11,7 @@ type TalkRoomRequest = {
 
 type TalkRoomInfo = {
   content: TalkRoom[];
-  hasContent: true;
+  hasContent: boolean;
   number: number;
   size: number;
   isFirst: boolean;
@@ -40,7 +40,7 @@ export const useGetRooms = ({
   sortbydate = "",
 }: TalkRoomRequest) => {
   return useInfiniteQuery<TalkRoomInfo, Error>({
-    queryKey: ["talkroom", "popular", size, order, search, sortbydate],
+    queryKey: ["talkroom", size, order, search, sortbydate],
     queryFn: async ({ pageParam = 1 }) => {
       return axiosInstance
         .get(
@@ -53,6 +53,6 @@ export const useGetRooms = ({
       return lastPage.number + 1;
     },
     initialPageParam: 1,
-    throwOnError: false,
+    throwOnError: true,
   });
 };

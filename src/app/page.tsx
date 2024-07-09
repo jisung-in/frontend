@@ -100,30 +100,36 @@ const page = () => {
   return (
     <div className="flex flex-col items-center max-w-[1280px]">
       <div className="mt-[85px] mb-[38px] flex flex-row gap-x-[21px]">
-        <div className="w-[413px] h-[270px]">
-          <MainSelectionCard
-            isMain={true}
-            type="record"
-            rounded={true}
-            isLoading={isAllLoading}
-          />
-        </div>
-        <div className="w-[413px] h-[270px]">
-          <MainSelectionCard
-            isMain={true}
-            type="question"
-            rounded={true}
-            isLoading={isAllLoading}
-          />
-        </div>
-        <div className="w-[413px] h-[270px]">
-          <MainSelectionCard
-            isMain={true}
-            type="evaluation"
-            rounded={true}
-            isLoading={isAllLoading}
-          />
-        </div>
+        <Link href={"/talkroom/record?order=recent"}>
+          <div className="w-[413px] h-[270px]">
+            <MainSelectionCard
+              isMain={true}
+              type="record"
+              rounded={true}
+              isLoading={isAllLoading}
+            />
+          </div>
+        </Link>
+        <Link href={"/talkroom/question"}>
+          <div className="w-[413px] h-[270px]">
+            <MainSelectionCard
+              isMain={true}
+              type="question"
+              rounded={true}
+              isLoading={isAllLoading}
+            />
+          </div>
+        </Link>
+        <Link href={"/talkroom/evaluation"}>
+          <div className="w-[413px] h-[270px]">
+            <MainSelectionCard
+              isMain={true}
+              type="evaluation"
+              rounded={true}
+              isLoading={isAllLoading}
+            />
+          </div>
+        </Link>
       </div>
 
       <div className="max-w-[1280px]">
