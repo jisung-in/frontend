@@ -4,6 +4,7 @@ import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainSelectionCard from "@/app/components/MainSelectionCard/MainSelectionCard";
 import DeferredComponent from "@/app/components/SkeletonUI/DeferredComponent ";
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUI/SkeletonTalkRoomCard";
+import BackButton from "@/app/summary/_component/BackButton";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
@@ -91,6 +92,10 @@ const page = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="max-w-[1280px] w-[84vw]">
+        <div className="mt-[59px]">
+          <BackButton />
+        </div>
+
         <div className="w-[168px] h-[80px] mt-[85px]">
           <Link href={"/talkroom/record?order=recent"}>
             <MainSelectionCard
