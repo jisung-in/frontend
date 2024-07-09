@@ -103,17 +103,16 @@ const page = ({ params }: { params: { result: string } }) => {
           </Link>
         </div>
 
-        <div className="font-SpoqaHanSansNeo font-medium text-[20px] text-[#77777E] mt-[25px]">
-          "{search}" 의 결과
-        </div>
-
-        <hr className="border-solid border-[3px] border-[#F5EFE5] mt-3 mb-[19px]" />
         <div className="flex mt-[35px] mb-[25px] items-center">
           <TalkRoomSearch
             onSearchSubmit={searchTalkRoom}
             currentUrl={currentUrl}
             searchParam={searchParam}
           />
+        </div>
+
+        <div className="font-Pretendard font-medium text-[20px] text-[#656565] mb-[25px]">
+          "{search}"에 따른 토크방 검색 결과입니다
         </div>
       </div>
 
