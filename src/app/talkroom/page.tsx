@@ -7,7 +7,7 @@ const page = () => {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace("/talkroom/record?order=recent");
+    router.replace("not-found");
   }, [router]);
 
   return null;
