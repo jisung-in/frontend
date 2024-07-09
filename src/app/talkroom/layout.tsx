@@ -1,11 +1,13 @@
-import { ReactNode } from "react";
+import { ReactNode, Suspense } from "react";
 
 type Props = { children: ReactNode };
 
 export default function TalkRoomLayout({ children }: Props) {
   return (
-    <div className="flex justify-center items-center w-full h-full">
-      {children}
-    </div>
+    <Suspense>
+      <div className="flex justify-center items-center w-full h-full">
+        {children}
+      </div>
+    </Suspense>
   );
 }
