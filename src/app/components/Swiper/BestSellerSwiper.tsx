@@ -6,6 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BestSellerCard from "../Card/MainPageCard/BestSellerCard";
 import HaveNotData from "../HaveNotData/HaveNotData";
+import SkeletonLoadingSwiper from "../SkeletonUI/SkeletonLoadingSwiper";
 
 interface BookSliderProps {
   data?: {
@@ -30,6 +31,8 @@ const BestSellerSwiper: React.FC<BookSliderProps> = ({
   talkRoomLikeIds,
   isLoading,
 }) => {
+  if (isLoading) return <SkeletonLoadingSwiper />;
+
   if (!isLoading && data?.length === 0)
     return <HaveNotData content={"베스트 셀러가"} />;
 

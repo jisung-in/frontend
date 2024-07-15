@@ -36,37 +36,29 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
     <>
       <div className="flex grow">
         {orderStatus === "recommend" && (
-          <>
-            <div className="flex">
-              <div
-                className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-regular text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer mr-[11px]"
-                onClick={() =>
-                  router.push(changeIsStatus("recent", currentUrl, searchParam))
-                }
-              >
-                최신순
-              </div>
-              <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-bold text-[17px] text-[#80685D] border-[#80685D] border border-solid rounded-[5px] bg-[#fff] pointer-events-none">
-                인기순
-              </div>
-            </div>
-          </>
-        )}
-        {orderStatus === "recent" && (
-          <div className="flex">
-            <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-bold text-[17px] text-[#80685D] border-[#80685D] border border-solid rounded-[5px] bg-[#fff] mr-[11px] pointer-events-none">
-              최신순
-            </div>
-            <div
+          <div className="flex gap-x-2">
+            <Link
               className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-regular text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer"
-              onClick={() =>
-                router.push(
-                  changeIsStatus("recommend", currentUrl, searchParam),
-                )
-              }
+              href={changeIsStatus("recent", currentUrl, searchParam)}
             >
+              최신순
+            </Link>
+            <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-bold text-[17px] text-[#80685D] border-[#80685D] border border-solid rounded-[5px] bg-[#fff] pointer-events-none">
               인기순
             </div>
+          </div>
+        )}
+        {orderStatus === "recent" && (
+          <div className="flex gap-x-2">
+            <div className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-bold text-[17px] text-[#80685D] border-[#80685D] border border-solid rounded-[5px] bg-[#fff] pointer-events-none">
+              최신순
+            </div>
+            <Link
+              className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-regular text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer"
+              href={changeIsStatus("recommend", currentUrl, searchParam)}
+            >
+              인기순
+            </Link>
           </div>
         )}
       </div>
