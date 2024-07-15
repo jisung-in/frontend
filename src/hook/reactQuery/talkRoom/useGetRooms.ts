@@ -34,15 +34,15 @@ type TalkRoom = {
 };
 
 export const useGetRooms = ({
-  size,
+  size = 7,
   order = "recent",
   search = "",
   sortbydate = "",
 }: TalkRoomRequest) => {
   return useInfiniteQuery<TalkRoomInfo, Error>({
-    queryKey: ["talkroom", size, order, search, sortbydate],
+    queryKey: ["talkrooms", size, order, search, sortbydate],
     queryFn: async ({ pageParam = 1 }) => {
-      return axiosInstance
+      return await axiosInstance
         .get(
           `/v1/talk-rooms?page=${pageParam}&size=${size}&order=${order}&search=${search}&day=${sortbydate}`,
         )
