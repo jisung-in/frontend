@@ -1,4 +1,3 @@
-import throttle from "lodash/throttle";
 import { MutableRefObject, useEffect } from "react";
 
 interface UseObserverProps {
@@ -17,12 +16,10 @@ const useObserver = ({
   onIntersect,
 }: UseObserverProps) => {
   useEffect(() => {
-    const throttledOnIntersect = throttle(onIntersect, 1000);
-
     let observer: IntersectionObserver | undefined;
 
-    if (target.current) {
-      observer = new IntersectionObserver(throttledOnIntersect, {
+    if (target && target.current) {
+      observer = new IntersectionObserver(onIntersect, {
         root,
         rootMargin,
         threshold,
@@ -30,12 +27,7 @@ const useObserver = ({
       observer.observe(target.current);
     }
 
-    return () => {
-      if (observer && target.current) {
-        observer.unobserve(target.current);
-      }
-      throttledOnIntersect.cancel();
-    };
+    return () => observer && observer.disconnect();
   }, [target, root, rootMargin, threshold, onIntersect]);
 };
 
