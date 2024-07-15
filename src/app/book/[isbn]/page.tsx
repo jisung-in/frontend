@@ -1,6 +1,5 @@
 "use client";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
-import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import BestSeller from "@/assets/img/best-seller.svg";
@@ -129,38 +128,6 @@ const page = ({ params }: { params: { isbn: string } }) => {
             )}
           </div>
         </div>
-      </div>
-
-      <div className="mx-[120px] max-w-[1680px]">
-        <div className="flex flex-row mt-[57px] mb-[27px] items-center">
-          <div className="font-SpoqaHanSansNeo font-bold text-[30px] flex flex-row flex-grow">
-            연관된 토크방 보기
-          </div>
-          <Link href={`/talkroom/related/${params.isbn}`}>
-            <div className="text-[20px] text-[#74747B] font-Pretendard font-regular flex items-center">
-              더보기 {">"}
-            </div>
-          </Link>
-        </div>
-        {relateData && relateData.queryResponse.length > 0 ? (
-          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-            {relateData.queryResponse.map((data: TalkRoom) => {
-              const isLike =
-                isLoggedIn &&
-                (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
-              return (
-                <RelatedTalkRoomCard
-                  key={data.id}
-                  data={data}
-                  userId={myDetailData?.userId || -1}
-                  isLike={isLike}
-                />
-              );
-            })}
-          </div>
-        ) : (
-          <HaveNotData content={"연관된 토크방이"} />
-        )}
       </div>
     </div>
   );
