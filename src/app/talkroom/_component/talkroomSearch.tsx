@@ -3,7 +3,7 @@ import { useInput } from "@/hook/useInput";
 import changeIsDate from "@/util/searchTalkRoomDate";
 import changeIsStatus from "@/util/searchTalkRoomStatus";
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../../components/Button/Button";
 import DropDown from "../../components/DropDown/DropDown";
@@ -20,6 +20,7 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
 }) => {
   const router = useRouter();
   const params = useSearchParams();
+  const currentUrl = usePathname();
   const orderParam = params.get("order");
   const { value, handleChange, reset } = useInput("");
   const [isDate, setIsDate] = useState<string>("날짜별");
@@ -45,7 +46,9 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
                 className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer mr-[11px]"
                 onClick={() => {
                   setIsDate("날짜별");
-                  router.push(changeIsStatus("recent", searchParam));
+                  router.push(
+                    changeIsStatus("recent", currentUrl, searchParam),
+                  );
                 }}
               >
                 최신순
@@ -75,7 +78,9 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
             <div
               className="flex items-center justify-center w-[71px] h-[40px] font-Pretendard font-medium text-[17px] text-[#656565] border-[#D9D9D9] border border-solid rounded-[5px] hover:bg-[#FBFBFB] cursor-pointer"
               onClick={() =>
-                router.push(changeIsStatus("recommend", searchParam))
+                router.push(
+                  changeIsStatus("recommend", currentUrl, searchParam),
+                )
               }
             >
               인기순
