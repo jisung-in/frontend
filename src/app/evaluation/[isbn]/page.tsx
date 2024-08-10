@@ -10,9 +10,10 @@ import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useLogin } from "@/hook/useLogin";
+import useObserver from "@/util/useObserver";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DropDown from "../../components/DropDown/DropDown";
 import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
 
@@ -57,9 +58,10 @@ const Page = ({ params }: { params: { isbn: string } }) => {
 
   const {
     data: reviewData,
+    isLoading,
+    isFetching,
     fetchNextPage,
     hasNextPage,
-    isFetchingNextPage,
     refetch: refetchReviewData,
   } = useGetReview({
     isbn: params.isbn,
@@ -67,23 +69,15 @@ const Page = ({ params }: { params: { isbn: string } }) => {
     order: order,
   });
 
-  const observer = useRef<IntersectionObserver>();
-  const lastReviewElementRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && hasNextPage) {
-            fetchNextPage();
-          }
-        },
-        { rootMargin: "200px" },
-      );
-      if (node) observer.current.observe(node);
+  const observerRef = useRef<HTMLDivElement | null>(null);
+
+  useObserver({
+    target: observerRef,
+    rootMargin: "0px 0px -100px 0px",
+    onIntersect: ([entry]) => {
+      return entry.isIntersecting && hasNextPage && fetchNextPage();
     },
-    [isFetchingNextPage, hasNextPage, fetchNextPage],
-  );
+  });
 
   useEffect(() => {
     refetchReviewData();
@@ -136,26 +130,21 @@ const Page = ({ params }: { params: { isbn: string } }) => {
         </div>
       </div>
 
+      {isLoading && <>Loading...</>}
       {reviewData &&
       reviewData.pages.length > 0 &&
       reviewData.pages[0].content.length > 0 ? (
         <div className="flex flex-col items-center">
           {reviewData.pages.map(
-            (page, pageIndex) =>
+            (page) =>
               page.content &&
               page.content.length > 0 &&
-              page.content.map((data: UserEvaluation, index: number) => {
+              page.content.map((data: UserEvaluation) => {
                 const isLike =
                   isLoggedIn &&
                   (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
-                const isLastElement =
-                  pageIndex === reviewData.pages.length - 1 &&
-                  index === page.content.length - 1;
                 return (
-                  <div
-                    key={data.reviewId}
-                    ref={isLastElement ? lastReviewElementRef : null}
-                  >
+                  <div key={data.reviewId}>
                     <EvaluationCard
                       data={data}
                       userId={myDetailData?.userId || -1}
@@ -165,11 +154,12 @@ const Page = ({ params }: { params: { isbn: string } }) => {
                 );
               }),
           )}
+          {isFetching && <>Loading...</>}
+          <div className="observer" ref={observerRef} />
         </div>
       ) : (
-        <HaveNotData content={"아직 유저평가가"} />
+        !isLoading && <HaveNotData content={"아직 유저평가가"} />
       )}
-      {isFetchingNextPage && <div>Loading...</div>}
     </div>
   );
 };
