@@ -1,6 +1,7 @@
 "use client";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
+import SkeletonBookDetail from "@/app/components/Card/SkeletonUiCard/SkeletonBookDetail";
 import SkeletonEvaluationMini from "@/app/components/Card/SkeletonUiCard/SkeletonEvaluationMini";
 import SkeletonRelatedTalkRoom from "@/app/components/Card/SkeletonUiCard/SkeletonRelatedTalkRoom";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
@@ -59,10 +60,13 @@ const page = ({ params }: { params: { isbn: string } }) => {
   const { data: myDetailData } = isLoggedIn
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
-  const { data: bookDetailData, refetch: refetchBookInformation } =
-    useGetBookInformation({
-      isbn: params.isbn,
-    });
+  const {
+    data: bookDetail,
+    isLoading: isBookDetail,
+    refetch: refetchBookInformation,
+  } = useGetBookInformation({
+    isbn: params.isbn,
+  });
   const { data: reviewCount } = useGetReviewCount(params.isbn);
   const totalRatingChange = useCallback(() => {
     refetchBookInformation();
@@ -85,15 +89,16 @@ const page = ({ params }: { params: { isbn: string } }) => {
         <MainThemeTitle title="책 상세보기">
           <BestSeller />
         </MainThemeTitle>
-        {bookDetailData ? (
+        {isBookDetail && <SkeletonBookDetail />}
+        {bookDetail ? (
           <BookInformation
-            data={bookDetailData}
+            data={bookDetail}
             isbn={params.isbn}
             isLogin={isLoggedIn}
             onTotalRatingChange={totalRatingChange}
           />
         ) : (
-          <HaveNotData content={"책의 정보가"} />
+          !isBookDetail && <HaveNotData content={"책의 정보가"} />
         )}
       </div>
 
