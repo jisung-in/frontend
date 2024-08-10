@@ -5,12 +5,14 @@ import Star from "@/assets/img/star.svg";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
 import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import DeleteButton from "../../DeleteButton/DeleteButton";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
-import Modal from "../../Modal/Modal";
+
+const Modal = dynamic(() => import("../../Modal/Modal"));
 
 type MiniEvaluationProps = {
   data: {

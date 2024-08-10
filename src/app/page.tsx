@@ -9,15 +9,19 @@ import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOr
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "./components/HaveNotData/HaveNotData";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
 import RankSwiper from "./components/Swiper/RankSwiper";
 import TalkRoomCardSwiper from "./components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "./components/Theme/Theme";
+
+const HaveNotData = dynamic(
+  () => import("./components/HaveNotData/HaveNotData"),
+);
 
 type TalkRoom = {
   id: number;
@@ -78,12 +82,13 @@ const page = () => {
       search: "",
       sortbydate: "",
     });
-  const { data: bookRankData } = useGetBookRank();
-  const { data: talkRoomManyBookRoom } = useGetRoomBookOrder({
-    page: 1,
-    size: 12,
-    order: "comment",
-  });
+  const { data: bookRank, isLoading: isBookRank } = useGetBookRank();
+  const { data: talkRoomManyBookRoom, isLoading: isTalkRoomManyBookRoom } =
+    useGetRoomBookOrder({
+      page: 1,
+      size: 12,
+      order: "comment",
+    });
 
   return (
     <div className="bg-[#FFF] w-full">
@@ -204,10 +209,11 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {bookRankData && bookRankData.length > 0 ? (
-            <RankSwiper data={bookRankData} />
+          {isBookRank && <>Loading...</>}
+          {bookRank && bookRank.length > 0 ? (
+            <RankSwiper data={bookRank} />
           ) : (
-            <HaveNotData content={"베스트 셀러가"} />
+            !isBookRank && <HaveNotData content={"베스트 셀러가"} />
           )}
         </div>
       </div>
@@ -330,6 +336,8 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
           </ThemeMain>
+
+          {isTalkRoomManyBookRoom && <>Loading...</>}
           {talkRoomManyBookRoom && talkRoomManyBookRoom.length > 0 ? (
             <div
               className="
@@ -348,7 +356,9 @@ const page = () => {
               ))}
             </div>
           ) : (
-            <HaveNotData content={"토크 많은 책이"} />
+            !isTalkRoomManyBookRoom && (
+              <HaveNotData content={"토크 많은 책이"} />
+            )
           )}
         </div>
       </div>

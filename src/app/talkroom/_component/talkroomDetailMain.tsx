@@ -1,7 +1,6 @@
 import DeleteButton from "@/app/components/DeleteButton/DeleteButton";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import IconButton from "@/app/components/IconButton/IconButton";
-import Modal from "@/app/components/Modal/Modal";
 import BookTitleBigImg from "@/assets/img/book-title-big.svg";
 import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
@@ -13,9 +12,12 @@ import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike"
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import timeLapse from "@/util/timeLapse";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type TalkRoomData = {
   data?: {

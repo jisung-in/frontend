@@ -6,11 +6,13 @@ import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title-middle.svg";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import IconButton from "../../IconButton/IconButton";
-import Modal from "../../Modal/Modal";
+
+const Modal = dynamic(() => import("../../Modal/Modal"));
 
 type TalkRoomCardProps = {
   data: {
