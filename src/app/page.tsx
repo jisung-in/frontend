@@ -102,11 +102,7 @@ const page = () => {
         lg:mt-[40px]
         xl:mt-[48px]
         xl2:mt-[56px] 
-        sm:px-[16px]
-        md:px-[42px]
-        lg:px-[68px]
-        xl:px-[89px]
-        xl2:px-[120px]
+        mx-[5%]
         sm:mb-[25px]
         md:mb-[36px]
         lg:mb-[48px]
@@ -190,11 +186,7 @@ const page = () => {
             lg:my-[42px]
             xl:my-[48px]
             xl2:my-[56px]
-            sm:px-[16px]
-            md:px-[42px]
-            lg:px-[68px]
-            xl:px-[89px]
-            xl2:px-[120px]
+            mx-[5%]
             "
         >
           <ThemeMain.MainTheme>
@@ -227,11 +219,7 @@ const page = () => {
         lg:my-[42px]
         xl:my-[48px]
         xl2:my-[56px]
-        sm:px-[16px]
-        md:px-[42px]
-        lg:px-[68px]
-        xl:px-[89px]
-        xl2:px-[120px]"
+        mx-[5%]"
       >
         <div
           className="
@@ -316,11 +304,7 @@ const page = () => {
           lg:mt-[42px]
           xl:mt-[48px]
           xl2:mt-[56px]
-          sm:px-[16px]
-          md:px-[42px]
-          lg:px-[68px]
-          xl:px-[89px]
-          xl2:px-[120px]"
+          mx-[5%]"
         >
           <ThemeMain>
             <ThemeMain.MainTheme>

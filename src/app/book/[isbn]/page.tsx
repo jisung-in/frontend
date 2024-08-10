@@ -81,7 +81,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
   });
   return (
     <div>
-      <div className="mx-[120px]">
+      <div className="mx-[5%]">
         <MainThemeTitle title="책 상세보기">
           <BestSeller />
         </MainThemeTitle>
@@ -98,7 +98,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
       </div>
 
       <div className="bg-white">
-        <div className="max-w-[1680px] mx-[120px]">
+        <div className="max-w-[1680px] mx-[5%]">
           <RegisterEvaluation isbn={params.isbn} isLogin={isLoggedIn} />
 
           <div className="flex flex-row mt-[63px] mb-[28px] items-center">
@@ -139,7 +139,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
         </div>
       </div>
 
-      <div className="mx-[120px] max-w-[1680px]">
+      <div className="max-w-[1680px] mx-[5%]">
         <div className="flex flex-row mt-[57px] mb-[27px] items-center">
           <div className="font-SpoqaHanSansNeo font-bold text-[30px] flex flex-row flex-grow">
             연관된 토크방 보기
