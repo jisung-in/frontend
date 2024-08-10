@@ -15,6 +15,8 @@
   "dependencies": {
     "@auth/core": "^0.28.1",
     "@faker-js/faker": "^8.4.1",
+    "@nextui-org/react": "^2.4.6",
+    "@nextui-org/skeleton": "^2.0.31",
     "@radix-ui/themes": "^2.0.3",
     "@reduxjs/toolkit": "^2.2.1",
     "@svgr/webpack": "^8.1.0",
@@ -24,6 +26,7 @@
     "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "framer-motion": "^11.3.24",
     "js-cookie": "^3.0.5",
     "msw": "^2.2.13",
     "next": "14.1.3",
