@@ -1,10 +1,10 @@
 "use client";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
-import SkeletonBookDetail from "@/app/components/Card/SkeletonUiCard/SkeletonBookDetail";
-import SkeletonEvaluationMini from "@/app/components/Card/SkeletonUiCard/SkeletonEvaluationMini";
-import SkeletonRelatedTalkRoom from "@/app/components/Card/SkeletonUiCard/SkeletonRelatedTalkRoom";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
+import SkeletonBookDetail from "@/app/components/SkeletonUi/SkeletonBookDetail";
+import SkeletonEvaluationMini from "@/app/components/SkeletonUi/SkeletonEvaluationMini";
+import SkeletonRelatedTalkRoom from "@/app/components/SkeletonUi/SkeletonRelatedTalkRoom";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";

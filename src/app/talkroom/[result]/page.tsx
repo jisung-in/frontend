@@ -1,6 +1,6 @@
 "use client";
 
-import SkeletonTalkRoomCard from "@/app/components/Card/SkeletonUiCard/SkeletonTalkRoomCard";
+import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
