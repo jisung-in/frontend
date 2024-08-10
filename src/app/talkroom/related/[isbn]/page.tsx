@@ -1,6 +1,7 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import SkeletonTalkRoomCard from "@/app/components/Card/SkeletonUiCard/SkeletonTalkRoomCard";
 import Pagination from "@/app/components/Pagination/Pagination";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
@@ -57,6 +58,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </div>
         </div>
       </ThemeMain.MainTheme>
+
+      {isLoading && <SkeletonTalkRoomCard />}
       {relateData && relateData.queryResponse.length > 0 ? (
         <>
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
@@ -86,7 +89,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
           )}
         </>
       ) : (
-        <HaveNotData content={"연관된 토크방이"} />
+        !isLoading && <HaveNotData content={"연관된 토크방이"} />
       )}
     </div>
   );

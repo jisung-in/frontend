@@ -1,6 +1,8 @@
 "use client";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
+import SkeletonEvaluationMini from "@/app/components/Card/SkeletonUiCard/SkeletonEvaluationMini";
+import SkeletonRelatedTalkRoom from "@/app/components/Card/SkeletonUiCard/SkeletonRelatedTalkRoom";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
@@ -66,12 +68,13 @@ const page = ({ params }: { params: { isbn: string } }) => {
     refetchBookInformation();
   }, [refetchBookInformation]);
 
-  const { data: relateData } = useGetBookRelatedTalkRoom({
-    isbn: params.isbn,
-    page: 1,
-    size: 6,
-  });
-  const { data: reviewData } = useGetReview({
+  const { data: relatedTalkRoom, isLoading: isRelatedTalkRoom } =
+    useGetBookRelatedTalkRoom({
+      isbn: params.isbn,
+      page: 1,
+      size: 6,
+    });
+  const { data: review, isLoading: isReview } = useGetReview({
     isbn: params.isbn,
     size: 8,
     order: "recent",
@@ -111,9 +114,10 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </div>
 
           <div className="flex flex-row justify-center">
-            {reviewData && reviewData.pages[0].content.length > 0 ? (
+            {isReview && <SkeletonEvaluationMini />}
+            {review && review.pages[0].content.length > 0 ? (
               <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
-                {reviewData.pages[0].content.map((data: UserEvaluation) => {
+                {review.pages[0].content.map((data: UserEvaluation) => {
                   const isLike =
                     isLoggedIn &&
                     (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
@@ -129,7 +133,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                 })}
               </div>
             ) : (
-              <HaveNotData content={"유저들의 평가가"} />
+              !isReview && <HaveNotData content={"유저들의 평가가"} />
             )}
           </div>
         </div>
@@ -146,9 +150,11 @@ const page = ({ params }: { params: { isbn: string } }) => {
             </div>
           </Link>
         </div>
-        {relateData && relateData.queryResponse.length > 0 ? (
+
+        {isRelatedTalkRoom && <SkeletonRelatedTalkRoom />}
+        {relatedTalkRoom && relatedTalkRoom.queryResponse.length > 0 ? (
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
-            {relateData.queryResponse.map((data: TalkRoom) => {
+            {relatedTalkRoom.queryResponse.map((data: TalkRoom) => {
               const isLike =
                 isLoggedIn &&
                 (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
@@ -163,7 +169,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
             })}
           </div>
         ) : (
-          <HaveNotData content={"연관된 토크방이"} />
+          !isRelatedTalkRoom && <HaveNotData content={"연관된 토크방이"} />
         )}
       </div>
     </div>

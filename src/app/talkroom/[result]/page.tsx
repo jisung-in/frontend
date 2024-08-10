@@ -1,5 +1,6 @@
 "use client";
 
+import SkeletonTalkRoomCard from "@/app/components/Card/SkeletonUiCard/SkeletonTalkRoomCard";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
@@ -120,7 +121,7 @@ const page = ({ params }: { params: { result: string } }) => {
         </div>
       </div>
 
-      {isLoading && <>Loading...</>}
+      {isLoading && <SkeletonTalkRoomCard />}
       {popularTalkRoom &&
       popularTalkRoom.pages.length > 0 &&
       popularTalkRoom.pages[0].content.length > 0 ? (

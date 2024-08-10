@@ -10,6 +10,7 @@ import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
+import SkeletonTalkRoomCard from "../components/Card/SkeletonUiCard/SkeletonTalkRoomCard";
 import { ThemeMain } from "../components/Theme/Theme";
 import TalkRoomSearch from "./_component/talkroomSearch";
 
@@ -108,7 +109,7 @@ const page = () => {
         </div>
       </div>
 
-      {isLoading && <>Loading...</>}
+      {isLoading && <SkeletonTalkRoomCard />}
       {talkRoom &&
       talkRoom.pages.length > 0 &&
       talkRoom.pages[0].content.length > 0 ? (

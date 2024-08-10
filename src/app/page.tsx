@@ -14,6 +14,9 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
+import SkeletonBestSeller from "./components/Card/SkeletonUiCard/SkeletonBestSeller";
+import SkeletonManyTalkRoom from "./components/Card/SkeletonUiCard/SkeletonManyTalkRoom";
+import SkeletonTalkRoomCard from "./components/Card/SkeletonUiCard/SkeletonTalkRoomCard";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
 import RankSwiper from "./components/Swiper/RankSwiper";
 import TalkRoomCardSwiper from "./components/Swiper/TalkRoomCardSwiper";
@@ -137,7 +140,7 @@ const page = () => {
           </ThemeMain>
         </div>
 
-        {isPopularTalkRoomLoading && <>Loading...</>}
+        {isPopularTalkRoomLoading && <SkeletonTalkRoomCard />}
         {popularTalkRoom &&
         popularTalkRoom.pages.length > 0 &&
         popularTalkRoom.pages[0].content.length > 0 ? (
@@ -209,7 +212,7 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {isBookRank && <>Loading...</>}
+          {isBookRank && <SkeletonBestSeller />}
           {bookRank && bookRank.length > 0 ? (
             <RankSwiper data={bookRank} />
           ) : (
@@ -256,7 +259,7 @@ const page = () => {
           </ThemeMain>
         </div>
 
-        {isRecentTalkRoomLoading && <>Loading...</>}
+        {isRecentTalkRoomLoading && <SkeletonTalkRoomCard />}
         {recentTalkRoom &&
         recentTalkRoom.pages.length > 0 &&
         recentTalkRoom.pages[0].content.length > 0 ? (
@@ -337,7 +340,7 @@ const page = () => {
             </ThemeMain.MainTheme>
           </ThemeMain>
 
-          {isTalkRoomManyBookRoom && <>Loading...</>}
+          {isTalkRoomManyBookRoom && <SkeletonManyTalkRoom />}
           {talkRoomManyBookRoom && talkRoomManyBookRoom.length > 0 ? (
             <div
               className="

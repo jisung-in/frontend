@@ -1,6 +1,7 @@
 "use client";
 
 import EvaluationCard from "@/app/components/Card/EvaluationCard/EvaluationCard";
+import SkeletonEvaluation from "@/app/components/Card/SkeletonUiCard/SkeletonEvaluation";
 import BookTitle from "@/assets/img/book-title-evaluation.svg";
 import NoImage from "@/assets/img/no-image.png";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
@@ -134,36 +135,38 @@ const Page = ({ params }: { params: { isbn: string } }) => {
         </div>
       </div>
 
-      {isLoading && <>Loading...</>}
-      {reviewData &&
-      reviewData.pages.length > 0 &&
-      reviewData.pages[0].content.length > 0 ? (
-        <div className="flex flex-col items-center">
-          {reviewData.pages.map(
-            (page) =>
-              page.content &&
-              page.content.length > 0 &&
-              page.content.map((data: UserEvaluation) => {
-                const isLike =
-                  isLoggedIn &&
-                  (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
-                return (
-                  <div key={data.reviewId}>
-                    <EvaluationCard
-                      data={data}
-                      userId={myDetailData?.userId || -1}
-                      isLike={isLike}
-                    />
-                  </div>
-                );
-              }),
-          )}
-          {isFetching && <>Loading...</>}
-          <div className="observer" ref={observerRef} />
-        </div>
-      ) : (
-        !isLoading && <HaveNotData content={"아직 유저평가가"} />
-      )}
+      <div className="flex flex-col items-center">
+        {isLoading && <SkeletonEvaluation />}
+        {reviewData &&
+        reviewData.pages.length > 0 &&
+        reviewData.pages[0].content.length > 0 ? (
+          <>
+            {reviewData.pages.map(
+              (page) =>
+                page.content &&
+                page.content.length > 0 &&
+                page.content.map((data: UserEvaluation) => {
+                  const isLike =
+                    isLoggedIn &&
+                    (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
+                  return (
+                    <div key={data.reviewId}>
+                      <EvaluationCard
+                        data={data}
+                        userId={myDetailData?.userId || -1}
+                        isLike={isLike}
+                      />
+                    </div>
+                  );
+                }),
+            )}
+            {isFetching && <SkeletonEvaluation />}
+            <div className="observer" ref={observerRef} />
+          </>
+        ) : (
+          !isLoading && <HaveNotData content={"아직 유저평가가"} />
+        )}
+      </div>
     </div>
   );
 };
