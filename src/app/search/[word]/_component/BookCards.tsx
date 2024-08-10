@@ -1,6 +1,5 @@
 "use client";
 
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import NoImage from "@/assets/img/no-image.png";
 import { useCreateBook } from "@/hook/reactQuery/book/useCreateBook";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
@@ -13,6 +12,9 @@ import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 const BookCards = () => {

@@ -6,12 +6,17 @@ import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import useObserver from "@/util/useObserver";
+import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "../components/HaveNotData/HaveNotData";
 import { ThemeMain } from "../components/Theme/Theme";
 import TalkRoomSearch from "./_component/talkroomSearch";
+
+const HaveNotData = dynamic(
+  () => import("../components/HaveNotData/HaveNotData"),
+);
+
 type TalkRoom = {
   id: number;
   profileImage: string;

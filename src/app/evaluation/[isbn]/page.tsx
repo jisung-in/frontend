@@ -1,7 +1,6 @@
 "use client";
 
 import EvaluationCard from "@/app/components/Card/EvaluationCard/EvaluationCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import BookTitle from "@/assets/img/book-title-evaluation.svg";
 import NoImage from "@/assets/img/no-image.png";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
@@ -11,11 +10,16 @@ import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useLogin } from "@/hook/useLogin";
 import useObserver from "@/util/useObserver";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import DropDown from "../../components/DropDown/DropDown";
 import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 type UserEvaluation = {
   reviewId: number;

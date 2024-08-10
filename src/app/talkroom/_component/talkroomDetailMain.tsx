@@ -1,5 +1,4 @@
 import DeleteButton from "@/app/components/DeleteButton/DeleteButton";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import IconButton from "@/app/components/IconButton/IconButton";
 import BookTitleBigImg from "@/assets/img/book-title-big.svg";
 import Like from "@/assets/img/like.svg";
@@ -17,6 +16,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type TalkRoomData = {

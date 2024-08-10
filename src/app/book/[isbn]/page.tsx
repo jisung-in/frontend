@@ -1,7 +1,6 @@
 "use client";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
@@ -12,10 +11,15 @@ import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useCallback } from "react";
 import BookInformation from "../_component/BookInformation";
 import RegisterEvaluation from "../_component/registerEvaluation";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 type TalkRoom = {
   id: number;

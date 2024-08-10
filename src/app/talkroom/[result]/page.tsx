@@ -1,17 +1,21 @@
 "use client";
 
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import useObserver from "@/util/useObserver";
+import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
 import { ThemeMain } from "../../components/Theme/Theme";
 import TalkRoomSearch from "../_component/talkroomSearch";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 type TalkRoom = {
   id: number;

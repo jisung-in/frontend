@@ -1,7 +1,6 @@
 "use client";
 
 import { Button } from "@/app/components/Button/Button";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
@@ -10,11 +9,16 @@ import { useGetCommentLike } from "@/hook/reactQuery/talkRoom/useGetCommentLike"
 import { useGetComments } from "@/hook/reactQuery/talkRoom/useGetComments";
 import { useGetOneRoom } from "@/hook/reactQuery/talkRoom/useGetOneRoom";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import MySpeechBubble from "../../_component/SpeechBubble/MySpeechBubble";
 import SpeechBubble from "../../_component/SpeechBubble/SpeechBubble";
 import TalkRoomDetailMain from "../../_component/talkroomDetailMain";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 type CommentsData = {
   commentId: number;
