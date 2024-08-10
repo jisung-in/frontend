@@ -11,7 +11,7 @@ interface UseObserverProps {
 const useObserver = ({
   target,
   root = null,
-  rootMargin = "0px 0px -400px 0px",
+  rootMargin = "0px 0px -100px 0px",
   threshold = 1.0,
   onIntersect,
 }: UseObserverProps) => {

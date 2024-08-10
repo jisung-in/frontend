@@ -276,7 +276,7 @@ const page = () => {
                         <TalkRoomCard
                           data={data}
                           userId={myDetailData?.userId || -1}
-                          isBest={true}
+                          isBest={false}
                           isLike={isLike}
                         />
                       </div>

@@ -107,7 +107,7 @@ const page = () => {
       {talkRoom &&
       talkRoom.pages.length > 0 &&
       talkRoom.pages[0].content.length > 0 ? (
-        <div className="flex flex-row flex-wrap justify-center gap-x-[40px] gap-y-[30px] w-[1295px]">
+        <div className="flex flex-row flex-wrap justify-center gap-x-[40px] gap-y-[30px] w-[1295px] mb-[30px]">
           {talkRoom.pages.map(
             (page) =>
               page.content &&
@@ -121,7 +121,7 @@ const page = () => {
                     <TalkRoomCard
                       data={data}
                       userId={myDetailData?.userId || -1}
-                      isBest={true}
+                      isBest={orderStatus === "recommend"}
                       isLike={isLike}
                     />
                   </div>
