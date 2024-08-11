@@ -1,17 +1,21 @@
 "use client";
 
+import NoImage from "@/assets/img/no-image.png";
+import { useCreateBook } from "@/hook/reactQuery/book/useCreateBook";
+import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import {
   BookInfo,
   useGetKakaoResults,
 } from "@/hook/reactQuery/search/useGetKakaoResults";
-import { useRouter, useSearchParams } from "next/navigation";
+import dynamic from "next/dynamic";
 import Image from "next/image";
-import NoImage from "@/assets/img/no-image.png";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
-import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import Modal from "@/app/components/Modal/Modal";
-import { useCreateBook } from "@/hook/reactQuery/book/useCreateBook";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 const BookCards = () => {
   const [onModal, setOnModal] = useState(false);

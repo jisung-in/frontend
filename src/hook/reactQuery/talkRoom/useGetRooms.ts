@@ -1,5 +1,5 @@
 import axiosInstance from "@/app/api/requestApi";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 type TalkRoomRequest = {
   page?: number;
@@ -10,9 +10,12 @@ type TalkRoomRequest = {
 };
 
 type TalkRoomInfo = {
-  queryResponse: TalkRoom[];
-  totalCount: number;
+  content: TalkRoom[];
+  hasContent: boolean;
+  number: number;
   size: number;
+  isFirst: boolean;
+  isLast: boolean;
 };
 
 type TalkRoom = {
@@ -31,20 +34,25 @@ type TalkRoom = {
 };
 
 export const useGetRooms = ({
-  page = 1,
-  size = 10,
+  size,
   order = "recent",
   search = "",
   sortbydate = "",
 }: TalkRoomRequest) => {
-  return useQuery<TalkRoomInfo>({
-    queryKey: ["talkroom", "popular", page, size, order, search, sortbydate],
-    queryFn: () =>
-      axiosInstance
+  return useInfiniteQuery<TalkRoomInfo, Error>({
+    queryKey: ["talkrooms", size, order, search, sortbydate],
+    queryFn: async ({ pageParam = 1 }) => {
+      return await axiosInstance
         .get(
-          `/v1/talk-rooms?page=${page}&size=${size}&order=${order}&search=${search}&day=${sortbydate}`,
+          `/v1/talk-rooms?page=${pageParam}&size=${size}&order=${order}&search=${search}&day=${sortbydate}`,
         )
-        .then(({ data }) => data),
+        .then(({ data }) => data);
+    },
+    getNextPageParam: (lastPage) => {
+      if (lastPage.isLast) return undefined;
+      return lastPage.number + 1;
+    },
+    initialPageParam: 1,
     throwOnError: true,
   });
 };

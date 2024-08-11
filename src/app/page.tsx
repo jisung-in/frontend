@@ -9,15 +9,23 @@ import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOr
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "./components/HaveNotData/HaveNotData";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
+import SkeletonBestSeller from "./components/SkeletonUi/SkeletonBestSeller";
+import SkeletonManyTalkRoom from "./components/SkeletonUi/SkeletonManyTalkRoom";
+import SkeletonTalkRoomCard from "./components/SkeletonUi/SkeletonTalkRoomCard";
 import RankSwiper from "./components/Swiper/RankSwiper";
 import TalkRoomCardSwiper from "./components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "./components/Theme/Theme";
+
+const HaveNotData = dynamic(
+  () => import("./components/HaveNotData/HaveNotData"),
+);
+
 type TalkRoom = {
   id: number;
   profileImage: string;
@@ -63,26 +71,27 @@ const page = () => {
     };
   }, []);
 
-  const { data: popularData } = useGetRooms({
-    page: 1,
-    size: 4,
-    order: "recommend",
-    search: "",
-    sortbydate: "",
-  });
-  const { data: recentData } = useGetRooms({
-    page: 1,
-    size: 4,
-    order: "recent",
-    search: "",
-    sortbydate: "",
-  });
-  const { data: bookRankData } = useGetBookRank();
-  const { data: talkRoomManyBookData } = useGetRoomBookOrder({
-    page: 1,
-    size: 12,
-    order: "comment",
-  });
+  const { data: popularTalkRoom, isLoading: isPopularTalkRoomLoading } =
+    useGetRooms({
+      size: 4,
+      order: "recommend",
+      search: "",
+      sortbydate: "",
+    });
+  const { data: recentTalkRoom, isLoading: isRecentTalkRoomLoading } =
+    useGetRooms({
+      size: 4,
+      order: "recent",
+      search: "",
+      sortbydate: "",
+    });
+  const { data: bookRank, isLoading: isBookRank } = useGetBookRank();
+  const { data: talkRoomManyBookRoom, isLoading: isTalkRoomManyBookRoom } =
+    useGetRoomBookOrder({
+      page: 1,
+      size: 12,
+      order: "comment",
+    });
 
   return (
     <div className="bg-[#FFF] w-full">
@@ -93,11 +102,7 @@ const page = () => {
         lg:mt-[40px]
         xl:mt-[48px]
         xl2:mt-[56px] 
-        sm:px-[16px]
-        md:px-[42px]
-        lg:px-[68px]
-        xl:px-[89px]
-        xl2:px-[120px]
+        mx-[5%]
         sm:mb-[25px]
         md:mb-[36px]
         lg:mb-[48px]
@@ -124,42 +129,55 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
-              <Link href={"/talkroom/?order=recommend&sortbydate=&page=1"}>
+              <Link href={"/talkroom/?order=recommend&sortbydate="}>
                 <div className="w-full">전체보기 {">"}</div>
               </Link>
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {popularData && popularData.queryResponse.length > 0 ? (
+
+        {isPopularTalkRoomLoading && <SkeletonTalkRoomCard />}
+        {popularTalkRoom &&
+        popularTalkRoom.pages.length > 0 &&
+        popularTalkRoom.pages[0].content.length > 0 ? (
           isSwiper ? (
             <TalkRoomCardSwiper
-              talkRooms={popularData.queryResponse}
+              talkRooms={popularTalkRoom.pages[0].content}
               userId={myDetailData?.userId || -1}
               isBest={true}
               userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
-              {popularData.queryResponse.map((data: TalkRoom) => {
-                const isLike =
-                  isLoggedIn &&
-                  (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
-                return (
-                  <TalkRoomCard
-                    key={data.id}
-                    data={data}
-                    userId={myDetailData?.userId || -1}
-                    isBest={true}
-                    isLike={isLike}
-                  />
-                );
-              })}
+              {popularTalkRoom.pages.map(
+                (page) =>
+                  page.content &&
+                  page.content.length > 0 &&
+                  page.content.map((data: TalkRoom) => {
+                    const isLike =
+                      isLoggedIn &&
+                      (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+                    return (
+                      <div key={data.id}>
+                        <TalkRoomCard
+                          data={data}
+                          userId={myDetailData?.userId || -1}
+                          isBest={true}
+                          isLike={isLike}
+                        />
+                      </div>
+                    );
+                  }),
+              )}
             </div>
           )
         ) : (
-          <HaveNotData content={"인기있는 토크방이"} />
+          !isPopularTalkRoomLoading && (
+            <HaveNotData content={"인기있는 토크방이"} />
+          )
         )}
       </div>
+
       <div className="bg-[#FBF7F0] py-[1px]">
         <div
           className="
@@ -168,11 +186,7 @@ const page = () => {
             lg:my-[42px]
             xl:my-[48px]
             xl2:my-[56px]
-            sm:px-[16px]
-            md:px-[42px]
-            lg:px-[68px]
-            xl:px-[89px]
-            xl2:px-[120px]
+            mx-[5%]
             "
         >
           <ThemeMain.MainTheme>
@@ -190,10 +204,11 @@ const page = () => {
               </div>
             </div>
           </ThemeMain.MainTheme>
-          {bookRankData && bookRankData.length > 0 ? (
-            <RankSwiper data={bookRankData} />
+          {isBookRank && <SkeletonBestSeller />}
+          {bookRank && bookRank.length > 0 ? (
+            <RankSwiper data={bookRank} />
           ) : (
-            <HaveNotData content={"베스트 셀러가"} />
+            !isBookRank && <HaveNotData content={"베스트 셀러가"} />
           )}
         </div>
       </div>
@@ -204,11 +219,7 @@ const page = () => {
         lg:my-[42px]
         xl:my-[48px]
         xl2:my-[56px]
-        sm:px-[16px]
-        md:px-[42px]
-        lg:px-[68px]
-        xl:px-[89px]
-        xl2:px-[120px]"
+        mx-[5%]"
       >
         <div
           className="
@@ -229,42 +240,55 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
-              <Link href={"/talkroom/?order=recent&page=1"}>
+              <Link href={"/talkroom/?order=recent"}>
                 <div className="w-full">전체보기 {">"}</div>
               </Link>
             </ThemeMain.Show>
           </ThemeMain>
         </div>
-        {recentData && recentData.queryResponse.length > 0 ? (
+
+        {isRecentTalkRoomLoading && <SkeletonTalkRoomCard />}
+        {recentTalkRoom &&
+        recentTalkRoom.pages.length > 0 &&
+        recentTalkRoom.pages[0].content.length > 0 ? (
           isSwiper ? (
             <TalkRoomCardSwiper
-              talkRooms={recentData.queryResponse}
+              talkRooms={recentTalkRoom.pages[0].content}
               userId={myDetailData?.userId || -1}
-              isBest={false}
+              isBest={true}
               userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row xl2:gap-x-[20px]">
-              {recentData.queryResponse.map((data: TalkRoom) => {
-                const isLike =
-                  isLoggedIn &&
-                  (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
-                return (
-                  <TalkRoomCard
-                    key={data.id}
-                    data={data}
-                    userId={myDetailData?.userId || -1}
-                    isBest={false}
-                    isLike={isLike}
-                  />
-                );
-              })}
+              {recentTalkRoom.pages.map(
+                (page) =>
+                  page.content &&
+                  page.content.length > 0 &&
+                  page.content.map((data: TalkRoom) => {
+                    const isLike =
+                      isLoggedIn &&
+                      (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+                    return (
+                      <div key={data.id}>
+                        <TalkRoomCard
+                          data={data}
+                          userId={myDetailData?.userId || -1}
+                          isBest={false}
+                          isLike={isLike}
+                        />
+                      </div>
+                    );
+                  }),
+              )}
             </div>
           )
         ) : (
-          <HaveNotData content={"최근 생성된 토크방이"} />
+          !isRecentTalkRoomLoading && (
+            <HaveNotData content={"최근 생성된 토크방이"} />
+          )
         )}
       </div>
+
       <div
         className="bg-[#FBF7F0] pt-[1px] 
         sm:pb-[17px]
@@ -280,11 +304,7 @@ const page = () => {
           lg:mt-[42px]
           xl:mt-[48px]
           xl2:mt-[56px]
-          sm:px-[16px]
-          md:px-[42px]
-          lg:px-[68px]
-          xl:px-[89px]
-          xl2:px-[120px]"
+          mx-[5%]"
         >
           <ThemeMain>
             <ThemeMain.MainTheme>
@@ -303,7 +323,9 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
           </ThemeMain>
-          {talkRoomManyBookData && talkRoomManyBookData.length > 0 ? (
+
+          {isTalkRoomManyBookRoom && <SkeletonManyTalkRoom />}
+          {talkRoomManyBookRoom && talkRoomManyBookRoom.length > 0 ? (
             <div
               className="
               grid gap-y-3
@@ -314,14 +336,16 @@ const page = () => {
               xl2:grid-cols-6
             "
             >
-              {talkRoomManyBookData.map((data: TalkRoomBookOrder) => (
+              {talkRoomManyBookRoom.map((data: TalkRoomBookOrder) => (
                 <Link key={data.isbn} href={`/book/${data.isbn}`}>
                   <ManyTalkRoomBookCard data={data} />
                 </Link>
               ))}
             </div>
           ) : (
-            <HaveNotData content={"토크 많은 책이"} />
+            !isTalkRoomManyBookRoom && (
+              <HaveNotData content={"토크 많은 책이"} />
+            )
           )}
         </div>
       </div>

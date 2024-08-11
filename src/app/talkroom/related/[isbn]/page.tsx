@@ -1,15 +1,20 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import Pagination from "@/app/components/Pagination/Pagination";
+import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import { usePathname } from "next/navigation";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 type TalkRoom = {
   id: number;
@@ -53,6 +58,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </div>
         </div>
       </ThemeMain.MainTheme>
+
+      {isLoading && <SkeletonTalkRoomCard />}
       {relateData && relateData.queryResponse.length > 0 ? (
         <>
           <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
@@ -82,7 +89,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
           )}
         </>
       ) : (
-        <HaveNotData content={"연관된 토크방이"} />
+        !isLoading && <HaveNotData content={"연관된 토크방이"} />
       )}
     </div>
   );

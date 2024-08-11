@@ -1,6 +1,10 @@
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import MyStateContent from "./_component/MyStateContent";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 const StatePage = () => {
   return (
