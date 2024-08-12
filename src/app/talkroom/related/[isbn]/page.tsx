@@ -2,7 +2,7 @@
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import Pagination from "@/app/components/Pagination/Pagination";
-import SkeletonTalkRoomCard from "@/app/components/SkeletonUI/SkeletonTalkRoomCard";
+import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";

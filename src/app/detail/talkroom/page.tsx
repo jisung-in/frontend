@@ -1,7 +1,5 @@
-import TalkRoomSelection from "./_component/TalkRoomSelection";
-
 const TalkRoom = () => {
-  return <TalkRoomSelection />;
+  return <div></div>;
 };
 
 export default TalkRoom;
