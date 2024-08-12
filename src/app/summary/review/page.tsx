@@ -1,6 +1,10 @@
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import ReviewContent from "./_component/ReviewContent";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 const ReviewPage = () => {
   return (

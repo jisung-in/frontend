@@ -1,7 +1,11 @@
-import TabProvider from "./_component/TabProvider";
-import MyTalkRoom from "./_component/MyTalkRoom";
+import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import MyTalkRoom from "./_component/MyTalkRoom";
+import TabProvider from "./_component/TabProvider";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 const StarPage = () => {
   return (

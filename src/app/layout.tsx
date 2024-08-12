@@ -3,19 +3,12 @@ import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
 import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
-import {
-  GurmukhiMN,
-  Inter,
-  Jalnan2,
-  Kalufo,
-  Pretendard,
-  SpoqaHanSansNeo,
-} from "./font";
+import { GurmukhiMN, Inter, Kalufo, Pretendard, SpoqaHanSansNeo } from "./font";
 import "./globals.css";
-
+import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "지성인",
-  description: "책과 관련된 주제로 자유롭게 이야기를 나누는 곳",
+  description: "책의 모든 것",
 };
 
 export default function RootLayout({
@@ -26,20 +19,18 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${Inter.variable} ${GurmukhiMN.variable} ${Kalufo.variable} ${Jalnan2.variable}`}
+        className={`${Pretendard.variable} ${SpoqaHanSansNeo.variable} ${Inter.variable} ${GurmukhiMN.variable} ${Kalufo.variable}`}
       >
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
             <ReduxProvider>
-              <div className="flex">
+              <Providers>
                 <Header />
-              </div>
-              <div className="flex flex-col grow items-center w-[100%]">
-                {children}
-              </div>
-              <div className="flex">
+                <div className="flex flex-grow flex-col w-[100%]">
+                  {children}
+                </div>
                 <Footer />
-              </div>
+              </Providers>
             </ReduxProvider>
           </ReactQueryProvider>
         </div>

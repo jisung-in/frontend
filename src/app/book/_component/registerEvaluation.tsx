@@ -1,9 +1,11 @@
 import { Button } from "@/app/components/Button/Button";
-import Modal from "@/app/components/Modal/Modal";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import { useCreateReview } from "@/hook/reactQuery/book/useCreateReview";
 import { useInput } from "@/hook/useInput";
+import dynamic from "next/dynamic";
 import { useState } from "react";
+
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type RegisterCondition = {
   isbn: string;

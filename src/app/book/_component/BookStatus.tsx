@@ -1,4 +1,3 @@
-import Modal from "@/app/components/Modal/Modal";
 import PasueOn from "@/assets/img/pasue-on.svg";
 import PasueOff from "@/assets/img/pause-off.svg";
 import ReadOff from "@/assets/img/read-off.svg";
@@ -14,7 +13,10 @@ import { useDeleteBookState } from "@/hook/reactQuery/book/useDeleteBookState";
 import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { usePatchBookState } from "@/hook/reactQuery/book/usePatchBookState";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
+
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type BookStatusCondition = {
   isbn: string;

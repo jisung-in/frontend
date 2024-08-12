@@ -1,4 +1,3 @@
-import Modal from "@/app/components/Modal/Modal";
 import BubbleArrow from "@/assets/img/bubble-arrow.svg";
 import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import NotLike from "@/assets/img/not-like.svg";
@@ -6,10 +5,13 @@ import Profile from "@/assets/img/profile.png";
 import { useCreateCommentLike } from "@/hook/reactQuery/talkRoom/useCreateCommentLike";
 import { useDeleteCommentLike } from "@/hook/reactQuery/talkRoom/useDeleteCommentLike";
 import timeLapse from "@/util/timeLapse";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import IconButton from "../../../components/IconButton/IconButton";
 import LikeButton from "../../../components/LikeButton/LikeButton";
+
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 interface SpeechBubbleProps {
   data: {

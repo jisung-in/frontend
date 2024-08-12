@@ -1,15 +1,19 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import Pagination from "@/app/components/Pagination/Pagination";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
+import { useGetMyTalkRooms } from "@/hook/reactQuery/my/useGetMyTalkRooms";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
+import { useGetPageParams } from "@/hook/useGetPageParams";
+import dynamic from "next/dynamic";
 import { useContext } from "react";
 import Tab from "./Tab";
 import { TabContext } from "./TabProvider";
-import { useGetMyTalkRooms } from "@/hook/reactQuery/my/useGetMyTalkRooms";
-import Pagination from "@/app/components/Pagination/Pagination";
-import { useGetPageParams } from "@/hook/useGetPageParams";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 const MyTalkRoom = () => {
   const { tab } = useContext(TabContext);

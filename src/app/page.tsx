@@ -1,27 +1,30 @@
 "use client";
 import BestSeller from "@/assets/img/best-seller.svg";
-import CreateTalkRoom from "@/assets/img/create-talk-room.svg";
+import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
+import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
+import RecentTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRank } from "@/hook/reactQuery/book/useGetBookRank";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
+import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Link from "next/link";
-import {
-  lazy,
-  Suspense,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import { Button } from "./components/Button/Button";
-import HaveNotData from "./components/HaveNotData/HaveNotData";
-import MainSelectionCard from "./components/MainSelectionCard/MainSelectionCard";
+import { useEffect, useState } from "react";
+import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
+import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
-import DeferredComponent from "./components/SkeletonUI/DeferredComponent ";
-import SkeletonLoadingSwiper from "./components/SkeletonUI/SkeletonLoadingSwiper";
-import SkeletonTalkRoomCard from "./components/SkeletonUI/SkeletonTalkRoomCard";
+import SkeletonBestSeller from "./components/SkeletonUi/SkeletonBestSeller";
+import SkeletonManyTalkRoom from "./components/SkeletonUi/SkeletonManyTalkRoom";
+import SkeletonTalkRoomCard from "./components/SkeletonUi/SkeletonTalkRoomCard";
+import RankSwiper from "./components/Swiper/RankSwiper";
+import TalkRoomCardSwiper from "./components/Swiper/TalkRoomCardSwiper";
+import { ThemeMain } from "./components/Theme/Theme";
+
+const HaveNotData = dynamic(
+  () => import("./components/HaveNotData/HaveNotData"),
+);
 
 type TalkRoom = {
   id: number;
@@ -37,17 +40,17 @@ type TalkRoom = {
   registeredDateTime: string;
   creatorId: number;
 };
-
+type TalkRoomBookOrder = {
+  isbn: string;
+  title: string;
+  publisher: string;
+  thumbnail: string;
+  authors: string[];
+  dateTime: string;
+};
 const page = () => {
-  const BestSellerSwiper = lazy(
-    () => import("./components/Swiper/BestSellerSwiper"),
-  );
-  const TalkRoomCard = lazy(
-    () => import("./components/Card/MainPageCard/TalkRoomCard"),
-  );
-
+  const [isSwiper, setIsSwiper] = useState(false);
   const { isLoggedIn } = useLogin();
-  const [isAllLoading, setIsAllLoading] = useState(true);
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
@@ -55,168 +58,296 @@ const page = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const {
-    data: talkRoomData,
-    isLoading: getRoomLoading,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useGetRooms({
-    size: 3,
-    order: "recent",
-    search: "",
-    sortbydate: "",
-  });
-
-  const { data: bookRankData, isLoading: getBookRankLoading } =
-    useGetBookRank();
-
-  const observer = useRef<IntersectionObserver | null>(null);
-  const lastReviewElementRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (isFetchingNextPage) return;
-      if (observer.current) observer.current.disconnect();
-      observer.current = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting && hasNextPage) {
-            fetchNextPage();
-          }
-        },
-        { rootMargin: "0px 0px -400px 0px" },
-      );
-      if (node) observer.current.observe(node);
-    },
-    [isFetchingNextPage, hasNextPage, fetchNextPage],
-  );
-
   useEffect(() => {
-    if (!getRoomLoading && !getBookRankLoading) {
-      setIsAllLoading(false);
-    } else {
-      setIsAllLoading(true);
-    }
-  }, [getRoomLoading, getBookRankLoading]);
+    const handleResize = () => {
+      setIsSwiper(window.innerWidth <= 1800);
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const { data: popularTalkRoom, isLoading: isPopularTalkRoomLoading } =
+    useGetRooms({
+      size: 4,
+      order: "recommend",
+      search: "",
+      sortbydate: "",
+    });
+  const { data: recentTalkRoom, isLoading: isRecentTalkRoomLoading } =
+    useGetRooms({
+      size: 4,
+      order: "recent",
+      search: "",
+      sortbydate: "",
+    });
+  const { data: bookRank, isLoading: isBookRank } = useGetBookRank();
+  const { data: talkRoomManyBookRoom, isLoading: isTalkRoomManyBookRoom } =
+    useGetRoomBookOrder({
+      page: 1,
+      size: 12,
+      order: "comment",
+    });
 
   return (
-    <div className="flex flex-col items-center max-w-[1280px]">
-      <div className="mt-[85px] mb-[38px] flex flex-row gap-x-[21px]">
-        <Link href={"/talkroom/record?order=recent"}>
-          <div className="w-[413px] h-[270px]">
-            <MainSelectionCard
-              isMain={true}
-              type="record"
-              rounded={true}
-              isLoading={isAllLoading}
-            />
-          </div>
-        </Link>
-        <Link href={"/talkroom/question"}>
-          <div className="w-[413px] h-[270px]">
-            <MainSelectionCard
-              isMain={true}
-              type="question"
-              rounded={true}
-              isLoading={isAllLoading}
-            />
-          </div>
-        </Link>
-        <Link href={"/talkroom/evaluation"}>
-          <div className="w-[413px] h-[270px]">
-            <MainSelectionCard
-              isMain={true}
-              type="evaluation"
-              rounded={true}
-              isLoading={isAllLoading}
-            />
-          </div>
-        </Link>
-      </div>
-
-      <div className="max-w-[1280px]">
-        <div className="flex mb-[30px] w-[84vw]">
-          <div className="flex items-center gap-x-3">
-            <div className="font-SpoqaHanSansNeo font-bold text-2xl">
-              지성인의 베스트 셀러
-            </div>
-            <ResizeImage src={BestSeller} alt="베스트 셀러" />
-          </div>
-        </div>
-      </div>
-      <Suspense
-        fallback={
-          <DeferredComponent>
-            <SkeletonLoadingSwiper />
-          </DeferredComponent>
-        }
+    <div className="bg-[#FFF] w-full">
+      <div
+        className="
+        sm:mt-[25px]
+        md:mt-[34px]
+        lg:mt-[40px]
+        xl:mt-[48px]
+        xl2:mt-[56px] 
+        mx-[5%]
+        sm:mb-[25px]
+        md:mb-[36px]
+        lg:mb-[48px]
+        xl:mb-[60px]
+        xl2:mb-[72px]"
       >
-        <BestSellerSwiper
-          data={bookRankData}
-          isLoggedIn={isLoggedIn}
-          talkRoomLikeIds={talkRoomLikeIds?.talkRoomIds || []}
-          myDetailData={
-            myDetailData || { userId: -1, userImage: "", userName: "" }
-          }
-          isLoading={getBookRankLoading}
-        />
-      </Suspense>
-
-      <div className="flex flex-col mt-[47px] mb-[138px] min-w-[328px] w-[84vw] max-w-[1280px]">
-        <div className="grow mb-[25px] flex items-center">
-          <div className="font-SpoqaHanSansNeo font-bold text-2xl flex grow">
-            토크방 보기
-          </div>
-          <Link href={"/detail/talkroom"}>
-            <Button className="w-[167px]" variant={"mainPage"} weight={"semi"}>
-              <div className="flex items-center gap-x-2 px-4">
-                <CreateTalkRoom />
-                토크방 생성하기
+        <div
+          className="
+          sm:mb-[17px]
+          md:mb-[19px]
+          lg:mb-[22px]
+          xl:mb-[24px]
+          xl2:mb-[26px]"
+        >
+          <ThemeMain>
+            <ThemeMain.MainTheme>
+              <div
+                className="
+                flex grow items-center 
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3"
+              >
+                <div>인기있는 토크방</div>
+                <ResizeImage src={PopularTalkRoom} alt="인기있는 토크방" />
               </div>
-            </Button>
-          </Link>
+            </ThemeMain.MainTheme>
+            <ThemeMain.Show>
+              <Link href={"/talkroom/?order=recommend&sortbydate="}>
+                <div className="w-full">전체보기 {">"}</div>
+              </Link>
+            </ThemeMain.Show>
+          </ThemeMain>
         </div>
 
-        {talkRoomData &&
-        talkRoomData.pages.length > 0 &&
-        talkRoomData.pages[0].content.length > 0 ? (
-          <div className="flex flex-col gap-y-[25px]">
-            {talkRoomData.pages.map(
-              (page, pageIndex) =>
-                page.content &&
-                page.content.length > 0 &&
-                page.content.map((data: TalkRoom, index: number) => {
-                  const isLike =
-                    isLoggedIn &&
-                    (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
-                  const isLastElement =
-                    pageIndex === talkRoomData.pages.length - 1 &&
-                    index === page.content.length - 1;
-                  return (
-                    <div
-                      key={data.id}
-                      ref={isLastElement ? lastReviewElementRef : null}
-                    >
-                      <Suspense
-                        fallback={
-                          <DeferredComponent>
-                            <SkeletonTalkRoomCard />
-                          </DeferredComponent>
-                        }
-                      >
+        {isPopularTalkRoomLoading && <SkeletonTalkRoomCard />}
+        {popularTalkRoom &&
+        popularTalkRoom.pages.length > 0 &&
+        popularTalkRoom.pages[0].content.length > 0 ? (
+          isSwiper ? (
+            <TalkRoomCardSwiper
+              talkRooms={popularTalkRoom.pages[0].content}
+              userId={myDetailData?.userId || -1}
+              isBest={true}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
+            />
+          ) : (
+            <div className="flex flex-row xl2:gap-x-[20px]">
+              {popularTalkRoom.pages.map(
+                (page) =>
+                  page.content &&
+                  page.content.length > 0 &&
+                  page.content.map((data: TalkRoom) => {
+                    const isLike =
+                      isLoggedIn &&
+                      (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+                    return (
+                      <div key={data.id}>
+                        <TalkRoomCard
+                          data={data}
+                          userId={myDetailData?.userId || -1}
+                          isBest={true}
+                          isLike={isLike}
+                        />
+                      </div>
+                    );
+                  }),
+              )}
+            </div>
+          )
+        ) : (
+          !isPopularTalkRoomLoading && (
+            <HaveNotData content={"인기있는 토크방이"} />
+          )
+        )}
+      </div>
+
+      <div className="bg-[#FBF7F0] py-[1px]">
+        <div
+          className="
+            sm:my-[26px] 
+            md:my-[34px]
+            lg:my-[42px]
+            xl:my-[48px]
+            xl2:my-[56px]
+            mx-[5%]
+            "
+        >
+          <ThemeMain.MainTheme>
+            <div
+              className="flex
+              sm:mb-[15px] md:mb-[17px] lg:mb-[19px] xl:mb-[19px] xl2:mb-[21px]"
+            >
+              <div
+                className="
+                flex grow items-center
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3 "
+              >
+                <div>베스트 셀러</div>
+                <ResizeImage src={BestSeller} alt="베스트 셀러" />
+              </div>
+            </div>
+          </ThemeMain.MainTheme>
+          {isBookRank && <SkeletonBestSeller />}
+          {bookRank && bookRank.length > 0 ? (
+            <RankSwiper data={bookRank} />
+          ) : (
+            !isBookRank && <HaveNotData content={"베스트 셀러가"} />
+          )}
+        </div>
+      </div>
+      <div
+        className="
+        sm:my-[26px] 
+        md:my-[34px]
+        lg:my-[42px]
+        xl:my-[48px]
+        xl2:my-[56px]
+        mx-[5%]"
+      >
+        <div
+          className="
+          sm:mb-[17px]
+          md:mb-[19px]
+          lg:mb-[22px]
+          xl:mb-[24px]
+          xl2:mb-[26px]"
+        >
+          <ThemeMain>
+            <ThemeMain.MainTheme>
+              <div
+                className="flex grow items-center
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3"
+              >
+                <div>최근 생성된 토크방</div>
+                <ResizeImage src={RecentTalkRoom} alt="최근 생성된 토크방" />
+              </div>
+            </ThemeMain.MainTheme>
+            <ThemeMain.Show>
+              <Link href={"/talkroom/?order=recent"}>
+                <div className="w-full">전체보기 {">"}</div>
+              </Link>
+            </ThemeMain.Show>
+          </ThemeMain>
+        </div>
+
+        {isRecentTalkRoomLoading && <SkeletonTalkRoomCard />}
+        {recentTalkRoom &&
+        recentTalkRoom.pages.length > 0 &&
+        recentTalkRoom.pages[0].content.length > 0 ? (
+          isSwiper ? (
+            <TalkRoomCardSwiper
+              talkRooms={recentTalkRoom.pages[0].content}
+              userId={myDetailData?.userId || -1}
+              isBest={true}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
+            />
+          ) : (
+            <div className="flex flex-row xl2:gap-x-[20px]">
+              {recentTalkRoom.pages.map(
+                (page) =>
+                  page.content &&
+                  page.content.length > 0 &&
+                  page.content.map((data: TalkRoom) => {
+                    const isLike =
+                      isLoggedIn &&
+                      (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
+                    return (
+                      <div key={data.id}>
                         <TalkRoomCard
                           data={data}
                           userId={myDetailData?.userId || -1}
                           isBest={false}
                           isLike={isLike}
                         />
-                      </Suspense>
-                    </div>
-                  );
-                }),
-            )}
-          </div>
+                      </div>
+                    );
+                  }),
+              )}
+            </div>
+          )
         ) : (
-          !getRoomLoading && <HaveNotData content={"토크방이"} />
+          !isRecentTalkRoomLoading && (
+            <HaveNotData content={"최근 생성된 토크방이"} />
+          )
         )}
+      </div>
+
+      <div
+        className="bg-[#FBF7F0] pt-[1px] 
+        sm:pb-[17px]
+        md:pb-[28px]
+        lg:pb-[38px]
+        xl:pb-[48px]
+        xl2:pb-[56px]"
+      >
+        <div
+          className="            
+          sm:mt-[26px] 
+          md:mt-[34px]
+          lg:mt-[42px]
+          xl:mt-[48px]
+          xl2:mt-[56px]
+          mx-[5%]"
+        >
+          <ThemeMain>
+            <ThemeMain.MainTheme>
+              <div
+                className="
+                flex items-center
+                sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 xl2:gap-x-3
+                sm:mb-[17px]
+                md:mb-[19px]
+                lg:mb-[22px]
+                xl:mb-[24px]
+                xl2:mb-[26px]"
+              >
+                <div>토크 많은 책</div>
+                <ResizeImage src={ManyTalkRoomBook} alt="토크 많은 책" />
+              </div>
+            </ThemeMain.MainTheme>
+          </ThemeMain>
+
+          {isTalkRoomManyBookRoom && <SkeletonManyTalkRoom />}
+          {talkRoomManyBookRoom && talkRoomManyBookRoom.length > 0 ? (
+            <div
+              className="
+              grid gap-y-3
+              sm:grid-cols-3
+              md:grid-cols-3
+              lg:grid-cols-4
+              xl:grid-cols-5
+              xl2:grid-cols-6
+            "
+            >
+              {talkRoomManyBookRoom.map((data: TalkRoomBookOrder) => (
+                <Link key={data.isbn} href={`/book/${data.isbn}`}>
+                  <ManyTalkRoomBookCard data={data} />
+                </Link>
+              ))}
+            </div>
+          ) : (
+            !isTalkRoomManyBookRoom && (
+              <HaveNotData content={"토크 많은 책이"} />
+            )
+          )}
+        </div>
       </div>
     </div>
   );

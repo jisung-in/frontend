@@ -60,9 +60,3 @@ export const Kalufo = localFont({
   weight: "500",
   variable: "--font-Kalufo",
 });
-
-export const Jalnan2 = localFont({
-  src: "../assets/font/Jalnan2/Jalnan2.otf",
-  weight: "500",
-  variable: "--font-Jalnan2",
-});
