@@ -34,7 +34,7 @@ type TalkRoom = {
 };
 
 export const useGetRooms = ({
-  size = 7,
+  size,
   order = "recent",
   search = "",
   sortbydate = "",
