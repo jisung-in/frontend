@@ -26,7 +26,7 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
         <Swiper
           navigation
           pagination={{ type: "custom", clickable: true }}
-          autoplay={true}
+          autoplay={false}
           loop={false}
           modules={[Navigation, Pagination]}
           breakpoints={{
@@ -36,22 +36,17 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
               spaceBetween: 10,
             },
             601: {
-              slidesPerView: 3,
+              slidesPerView: 3.5,
               slidesPerGroup: 3,
               spaceBetween: 10,
             },
-            1001: {
-              slidesPerView: 3.2,
-              slidesPerGroup: 3,
-              spaceBetween: 15,
-            },
             1201: {
-              slidesPerView: 3.5,
+              slidesPerView: 4.5,
               slidesPerGroup: 3,
               spaceBetween: 20,
             },
             1401: {
-              slidesPerView: 4.2,
+              slidesPerView: 4.5,
               slidesPerGroup: 4,
               spaceBetween: 20,
             },
