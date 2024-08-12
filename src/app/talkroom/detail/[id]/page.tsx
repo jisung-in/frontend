@@ -2,8 +2,8 @@
 
 import { Button } from "@/app/components/Button/Button";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
-import SkeletonSpeechBubble from "@/app/components/SkeletonUI/SkeletonSpeechBubble";
-import SkeletonTalkRoomDetailMain from "@/app/components/SkeletonUI/SkeletonTalkRoomDetailMain";
+import SkeletonSpeechBubble from "@/app/components/SkeletonUi/SkeletonSpeechBubble";
+import SkeletonTalkRoomDetailMain from "@/app/components/SkeletonUi/SkeletonTalkRoomDetailMain";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
 import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";

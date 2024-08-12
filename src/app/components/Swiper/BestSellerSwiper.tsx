@@ -6,7 +6,7 @@ import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BestSellerCard from "../Card/MainPageCard/BestSellerCard";
 import HaveNotData from "../HaveNotData/HaveNotData";
-import SkeletonLoadingSwiper from "../SkeletonUI/SkeletonLoadingSwiper";
+import SkeletonLoadingSwiper from "../SkeletonUi/SkeletonLoadingSwiper";
 
 interface BookSliderProps {
   data?: {
