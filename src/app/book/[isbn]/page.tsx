@@ -2,9 +2,9 @@
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
-import SkeletonBookDetail from "@/app/components/SkeletonUi/SkeletonBookDetail";
-import SkeletonEvaluationMini from "@/app/components/SkeletonUi/SkeletonEvaluationMini";
-import SkeletonRelatedTalkRoom from "@/app/components/SkeletonUi/SkeletonRelatedTalkRoom";
+import SkeletonBookDetail from "@/app/components/SkeletonUI/SkeletonBookDetail";
+import SkeletonEvaluationMini from "@/app/components/SkeletonUI/SkeletonEvaluationMini";
+import SkeletonRelatedTalkRoom from "@/app/components/SkeletonUI/SkeletonRelatedTalkRoom";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";

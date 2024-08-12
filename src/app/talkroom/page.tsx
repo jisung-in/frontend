@@ -10,7 +10,7 @@ import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import TalkRoomCard from "../components/Card/MainPageCard/TalkRoomCard";
-import SkeletonTalkRoomCard from "../components/SkeletonUi/SkeletonTalkRoomCard";
+import SkeletonTalkRoomCard from "../components/SkeletonUI/SkeletonTalkRoomCard";
 import { ThemeMain } from "../components/Theme/Theme";
 import TalkRoomSearch from "./_component/talkroomSearch";
 

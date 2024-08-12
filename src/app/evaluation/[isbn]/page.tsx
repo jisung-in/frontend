@@ -1,7 +1,7 @@
 "use client";
 
 import EvaluationCard from "@/app/components/Card/EvaluationCard/EvaluationCard";
-import SkeletonEvaluation from "@/app/components/SkeletonUi/SkeletonEvaluation";
+import SkeletonEvaluation from "@/app/components/SkeletonUI/SkeletonEvaluation";
 import BookTitle from "@/assets/img/book-title-evaluation.svg";
 import NoImage from "@/assets/img/no-image.png";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
