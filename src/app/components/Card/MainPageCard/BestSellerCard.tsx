@@ -9,6 +9,7 @@ type BestSellerCardProps = {
   thumbnail: string;
   authors: string[];
   dateTime: string;
+  isPriority?: boolean;
 };
 const BestSellerCard: React.FC<BestSellerCardProps> = ({
   ranking,
@@ -17,6 +18,7 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   thumbnail,
   authors,
   dateTime,
+  isPriority,
 }) => {
   return (
     <BookMain>
@@ -47,7 +49,7 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
             src={thumbnail ? thumbnail : NoImage}
             alt="책 표지"
             sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            priority
+            priority={isPriority}
             fill
           />
         </div>
