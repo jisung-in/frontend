@@ -2,7 +2,6 @@
 
 import { Button } from "@/app/components/Button/Button";
 import { Input } from "@/app/components/Input/Input";
-import Modal from "@/app/components/Modal/Modal";
 import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import BackButton from "@/app/summary/_component/BackButton";
@@ -13,10 +12,13 @@ import { useCreateRoom } from "@/hook/reactQuery/talkRoom/useCreateRoom";
 import useImageUpload from "@/hook/useImageUpload";
 import { useInput } from "@/hook/useInput";
 import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import SearchedList from "./_component/SearchedList";
+
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 const NewTalkRoom = () => {
   const [input, setInput] = useState({
