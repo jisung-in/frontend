@@ -1,13 +1,16 @@
 import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import { useInput } from "@/hook/useInput";
+import { useLogin } from "@/hook/useLogin";
 import changeIsDate from "@/util/searchTalkRoomDate";
 import changeIsStatus from "@/util/searchTalkRoomStatus";
-import Link from "next/link";
+import dynamic from "next/dynamic";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Button } from "../../components/Button/Button";
 import DropDown from "../../components/DropDown/DropDown";
 import { Input } from "../../components/Input/Input";
+
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type TalkRoomButtonsProps = {
   onSearchSubmit: (searchValue: string) => void;
@@ -31,6 +34,21 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
     orderParam === "recent-comment"
       ? orderParam
       : "recent";
+
+  const { isLoggedIn } = useLogin();
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const makeNewTalkRoom = () => {
+    if (!isLoggedIn) {
+      setShowModal(true);
+    } else {
+      router.push("/detail/talkroom/new");
+    }
+  };
 
   const searchTalkRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -102,14 +120,21 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
           </form>
         </div>
         <div className="w-[167px]">
-          <Link href={"/detail/talkroom/new"}>
-            <Button>
-              <MakeTalkRoom />
-              토크방 생성하기
-            </Button>
-          </Link>
+          <Button onClick={makeNewTalkRoom}>
+            <MakeTalkRoom />
+            토크방 생성하기
+          </Button>
         </div>
       </div>
+
+      <Modal
+        title="로그인"
+        content="로그인을 해야 이용할 수 있는 기능입니다"
+        isOpen={showModal}
+        onClose={closeModal}
+        onConfirm={closeModal}
+        buttonTitle="확인"
+      />
     </>
   );
 };
