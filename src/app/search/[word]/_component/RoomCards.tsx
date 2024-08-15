@@ -1,6 +1,7 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
@@ -48,11 +49,11 @@ const RoomCards = ({ order = "recommend", search = "" }: Props) => {
 
   return (
     <>
-      {isBookDataLoading && <>Loading...</>}
+      {isBookDataLoading && <SkeletonTalkRoomCard />}
       {bookData &&
       bookData.pages.length > 0 &&
       bookData.pages[0].content.length > 0 ? (
-        <div className="flex flex-row xl2:gap-x-[20px]">
+        <div className="flex flex-wrap flex-row gap-x-[20px] gap-y-[30px]">
           {bookData.pages.map(
             (page) =>
               page.content &&

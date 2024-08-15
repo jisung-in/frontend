@@ -1,5 +1,6 @@
 "use client";
 
+import SkeletonBestSeller from "@/app/components/SkeletonUi/SkeletonBestSeller";
 import NoImage from "@/assets/img/no-image.png";
 import { useCreateBook } from "@/hook/reactQuery/book/useCreateBook";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
@@ -53,32 +54,33 @@ const BookCards = () => {
     router.push(`/book/${toBeUploadedBook?.isbn.split(" ").at(1)}`);
   };
 
-  if (isLoading) return <HaveNotData content="관련 도서가" />;
-
   return (
     <div className="grid gap-8 grid-cols-[repeat(auto-fill,minmax(300px,1fr))] px-[5%]">
-      {bookData?.documents?.map((data: BookInfo) => (
-        <div
-          className="w-[263px]"
-          key={data.isbn}
-          onClick={() => onBookClicked(data)}
-        >
-          <div className="relative w-full h-[375px] cursor-pointer">
-            <Image
-              className="border border-[#F4E4CE] rounded-[10px]"
-              src={data.thumbnail ?? NoImage}
-              alt="책 표지"
-              fill
-            />
-          </div>
-          <div className="font-Prentendard font-semibold mt-3 text-[#000] text-[21px] overflow-hidden line-clamp-1">
-            {data.title}
-          </div>
-          <div className="font-Inter font-regular text-lg text-[#656565] overflow-hidden line-clamp-1">
-            {data.authors.join(", ")}
-          </div>
-        </div>
-      ))}
+      {isLoading && <SkeletonBestSeller />}
+      {bookData?.documents
+        ? bookData.documents.map((data: BookInfo) => (
+            <div
+              className="w-[263px]"
+              key={data.isbn}
+              onClick={() => onBookClicked(data)}
+            >
+              <div className="relative w-full h-[375px] cursor-pointer">
+                <Image
+                  className="border border-[#F4E4CE] rounded-[10px]"
+                  src={data.thumbnail ?? NoImage}
+                  alt="책 표지"
+                  fill
+                />
+              </div>
+              <div className="font-Prentendard font-semibold mt-3 text-[#000] text-[21px] overflow-hidden line-clamp-1">
+                {data.title}
+              </div>
+              <div className="font-Inter font-regular text-lg text-[#656565] overflow-hidden line-clamp-1">
+                {data.authors.join(", ")}
+              </div>
+            </div>
+          ))
+        : !isLoading && <HaveNotData content="관련 도서가" />}
       <Modal
         content="존재하지 않는 책이에요! 등록하시겠어요?"
         title="없는 책..."
