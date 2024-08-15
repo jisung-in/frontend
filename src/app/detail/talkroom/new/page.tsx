@@ -2,19 +2,21 @@
 
 import { Button } from "@/app/components/Button/Button";
 import { Input } from "@/app/components/Input/Input";
-import BackButton from "@/app/summary/_component/BackButton";
-import { BUTTON_INDEX } from "@/constants/buttonIndex";
-import { Textarea } from "@/app/components/Textarea/Textarea";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
+import Modal from "@/app/components/Modal/Modal";
 import ConditionButtons from "@/app/components/molecules/ConditionButtons/ConditionButtons";
-import { useCreateRoom } from "@/hook/reactQuery/talkRoom/useCreateRoom";
-import { useInput } from "@/hook/useInput";
-import { useRouter } from "next/navigation";
-import SearchedList from "./_component/SearchedList";
-import useImageUpload from "@/hook/useImageUpload";
+import { Textarea } from "@/app/components/Textarea/Textarea";
+import BackButton from "@/app/summary/_component/BackButton";
 import Camera from "@/assets/img/camera.svg";
+import { BUTTON_INDEX } from "@/constants/buttonIndex";
+import { BookInfo } from "@/hook/reactQuery/search/useGetKakaoResults";
+import { useCreateRoom } from "@/hook/reactQuery/talkRoom/useCreateRoom";
+import useImageUpload from "@/hook/useImageUpload";
+import { useInput } from "@/hook/useInput";
+import { useLogin } from "@/hook/useLogin";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import SearchedList from "./_component/SearchedList";
 
 const NewTalkRoom = () => {
   const [input, setInput] = useState({
@@ -30,6 +32,9 @@ const NewTalkRoom = () => {
     useImageUpload();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+
+  const { isLoggedIn } = useLogin();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -71,7 +76,16 @@ const NewTalkRoom = () => {
     router.back();
   };
 
-  useEffect(() => {}, []);
+  const closeModal = () => {
+    setShowModal(false);
+    router.replace("/login");
+  };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setShowModal(true);
+    }
+  }, [isLoggedIn]);
 
   return (
     <main className="flex flex-col w-full p-8">
@@ -172,6 +186,15 @@ const NewTalkRoom = () => {
           </Button>
         </div>
       </div>
+
+      <Modal
+        title="로그인"
+        content="로그인을 해야 이용할 수 있는 기능입니다"
+        isOpen={showModal}
+        onClose={closeModal}
+        onConfirm={closeModal}
+        buttonTitle="확인"
+      />
     </main>
   );
 };
