@@ -8,6 +8,7 @@ module.exports = {
       "search1.kakaocdn.net",
       "jisungin-bucket.s3.ap-northeast-2.amazonaws.com",
     ],
+    formats: ["image/avif", "image/webp"],
   },
   webpack: (config) => {
     config.module.rules.push({
