@@ -1,6 +1,6 @@
+import { createStars } from "@/util/createStars";
 import { Children, ReactNode, isValidElement } from "react";
 import { BookProps, StarProps } from "./Book.types";
-import { createStars } from "@/util/createStars";
 
 const BookCover = ({ children }: BookProps) => {
   return <div>{children}</div>;
@@ -43,10 +43,12 @@ const Publisher = ({ children }: BookProps) => {
 const Year = ({ children }: BookProps) => {
   return <div className="font-Inter">{children}</div>;
 };
-const StarRating = ({ children, starsCnt }: StarProps) => {
+const StarRating = ({ starsCnt }: StarProps) => {
   return (
     <div className="text-brown-40">
-      <span className="sm:hidden">평균별점</span> {createStars(starsCnt)}
+      <span className="sm:hidden">
+        평균별점 {createStars(starsCnt)} {starsCnt}점
+      </span>
     </div>
   );
 };
@@ -104,7 +106,7 @@ const getStarRating = (children: ReactNode) => {
     .slice(0, 1);
 };
 
-const Book = ({ children, className = "" }: BookProps) => {
+const Book = ({ children }: BookProps) => {
   const author = getAuthor(children);
   const bookCover = getBookCover(children);
   const bookTitle = getBookTitle(children);
@@ -114,7 +116,7 @@ const Book = ({ children, className = "" }: BookProps) => {
   const starRating = getStarRating(children);
 
   return (
-    <div className={`flex flex-col ${className}`}>
+    <div className="flex flex-col">
       {rankBox.length > 0 ? (
         <div className="relative">
           {bookCover && <>{bookCover}</>}
