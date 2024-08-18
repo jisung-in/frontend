@@ -19,7 +19,6 @@ const config: Config = {
         SpoqaHanSansNeo: ["var(--font-SpoqaHanSansNeo)"],
         Inter: ["var(--font-Inter)"],
         Kalufo: ["var(--font-Kalufo)"],
-        Jalnan2: ["var(--font-Jalnan2)"],
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
