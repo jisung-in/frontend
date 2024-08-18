@@ -49,12 +49,6 @@ export const Inter = localFont({
   variable: "--font-Inter",
 });
 
-export const GurmukhiMN = localFont({
-  src: "../assets/font/SpoqaHanSansNeo/SpoqaHanSansNeo-Medium.ttf",
-  weight: "500",
-  variable: "--font-GurmukhiMN",
-});
-
 export const Kalufo = localFont({
   src: "../assets/font/Kalufo/Kalufonia-Regular.otf",
   weight: "500",

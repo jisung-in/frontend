@@ -134,7 +134,7 @@ const page = () => {
                 );
               }),
           )}
-          {isFetching && <>Loading...</>}
+          {isFetching && <SkeletonTalkRoomCard />}
           <div className="observer" ref={observerRef} />
         </div>
       ) : (

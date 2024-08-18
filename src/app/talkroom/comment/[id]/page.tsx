@@ -8,9 +8,13 @@ import TalkIcon from "@/assets/img/talk-icon.svg";
 import { useCreateComment } from "@/hook/reactQuery/talkRoom/useCreateComment";
 import useImageUpload from "@/hook/useImageUpload";
 import { useInput } from "@/hook/useInput";
+import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+
+const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 const CommentPage = () => {
   const { value, handleChange } = useInput("");
@@ -20,6 +24,9 @@ const CommentPage = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const id = usePathname().split("/").at(-1);
+
+  const { isLoggedIn } = useLogin();
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   const onUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -45,6 +52,17 @@ const CommentPage = () => {
     }
     router.back();
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+    router.replace("/login");
+  };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setShowModal(true);
+    }
+  }, [isLoggedIn]);
 
   return (
     <div className="flex flex-col w-[100dvh] h-[100%] justify-center items-center">
@@ -102,6 +120,15 @@ const CommentPage = () => {
           </div>
         </div>
       </div>
+
+      <Modal
+        title="로그인"
+        content="로그인을 해야 이용할 수 있는 기능입니다"
+        isOpen={showModal}
+        onClose={closeModal}
+        onConfirm={closeModal}
+        buttonTitle="확인"
+      />
     </div>
   );
 };

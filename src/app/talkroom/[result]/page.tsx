@@ -150,7 +150,7 @@ const page = ({ params }: { params: { result: string } }) => {
       ) : (
         !isLoading && <HaveNotData content={"검색된 토크방이"} />
       )}
-      {isFetching && <>Loading...</>}
+      {isFetching && <SkeletonTalkRoomCard />}
       <div className="observer" ref={observerRef} />
     </div>
   );

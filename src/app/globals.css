@@ -43,14 +43,6 @@
   background-image: url("../assets/img//swiper-next-button.png") !important;
 }
 
-.swiper-slide:nth-child(2n-1) {
-  border-right: 1px solid #f4e4ce; /* 경계선 색상과 두께 설정 */
-}
-
-.swiper-slide:last-child {
-  border-right: none; /* 마지막 슬라이드에는 경계선 없애기 */
-}
-
 body {
   background-color: #fff;
 }

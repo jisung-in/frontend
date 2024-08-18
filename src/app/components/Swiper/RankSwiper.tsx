@@ -62,7 +62,7 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
             },
           }}
         >
-          {data?.map((data) => (
+          {data?.map((data, index) => (
             <SwiperSlide key={data.isbn}>
               <Link href={`/book/${data.isbn}`}>
                 <BestSellerCard
@@ -72,6 +72,7 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
                   publisher={data.publisher}
                   authors={data.authors}
                   dateTime={data.dateTime}
+                  isPriority={index < 6}
                 />
               </Link>
             </SwiperSlide>

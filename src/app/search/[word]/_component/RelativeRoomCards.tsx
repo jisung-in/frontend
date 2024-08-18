@@ -1,6 +1,7 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
@@ -44,7 +45,7 @@ const RelativeRoomCards = ({ name }: Props) => {
 
   return (
     <>
-      {isBookDataLoading && <>Loading...</>}
+      {isBookDataLoading && <SkeletonTalkRoomCard />}
       {bookData &&
       bookData.pages.length > 0 &&
       bookData.pages[0].content.length > 0 ? (
@@ -78,10 +79,3 @@ const RelativeRoomCards = ({ name }: Props) => {
 };
 
 export default RelativeRoomCards;
-function useGetRelativeRooms(arg0: {
-  isbn: string;
-  page: number;
-  size: number;
-}): { data: any } {
-  throw new Error("Function not implemented.");
-}
