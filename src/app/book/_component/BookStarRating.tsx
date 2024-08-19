@@ -52,38 +52,43 @@ const BookStarRating = ({
 
   const patchStarRating = usePatchStarRating(getStarRating?.id || 0);
 
-  const handleMouseMove = (
-    e: React.MouseEvent<HTMLDivElement>,
-    index: number,
-  ) => {
-    const half = e.nativeEvent.offsetX + index <= 27.5;
-    setStarRate(index + (half ? 0.5 : 1));
+  const mouseMove = (index: number, isLeftSide: boolean) => {
+    const rating = index + (isLeftSide ? 0.5 : 1);
+    setStarRate(rating);
   };
-  const saveMyStarRate = async () => {
+
+  const mouseLeave = () => {
+    setStarRate(0);
+  };
+
+  const clickStarRate = async (index: number, isHalf: boolean) => {
+    const starRating = index + (isHalf ? 0.5 : 1);
     if (isLogin) {
-      if (myStarRate === starRate) {
+      if (myStarRate === starRating) {
         setMyStarRate(0);
+        setStarRate(0);
         if (getStarRating?.id) {
-          await deleteStarRating.mutateAsync(getStarRating?.id);
+          await deleteStarRating.mutateAsync(getStarRating.id);
         }
       } else {
-        setMyStarRate(starRate);
+        setMyStarRate(starRating);
+        setStarRate(starRating);
         if (getStarRating?.id) {
           await patchStarRating.mutateAsync({
             bookIsbn: isbn,
-            rating: starRate,
+            rating: starRating,
           });
         } else {
           await createStarRating.mutateAsync({
             bookIsbn: isbn,
-            rating: starRate,
+            rating: starRating,
           });
         }
       }
-      onTotalRatingChange(); // 평균 별점 변경 이벤트 호출
-      await refetchStarRating(); // 별점 생성 후 다시 불러오기
+      onTotalRatingChange();
+      await refetchStarRating();
     } else {
-      setShowModal(!showModal);
+      setShowModal(true);
     }
   };
 
@@ -91,8 +96,24 @@ const BookStarRating = ({
     setEvaluate(evaluationMap[myStarRate] || "평가하기");
   }, [myStarRate]);
 
-  const handleMouseLeave = () => {
-    setStarRate(0);
+  const cancelMessage = (index: number) => {
+    const starRatingIndex = index + 1;
+    return (
+      myStarRate > 0 &&
+      (myStarRate === starRatingIndex ||
+        myStarRate === starRatingIndex - 0.5) &&
+      starRate === myStarRate
+    );
+  };
+
+  const myStarRating = (index: number) => {
+    if (myStarRate >= index + 1) {
+      return <BigStar />;
+    } else if (myStarRate >= index + 0.5) {
+      return <HalfStar />;
+    } else {
+      return <EmptyStar />;
+    }
   };
 
   const noneMyStarRate = (index: number) => {
@@ -104,52 +125,36 @@ const BookStarRating = ({
       return <EmptyStar />;
     }
   };
-  const isMyStarRate = (index: number) => {
-    if (myStarRate >= index + 1) {
-      return <BigStar />;
-    } else if (myStarRate >= index + 0.5) {
-      return <HalfStar />;
-    } else {
-      return <EmptyStar />;
-    }
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
 
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex flex-row">
+        <div className="flex">
           {Array(5)
             .fill(1)
-            .map((_, index: number) => {
-              const hoverValue = index + 1;
-              const showBalloon =
-                myStarRate !== 0 &&
-                myStarRate === starRate &&
-                hoverValue === Math.ceil(myStarRate);
-              return (
+            .map((_, index: number) => (
+              <div key={index} className="relative" onMouseLeave={mouseLeave}>
                 <div
-                  key={index}
-                  className="cursor-pointer relative"
-                  onMouseLeave={handleMouseLeave}
-                  onMouseMove={(e) => handleMouseMove(e, index)}
-                  onClick={saveMyStarRate}
-                >
-                  {showBalloon && (
-                    <>
-                      <div className="absolute w-[65px] text-center bottom-full left-1/2 transform -translate-x-1/2 bg-[#624E45] text-white text-sm px-2 py-1 rounded-md">
-                        취소하기
-                      </div>
-                      <div className="absolute w-0 h-0 border-8 border-solid border-[#624E45] border-t-[10px] border-r-transparent border-b-transparent border-l-transparent left-[70%] transform -translate-x-1/2"></div>
-                    </>
-                  )}
-                  {myStarRate ? isMyStarRate(index) : noneMyStarRate(index)}
-                </div>
-              );
-            })}
+                  className="absolute left-0 top-0 w-1/2 h-full cursor-pointer"
+                  onClick={() => clickStarRate(index, true)}
+                  onMouseMove={() => mouseMove(index, true)}
+                />
+                <div
+                  className="absolute right-0 top-0 w-1/2 h-full cursor-pointer"
+                  onClick={() => clickStarRate(index, false)}
+                  onMouseMove={() => mouseMove(index, false)}
+                />
+                {cancelMessage(index) && (
+                  <>
+                    <div className="absolute w-[65px] text-center bottom-full left-1/2 transform -translate-x-1/2 bg-[#624E45] text-white text-sm px-2 py-1 rounded-md">
+                      취소하기
+                    </div>
+                    <div className="absolute w-0 h-0 border-8 border-solid border-[#624E45] border-t-[10px] border-r-transparent border-b-transparent border-l-transparent left-[70%] transform -translate-x-1/2"></div>
+                  </>
+                )}
+                {myStarRate ? myStarRating(index) : noneMyStarRate(index)}
+              </div>
+            ))}
         </div>
         <div className="text-base text-[#B1B1B1] mt-[15px]">{evaluate}</div>
       </div>
@@ -166,8 +171,8 @@ const BookStarRating = ({
           title="로그인"
           content="로그인을 해야 이용할 수 있는 기능입니다"
           isOpen={showModal}
-          onClose={closeModal}
-          onConfirm={closeModal}
+          onClose={() => setShowModal(false)}
+          onConfirm={() => setShowModal(false)}
           buttonTitle="확인"
         />
       )}
