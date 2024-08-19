@@ -1,4 +1,5 @@
 "use client";
+import Banner from "@/assets/img/banner.png";
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
@@ -10,6 +11,7 @@ import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
@@ -95,6 +97,9 @@ const page = () => {
 
   return (
     <div className="bg-[#FFF] w-full">
+      <div className="relative w-full aspect-[3.2/1] max-h-[600px]">
+        <Image src={Banner} alt={"banner"} fill />
+      </div>
       <div
         className="
         sm:mt-[25px]
