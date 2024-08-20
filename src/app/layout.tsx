@@ -3,7 +3,6 @@ import { Footer } from "./components/Layout/Footer/Footer";
 import { Header } from "./components/Layout/Header/Header";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
 import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
-import { Kalufo } from "./font";
 import "./globals.css";
 import { Providers } from "./providers";
 export const metadata: Metadata = {
@@ -36,7 +35,7 @@ export default function RootLayout({
           type="text/css"
         />
       </head>
-      <body className={`${Kalufo.variable}`}>
+      <body>
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
             <ReduxProvider>
