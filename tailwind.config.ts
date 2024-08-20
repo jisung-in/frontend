@@ -15,9 +15,9 @@ const config: Config = {
       colors,
       radius,
       fontFamily: {
-        Pretendard: ["var(--font-Pretendard)"],
-        SpoqaHanSansNeo: ["var(--font-SpoqaHanSansNeo)"],
-        Inter: ["var(--font-Inter)"],
+        Pretendard: ["Pretendard", "sans-serif"],
+        SpoqaHanSansNeo: ['"Spoqa Han Sans Neo"', "sans-serif"],
+        Inter: ["Inter", "sans-serif"],
         Kalufo: ["var(--font-Kalufo)"],
       },
       backgroundImage: {

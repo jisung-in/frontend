@@ -1,11 +1,11 @@
 "use client";
+import Logo from "@/assets/img/jisung-in-logo.svg";
 import { useInput } from "@/hook/useInput";
-import { Input } from "../../Input/Input";
+import useRecentSearches from "@/hook/useRecentSearches";
 import { useRouter } from "next/navigation";
+import { Input } from "../../Input/Input";
 import SearchedList from "../../molecules/SearchedList/SearchedList";
 import { LoginComponent } from "./LoginComponents";
-import useRecentSearches from "@/hook/useRecentSearches";
-import Logo from "@/assets/img/jisung-in-logo.svg";
 
 export const Header = () => {
   const { value, handleChange, reset } = useInput("");
@@ -22,7 +22,7 @@ export const Header = () => {
 
   return (
     <header className="flex sticky z-20 top-0 items-center w-full px-[5%] bg-white h-[75px] sm:h-[60px] opacity-[0.95] border-b-2">
-      <div className="flex font-SpoqaHanSansNeo font-[500] items-center text-white text-3xl flex-1">
+      <div className="flex font-SpoqaHanSansNeo font-medium items-center text-white text-3xl flex-1">
         <span
           className="flex items-center cursor-pointer text-brown-60 sm:text-lg font-Kalufo pt-4"
           onClick={() => router.push("/")}
