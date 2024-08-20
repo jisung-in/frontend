@@ -9,6 +9,9 @@ import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "지성인",
   description: "책의 모든 것",
+  icons: {
+    icon: "/logo.png",
+  },
 };
 
 export default function RootLayout({
