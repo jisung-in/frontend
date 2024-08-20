@@ -27,10 +27,14 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
       <BookMain>
         <BookMain.BookCover>
           <div
-            className="relative w-full cursor-pointer
-            pt-[135.48%] /* (126 / 93) * 100 = 135.48% */
-            min-h-[126px]
-            max-h-[375px]"
+            className="
+            relative
+            w-full 
+            cursor-pointer 
+            aspect-[0.6] 
+            min-h-[147px] 
+            max-h-[375px] 
+            "
           >
             <Image
               className="border border-[#F4E4CE]            
@@ -42,6 +46,12 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
               src={data.thumbnail ? data.thumbnail : NoImage}
               alt="책 표지"
               fill
+              sizes="
+              (max-width: 360px) 28.6vw, 
+              (max-width: 768px) 15vw, 
+              (max-width: 1200px) 20vw, 
+              13.6vw
+              "
             />
           </div>
         </BookMain.BookCover>
