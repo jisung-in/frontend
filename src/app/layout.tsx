@@ -31,7 +31,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <link
-          href="//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
+          href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css"
           rel="stylesheet"
           type="text/css"
         />
