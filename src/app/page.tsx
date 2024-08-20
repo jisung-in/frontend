@@ -98,7 +98,7 @@ const page = () => {
   return (
     <div className="bg-[#FFF] w-full">
       <div className="relative w-full aspect-[3.2/1] max-h-[600px]">
-        <Image src={Banner} alt={"banner"} fill />
+        <Image src={Banner} alt={"banner"} fill priority={true} />
       </div>
       <div
         className="
