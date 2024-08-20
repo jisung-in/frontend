@@ -34,6 +34,12 @@ export default function RootLayout({
           rel="stylesheet"
           type="text/css"
         />
+        <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+        <link
+          rel="preconnect"
+          href="https://cdn.jsdelivr.net"
+          crossOrigin="anonymous"
+        />
       </head>
       <body>
         <div className="flex flex-col min-h-screen">
