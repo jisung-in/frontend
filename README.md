@@ -26,7 +26,7 @@
 
 <div align="center">
   <p>책과 관련된 주제로 자유롭게 이야기를 나누는 곳, 지성인을 서비스 중입니다.</p>
-  <p>❗현재 기존의 서비스를 사용자들에게 피드백 받아 pivot 작업을 진행 중입니다.</p>
+  <p>❗지속적으로 유지 보수 및 성능 개선 작업을 진행 중입니다.</p>
   <a href="https://jisungin.co.kr" target="_blank">
     <p>https://jisungin.co.kr</p>
   </a>
@@ -68,11 +68,11 @@
 
 ## 🗓 프로젝트 기간
 
-2023년 12월 ~ 2024년 6월 1일  
+2023년 12월 ~ 2024년 6월 12일  
   
-**⭐pivot** : 2024년 6월 17일 ~ 진행 중  
+**⭐유지 보수 및 성능 개선** : 2024년 6월 17일 ~ 진행 중  
 
-❗현재 기존의 서비스를 사용자들에게 피드백 받아 pivot 작업을 진행 중입니다.
+❗지속적으로 유지 보수 및 성능 개선 작업을 진행중입니다.
 
 <br/>
 
@@ -88,7 +88,8 @@
 <br/>
 <div align="center">
 
-![image](https://github.com/jisung-in/frontend/assets/55770796/a782d7f7-360e-41bf-b6a9-24198e9cd452)
+![image](https://github.com/user-attachments/assets/b70b55aa-90f1-4aab-bdec-b25cca0f8ea8)
+
 
 </div>
 <br/>
@@ -148,7 +149,7 @@
 <br/>
 <div align="center">
   
-![screencapture-jisungin-co-kr-talkroom-2024-06-12-22_35_10](https://github.com/jisung-in/frontend/assets/65530775/617493e0-8742-4e2d-9150-cbf7092c45d3)
+![image](https://github.com/user-attachments/assets/2756b7dd-76ac-4a56-986f-1fda8991dce8)
 
 
 </div>
@@ -164,14 +165,15 @@
 
 **검색창**을 이용하여 찾고자 하는 토크방 **제목**을 검색하여 토크방을 찾을 수 있습니다.  
 
+**무한 스크롤**로 구현되어 있어 특정 시점에서 새로운 평가들이 불러와집니다.
+
 
 ### 5.책 상세보기
 
 <br/>
 <div align="center">
   
-![screencapture-jisungin-co-kr-book-9791198682505-2024-06-12-22_40_15](https://github.com/jisung-in/frontend/assets/65530775/5934f5e8-8abf-4b17-a66e-ec275fd45573)
-
+![image](https://github.com/user-attachments/assets/53826e53-22e0-402e-bb3e-ad7f8c4416bb)
 
 </div>
 <br/>
@@ -199,7 +201,7 @@
 <br/>
 <div align="center">
   
-![screencapture-jisungin-co-kr-evaluation-9791198682505-2024-06-12-22_58_58](https://github.com/jisung-in/frontend/assets/65530775/6ce6fcb2-f46f-43bd-9b0a-c31369edec43)
+![image](https://github.com/user-attachments/assets/4871212a-59e9-47e6-9b7c-e04d1e8ed737)
 
 
 </div>
@@ -222,7 +224,7 @@
 <br/>
 <div align="center">
   
-![screencapture-jisungin-co-kr-talkroom-related-9791198682505-2024-06-12-22_56_35](https://github.com/jisung-in/frontend/assets/65530775/1f085a11-6524-4dae-8d9a-8038e142bff7)
+![image](https://github.com/user-attachments/assets/0bca6338-29d8-4fa5-abb5-1782b0fd132c)
 
 
 </div>
@@ -276,6 +278,10 @@
    - 로그인 유무를 판단하여 비 로그인 시에는 기능들을 사용할 수 없게 `Modal 컴포넌트`를 사용하여 막았습니다.
    - 좋아요 기능, 한줄 평 작성, 별점 부여, 독서 상태 등의 기능들이 이에 해당됩니다.
    - 해당 기능들에 맞는 문구를 띄웁니다.
+   - 비 로그인 상태에서 토크방 생성 및 의견 작성 `url`로 진입 시, `Modal` 창에서 '로그인이 필요합니다' 메세지를 보여주면서 로그인 페이지로 이동시킵니다.
+6. **Skeleton UI**
+   - Skeleton UI를 도입하여 사용자 경험을 개선했습니다.
+   - 로딩 중 빈 화면을 해당 UI와 비슷한 모양의 Skeleton UI로 대체하여 콘텐츠가 로드되기 전까지 사용자에게 시각적 피드백을 제공합니다.  
 
 ### 기술
 1. **합성 컴포넌트**
@@ -306,6 +312,17 @@
     - MSW를 사용함으로써 API 개발 이후에도 코드의 수정 없이, 서비스 로직을 그대로 유지할 수 있었습니다.
 10. **Faker.js**
     - Faker.js를 이용하여 임시 이미지를 부여해 MSW와 함께 사용했습니다.
+11. **Lazy Loading (Dynamic Import)**
+    - 성능을 최적화하기 위해 `next/dynamic`을 이용하여 Dynamic Import 기능을 활용했습니다.
+    - 렌더링이 즉각 필요하지 않은 `Modal`과 데이터가 없을 때 보여주는 컴포넌트를 대상으로 설정했습니다.
+12. **Local font를 CDN으로 변경**
+    - 기존의 Local font가 적지 않은 용량을 차지하여 `Lighthouse`의 수치와 사용자 경험에 악영향을 주었습니다.
+    - 기존의 local에 저장되었던 font 파일을 삭제한 뒤 CDN을 지원하는 font에 대해서 적용했습니다.
+    - 해당 작업으로 72%의 용량이 감소하여 성능이 개선 됐습니다.
+13. **이미지 포맷을 WebP에서 AVIF로 변경**
+    - 기존의 WebP에서 AVIF 포맷으로 변경하는 기능을 사용하여 약 10%의 용량 감소로 성능이 개선 됐습니다.
+14. **Pre-load와 Lazy-load**
+    - 특정 이미지를 Pre-load하고 나중에 보여지는 이미지를 lazy-load를 적용시켜 사용자 경험 개선 및 성능이 개선됐습니다.
 
 ### 로직
 1. **공통 util 함수**
@@ -318,6 +335,9 @@
    - 토크방에서 의견 작성 시 참여 조건에 맞는지를 구분하는 로직을 구현했습니다.
    - 책에 관한 데이터는 배열안에 객체로, 세 가지 값이 있습니다. ex) [{id, isbn, status}]
    - 같은 책이면서, 책 상태가 토크방의 참여 조건에 맞는지를 확인하기 위해 `some()`과, `includes()`를 이용하여 `return`값을 `boolean`형태로 반환하여 일치 여부를 확인했습니다.
-4. **별점 부여**
+4. **별점 부여 로직 변경**
    - 책 상세 보기에서 별점 부여 시 0.5점 단위로 별 반개 씩 채우는 기능을 구현했습니다
-   - 별 이미지 가로 길이 55를 기준으로 `mouseEvent`의 `offsetX`속성을 사용하여 27.5보다 크면 1, 작으면 0.5를 반환하여 별점과 별점에 맞춰 별이 채워지도록 구현했습니다.
+   - 별 이미지 가로 길이 55를 기준으로 `offsetX`을 사용하여 27.5보다 크면 1, 작으면 0.5를 반환하여 별점과 별점에 맞춰 별이 채워지도록 구현했습니다.
+   - 이후 리팩토링 과정에서 `offsetX`을 사용하면 사용자가 마우스를 움직일 때마다 이벤트가 트리거되어 `offsetX` 값을 계산하고 이에 따른 점수를 업데이트해야 하므로 브라우저의 이벤트 루프에 부담을 줄 수 있어 성능에 문제가 있을 수 있어 개선했습니다
+   - 기존의 `offsetX`를 사용하는 것에서 마우스 클릭 영역을 나누어 별점의 절반 값을 계산하는 방식으로 변경했습니다
+   - 직접적으로 별점 값을 결정하는 방식 변경으로 이벤트 사용의 최소화로 인한 성능이 개선 됐습니다.
