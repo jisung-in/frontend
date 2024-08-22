@@ -40,18 +40,23 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
               slidesPerGroup: 3,
               spaceBetween: 10,
             },
+            901: {
+              slidesPerView: 4,
+              slidesPerGroup: 3,
+              spaceBetween: 10,
+            },
             1201: {
               slidesPerView: 4.5,
               slidesPerGroup: 3,
               spaceBetween: 20,
             },
             1401: {
-              slidesPerView: 4.5,
+              slidesPerView: 5,
               slidesPerGroup: 4,
               spaceBetween: 20,
             },
             1601: {
-              slidesPerView: 4.5,
+              slidesPerView: 5,
               slidesPerGroup: 4,
               spaceBetween: 20,
             },

@@ -26,16 +26,8 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
         <div
           className="
           relative
-          min-w-[120px]
-          max-w-[320px]
-          min-h-[170px]
-          max-h-[450px]
           w-full
-          sm:h-[42vw]
-          md:h-[35vw]
-          lg:h-[34vw]
-          xl:h-[25vw]
-          xl2:h-[450px]
+          aspect-[0.7]
           overflow-hidden"
         >
           <Image
@@ -48,7 +40,6 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
             "
             src={thumbnail ? thumbnail : NoImage}
             alt="책 표지"
-            sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 33vw"
             priority={isPriority}
             fill
           />

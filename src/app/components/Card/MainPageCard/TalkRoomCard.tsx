@@ -151,21 +151,12 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   xl2:max-h-[140px]
                   "
                 >
-                  {data.bookThumbnail ? (
-                    <Image
-                      className="border border-[#F4E4CE]"
-                      src={data.bookThumbnail}
-                      alt="책 표지"
-                      fill
-                    />
-                  ) : (
-                    <Image
-                      className="border border-[#F4E4CE]"
-                      src={data.bookThumbnail ? data.bookThumbnail : NoImage}
-                      alt="책 표지"
-                      fill
-                    />
-                  )}
+                  <Image
+                    className="border border-[#F4E4CE]"
+                    src={data.bookThumbnail ? data.bookThumbnail : NoImage}
+                    alt="책 표지"
+                    fill
+                  />
                 </div>
                 <div
                   className="
