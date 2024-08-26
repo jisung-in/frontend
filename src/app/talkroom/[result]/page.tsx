@@ -74,9 +74,7 @@ const page = ({ params }: { params: { result: string } }) => {
   });
 
   const searchTalkRoom = (searchValue: string) => {
-    router.push(
-      `/talkroom/${searchValue}/?order=recent&search=${searchValue}&sortbydate=`,
-    );
+    router.push(`/talkroom/${searchValue}/?order=recent&search=${searchValue}`);
   };
 
   const observerRef = useRef<HTMLDivElement | null>(null);
