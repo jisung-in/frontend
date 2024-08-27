@@ -42,15 +42,16 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
       : "recent";
 
   const { isLoggedIn } = useLogin();
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showLoginModal, setShowLoginModal] = useState<boolean>(false);
+  const [showSearchModal, setShowSearchModal] = useState<boolean>(false);
 
   const closeModal = () => {
-    setShowModal(false);
+    showLoginModal ? setShowLoginModal(false) : setShowSearchModal(false);
   };
 
   const makeNewTalkRoom = () => {
     if (!isLoggedIn) {
-      setShowModal(true);
+      setShowLoginModal(true);
     } else {
       router.push("/detail/talkroom/new");
     }
@@ -58,7 +59,9 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
 
   const searchTalkRoom = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSearchSubmit(value);
+    value.trim().length > 0
+      ? onSearchSubmit(value.trim())
+      : setShowSearchModal(true);
   };
 
   const statusChange = ({ status, date, searchParam }: StatusChange) => {
@@ -139,7 +142,16 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
       <Modal
         title="로그인"
         content="로그인을 해야 이용할 수 있는 기능입니다"
-        isOpen={showModal}
+        isOpen={showLoginModal}
+        onClose={closeModal}
+        onConfirm={closeModal}
+        buttonTitle="확인"
+      />
+
+      <Modal
+        title="검색어 확인"
+        content="검색어를 한 자 이상 입력해주세요!"
+        isOpen={showSearchModal}
         onClose={closeModal}
         onConfirm={closeModal}
         buttonTitle="확인"
