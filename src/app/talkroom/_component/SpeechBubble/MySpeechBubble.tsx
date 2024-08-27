@@ -1,5 +1,4 @@
 import DeleteButton from "@/app/components/DeleteButton/DeleteButton";
-import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import MyBubbleArrow from "@/assets/img/my-bubble-arrow.svg";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
@@ -28,8 +27,7 @@ interface SpeechBubbleProps {
 
 const SpeechBubble = ({ data }: SpeechBubbleProps) => {
   const [count, setCount] = useState<number>(data.commentLikeCount);
-  const [isLike, setIsLike] = useState<boolean>(false);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showFailLikeModal, setShowFailLikeModal] = useState<boolean>(false);
   const [deleteShowModal, setDeleteShowModal] = useState<boolean>(false);
   const deleteComment = useDeleteComment();
 
@@ -38,7 +36,7 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
   }, [data.commentLikeCount]);
 
   const closeModal = () => {
-    setShowModal(!showModal);
+    showFailLikeModal ? setShowFailLikeModal(false) : setDeleteShowModal(false);
   };
 
   const deleteMyComment = () => {
@@ -47,10 +45,6 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
         window.location.reload();
       },
     });
-  };
-
-  const closeDeleteShowModal = () => {
-    setDeleteShowModal(!deleteShowModal);
   };
 
   return (
@@ -94,21 +88,20 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
           <hr className="border-2 border-solid border-[#FFF] mb-[9px]" />
           <div className="flex grow items-center font-medium text-[17px] text-[#656565]">
             <div className="mr-[13px]">
-              <LikeButton isLike={isLike} onClick={closeModal} />
+              <LikeButton
+                isLike={false}
+                onClick={() => setShowFailLikeModal(true)}
+              />
             </div>
             <div className="flex items-center gap-x-[3px] grow">
-              <IconButton onClick={closeModal}>
-                {isLike ? (
-                  <LikeSpeechBubble width={16} height={15} />
-                ) : (
-                  <NotLike width={16} height={15} />
-                )}
+              <IconButton onClick={() => setShowFailLikeModal(true)}>
+                <NotLike width={16} height={15} />
               </IconButton>
               <div className="font-Inter font-medium font-[17px]">
                 {count > 999 ? "999+" : count}
               </div>
             </div>
-            <DeleteButton onClick={closeDeleteShowModal} />
+            <DeleteButton onClick={() => setDeleteShowModal(true)} />
           </div>
         </div>
       </div>
@@ -119,7 +112,7 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
       <Modal
         title="좋아요 실패"
         content="본인이 작성한 의견에는 좋아요를 할 수 없습니다"
-        isOpen={showModal}
+        isOpen={showFailLikeModal}
         onClose={closeModal}
         onConfirm={closeModal}
         buttonTitle="확인"
@@ -128,7 +121,7 @@ const SpeechBubble = ({ data }: SpeechBubbleProps) => {
         title="의견 삭제"
         content="내 의견을 삭제하시겠습니까?"
         isOpen={deleteShowModal}
-        onClose={closeDeleteShowModal}
+        onClose={closeModal}
         onConfirm={deleteMyComment}
         buttonTitle="삭제"
       />
