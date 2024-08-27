@@ -104,7 +104,12 @@ const page = ({ params }: TalkRoomPageProps) => {
         <ThemeMain.MainTheme>
           <div className="flex mt-[78px] mb-[23px]">
             <div className="flex items-center mb-[23px]">
-              <Link href={"?order=recent&search="}>
+              <Link
+                href={{
+                  pathname: "/talkroom",
+                  query: { order: "recent" },
+                }}
+              >
                 <div className="text-[30px] mr-[16px] cursor:pointer">
                   토크해요
                 </div>
