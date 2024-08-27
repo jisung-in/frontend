@@ -45,7 +45,7 @@ const SpeechBubble = ({
 
   const changeIsLike = () => {
     if (userId === -1) {
-      setShowModal(!showModal);
+      setShowModal(true);
     } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteCommentLike.mutate(data.commentId);
@@ -56,7 +56,7 @@ const SpeechBubble = ({
       }
       setIsLike(!isLike);
     } else {
-      setShowModal(!showModal);
+      setShowModal(true);
     }
   };
 
