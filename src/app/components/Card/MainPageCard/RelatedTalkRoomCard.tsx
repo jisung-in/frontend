@@ -52,7 +52,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (userId === -1) {
-      setShowModal(!showModal);
+      setShowModal(true);
     } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteTalkRoomLike.mutate(data.id);
@@ -63,7 +63,7 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
       }
       setIsLike(!isLike);
     } else {
-      setShowModal(!showModal);
+      setShowModal(true);
     }
   };
 
