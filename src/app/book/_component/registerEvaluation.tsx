@@ -19,12 +19,12 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
 
   const handleReviewSubmit = () => {
     if (isLogin) {
-      if (review.length > 0) {
+      if (review.trim().length > 0) {
         createReview.mutate({ bookIsbn: isbn, content: review });
       }
-      setShowModal(!showModal);
+      setShowModal(true);
     } else {
-      setShowModal(!showModal);
+      setShowModal(true);
     }
   };
 
@@ -68,7 +68,7 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
           onConfirm={closeModal}
           buttonTitle="확인"
         />
-      ) : review.length > 0 ? (
+      ) : review.trim().length > 0 ? (
         <Modal
           title="한줄평 작성 완료"
           content="한줄평이 등록되었습니다"

@@ -49,7 +49,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
 
   const changeIsLike = () => {
     if (userId === -1) {
-      setShowModal(!showModal);
+      setShowModal(true);
     } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteReviewLike.mutate(data.reviewId);
@@ -60,7 +60,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
       }
       setIsLike(!isLike);
     } else {
-      setShowModal(!showModal);
+      setShowModal(true);
     }
   };
 
@@ -76,7 +76,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
     });
   };
 
-  const closeDeleteShowModal = () => {
+  const isDeleteShowModal = () => {
     setDeleteShowModal(!deleteShowModal);
   };
 
@@ -136,7 +136,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
           </div>
           <div>
             {data.creatorId === userId && (
-              <DeleteButton onClick={closeDeleteShowModal} />
+              <DeleteButton onClick={isDeleteShowModal} />
             )}
           </div>
         </div>
@@ -165,7 +165,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
         title="한줄평 삭제"
         content="한줄평을 삭제하시겠습니까?"
         isOpen={deleteShowModal}
-        onClose={closeDeleteShowModal}
+        onClose={isDeleteShowModal}
         onConfirm={deleteMyReview}
         buttonTitle="삭제"
       />

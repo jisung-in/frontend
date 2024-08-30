@@ -49,7 +49,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
 
   const changeIsLike = () => {
     if (userId === -1) {
-      setShowModal(!showModal);
+      setShowModal(true);
     } else if (data.creatorId !== userId) {
       if (isLike) {
         deleteReviewLike.mutate(data.reviewId);
@@ -60,7 +60,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
       }
       setIsLike(!isLike);
     } else {
-      setShowModal(!showModal);
+      setShowModal(true);
     }
   };
 
@@ -76,7 +76,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
     });
   };
 
-  const closeDeleteShowModal = () => {
+  const isDeleteShowModal = () => {
     setDeleteShowModal(!deleteShowModal);
   };
 
@@ -134,7 +134,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
           </div>
           <div>
             {data.creatorId === userId && (
-              <DeleteButton onClick={closeDeleteShowModal} />
+              <DeleteButton onClick={isDeleteShowModal} />
             )}
           </div>
         </div>
@@ -163,7 +163,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
         title="한줄평 삭제"
         content="한줄평을 삭제하시겠습니까?"
         isOpen={deleteShowModal}
-        onClose={closeDeleteShowModal}
+        onClose={isDeleteShowModal}
         onConfirm={deleteMyReview}
         buttonTitle="삭제"
       />

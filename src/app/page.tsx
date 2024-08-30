@@ -134,7 +134,7 @@ const page = () => {
               </div>
             </ThemeMain.MainTheme>
             <ThemeMain.Show>
-              <Link href={"/talkroom/?order=recommend&sortbydate="}>
+              <Link href={"/talkroom/?order=recommend"}>
                 <div className="w-full">전체보기 {">"}</div>
               </Link>
             </ThemeMain.Show>

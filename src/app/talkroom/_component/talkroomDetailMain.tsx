@@ -66,7 +66,7 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
 
   const changeIsLike = () => {
     if (userId === -1) {
-      setShowModal(!showModal);
+      setShowModal(true);
     } else if (data && data.creatorId !== userId) {
       if (isLike) {
         deleteTalkRoomLike.mutate(data.id);
@@ -77,7 +77,7 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
       }
       setIsLike(!isLike);
     } else {
-      setShowModal(!showModal);
+      setShowModal(true);
     }
   };
 
@@ -92,12 +92,12 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
   const deleteMyRoom = () => {
     deleteRoom.mutate(data.id, {
       onSuccess: () => {
-        router.push("/talkroom/?order=recent&page=1");
+        router.push("/talkroom/?order=recent");
       },
     });
   };
 
-  const closeDeleteShowModal = () => {
+  const isDeleteShowModal = () => {
     setDeleteShowModal(!deleteShowModal);
   };
 
@@ -200,7 +200,7 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
 
         {data.creatorId === userId && (
           <div className="flex justify-end  gap-x-3 mb-6">
-            <DeleteButton onClick={closeDeleteShowModal} />
+            <DeleteButton onClick={isDeleteShowModal} />
           </div>
         )}
       </div>
@@ -228,7 +228,7 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
         title="토크방 삭제"
         content="토크방을 삭제하시겠습니까?"
         isOpen={deleteShowModal}
-        onClose={closeDeleteShowModal}
+        onClose={isDeleteShowModal}
         onConfirm={deleteMyRoom}
         buttonTitle="삭제"
       />
