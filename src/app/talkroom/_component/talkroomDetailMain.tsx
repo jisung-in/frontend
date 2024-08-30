@@ -65,9 +65,11 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
   }, [data]);
 
   const changeIsLike = () => {
-    if (userId === -1) {
-      setShowModal(true);
-    } else if (data && data.creatorId !== userId) {
+    if (data) {
+      if (userId === -1 || data.creatorId === userId) {
+        setShowModal(true);
+        return;
+      }
       if (isLike) {
         deleteTalkRoomLike.mutate(data.id);
         setCount((prevCount) => prevCount - 1);
@@ -76,8 +78,6 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
         setCount((prevCount) => prevCount + 1);
       }
       setIsLike(!isLike);
-    } else {
-      setShowModal(true);
     }
   };
 
@@ -85,9 +85,7 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
     return <HaveNotData content={"책의 정보가"} />;
   }
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const closeModal = () => setShowModal(false);
 
   const deleteMyRoom = () => {
     deleteRoom.mutate(data.id, {
@@ -97,9 +95,7 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
     });
   };
 
-  const isDeleteShowModal = () => {
-    setDeleteShowModal(!deleteShowModal);
-  };
+  const isDeleteShowModal = () => setDeleteShowModal(!deleteShowModal);
 
   return (
     <div className="w-full min-h-[1194px] bg-[white] border-2 border-[#F4E4CE] rounded-[12px] flex flex-col font-Pretendard font-medium">

@@ -51,25 +51,21 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
 
   const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (userId === -1) {
+    if (userId === -1 || data.creatorId === userId) {
       setShowModal(true);
-    } else if (data.creatorId !== userId) {
-      if (isLike) {
-        deleteTalkRoomLike.mutate(data.id);
-        setCount((prevCount) => prevCount - 1);
-      } else {
-        addTalkRoomLike.mutate(data.id);
-        setCount((prevCount) => prevCount + 1);
-      }
-      setIsLike(!isLike);
-    } else {
-      setShowModal(true);
+      return;
     }
+    if (isLike) {
+      deleteTalkRoomLike.mutate(data.id);
+      setCount((prevCount) => prevCount - 1);
+    } else {
+      addTalkRoomLike.mutate(data.id);
+      setCount((prevCount) => prevCount + 1);
+    }
+    setIsLike(!isLike);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const closeModal = () => setShowModal(false);
 
   return (
     <div className="relative w-[547px] h-[426px] rounded-[17px] bg-[#fff] border rounded-[17px] border-[#F4E4CE] font-Pretendard overflow-hidden">
