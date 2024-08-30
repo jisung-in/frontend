@@ -23,6 +23,14 @@ type BookStatusCondition = {
   isLogin: boolean;
 };
 
+const statusOptions = [
+  { status: "want", Correct: WantToReadOn, InCorrect: WantToReadOff },
+  { status: "reading", Correct: ReadingOn, InCorrect: ReadingOff },
+  { status: "read", Correct: ReadOn, InCorrect: ReadOff },
+  { status: "pause", Correct: ReadStopOn, InCorrect: ReadStopOff },
+  { status: "stop", Correct: PasueOn, InCorrect: PasueOff },
+];
+
 const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
   const { isLoggedIn } = useLogin();
   const { data: statusData, refetch } = isLoggedIn
@@ -57,65 +65,45 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const changeStatus = (statusName: string) => {
-    if (isLogin) {
-      if (status === "") {
-        createBookState.mutate(
-          { isbn, readingStatus: statusName },
-          {
-            onSuccess: () => {
-              setStatus(statusName);
-              refetch();
-            },
-          },
-        );
-      } else if (statusName === status) {
-        if (bookStateId !== null) {
-          deleteBookState.mutate(bookStateId, {
-            onSuccess: () => {
-              setStatus("");
-              refetch();
-            },
-          });
-        }
-      } else {
-        if (bookStateId !== null) {
-          patchBookState.mutate(
-            { isbn, readingStatus: statusName },
-            {
-              onSuccess: () => {
-                setStatus(statusName);
-                refetch();
-              },
-            },
-          );
-        }
-      }
-    } else {
-      setShowModal(!showModal);
+    if (!isLogin) {
+      setShowModal(true);
+      return;
+    }
+
+    const successStatusChange = () => {
+      setStatus(statusName === status ? "" : statusName);
+      refetch();
+    };
+
+    if (status === "") {
+      createBookState.mutate(
+        { isbn, readingStatus: statusName },
+        { onSuccess: successStatusChange },
+      );
+    } else if (statusName === status && bookStateId !== null) {
+      deleteBookState.mutate(bookStateId, { onSuccess: successStatusChange });
+    } else if (bookStateId !== null) {
+      patchBookState.mutate(
+        { isbn, readingStatus: statusName },
+        { onSuccess: successStatusChange },
+      );
     }
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const closeModal = () => setShowModal(false);
 
   return (
     <>
-      <div className="cursor-pointer" onClick={() => changeStatus("want")}>
-        {status === "want" ? <WantToReadOn /> : <WantToReadOff />}
-      </div>
-      <div className="cursor-pointer" onClick={() => changeStatus("reading")}>
-        {status === "reading" ? <ReadingOn /> : <ReadingOff />}
-      </div>
-      <div className="cursor-pointer" onClick={() => changeStatus("read")}>
-        {status === "read" ? <ReadOn /> : <ReadOff />}
-      </div>
-      <div className="cursor-pointer" onClick={() => changeStatus("pause")}>
-        {status === "pause" ? <ReadStopOn /> : <ReadStopOff />}
-      </div>
-      <div className="cursor-pointer" onClick={() => changeStatus("stop")}>
-        {status === "stop" ? <PasueOn /> : <PasueOff />}
-      </div>
+      {statusOptions.map(({ status: statusOption, Correct, InCorrect }) => (
+        <div
+          key={statusOption}
+          className="cursor-pointer"
+          onClick={() => changeStatus(statusOption)}
+        >
+          {status === statusOption ? <Correct /> : <InCorrect />}
+        </div>
+      ))}
+
       {!isLogin && (
         <Modal
           title="로그인"
