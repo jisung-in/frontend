@@ -44,25 +44,21 @@ const SpeechBubble = ({
   }, [data.commentLikeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (userId === -1) {
+    if (userId === -1 || data.creatorId === userId) {
       setShowModal(true);
-    } else if (data.creatorId !== userId) {
-      if (isLike) {
-        deleteCommentLike.mutate(data.commentId);
-        setCount((prevCount) => prevCount - 1);
-      } else {
-        createCommentLike.mutate(data.commentId);
-        setCount((prevCount) => prevCount + 1);
-      }
-      setIsLike(!isLike);
-    } else {
-      setShowModal(true);
+      return;
     }
+    if (isLike) {
+      deleteCommentLike.mutate(data.commentId);
+      setCount((prevCount) => prevCount - 1);
+    } else {
+      createCommentLike.mutate(data.commentId);
+      setCount((prevCount) => prevCount + 1);
+    }
+    setIsLike(!isLike);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const closeModal = () => setShowModal(false);
 
   return (
     <div className="relative bg-[#fff] rounded-[15px] mb-[97px] font-Pretendard font-regular border border-[#F4E4CE]">
