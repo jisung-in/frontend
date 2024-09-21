@@ -48,25 +48,21 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   }, [data.likeCount, initialIsLike]);
 
   const changeIsLike = () => {
-    if (userId === -1) {
+    if (userId === -1 || data.creatorId === userId) {
       setShowModal(true);
-    } else if (data.creatorId !== userId) {
-      if (isLike) {
-        deleteReviewLike.mutate(data.reviewId);
-        setCount((prevCount) => prevCount - 1);
-      } else {
-        createReviewLike.mutate(data.reviewId);
-        setCount((prevCount) => prevCount + 1);
-      }
-      setIsLike(!isLike);
-    } else {
-      setShowModal(true);
+      return;
     }
+    if (isLike) {
+      deleteReviewLike.mutate(data.reviewId);
+      setCount((prevCount) => prevCount - 1);
+    } else {
+      createReviewLike.mutate(data.reviewId);
+      setCount((prevCount) => prevCount + 1);
+    }
+    setIsLike(!isLike);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const closeModal = () => setShowModal(false);
 
   const deleteMyReview = () => {
     deleteReview.mutate(data.reviewId, {
@@ -76,9 +72,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
     });
   };
 
-  const isDeleteShowModal = () => {
-    setDeleteShowModal(!deleteShowModal);
-  };
+  const isDeleteShowModal = () => setDeleteShowModal(!deleteShowModal);
 
   return (
     <div className="w-[405px] max-h-[279px] bg-[#FFF] border border-[#F4E4CE] mb-[30px] rounded-[11px] font-Pretendard font-medium">

@@ -18,19 +18,13 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleReviewSubmit = () => {
-    if (isLogin) {
-      if (review.trim().length > 0) {
-        createReview.mutate({ bookIsbn: isbn, content: review });
-      }
-      setShowModal(true);
-    } else {
-      setShowModal(true);
+    if (isLogin && review.trim().length > 0) {
+      createReview.mutate({ bookIsbn: isbn, content: review });
     }
+    setShowModal(true);
   };
 
-  const closeModal = () => {
-    setShowModal(false);
-  };
+  const closeModal = () => setShowModal(false);
 
   const refreshPage = () => {
     setShowModal(false);
