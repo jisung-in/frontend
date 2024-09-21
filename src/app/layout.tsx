@@ -40,6 +40,7 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net"
           crossOrigin="anonymous"
         />
+        <meta name="google-site-verification" content="Hb_M2rA66odokgI60gfJLi6o4Us26vb6okC49Ekafe8" />
       </head>
       <body>
         <div className="flex flex-col min-h-screen">
