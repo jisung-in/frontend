@@ -7,9 +7,32 @@ import "./globals.css";
 import { Providers } from "./providers";
 export const metadata: Metadata = {
   title: "지성인",
-  description: "책의 모든 것",
+  description: "책과 관련된 주제로 자유로운 이야기를 나누는 곳.",
   icons: {
     icon: "/logo.png",
+  },
+  keywords: ["books", "reading", "지성인", "책"],
+  metadataBase: new URL("https://www.jisunin.co.kr"),
+  openGraph: {
+    title: "지성인",
+    description: "책과 관련된 주제로 자유로운 이야기를 나누는 곳.",
+    url: "https://www.jisunin.co.kr",
+    type: "website",
+    images: [
+      {
+        url: "/banner.png",
+        width: 800,
+        height: 600,
+        alt: "지성인 배너",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary",
+    site: "@jisunin",
+    title: "지성인",
+    description: "책과 관련된 주제로 자유로운 이야기를 나누는 곳.",
+    images: "/logo.png",
   },
 };
 
@@ -40,7 +63,10 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net"
           crossOrigin="anonymous"
         />
-        <meta name="google-site-verification" content="Hb_M2rA66odokgI60gfJLi6o4Us26vb6okC49Ekafe8" />
+        <meta
+          name="google-site-verification"
+          content="Hb_M2rA66odokgI60gfJLi6o4Us26vb6okC49Ekafe8"
+        />
       </head>
       <body>
         <div className="flex flex-col min-h-screen">

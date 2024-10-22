@@ -1,5 +1,4 @@
 "use client";
-import Banner from "@/assets/img/banner.png";
 import BestSeller from "@/assets/img/best-seller.svg";
 import ManyTalkRoomBook from "@/assets/img/many-talk-room-book.svg";
 import PopularTalkRoom from "@/assets/img/popular-talk-room.svg";
@@ -14,6 +13,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Banner from "../../public/banner.png";
 import ManyTalkRoomBookCard from "./components/Card/MainPageCard/ManyTalkRoomBookCard";
 import TalkRoomCard from "./components/Card/MainPageCard/TalkRoomCard";
 import ResizeImage from "./components/ResizeImage/ResizeImage";
