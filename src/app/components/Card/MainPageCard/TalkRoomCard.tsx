@@ -98,21 +98,21 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
       <Link href={`/talkroom/detail/${data.id}`}>
         <div
           className="
-        sm:top-[-10%]
-        md:top-[-15%]
-        lg:top-[-20%]
-        xl:top-[-25%]
-        2xl:top-[-30%]
-        sm:h-[100px]
-        md:h-[120px]
-        lg:h-[147px]
-        xl:h-[174px]
-        2xl:h-[200px]
-        absolute inset-0 transform -skew-y-[10deg] bg-[#80685D] "
-        ></div>
+          sm:top-[-10%]
+          md:top-[-15%]
+          lg:top-[-20%]
+          xl:top-[-25%]
+          2xl:top-[-30%]
+          sm:h-[100px]
+          md:h-[120px]
+          lg:h-[147px]
+          xl:h-[174px]
+          2xl:h-[200px]
+          absolute inset-0 transform -skew-y-[10deg] bg-[#80685D]"
+        />
         <div className="absolute inset-0 flex justify-center items-center">
           <div
-            className="flex flex-col 
+            className="flex flex-col
             sm:m-[15px]
             md:m-[17px]
             lg:m-[20px]
@@ -120,17 +120,9 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
             2xl:m-[26px]
             w-full"
           >
-            <div
-              className="flex flex-row
-              sm:mb-[8px]
-              md:mb-[8px]
-              lg:mb-[8px]
-              xl:mb-[8px]
-              2xl:mb-[8px]"
-            >
-              <div className="flex flex-grow">
-                <div
-                  className="relative 
+            <div className="flex mb-2">
+              <p
+                className="relative
                   sm:min-w-[70px]
                   sm:max-w-[70px]
                   md:min-w-[77px]
@@ -152,16 +144,17 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   2xl:min-h-[140px]
                   2xl:max-h-[140px]
                   "
-                >
-                  <Image
-                    className="border border-[#F4E4CE]"
-                    src={data.bookThumbnail ? data.bookThumbnail : NoImage}
-                    alt="책 표지"
-                    fill
-                  />
-                </div>
-                <div
-                  className="
+              >
+                <Image
+                  className="border border-[#F4E4CE]"
+                  src={data.bookThumbnail ? data.bookThumbnail : NoImage}
+                  alt="책 표지"
+                  fill
+                />
+              </p>
+
+              <p
+                className="
                   sm:ml-2                   
                   md:ml-2.5                   
                   lg:ml-3.5                   
@@ -171,12 +164,13 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   md:mt-2.5 
                   lg:mt-3.5 
                   xl:mt-4 
-                  2xl:mt-4 "
-                >
-                  <BookTitle />
-                </div>
-                <div
-                  className="
+                  2xl:mt-4"
+              >
+                <BookTitle />
+              </p>
+
+              <p
+                className="
                   sm:mt-2
                   md:mt-2 
                   lg:mt-3 
@@ -188,70 +182,68 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   xl:ml-[9px]
                   2xl:ml-[9px]
                   flex-grow text-[#656565] text-white"
-                >
-                  <div
-                    className="
+              >
+                <span
+                  className="
                     sm:text-[13px]
                     md:text-sm
                     lg:text-[15px]
                     xl:text-base
                     2xl:text-[17px]
                     font-semibold mb-1 overflow-hidden line-clamp-1"
-                  >
-                    {data.bookName}
-                  </div>
-                  <div
-                    className="
+                >
+                  {data.bookName}
+                </span>
+                <span
+                  className="
                     sm:text-[10px]
                     md:text-[11px] 
                     lg:text-xs
                     xl:text-[13px] 
                     2xl:text-sm 
                     overflow-hidden line-clamp-1"
-                  >
-                    {data.bookAuthor}
-                  </div>
-                </div>
-              </div>
+                >
+                  {data.bookAuthor}
+                </span>
+              </p>
 
-              <div className="flex flex-col items-center">
+              <p className="flex flex-col items-center">
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
-                    <div>
+                    <p>
                       <Like width={21} height={19} />
-                      <div
+                      <span
                         className="text-[13px] 
                         font-Inter font-regular text-[#F24D4D]"
                       >
                         {count}
-                      </div>
-                    </div>
+                      </span>
+                    </p>
                   ) : (
-                    <>
+                    <p>
                       <NotLike width={21} height={19} />
-                      <div
+                      <span
                         className="text-[13px] 
                         font-Inter font-regular text-white"
                       >
                         {count}
-                      </div>
-                    </>
+                      </span>
+                    </p>
                   )}
                 </IconButton>
-              </div>
+              </p>
             </div>
 
-            <div
+            <p
               className="
-              sm:mb-0.5
-              md:mb-0.5
+              mb-0.5
               lg:mb-1.5
               xl:mb-2
               2xl:mb-3.5
-              flex flex-row font-semibold items-center gap-x-[7px] "
+              flex flex-row font-semibold items-center gap-x-2"
             >
               <ThemeTitle />
-              <div
+              <span
                 className="
                 sm:text-[15px]
                 md:text-base
@@ -261,9 +253,9 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 flex flex-row overflow-hidden line-clamp-1"
               >
                 {data.title}
-              </div>
+              </span>
               {isBest && (
-                <div
+                <span
                   className="
                   sm:text-[10px]
                   md:text-[11px]
@@ -273,19 +265,18 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   flex items-center bg-transparent leading-tight text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[6px]"
                 >
                   BEST
-                </div>
+                </span>
               )}
-            </div>
+            </p>
 
-            <div
+            <span
               className="
               sm:mb-1.5
               md:mb-2.5 
               lg:mb-3
               xl:mb-3.5 
               2xl:mb-4 
-              sm:h-10
-              md:h-10
+              h-10
               lg:h-11
               xl:h-12
               2xl:h-12
@@ -297,7 +288,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
               font-medium text-[#656565] overflow-hidden line-clamp-2"
             >
               {data.content}
-            </div>
+            </span>
 
             <hr
               className="
@@ -310,7 +301,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
             />
 
             <div className="flex flex-row gap-x-[9px] items-center">
-              <div>
+              <p>
                 <Image
                   className="
                   sm:w-[18px] 
@@ -336,8 +327,8 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   height={26}
                   priority
                 />
-              </div>
-              <div
+              </p>
+              <span
                 className="
                sm:text-[12px]
                md:text-[13px]
@@ -347,7 +338,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
               font-medium"
               >
                 {data.username}
-              </div>
+              </span>
             </div>
           </div>
         </div>

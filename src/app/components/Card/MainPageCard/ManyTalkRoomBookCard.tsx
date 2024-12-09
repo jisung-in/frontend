@@ -55,8 +55,9 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
             />
           </div>
         </BookMain.BookCover>
+
         <BookMain.BookTitle>
-          <div
+          <span
             className="
           sm:text-[12px]
           md:text-[15px]
@@ -71,10 +72,10 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
           font-semibold text-[#000] overflow-hidden line-clamp-1"
           >
             {data.title}
-          </div>
+          </span>
         </BookMain.BookTitle>
         <BookMain.Publisher>
-          <div
+          <span
             className="
           sm:text-[11px]
           md:text-[13px]
@@ -84,10 +85,10 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
           overflow-hidden line-clamp-1"
           >
             {data.publisher}
-          </div>
+          </span>
         </BookMain.Publisher>
         <BookMain.Author>
-          <div
+          <span
             className="
           sm:text-[11px]
           md:text-[13px]
@@ -97,10 +98,10 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
           overflow-hidden line-clamp-1"
           >
             {data.authors.join(", ")}
-          </div>
+          </span>
         </BookMain.Author>
         <BookMain.Year>
-          <div
+          <span
             className="          
           sm:text-[11px]
           md:text-[13px]
@@ -110,7 +111,7 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
           overflow-hidden line-clamp-1"
           >
             {data.dateTime.slice(0, 4)}
-          </div>
+          </span>
         </BookMain.Year>
       </BookMain>
     </div>

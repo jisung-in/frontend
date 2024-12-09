@@ -6,7 +6,7 @@ import TalkRoomManyBookRoom from "./(components)/TalkRoomManyBookRoom";
 
 const revalidateTime = 86400;
 
-const page = async () => {
+const Home = async () => {
   const { data } = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER}/v1/books/best-seller?page=1&size=20`,
     {
@@ -18,17 +18,20 @@ const page = async () => {
   ).then((res) => res.json());
 
   return (
-    <div className="bg-[#FFF] w-full">
+    <div className="bg-[#FFF] w-full flex flex-col justify-center items-center">
       <Banner />
 
       <PopularTalkRoom />
 
-      <BestSeller data={data} />
-
+      <div className="bg-[#FBF7F0] py-[1px] w-full flex justify-center">
+        <BestSeller data={data} />
+      </div>
       <RecentTalkRoom />
 
-      <TalkRoomManyBookRoom />
+      <div className="bg-[#FBF7F0] py-[1px] w-full flex justify-center">
+        <TalkRoomManyBookRoom />
+      </div>
     </div>
   );
 };
-export default page;
+export default Home;

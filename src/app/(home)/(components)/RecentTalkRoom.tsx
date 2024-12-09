@@ -2,6 +2,7 @@
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import { Layout } from "@/app/components/Layout/Layout";
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import TalkRoomCardSwiper from "@/app/components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "@/app/components/Theme/Theme";
@@ -47,14 +48,14 @@ const RecentTalkRoom = () => {
   const { isSwiper } = useBreakpoint();
 
   return (
-    <div
+    <Layout
       className="
       sm:my-[26px] 
       md:my-[34px]
       lg:my-[42px]
       xl:my-[48px]
       2xl:my-[56px]
-      mx-[5%]"
+      "
     >
       <div
         className="
@@ -62,7 +63,8 @@ const RecentTalkRoom = () => {
         md:mb-[19px]
         lg:mb-[22px]
         xl:mb-[24px]
-        2xl:mb-[26px]"
+        2xl:mb-[26px]
+        mx-[5%]"
       >
         <ThemeMain>
           <ThemeMain.MainTheme>
@@ -88,43 +90,45 @@ const RecentTalkRoom = () => {
         </ThemeMain>
       </div>
 
-      {isLoading && <SkeletonTalkRoomCard />}
-      {data && data.pages.length > 0 && data.pages[0].content.length > 0 ? (
-        isSwiper ? (
-          <TalkRoomCardSwiper
-            talkRooms={data.pages[0].content}
-            userId={myDetailData?.userId || -1}
-            isBest={true}
-            userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
-          />
+      <div className="mx-[5%]">
+        {isLoading && <SkeletonTalkRoomCard />}
+        {data && data.pages.length > 0 && data.pages[0].content.length > 0 ? (
+          isSwiper ? (
+            <TalkRoomCardSwiper
+              talkRooms={data.pages[0].content}
+              userId={myDetailData?.userId || -1}
+              isBest={true}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
+            />
+          ) : (
+            <div className="flex flex-row 2xl:gap-x-[20px]">
+              {data.pages.map(
+                (page) =>
+                  page.content &&
+                  page.content.length > 0 &&
+                  page.content.map((items: TalkRoom) => {
+                    const isLike =
+                      isLoggedIn &&
+                      (talkRoomLikeIds?.talkRoomIds || []).includes(items.id);
+                    return (
+                      <div key={items.id}>
+                        <TalkRoomCard
+                          data={items}
+                          userId={myDetailData?.userId || -1}
+                          isBest={false}
+                          isLike={isLike}
+                        />
+                      </div>
+                    );
+                  }),
+              )}
+            </div>
+          )
         ) : (
-          <div className="flex flex-row 2xl:gap-x-[20px]">
-            {data.pages.map(
-              (page) =>
-                page.content &&
-                page.content.length > 0 &&
-                page.content.map((items: TalkRoom) => {
-                  const isLike =
-                    isLoggedIn &&
-                    (talkRoomLikeIds?.talkRoomIds || []).includes(items.id);
-                  return (
-                    <div key={items.id}>
-                      <TalkRoomCard
-                        data={items}
-                        userId={myDetailData?.userId || -1}
-                        isBest={false}
-                        isLike={isLike}
-                      />
-                    </div>
-                  );
-                }),
-            )}
-          </div>
-        )
-      ) : (
-        !isLoading && <HaveNotData content={"최근 생성된 토크방이"} />
-      )}
-    </div>
+          !isLoading && <HaveNotData content={"최근 생성된 토크방이"} />
+        )}
+      </div>
+    </Layout>
   );
 };
 

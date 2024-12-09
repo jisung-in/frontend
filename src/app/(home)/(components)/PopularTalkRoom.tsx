@@ -2,6 +2,7 @@
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
+import { Layout } from "@/app/components/Layout/Layout";
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import TalkRoomCardSwiper from "@/app/components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "@/app/components/Theme/Theme";
@@ -47,19 +48,14 @@ const PopularTalkRoom = () => {
   const { isSwiper } = useBreakpoint();
 
   return (
-    <div
+    <Layout
       className="
-        sm:mt-[25px]
-        md:mt-[34px]
-        lg:mt-[40px]
-        xl:mt-[48px]
-        2xl:mt-[56px] 
-        mx-[5%]
-        sm:mb-[25px]
-        md:mb-[36px]
-        lg:mb-[48px]
-        xl:mb-[60px]
-        2xl:mb-[72px]"
+        sm:my-[25px]
+        md:my-[34px]
+        lg:my-[40px]
+        xl:my-[48px]
+        2xl:my-[56px] 
+        "
     >
       <div
         className="
@@ -67,7 +63,8 @@ const PopularTalkRoom = () => {
           md:mb-[19px]
           lg:mb-[22px]
           xl:mb-[24px]
-          2xl:mb-[26px]"
+          2xl:mb-[26px]
+          mx-[5%]"
       >
         <ThemeMain>
           <ThemeMain.MainTheme>
@@ -94,43 +91,45 @@ const PopularTalkRoom = () => {
         </ThemeMain>
       </div>
 
-      {isLoading && <SkeletonTalkRoomCard />}
-      {data && data.pages.length > 0 && data.pages[0].content.length > 0 ? (
-        isSwiper ? (
-          <TalkRoomCardSwiper
-            talkRooms={data.pages[0].content}
-            userId={myDetailData?.userId || -1}
-            isBest={true}
-            userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
-          />
+      <div className="mx-[5%]">
+        {isLoading && <SkeletonTalkRoomCard />}
+        {data && data.pages.length > 0 && data.pages[0].content.length > 0 ? (
+          isSwiper ? (
+            <TalkRoomCardSwiper
+              talkRooms={data.pages[0].content}
+              userId={myDetailData?.userId || -1}
+              isBest={true}
+              userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
+            />
+          ) : (
+            <div className="flex flex-row 2xl:gap-x-[20px]">
+              {data.pages.map(
+                (page) =>
+                  page.content &&
+                  page.content.length > 0 &&
+                  page.content.map((itmes: TalkRoom) => {
+                    const isLike =
+                      isLoggedIn &&
+                      (talkRoomLikeIds?.talkRoomIds || []).includes(itmes.id);
+                    return (
+                      <div key={itmes.id}>
+                        <TalkRoomCard
+                          data={itmes}
+                          userId={myDetailData?.userId || -1}
+                          isBest={true}
+                          isLike={isLike}
+                        />
+                      </div>
+                    );
+                  }),
+              )}
+            </div>
+          )
         ) : (
-          <div className="flex flex-row 2xl:gap-x-[20px]">
-            {data.pages.map(
-              (page) =>
-                page.content &&
-                page.content.length > 0 &&
-                page.content.map((itmes: TalkRoom) => {
-                  const isLike =
-                    isLoggedIn &&
-                    (talkRoomLikeIds?.talkRoomIds || []).includes(itmes.id);
-                  return (
-                    <div key={itmes.id}>
-                      <TalkRoomCard
-                        data={itmes}
-                        userId={myDetailData?.userId || -1}
-                        isBest={true}
-                        isLike={isLike}
-                      />
-                    </div>
-                  );
-                }),
-            )}
-          </div>
-        )
-      ) : (
-        !isLoading && <HaveNotData content={"인기있는 토크방이"} />
-      )}
-    </div>
+          !isLoading && <HaveNotData content={"인기있는 토크방이"} />
+        )}
+      </div>
+    </Layout>
   );
 };
 

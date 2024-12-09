@@ -73,8 +73,8 @@ export default function RootLayout({
           <ReactQueryProvider>
             <ReduxProvider>
               <Providers>
-                <Header />
-                <div className="flex flex-grow flex-col w-[100%]">
+                <div className="flex flex-col items-center justify-center w-[100%]">
+                  <Header />
                   {children}
                 </div>
                 <Footer />
