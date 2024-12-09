@@ -31,7 +31,7 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
             relative
             w-full 
             cursor-pointer 
-            aspect-[0.6] 
+            aspect-[0.7] 
             min-h-[147px] 
             max-h-[375px] 
             "

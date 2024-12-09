@@ -46,7 +46,7 @@ export const Header = () => {
         </div>
         <div className="flex gap-[46px] items-center">
           <form onSubmit={onSubmit}>
-            <div className="relative w-[414px] sm:hidden">
+            <div className="relative w-[30vw] max-w-[414px] sm:hidden">
               <div className="sm:hidden">
                 <Input
                   variant="main"

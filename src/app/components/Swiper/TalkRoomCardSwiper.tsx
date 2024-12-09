@@ -48,13 +48,23 @@ const TalkRoomCardSwiper = ({
           slidesPerGroup: 1,
           spaceBetween: 8,
         },
-        601: {
+        420: {
+          slidesPerView: 1.3,
+          slidesPerGroup: 1,
+          spaceBetween: 8,
+        },
+        600: {
           slidesPerView: 1.5,
           slidesPerGroup: 1,
           spaceBetween: 8,
         },
-        900: {
+        768: {
           slidesPerView: 2,
+          slidesPerGroup: 1,
+          spaceBetween: 8,
+        },
+        1024: {
+          slidesPerView: 2.3,
           slidesPerGroup: 1,
           spaceBetween: 10,
         },
@@ -63,8 +73,13 @@ const TalkRoomCardSwiper = ({
           slidesPerGroup: 1,
           spaceBetween: 10,
         },
-        1301: {
+        1300: {
           slidesPerView: 3,
+          slidesPerGroup: 1,
+          spaceBetween: 10,
+        },
+        1500: {
+          slidesPerView: 3.5,
           slidesPerGroup: 1,
           spaceBetween: 10,
         },
