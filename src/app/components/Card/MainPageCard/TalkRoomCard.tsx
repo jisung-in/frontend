@@ -1,3 +1,5 @@
+"use client";
+
 import BookTitle from "@/assets/img/book-title.svg";
 import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
@@ -80,17 +82,17 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
         md:w-[317px] 
         lg:w-[346px] 
         xl:w-[375px] 
-        xl2:w-[405px] 
+        2xl:w-[405px] 
         sm:h-[235px]
         md:h-[258px]
         lg:h-[282px]
         xl:h-[306px]
-        xl2:h-[330px]
+        2xl:h-[330px]
         sm:rounded-[10px]
         md:rounded-[12px]
         lg:rounded-[14px]
         xl:rounded-[16px]
-        xl2:rounded-[17px]
+        2xl:rounded-[17px]
         bg-[#fff] border border-[#F4E4CE] font-Pretendard overflow-hidden"
     >
       <Link href={`/talkroom/detail/${data.id}`}>
@@ -100,12 +102,12 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
         md:top-[-15%]
         lg:top-[-20%]
         xl:top-[-25%]
-        xl2:top-[-30%]
+        2xl:top-[-30%]
         sm:h-[100px]
         md:h-[120px]
         lg:h-[147px]
         xl:h-[174px]
-        xl2:h-[200px]
+        2xl:h-[200px]
         absolute inset-0 transform -skew-y-[10deg] bg-[#80685D] "
         ></div>
         <div className="absolute inset-0 flex justify-center items-center">
@@ -115,7 +117,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
             md:m-[17px]
             lg:m-[20px]
             xl:m-[23px]
-            xl2:m-[26px]
+            2xl:m-[26px]
             w-full"
           >
             <div
@@ -124,7 +126,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
               md:mb-[8px]
               lg:mb-[8px]
               xl:mb-[8px]
-              xl2:mb-[8px]"
+              2xl:mb-[8px]"
             >
               <div className="flex flex-grow">
                 <div
@@ -137,8 +139,8 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   lg:max-w-[85px]
                   xl:min-w-[95px]
                   xl:max-w-[95px]
-                  xl2:min-w-[100px]
-                  xl2:max-w-[100px]
+                  2xl:min-w-[100px]
+                  2xl:max-w-[100px]
                   sm:min-h-[100px] 
                   sm:max-h-[100px] 
                   md:min-h-[110px] 
@@ -147,8 +149,8 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   lg:max-h-[120px] 
                   xl:min-h-[130px] 
                   xl:max-h-[130px] 
-                  xl2:min-h-[140px]
-                  xl2:max-h-[140px]
+                  2xl:min-h-[140px]
+                  2xl:max-h-[140px]
                   "
                 >
                   <Image
@@ -164,12 +166,12 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   md:ml-2.5                   
                   lg:ml-3.5                   
                   xl:ml-4                   
-                  xl2:ml-4                   
+                  2xl:ml-4                   
                   sm:mt-2
                   md:mt-2.5 
                   lg:mt-3.5 
                   xl:mt-4 
-                  xl2:mt-4 "
+                  2xl:mt-4 "
                 >
                   <BookTitle />
                 </div>
@@ -179,12 +181,12 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   md:mt-2 
                   lg:mt-3 
                   xl:mt-3 
-                  xl2:mt-4 
+                  2xl:mt-4 
                   sm:ml-[6px]
                   md:ml-[7px]
                   lg:ml-[8px]
                   xl:ml-[9px]
-                  xl2:ml-[9px]
+                  2xl:ml-[9px]
                   flex-grow text-[#656565] text-white"
                 >
                   <div
@@ -193,7 +195,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                     md:text-sm
                     lg:text-[15px]
                     xl:text-base
-                    xl2:text-[17px]
+                    2xl:text-[17px]
                     font-semibold mb-1 overflow-hidden line-clamp-1"
                   >
                     {data.bookName}
@@ -204,7 +206,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                     md:text-[11px] 
                     lg:text-xs
                     xl:text-[13px] 
-                    xl2:text-sm 
+                    2xl:text-sm 
                     overflow-hidden line-clamp-1"
                   >
                     {data.bookAuthor}
@@ -245,7 +247,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
               md:mb-0.5
               lg:mb-1.5
               xl:mb-2
-              xl2:mb-3.5
+              2xl:mb-3.5
               flex flex-row font-semibold items-center gap-x-[7px] "
             >
               <ThemeTitle />
@@ -255,7 +257,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 md:text-base
                 lg:text-[17px]
                 xl:text-lg
-                xl2:text-xl
+                2xl:text-xl
                 flex flex-row overflow-hidden line-clamp-1"
               >
                 {data.title}
@@ -267,7 +269,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   md:text-[11px]
                   lg:text-xs
                   xl:text-[13px]
-                  xl2:text-sm
+                  2xl:text-sm
                   flex items-center bg-transparent leading-tight text-[#F24D4D] border-2 border-[#F24D4D] rounded-[4px] px-[6px]"
                 >
                   BEST
@@ -281,17 +283,17 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
               md:mb-2.5 
               lg:mb-3
               xl:mb-3.5 
-              xl2:mb-4 
+              2xl:mb-4 
               sm:h-10
               md:h-10
               lg:h-11
               xl:h-12
-              xl2:h-12
+              2xl:h-12
               sm:text-[13px]
               md:text-sm
               lg:text-[15px]
               xl:text-base
-              xl2:text-base
+              2xl:text-base
               font-medium text-[#656565] overflow-hidden line-clamp-2"
             >
               {data.content}
@@ -303,7 +305,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
               md:mb-3
               lg:mb-3
               xl:mb-3
-              xl2:mb-3
+              2xl:mb-3
               w-full border border-[#F4E4CE]"
             />
 
@@ -315,17 +317,17 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                   md:w-[20px] 
                   lg:w-[22px] 
                   xl:w-[24px] 
-                  xl2:w-[26px] 
+                  2xl:w-[26px] 
                   sm:h-[18px] 
                   md:h-[20px] 
                   lg:h-[22px] 
                   xl:h-[24px] 
-                  xl2:h-[26px]
+                  2xl:h-[26px]
                   sm:border rounded-[12px]
                   md:border rounded-[13px]
                   lg:border rounded-[14px]
                   xl:border rounded-[15px]
-                  xl2:border rounded-[16px]"
+                  2xl:border rounded-[16px]"
                   src={
                     data.profileImage !== "image" ? data.profileImage : Profile
                   }
@@ -341,7 +343,7 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                md:text-[13px]
                lg:text-[14px]
                xl:text-[15px]
-               xl2:text-[15px]
+               2xl:text-[15px]
               font-medium"
               >
                 {data.username}

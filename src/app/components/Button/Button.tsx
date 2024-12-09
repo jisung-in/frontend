@@ -27,7 +27,7 @@ const buttonVariants = cva(
         register: "w-[350px]",
       },
       height: {
-        xl2: "h-[70px]",
+        "2xl": "h-[70px]",
         xl: "h-[58px]",
         lg: "h-[48px]",
         md: "h-[40px]",

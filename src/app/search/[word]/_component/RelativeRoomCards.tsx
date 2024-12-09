@@ -49,7 +49,7 @@ const RelativeRoomCards = ({ name }: Props) => {
       {bookData &&
       bookData.pages.length > 0 &&
       bookData.pages[0].content.length > 0 ? (
-        <div className="flex flex-row xl2:gap-x-[20px]">
+        <div className="flex flex-row 2xl:gap-x-[20px]">
           {bookData.pages.map(
             (page) =>
               page.content &&

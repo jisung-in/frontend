@@ -31,7 +31,7 @@ const config: Config = {
       md: { min: "601px", max: "900px" },
       lg: { min: "901px", max: "1200px" },
       xl: { min: "1201px", max: "1800px" },
-      xl2: { min: "1801px" },
+      "2xl": { min: "1801px" },
     },
   },
   plugins: [nextui()],

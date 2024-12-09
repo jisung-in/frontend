@@ -93,7 +93,7 @@ const Page = ({ params }: { params: { id: number } }) => {
             </div>
             <Button
               width="register"
-              height="xl2"
+              height="2xl"
               className="font-Pretendard font-semibold text-[28px]"
             >
               <Link className="w-full" href={`/talkroom/comment/${params.id}`}>
@@ -108,7 +108,7 @@ const Page = ({ params }: { params: { id: number } }) => {
             </div>
             <Button
               width="register"
-              height="xl2"
+              height="2xl"
               variant={"notCondition"}
               className="font-Pretendard font-semibold text-[28px] text-[#828282] pointer-events-none"
             >

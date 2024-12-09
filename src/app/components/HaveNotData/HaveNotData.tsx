@@ -13,7 +13,7 @@ const HaveNotData = ({ content }: HaveNotDataProps) => {
       md:my-[34px]
       lg:my-[42px]
       xl:my-[48px]
-      xl2:my-[56px]"
+      2xl:my-[56px]"
     >
       <div
         className="
@@ -21,12 +21,12 @@ const HaveNotData = ({ content }: HaveNotDataProps) => {
       md:w-[98px]
       lg:w-[115px]
       xl:w-[132px]
-      xl2:w-[150px]
+      2xl:w-[150px]
       sm:h-[71px]
       md:h-[89px]
       lg:h-[106px]
       xl:h-[124px]
-      xl2:h-[141px]
+      2xl:h-[141px]
       mb-2
       "
       >
@@ -38,7 +38,7 @@ const HaveNotData = ({ content }: HaveNotDataProps) => {
         md:text-[21px]
         lg:text-[24px]
         xl:text-[27px]
-        xl2:text-[30px]
+        2xl:text-[30px]
         font-SpoqaHanSansNeo font-bold text-[#624E45]"
       >
         {content} 없습니다

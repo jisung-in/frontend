@@ -13,17 +13,17 @@ const RankBox = ({ children }: BookProps) => {
       md:w-5
       lg:w-6
       xl:w-7
-      xl2:w-9  
+      2xl:w-9  
       sm:h-4
       md:h-5
       lg:h-6
       xl:h-7
-      xl2:h-9
+      2xl:h-9
       sm:text-[9px]
       md:text-[12px]
       lg:text-[15px]
       xl:text-[18px]
-      xl2:text-[21px]
+      2xl:text-[21px]
       text-[#FFF] bg-[#624E45] border rounded-[4px] text-center
       "
     >
@@ -130,8 +130,8 @@ const Book = ({ children }: BookProps) => {
             lg:left-[7px]
             xl:top-[9px] 
             xl:left-[9px]
-            xl2:top-[10px] 
-            xl2:left-[10px]
+            2xl:top-[10px] 
+            2xl:left-[10px]
           "
           >
             {rankBox}

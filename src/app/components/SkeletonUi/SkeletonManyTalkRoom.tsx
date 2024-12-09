@@ -9,7 +9,7 @@ const SkeletonManyTalkRoom = () => {
       md:rounded-[5px]
       lg:rounded-[7px]
       xl:rounded-[9px]
-      xl2:rounded-[10px]
+      2xl:rounded-[10px]
       min-2w-[108px]
       min-h-[126px]
       max-w-[263px]

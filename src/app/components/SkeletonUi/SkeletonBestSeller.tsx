@@ -9,7 +9,7 @@ const SkeletonBestSeller = () => {
       md:rounded-[6px]
       lg:rounded-[8px]
       xl:rounded-[9px]
-      xl2:rounded-[10px]
+      2xl:rounded-[10px]
       min-w-[120px]
       min-h-[170px]
       max-w-[320px]
