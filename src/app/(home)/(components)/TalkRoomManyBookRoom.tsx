@@ -54,8 +54,10 @@ const TalkRoomManyBookRoom = () => {
             xl:mb-[24px]
             2xl:mb-[26px]"
             >
-              <span>토크 많은 책</span>
-              <span className="size-6">
+              <span className="sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                토크 많은 책
+              </span>
+              <span className="sm:size-4 size-5 2xl:size-6">
                 <ManyTalkRoomBookImg />
               </span>
             </p>

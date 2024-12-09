@@ -76,15 +76,19 @@ const PopularTalkRoom = () => {
                 flex grow items-center 
                 sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 2xl:gap-x-3"
             >
-              <span>인기있는 토크방</span>
-              <span className="size-6">
+              <span className="sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                인기있는 토크방
+              </span>
+              <span className="sm:size-4 size-5 2xl:size-6">
                 <PopularTalkRoomImg />
               </span>
             </p>
           </ThemeMain.MainTheme>
           <ThemeMain.Show>
             <Link href={"/talkroom/?order=recommend"}>
-              <span className="w-full">전체보기 {">"}</span>
+              <span className="w-full sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                전체보기 {">"}
+              </span>
             </Link>
           </ThemeMain.Show>
         </ThemeMain>

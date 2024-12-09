@@ -49,12 +49,17 @@ const TalkRoomCardSwiper = ({
           spaceBetween: 8,
         },
         601: {
-          slidesPerView: 2,
+          slidesPerView: 1.5,
           slidesPerGroup: 1,
           spaceBetween: 8,
         },
-        901: {
+        900: {
           slidesPerView: 2,
+          slidesPerGroup: 1,
+          spaceBetween: 10,
+        },
+        1100: {
+          slidesPerView: 2.5,
           slidesPerGroup: 1,
           spaceBetween: 10,
         },

@@ -2,15 +2,15 @@ import NoImage from "@/assets/img/no-image.png";
 import Image from "next/image";
 import { BookMain } from "../../Book/Book";
 
-type BestSellerCardProps = {
+interface BestSellerCardProps {
   ranking: number;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
   dateTime: string;
-  isPriority?: boolean;
-};
+}
+
 const BestSellerCard: React.FC<BestSellerCardProps> = ({
   ranking,
   title,
@@ -18,34 +18,28 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   thumbnail,
   authors,
   dateTime,
-  isPriority,
 }) => {
   return (
     <BookMain>
       <BookMain.BookCover>
-        <div
-          className="
-          relative
-          w-full
-          aspect-[0.7]
-          overflow-hidden"
-        >
+        <div className="relative aspect-[0.7] overflow-hidden">
           <Image
             className="border border-[#F4E4CE] 
             sm:rounded-[5px]
             md:rounded-[6px]
             lg:rounded-[8px]
             xl:rounded-[9px]
-            2xl:rounded-[10px]
-            "
+            2xl:rounded-[10px] 
+            object-cover"
             src={thumbnail ? thumbnail : NoImage}
             alt="책 표지"
-            priority={isPriority}
             fill
           />
         </div>
       </BookMain.BookCover>
+
       {ranking && <BookMain.RankBox>{ranking}</BookMain.RankBox>}
+
       <BookMain.BookTitle>
         <div
           className="
@@ -64,6 +58,7 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
           {title}
         </div>
       </BookMain.BookTitle>
+
       <BookMain.Publisher>
         <div
           className="
@@ -77,6 +72,7 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
           {publisher}
         </div>
       </BookMain.Publisher>
+
       <BookMain.Author>
         <div
           className="
@@ -90,6 +86,7 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
           {authors.join(", ")}
         </div>
       </BookMain.Author>
+
       <BookMain.Year>
         <div
           className="          

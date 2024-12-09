@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import BestSellerCard from "../Card/MainPageCard/BestSellerCard";
+import SkeletonBestSeller from "../SkeletonUi/SkeletonBestSeller";
 
 interface BookSliderProps {
   data: {
@@ -22,6 +23,18 @@ interface BookSliderProps {
 }
 
 const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
+  const [isInitialRender, setIsInitialRender] = useState(true);
+
+  // 초기에 렌더링 시 이미지가 fill 속성 때문에 화면에 꽉차게 나오는 현상을 막기 위해 사용
+  useEffect(() => {
+    // 컴포넌트가 처음 렌더링된 후 isInitialRender를 false로 설정
+    const timer = setTimeout(() => {
+      setIsInitialRender(false);
+    }, 0); // 렌더링 완료 후 바로 상태를 업데이트
+
+    return () => clearTimeout(timer); // 타이머 제거
+  }, []);
+
   return (
     <section>
       <ul className="max-w-[1680px] max-h-[513px]">
@@ -32,7 +45,7 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
           loop={false}
           modules={[Navigation, Pagination]}
           breakpoints={{
-            319: {
+            280: {
               slidesPerView: 2.7,
               slidesPerGroup: 2,
               spaceBetween: 10,
@@ -69,21 +82,24 @@ const RankSwiper: React.FC<BookSliderProps> = ({ data }) => {
             },
           }}
         >
-          {data?.map((data, index) => (
-            <SwiperSlide key={data.isbn}>
-              <Link href={`/book/${data.isbn}`}>
-                <BestSellerCard
-                  ranking={data.ranking}
-                  thumbnail={data.thumbnail}
-                  title={data.title}
-                  publisher={data.publisher}
-                  authors={data.authors}
-                  dateTime={data.dateTime}
-                  isPriority={index < 6}
-                />
-              </Link>
-            </SwiperSlide>
-          ))}
+          {isInitialRender ? (
+            <SkeletonBestSeller />
+          ) : (
+            data?.map((items, index) => (
+              <SwiperSlide key={items.isbn}>
+                <Link href={`/book/${items.isbn}`}>
+                  <BestSellerCard
+                    ranking={items.ranking}
+                    thumbnail={items.thumbnail}
+                    title={items.title}
+                    publisher={items.publisher}
+                    authors={items.authors}
+                    dateTime={items.dateTime}
+                  />
+                </Link>
+              </SwiperSlide>
+            ))
+          )}
         </Swiper>
       </ul>
     </section>

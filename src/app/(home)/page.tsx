@@ -7,7 +7,7 @@ import TalkRoomManyBookRoom from "./(components)/TalkRoomManyBookRoom";
 const revalidateTime = 86400;
 
 const page = async () => {
-  const { data, isLoading } = await fetch(
+  const { data } = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER}/v1/books/best-seller?page=1&size=20`,
     {
       next: {
@@ -23,7 +23,7 @@ const page = async () => {
 
       <PopularTalkRoom />
 
-      <BestSeller data={data} isLoading={isLoading} />
+      <BestSeller data={data} />
 
       <RecentTalkRoom />
 
