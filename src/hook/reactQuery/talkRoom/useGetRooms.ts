@@ -40,7 +40,7 @@ export const useGetRooms = ({
   sortbydate = "",
 }: TalkRoomRequest) => {
   return useInfiniteQuery<TalkRoomInfo, Error>({
-    queryKey: ["talkrooms", size, order, search, sortbydate],
+    queryKey: ["talkrooms", { size, order, search, sortbydate }],
     queryFn: async ({ pageParam = 1 }) => {
       return await axiosInstance
         .get(
@@ -54,5 +54,6 @@ export const useGetRooms = ({
     },
     initialPageParam: 1,
     throwOnError: true,
+    refetchOnWindowFocus: false, // 포커스 전환 시 리패칭 방지
   });
 };
