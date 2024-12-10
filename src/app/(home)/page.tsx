@@ -11,7 +11,7 @@ const Home = async () => {
     `${process.env.NEXT_PUBLIC_SERVER}/v1/books/best-seller?page=1&size=20`,
     {
       next: {
-        // 24시간 마다 갱신하게
+        // 24시간 마다 베스트 셀러 갱신
         revalidate: revalidateTime,
       },
     },
@@ -26,6 +26,7 @@ const Home = async () => {
       <div className="bg-[#FBF7F0] py-[1px] w-full flex justify-center">
         <BestSeller data={data} />
       </div>
+
       <RecentTalkRoom />
 
       <div className="bg-[#FBF7F0] py-[1px] w-full flex justify-center">
