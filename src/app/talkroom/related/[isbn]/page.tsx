@@ -47,22 +47,26 @@ const page = ({ params }: { params: { isbn: string } }) => {
   });
 
   return (
-    <div className="flex flex-col">
-      <ThemeMain.MainTheme>
-        <div className="flex mt-[78px] mb-[23px]">
-          <div className="flex items-center mb-[23px]">
-            <div className="text-[30px] mr-[16px]">연관된 토크방</div>
-            <div className="w-[30px] h-[30px]">
-              <RecentMakeTalkRoom />
-            </div>
+    <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
+      <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
+        <ThemeMain.MainTheme>
+          <div className="flex mt-[78px] mb-[23px]">
+            <p className="flex items-center mb-[23px]">
+              <span className="sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl mr-[16px]">
+                연관된 토크방
+              </span>
+              <span className="sm:size-4 size-5 xl:size-6 2xl:size-7">
+                <RecentMakeTalkRoom />
+              </span>
+            </p>
           </div>
-        </div>
-      </ThemeMain.MainTheme>
+        </ThemeMain.MainTheme>
+      </div>
 
       {isLoading && <SkeletonTalkRoomCard />}
       {relateData && relateData.queryResponse.length > 0 ? (
         <>
-          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+          <div className="flex fex-row flex-wrap justify-center gap-x-[40px] gap-y-[30px] w-full mb-[30px] px-[5%] xl:px-0 2xl:px-0">
             {relateData.queryResponse.map((data: TalkRoom) => {
               const isLike =
                 isLoggedIn &&

@@ -11,7 +11,7 @@ import useObserver from "@/util/useObserver";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import TalkRoomCard from "../../components/Card/MainPageCard/TalkRoomCard";
 import { ThemeMain } from "../../components/Theme/Theme";
 
@@ -41,6 +41,14 @@ type TalkRoomPageProps = {
 };
 
 const page = ({ params }: TalkRoomPageProps) => {
+  const { isLoggedIn } = useLogin();
+  const { data: talkRoomLikeIds } = isLoggedIn
+    ? useGetRoomLike()
+    : { data: { talkRoomIds: [] } };
+  const { data: myDetailData } = isLoggedIn
+    ? useGetMyDetail()
+    : { data: { userId: -1, userImage: "", userName: "" } };
+
   const router = useRouter();
   const param = useSearchParams();
   const orderParam = param.get("order");
@@ -57,13 +65,6 @@ const page = ({ params }: TalkRoomPageProps) => {
     sortByDateParam === "1d"
       ? sortByDateParam
       : "";
-  const { isLoggedIn } = useLogin();
-  const { data: talkRoomLikeIds } = isLoggedIn
-    ? useGetRoomLike()
-    : { data: { talkRoomIds: [] } };
-  const { data: myDetailData } = isLoggedIn
-    ? useGetMyDetail()
-    : { data: { userId: -1, userImage: "", userName: "" } };
 
   const search = params ? decodeURIComponent(params.result) : "";
 
@@ -71,7 +72,6 @@ const page = ({ params }: TalkRoomPageProps) => {
     data: talkRoom,
     isLoading,
     isFetching,
-    refetch: refetchTalkRoomData,
     hasNextPage,
     fetchNextPage,
   } = useGetRooms({
@@ -94,51 +94,45 @@ const page = ({ params }: TalkRoomPageProps) => {
     },
   });
 
-  useEffect(() => {
-    refetchTalkRoomData();
-  }, [orderStatus, sortByDate]);
-
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-[1255px]">
+    <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
+      <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
         <ThemeMain.MainTheme>
           <div className="flex mt-[78px] mb-[23px]">
-            <div className="flex items-center mb-[23px]">
+            <p className="flex items-center mb-[23px] sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 2xl:gap-x-3">
               <Link
                 href={{
                   pathname: "/talkroom",
                   query: { order: "recent" },
                 }}
               >
-                <div className="text-[30px] mr-[16px] cursor:pointer">
+                <span className="sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl cursor:pointer">
                   토크해요
-                </div>
+                </span>
               </Link>
-              <div className="w-[30px] h-[30px]">
+              <span className="sm:size-4 size-5 xl:size-6 2xl:size-7">
                 <RecentMakeTalkRoom />
-              </div>
-            </div>
+              </span>
+            </p>
           </div>
         </ThemeMain.MainTheme>
 
         {search ? (
           <>
-            <div className="font-SpoqaHanSansNeo font-medium text-[20px] text-[#77777E]">
+            <span className="font-SpoqaHanSansNeo font-medium 2xl:text-[17px] xl:text-base lg:text-[15px] md:text-sm sm:text-xs text-[#77777E]">
               "{search}" 의 결과
-            </div>
-            <hr className="border-solid border-[3px] border-[#F5EFE5] mt-3 mb-[19px]" />
+            </span>
+            <hr className="border-solid 2xl:border-[3px] xl:border-[3px] lg:border-[2px] md:border-[2px] sm:border-1 border-[#F5EFE5] mt-3 2xl:mb-[19px] xl:mb-[17px] lg:mb-[15px] md:mb-[13px] sm:mb-3" />
           </>
         ) : (
           <></>
         )}
 
-        <div className="flex mb-[37px] grow">
-          <div className="flex grow">
-            <TalkRoomSearch
-              onSearchSubmit={searchTalkRoom}
-              searchParam={search}
-            />
-          </div>
+        <div className="w-full mb-[37px]">
+          <TalkRoomSearch
+            onSearchSubmit={searchTalkRoom}
+            searchParam={search}
+          />
         </div>
       </div>
 
@@ -146,7 +140,7 @@ const page = ({ params }: TalkRoomPageProps) => {
       {talkRoom &&
       talkRoom.pages.length > 0 &&
       talkRoom.pages[0].content.length > 0 ? (
-        <div className="flex flex-row flex-wrap justify-center gap-x-[40px] gap-y-[30px] w-[1295px] mb-[30px]">
+        <div className="flex flex-row flex-wrap justify-center gap-x-[40px] gap-y-[30px] w-full mb-[30px] px-[5%] xl:px-0 2xl:px-0">
           {talkRoom.pages.map(
             (page) =>
               page.content &&
@@ -171,7 +165,7 @@ const page = ({ params }: TalkRoomPageProps) => {
       ) : (
         !isLoading && <HaveNotData content={"검색된 토크방이"} />
       )}
-      {isFetching && <SkeletonTalkRoomCard />}
+      {!isLoading && isFetching && <SkeletonTalkRoomCard />}
       <div className="observer" ref={observerRef} />
     </div>
   );

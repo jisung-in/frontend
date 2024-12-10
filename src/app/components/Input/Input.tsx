@@ -1,10 +1,10 @@
 "use client";
 
-import { forwardRef, useCallback, useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
+import { forwardRef, useCallback, useState } from "react";
 
-import SearchIcon from "@/assets/img/search-icon.svg";
 import RemoveIcon from "@/assets/img/remove-icon.svg";
+import SearchIcon from "@/assets/img/search-icon.svg";
 import clsx from "clsx";
 
 const inputContainerVariants = cva(
@@ -14,6 +14,8 @@ const inputContainerVariants = cva(
       variant: {
         main: "bg-gray-40 border-none font-white",
         empty: "bg-white border-gray-40 font-black",
+        response:
+          "bg-white border-gray-40 font-black 2xl:h-10 xl:h-10 lg:h-9 md:h-9 sm:h-8",
       },
       isFocused: {
         true: "border-gray-60",
@@ -38,7 +40,7 @@ export interface InputProps
     VariantProps<typeof inputVariants> {
   onSubmit?: VoidFunction;
   reset?: VoidFunction;
-  variant?: "main" | "empty";
+  variant?: "main" | "empty" | "response";
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(

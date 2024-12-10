@@ -43,7 +43,7 @@ const BestSeller = ({ data }: BestSellerDataType) => {
           <p
             className="
             flex grow items-center
-            sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 2xl:gap-x-3 "
+            sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 2xl:gap-x-3"
           >
             <span className="sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
               베스트 셀러

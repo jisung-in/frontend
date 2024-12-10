@@ -25,7 +25,7 @@ const Dropdown = ({
           className="IconButton flex align-center"
           aria-label="Customise options"
         >
-          <div className="flex items-center font-Pretendard font-medium text-[#74747B] text-[19px] sm:text-[12px]">
+          <div className="flex items-center font-Pretendard font-medium text-[#74747B] 2xl:text-[17px] xl:text-base lg:text-[15px] md:text-sm sm:text-xs">
             {selectedItem}
             <div className="ml-2">
               <Arrow />
