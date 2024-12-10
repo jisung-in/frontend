@@ -1,7 +1,6 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import { Layout } from "@/app/components/Layout/Layout";
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import TalkRoomCardSwiper from "@/app/components/Swiper/TalkRoomCardSwiper";
@@ -12,7 +11,12 @@ import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import { useBreakpoint } from "@/util/useBreakPoint";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 type TalkRoom = {
   id: number;

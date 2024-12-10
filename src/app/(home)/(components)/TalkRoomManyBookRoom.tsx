@@ -1,13 +1,17 @@
 "use client";
 
 import ManyTalkRoomBookCard from "@/app/components/Card/MainPageCard/ManyTalkRoomBookCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import { Layout } from "@/app/components/Layout/Layout";
 import SkeletonManyTalkRoom from "@/app/components/SkeletonUi/SkeletonManyTalkRoom";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import ManyTalkRoomBookImg from "@/assets/img/many-talk-room-book.svg";
 import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 interface TalkRoomBookOrder {
   isbn: string;

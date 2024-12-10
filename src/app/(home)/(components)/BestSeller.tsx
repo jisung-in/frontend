@@ -1,8 +1,12 @@
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
 import { Layout } from "@/app/components/Layout/Layout";
 import RankSwiper from "@/app/components/Swiper/RankSwiper";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import BestSellerImg from "@/assets/img/best-seller.svg";
+import dynamic from "next/dynamic";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 interface BestSellerDataType {
   data: {
