@@ -1,7 +1,6 @@
 import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
 import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
-import Star from "@/assets/img/star.svg";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
 import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
@@ -75,57 +74,68 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
   const isDeleteShowModal = () => setDeleteShowModal(!deleteShowModal);
 
   return (
-    <div className="w-[910px] min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] border border-[#F4E4CE] font-Pretendard font-medium">
-      <div className="mt-[20px] ml-[30px] mr-[26px] w-auto">
+    <div className="w-full h-full min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] border border-[#F4E4CE] font-Pretendard font-medium">
+      <div className="mx-6 mt-6 w-auto">
         <div className="flex flex-row mb-[23px]">
-          <div className="flex flex-row items-center flex-grow gap-x-[10px]">
+          <div className="flex flex-row items-center flex-grow gap-x-1 lg:gap-x-1.5 xl:gap-x-2 2xl:gap-x-2.5">
             <Image
-              className="rounded-[50%]"
+              className="rounded-[50%] sm:size-5 md:size-6 lg:size-7 xl:size-8 2xl:size-10"
               src={data ? data.profileImage : Profile}
               alt="프로필"
               width={40}
               height={40}
               priority
             />
-            <div className="font-medium text-[20px]">{data.username}</div>
+            <span className="font-bold sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+              {data.username}
+            </span>
           </div>
           {data.starRating ? (
-            <div className="w-[68px] h-[33px] bg-[#FBF7F0] border border-[#624E45] border-solid rounded-[16px] px-[9px] flex items-center font-Inter font-medium text-[18px] text-[#80685D] gap-x-[3px] justify-center">
-              <Star />
-              <div className="flex grow justify-center items-center">
-                {data.starRating.toFixed(1)}
-              </div>
-            </div>
+            <p className="2xl:w-20 2xl:h-10 bg-[#FBF7F0] border border-[#624E45] sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl border-solid rounded-[24px] px-[9px] flex items-center font-Inter font-medium text-[#80685D] sm:gap-x-[1px] md:gap-x-[1px] lg:gap-x-[2px] xl:gap-x-[2px] 2xl:gap-x-[3px] justify-center">
+              <span>★</span>
+              <span>{data.starRating.toFixed(1)}</span>
+            </p>
           ) : (
             <></>
           )}
         </div>
 
-        <div className="font-regular text-[20px] min-h-[112px]">
+        <p className="font-regular sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl min-h-[112px]">
           {data.reviewContent}
-        </div>
+        </p>
 
-        <div className="flex flex-row">
-          <div className="flex flex-col justify-start">
-            <div className="flex flex-row mt-[18px]">
-              <IconButton onClick={changeIsLike}>
-                {isLike ? (
-                  <LikeSpeechBubble width={18} height={17} />
-                ) : (
-                  <NotLike width={18} height={17} />
-                )}
-              </IconButton>
-              <div className="ml-[5px]">{count > 999 ? "999+" : count}</div>
-            </div>
+        <div className="flex flex-col justify-start sm:hidden block">
+          <div className="flex flex-row mt-7 2xl:mt-[18px]">
+            <IconButton onClick={changeIsLike}>
+              {isLike ? (
+                <LikeSpeechBubble width={19} height={17} />
+              ) : (
+                <NotLike width={19} height={17} />
+              )}
+            </IconButton>
+            <span className="ml-[5px]">{count > 999 ? "999+" : count}</span>
           </div>
         </div>
 
-        <hr className="w-full border border-[#F4E4CE] mt-[8px] mb-[16px]" />
+        <hr className="w-full border border-[#F4E4CE] mt-[8px] mb-[16px] sm:mt-16" />
 
         <div className="flex">
-          <div className="flex grow justify-start mb-[19px]">
+          <div className="flex flex-row items-center grow justify-start mb-[19px]">
             <LikeButton isLike={isLike} onClick={changeIsLike} />
+            <div className="flex flex-col justify-start hidden sm:block ml-2">
+              <div className="flex flex-row">
+                <IconButton onClick={changeIsLike}>
+                  {isLike ? (
+                    <LikeSpeechBubble width={19} height={17} />
+                  ) : (
+                    <NotLike width={19} height={17} />
+                  )}
+                </IconButton>
+                <span className="ml-[5px]">{count > 999 ? "999+" : count}</span>
+              </div>
+            </div>
           </div>
+
           <div>
             {data.creatorId === userId && (
               <DeleteButton onClick={isDeleteShowModal} />

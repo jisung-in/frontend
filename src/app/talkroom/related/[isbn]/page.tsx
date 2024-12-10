@@ -4,6 +4,7 @@ import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import Pagination from "@/app/components/Pagination/Pagination";
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import { ThemeMain } from "@/app/components/Theme/Theme";
+import BackButton from "@/app/summary/_component/BackButton";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
@@ -50,16 +51,19 @@ const page = ({ params }: { params: { isbn: string } }) => {
     <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
       <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
         <ThemeMain.MainTheme>
-          <div className="flex mt-[78px] mb-[23px]">
-            <p className="flex items-center mb-[23px]">
-              <span className="sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl mr-[16px]">
+          <p className="flex items-center 2xl:mt-[78px] 2xl:mb-[23px] xl:mt-16 xl:mb-5 lg:mt-10 lg:mb-4 md:mt-6 md:mb-3 sm:mt-4 sm:mb-2">
+            <span className="hidden sm:block mr-2">
+              <BackButton />
+            </span>
+            <span className="flex items-center">
+              <span className="sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 2xl:mr-4 xl:mr-4 lg:mr-3 md:mr-2 sm:mr-2">
                 연관된 토크방
               </span>
               <span className="sm:size-4 size-5 xl:size-6 2xl:size-7">
                 <RecentMakeTalkRoom />
               </span>
-            </p>
-          </div>
+            </span>
+          </p>
         </ThemeMain.MainTheme>
       </div>
 

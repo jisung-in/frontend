@@ -1,8 +1,8 @@
 "use client";
 
 import EvaluationCard from "@/app/components/Card/EvaluationCard/EvaluationCard";
+import { Layout } from "@/app/components/Layout/Layout";
 import SkeletonEvaluation from "@/app/components/SkeletonUi/SkeletonEvaluation";
-import BookTitle from "@/assets/img/book-title-evaluation.svg";
 import NoImage from "@/assets/img/no-image.png";
 import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
@@ -90,72 +90,91 @@ const Page = ({ params }: { params: { isbn: string } }) => {
   }, [order]);
 
   return (
-    <div>
-      <div className="ml-[120px]">
-        <MainThemeTitle title="유저들의 평가">
-          <UserEvaluationImg />
-        </MainThemeTitle>
-      </div>
+    <>
+      <Layout className="sm:bg-[white]">
+        <div className="px-[5%]">
+          <MainThemeTitle title="유저들의 평가">
+            <span className="sm:hidden block">
+              <UserEvaluationImg />
+            </span>
+          </MainThemeTitle>
+        </div>
+      </Layout>
 
-      <div className="w-full h-[6px] bg-[#F5EFE5]" />
+      <hr className="w-full 2xl:h-[6px] xl:h-[5px] lg:h-1 md:h-[3px] sm:h-[2px] bg-[#F5EFE5]" />
 
-      <div className="h-[60px] flex items-center justify-end bg-[white] pr-[114px]">
+      <p className="2xl:py-6 xl:py-5 lg:py-4 md:py-3 w-full flex items-center justify-end bg-[white] pr-[5%] sm:hidden block">
         <DropDown
           items={Object.keys(standardType)}
           selectedItem={likeStandard}
           setSelectedItem={handleChangeStandard}
         />
-      </div>
+      </p>
 
-      <div className="flex items-center justify-center font-Pretendard font-medium mt-[42px] mb-[69px]">
-        <div className="flex justify-start h-[288px] ">
-          <div>
+      <Layout>
+        <div className="flex items-center justify-center font-Pretendard font-medium my-10">
+          <div className="flex justify-start">
             {isBookDetail ? (
-              <Skeleton className="w-[214px] h-[288px] mr-6" />
+              <Skeleton className="sm:w-[124px] sm:h-[168px] md:w-[144px] md:h-[198px] lg:w-[174px] lg:h-[228px] xl:w-[194px] xl:h-[258px] 2xl:w-[214px] 2xl:h-[288px] 2xl:mr-12 xl:mr-10 lg:mr-8 md:mr-6 sm:mr-4" />
             ) : (
-              <Image
-                className="border border-[#F4E4CE] min-w-[214px] max-w-[214px] min-h-[288px] max-h-[288px] mr-[53px]"
-                src={bookDetail ? bookDetail.thumbnail : NoImage}
-                alt="책표지"
-                width={214}
-                height={288}
-              />
+              <div className="relative aspect-[0.7] overflow-hidden sm:w-[124px] sm:h-[168px] md:w-[144px] md:h-[198px] lg:w-[174px] lg:h-[228px] xl:w-[194px] xl:h-[258px] 2xl:w-[214px] 2xl:h-[288px] 2xl:mr-12 xl:mr-10 lg:mr-8 md:mr-6 sm:mr-4">
+                <Image
+                  className="border border-[#F4E4CE]"
+                  src={bookDetail ? bookDetail.thumbnail : NoImage}
+                  alt="책 표지"
+                  fill
+                />
+              </div>
             )}
-          </div>
-          <div className="flex flex-col mt-3">
-            <div className="flex flex-row items-center gap-x-4 mb-[11px]">
-              <BookTitle />
-              <div className="font-semibold text-[40px] text-[#000]">
+
+            <div className="flex flex-col mt-3">
+              <div className="flex flex-row items-center gap-x-4 mb-[11px]">
+                <div className="font-semibold sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 2xl:text-4xl text-[#000]">
+                  {isBookDetail ? (
+                    <Skeleton className="sm:w-[100px] sm:h-[30px] md:w-[150px] md:h-[35px] lg:w-[200px] lg:h-[40px] xl:w-[250px] xl:h-[45px] 2xl:w-[300px] 2xl:h-[50px]" />
+                  ) : (
+                    bookDetail?.title
+                  )}
+                </div>
+              </div>
+              <div className="flex flex-row text-2xl text-[#656565] gap-x-[29px]">
                 {isBookDetail ? (
-                  <Skeleton className="w-[300px] h-[50px]" />
+                  <Skeleton className="sm:w-[100px] sm:h-[20px] md:w-[120px] md:h-[25px] lg:w-[140px] lg:h-[30px] xl:w-[170px] xl:h-[35px] 2xl:w-[200px] 2xl:h-[35px]" />
                 ) : (
-                  bookDetail?.title
+                  <p className="flex gap-3 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                    <span>{bookDetail?.publisher}</span>
+                    <span>{bookDetail?.authors}</span>
+                    <span className="font-Inter">
+                      {bookDetail?.dateTime.slice(0, 4)}
+                    </span>
+                  </p>
                 )}
               </div>
             </div>
-            <div className="flex flex-row text-2xl text-[#656565] gap-x-[29px]">
-              {isBookDetail ? (
-                <Skeleton className="w-[200px] h-[35px]" />
-              ) : (
-                <>
-                  <div>{bookDetail?.publisher}</div>
-                  <div>{bookDetail?.authors}</div>
-                  <div className="font-Inter">
-                    {bookDetail?.dateTime.slice(0, 4)}
-                  </div>
-                </>
-              )}
-            </div>
           </div>
         </div>
-      </div>
 
-      <div className="flex flex-col items-center">
-        {isReview && <SkeletonEvaluation />}
+        <p className="w-full pr-[5%] sm:block hidden mb-10">
+          <span className="flex justify-end">
+            <DropDown
+              items={Object.keys(standardType)}
+              selectedItem={likeStandard}
+              setSelectedItem={handleChangeStandard}
+            />
+          </span>
+        </p>
+      </Layout>
+
+      <div className="flex flex-col justify-center items-center w-full max-w-[910px]">
+        {isReview && (
+          <div className="w-full px-[5%]">
+            <SkeletonEvaluation />
+          </div>
+        )}
         {review &&
         review.pages.length > 0 &&
         review.pages[0].content.length > 0 ? (
-          <>
+          <div className="w-full px-[5%]">
             {review.pages.map(
               (page) =>
                 page.content &&
@@ -177,12 +196,12 @@ const Page = ({ params }: { params: { isbn: string } }) => {
             )}
             {isFetching && <SkeletonEvaluation />}
             <div className="observer" ref={observerRef} />
-          </>
+          </div>
         ) : (
           !isReview && <HaveNotData content={"아직 유저평가가"} />
         )}
       </div>
-    </div>
+    </>
   );
 };
 

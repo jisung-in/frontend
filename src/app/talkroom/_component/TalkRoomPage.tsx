@@ -1,6 +1,7 @@
 "use client";
 
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
+import BackButton from "@/app/summary/_component/BackButton";
 import TalkRoomSearch from "@/app/talkroom/_component/talkroomSearch";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
@@ -98,23 +99,25 @@ const page = ({ params }: TalkRoomPageProps) => {
     <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
       <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
         <ThemeMain.MainTheme>
-          <div className="flex mt-[78px] mb-[23px]">
-            <p className="flex items-center mb-[23px] sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 2xl:gap-x-3">
-              <Link
-                href={{
-                  pathname: "/talkroom",
-                  query: { order: "recent" },
-                }}
-              >
-                <span className="sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl cursor:pointer">
-                  토크해요
-                </span>
-              </Link>
+          <p className="flex items-center 2xl:mt-[78px] 2xl:mb-[23px] xl:mt-16 xl:mb-5 lg:mt-10 lg:mb-4 md:mt-6 md:mb-3 sm:mt-4 sm:mb-2">
+            <span className="hidden sm:block mr-2">
+              <BackButton />
+            </span>
+            <Link
+              href={{
+                pathname: "/talkroom",
+                query: { order: "recent" },
+              }}
+              className="flex items-center sm:gap-x-1.5 md:gap-x-2 lg:gap-x-2.5 xl:gap-x-2.5 2xl:gap-x-3"
+            >
+              <span className="sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl cursor:pointer">
+                토크해요
+              </span>
               <span className="sm:size-4 size-5 xl:size-6 2xl:size-7">
                 <RecentMakeTalkRoom />
               </span>
-            </p>
-          </div>
+            </Link>
+          </p>
         </ThemeMain.MainTheme>
 
         {search ? (

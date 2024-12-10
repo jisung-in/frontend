@@ -27,12 +27,17 @@ module.exports = {
         pathname: "/**",
       },
       {
+        hostname: "img1.kakaocdn.net",
+        port: "",
+        pathname: "/**",
+      },
+      {
         hostname: "jisungin-bucket.s3.ap-northeast-2.amazonaws.com",
         port: "",
         pathname: "/**",
       },
     ],
-    formats: ["image/avif", "image/webp"],
+    formats: ["image/webp"],
   },
   webpack: (config) => {
     config.module.rules.push({
