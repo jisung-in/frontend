@@ -51,7 +51,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
     <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
       <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
         <ThemeMain.MainTheme>
-          <p className="flex items-center 2xl:mt-[78px] 2xl:mb-[23px] xl:mt-16 xl:mb-5 lg:mt-10 lg:mb-4 md:mt-6 md:mb-3 sm:mt-4 sm:mb-2">
+          <p className="flex items-center 2xl:my-20 xl:my-16 lg:my-10 md:my-6 sm:my-4">
             <span className="hidden sm:block mr-2">
               <BackButton />
             </span>

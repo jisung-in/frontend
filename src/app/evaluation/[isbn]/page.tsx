@@ -4,7 +4,7 @@ import EvaluationCard from "@/app/components/Card/EvaluationCard/EvaluationCard"
 import { Layout } from "@/app/components/Layout/Layout";
 import SkeletonEvaluation from "@/app/components/SkeletonUi/SkeletonEvaluation";
 import NoImage from "@/assets/img/no-image.png";
-import UserEvaluationImg from "@/assets/img/user-evaluation.svg";
+import UserEvaluationImg from "@/assets/img/user-evaluation.png";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
@@ -94,9 +94,7 @@ const Page = ({ params }: { params: { isbn: string } }) => {
       <Layout className="sm:bg-[white]">
         <div className="px-[5%]">
           <MainThemeTitle title="유저들의 평가">
-            <span className="sm:hidden block">
-              <UserEvaluationImg />
-            </span>
+            <Image src={UserEvaluationImg} alt="평가 아이콘" />
           </MainThemeTitle>
         </div>
       </Layout>
