@@ -118,7 +118,7 @@ const BookStarRating = ({
       <Star className="text-[#624E45] 2xl:size-[50px] xl:size-11 lg:size-10 md:size-10 sm:size-9" />
       <StarHalf
         fill="#624E45"
-        className="cursor-pointer absolute top-0 left-0 text-[#624E45] 2xl:size-[50px] xl:size-11 lg:size-10 md:size-10 sm:size-9"
+        className="absolute top-0 left-0 text-[#624E45] 2xl:size-[50px] xl:size-11 lg:size-10 md:size-10 sm:size-9"
       />
     </div>
   );
@@ -156,12 +156,12 @@ const BookStarRating = ({
               .map((_, index: number) => (
                 <div key={index} className="relative" onMouseLeave={mouseLeave}>
                   <div
-                    className="absolute left-0 top-0 w-1/2 h-full cursor-pointer"
+                    className="absolute left-0 top-0 w-1/2 h-full cursor-pointer z-10"
                     onClick={() => clickStarRate(index, true)}
                     onMouseMove={() => mouseMove(index, true)}
                   />
                   <div
-                    className="absolute right-0 top-0 w-1/2 h-full cursor-pointer"
+                    className="absolute right-0 top-0 w-1/2 h-full cursor-pointer z-10"
                     onClick={() => clickStarRate(index, false)}
                     onMouseMove={() => mouseMove(index, false)}
                   />
