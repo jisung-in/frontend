@@ -5,7 +5,7 @@ import { Layout } from "@/app/components/Layout/Layout";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import SkeletonBookDetail from "@/app/components/SkeletonUi/SkeletonBookDetail";
 import SkeletonEvaluationMini from "@/app/components/SkeletonUi/SkeletonEvaluationMini";
-import SkeletonRelatedTalkRoom from "@/app/components/SkeletonUi/SkeletonRelatedTalkRoom";
+import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
@@ -160,7 +160,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
           </Link>
         </div>
 
-        {isRelatedTalkRoom && <SkeletonRelatedTalkRoom />}
+        {isRelatedTalkRoom && <SkeletonTalkRoomCard />}
         {relatedTalkRoom && relatedTalkRoom.queryResponse.length > 0 ? (
           <div className="flex fex-row flex-wrap gap-7 mb-7 md:justify-center sm:justify-center">
             {relatedTalkRoom.queryResponse.map((data: TalkRoom) => {

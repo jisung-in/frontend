@@ -64,7 +64,7 @@ const BookInformation: React.FC<BookInformationProps> = ({
           <span className="w-full md:text-center sm:text-start hidden md:block sm:block text-base font-bold my-4">
             줄거리
           </span>
-          <span className="md:max-w-[370px] hidden md:block sm:block sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-[#656565] yoverflow-hidden">
+          <span className="md:max-w-[370px] hidden md:block sm:block sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-[#656565] overflow-hidden">
             {data?.content.slice(0, 400)} {"... "}
           </span>
 
@@ -103,7 +103,7 @@ const BookInformation: React.FC<BookInformationProps> = ({
             <span>{data?.dateTime.slice(0, 4)}</span>
           </p>
 
-          <span className="sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-[#656565] yoverflow-hidden">
+          <span className="sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-[#656565] overflow-hidden">
             {data?.content.slice(0, 400)} {"... "}
           </span>
         </div>
