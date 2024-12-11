@@ -1,6 +1,7 @@
 "use client";
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
 import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
+import { Layout } from "@/app/components/Layout/Layout";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import SkeletonBookDetail from "@/app/components/SkeletonUi/SkeletonBookDetail";
 import SkeletonEvaluationMini from "@/app/components/SkeletonUi/SkeletonEvaluationMini";
@@ -84,35 +85,38 @@ const page = ({ params }: { params: { isbn: string } }) => {
     order: "recent",
   });
   return (
-    <div>
-      <div className="mx-[5%]">
-        <MainThemeTitle title="책 상세보기">
-          <BestSeller />
-        </MainThemeTitle>
-        {isBookDetail && <SkeletonBookDetail />}
-        {bookDetail ? (
-          <BookInformation
-            data={bookDetail}
-            isbn={params.isbn}
-            isLogin={isLoggedIn}
-            onTotalRatingChange={totalRatingChange}
-          />
-        ) : (
-          !isBookDetail && <HaveNotData content={"책의 정보가"} />
-        )}
-      </div>
+    <>
+      <Layout>
+        <div className="px-[5%]">
+          <MainThemeTitle title="책 상세보기">
+            <BestSeller />
+          </MainThemeTitle>
 
-      <div className="bg-white">
-        <div className="max-w-[1680px] mx-[5%]">
+          {isBookDetail && <SkeletonBookDetail />}
+          {bookDetail ? (
+            <BookInformation
+              data={bookDetail}
+              isbn={params.isbn}
+              isLogin={isLoggedIn}
+              onTotalRatingChange={totalRatingChange}
+            />
+          ) : (
+            !isBookDetail && <HaveNotData content={"책의 정보가"} />
+          )}
+        </div>
+      </Layout>
+
+      <div className="w-full bg-white flex flex-col items-center">
+        <Layout className="max-w-[2000px] py-10 px-[5%]">
           <RegisterEvaluation isbn={params.isbn} isLogin={isLoggedIn} />
 
-          <div className="flex flex-row mt-[63px] mb-[28px] items-center">
-            <div className="flex flex-row gap-x-[19px] flex-grow text-[30px] font-SpoqaHanSansNeo items-center">
-              <div className="font-bold">유저들의 평가</div>
-              <div className="font-medium text-[#74747B]">{reviewCount}</div>
-            </div>
+          <div className="flex flex-row my-7 items-center">
+            <p className="flex flex-row 2xl:gap-5 xl:gap-4 lg:gap-4 gap-2 grow 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-base font-SpoqaHanSansNeo items-center">
+              <span className="font-bold">유저들의 평가</span>
+              <span className="font-medium text-[#74747B]">{reviewCount}</span>
+            </p>
             <Link href={`/evaluation/${params.isbn}?order=like`}>
-              <div className="text-[20px] text-[#74747B] font-Pretendard font-regular">
+              <div className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base sm:text-sm text-[#74747B] font-Pretendard font-regular">
                 더보기 {">"}
               </div>
             </Link>
@@ -121,13 +125,13 @@ const page = ({ params }: { params: { isbn: string } }) => {
           <div className="flex flex-row justify-center">
             {isReview && <SkeletonEvaluationMini />}
             {review && review.pages[0].content.length > 0 ? (
-              <div className="w-full flex flex-row flex-wrap gap-x-[20px] gap-y-[22px]">
+              <div className="w-full flex flex-row flex-wrap gap-5 md:justify-center sm:justify-center">
                 {review.pages[0].content.map((data: UserEvaluation) => {
                   const isLike =
                     isLoggedIn &&
                     (reviewLikeIds?.reviewIds || []).includes(data.reviewId);
                   return (
-                    <div key={data.reviewId}>
+                    <div key={data.reviewId} className="sm:w-full">
                       <MiniEvaluationCard
                         data={data}
                         userId={myDetailData?.userId || -1}
@@ -141,24 +145,24 @@ const page = ({ params }: { params: { isbn: string } }) => {
               !isReview && <HaveNotData content={"유저들의 평가가"} />
             )}
           </div>
-        </div>
+        </Layout>
       </div>
 
-      <div className="max-w-[1680px] mx-[5%]">
-        <div className="flex flex-row mt-[57px] mb-[27px] items-center">
-          <div className="font-SpoqaHanSansNeo font-bold text-[30px] flex flex-row flex-grow">
+      <Layout className="max-w-[2000px] py-10 px-[5%]">
+        <div className="flex flex-row my-7 items-center">
+          <span className="font-bold flex flex-row 2xl:gap-5 xl:gap-4 lg:gap-4 gap-2 grow 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-base font-SpoqaHanSansNeo items-center">
             연관된 토크방 보기
-          </div>
+          </span>
           <Link href={`/talkroom/related/${params.isbn}`}>
-            <div className="text-[20px] text-[#74747B] font-Pretendard font-regular flex items-center">
+            <span className="2xl:text-2xl xl:text-xl lg:text-lg md:text-base sm:text-sm text-[#74747B] font-Pretendard font-regular">
               더보기 {">"}
-            </div>
+            </span>
           </Link>
         </div>
 
         {isRelatedTalkRoom && <SkeletonRelatedTalkRoom />}
         {relatedTalkRoom && relatedTalkRoom.queryResponse.length > 0 ? (
-          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+          <div className="flex fex-row flex-wrap gap-7 mb-7 md:justify-center sm:justify-center">
             {relatedTalkRoom.queryResponse.map((data: TalkRoom) => {
               const isLike =
                 isLoggedIn &&
@@ -176,8 +180,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
         ) : (
           !isRelatedTalkRoom && <HaveNotData content={"연관된 토크방이"} />
         )}
-      </div>
-    </div>
+      </Layout>
+    </>
   );
 };
 

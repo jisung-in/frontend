@@ -73,7 +73,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
   const isDeleteShowModal = () => setDeleteShowModal(!deleteShowModal);
 
   return (
-    <div className="w-full h-full min-h-[320px] bg-[#FFF] rounded-[18px] mb-[30px] border border-[#F4E4CE] font-Pretendard font-medium">
+    <div className="w-full h-full bg-[#FFF] rounded-[18px] mb-[30px] border border-[#F4E4CE] font-Pretendard font-medium">
       <div className="mx-6 mt-6 w-auto">
         <div className="flex flex-row mb-[23px]">
           <div className="flex flex-row items-center flex-grow gap-x-1 lg:gap-x-1.5 xl:gap-x-2 2xl:gap-x-2.5">
@@ -90,7 +90,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
             </span>
           </div>
           {data.starRating ? (
-            <p className="2xl:w-20 2xl:h-10 bg-[#FBF7F0] border border-[#624E45] sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl border-solid rounded-[24px] px-[9px] flex items-center font-Inter font-medium text-[#80685D] sm:gap-x-[1px] md:gap-x-[1px] lg:gap-x-[2px] xl:gap-x-[2px] 2xl:gap-x-[3px] justify-center">
+            <p className="2xl:w-24 2xl:h-10 bg-[#FBF7F0] border border-[#624E45] sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl border-solid rounded-[24px] px-[9px] flex items-center font-Inter font-medium text-[#80685D] sm:gap-x-[1px] md:gap-x-[1px] lg:gap-x-[2px] xl:gap-x-[2px] 2xl:gap-x-[3px] justify-center">
               <span>★</span>
               <span>{data.starRating.toFixed(1)}</span>
             </p>
@@ -130,7 +130,9 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
                     <Heart className="size-4" stroke="#656565" />
                   )}
                 </IconButton>
-                <span className="ml-[5px]">{count > 999 ? "999+" : count}</span>
+                <span className="ml-[5px] text-sm">
+                  {count > 999 ? "999+" : count}
+                </span>
               </div>
             </div>
           </div>

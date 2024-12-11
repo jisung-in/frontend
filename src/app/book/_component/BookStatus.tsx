@@ -1,19 +1,20 @@
-import PasueOn from "@/assets/img/pasue-on.svg";
-import PasueOff from "@/assets/img/pause-off.svg";
-import ReadOff from "@/assets/img/read-off.svg";
-import ReadOn from "@/assets/img/read-on.svg";
-import ReadStopOff from "@/assets/img/read-stop-off.svg";
-import ReadStopOn from "@/assets/img/read-stop-on.svg";
-import ReadingOff from "@/assets/img/reading-off.svg";
-import ReadingOn from "@/assets/img/reading-on.svg";
-import WantToReadOff from "@/assets/img/want-to-read-off.svg";
-import WantToReadOn from "@/assets/img/want-to-read-on.svg";
+import PasueOff from "@/assets/img/pause-off.png";
+import PasueOn from "@/assets/img/pause-on.png";
+import ReadOff from "@/assets/img/read-off.png";
+import ReadOn from "@/assets/img/read-on.png";
+import ReadStopOff from "@/assets/img/read-stop-off.png";
+import ReadStopOn from "@/assets/img/read-stop-on.png";
+import ReadingOff from "@/assets/img/reading-off.png";
+import ReadingOn from "@/assets/img/reading-on.png";
+import WantToReadOff from "@/assets/img/want-to-read-off.png";
+import WantToReadOn from "@/assets/img/want-to-read-on.png";
 import { useCreateBookState } from "@/hook/reactQuery/book/useCreateBookState";
 import { useDeleteBookState } from "@/hook/reactQuery/book/useDeleteBookState";
 import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { usePatchBookState } from "@/hook/reactQuery/book/usePatchBookState";
 import { useLogin } from "@/hook/useLogin";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
@@ -100,7 +101,19 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
           className="cursor-pointer"
           onClick={() => changeStatus(statusOption)}
         >
-          {status === statusOption ? <Correct /> : <InCorrect />}
+          {status === statusOption ? (
+            <Image
+              className="2xl:size-[64px] xl:size-[56px] size-[50px]"
+              src={Correct}
+              alt="상태"
+            />
+          ) : (
+            <Image
+              className="2xl:size-[64px] xl:size-[56px] size-[50px]"
+              src={InCorrect}
+              alt="상태"
+            />
+          )}
         </div>
       ))}
 

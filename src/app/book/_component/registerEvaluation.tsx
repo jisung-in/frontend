@@ -33,23 +33,25 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
 
   return (
     <>
-      <div className="font-SpoqaHanSansNeo font-bold text-[30px] pt-[43px] mb-[28px]">
+      <p className="font-SpoqaHanSansNeo font-bold 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-base mb-7">
         한줄평을 작성해보세요
-      </div>
-      <div className="relative font-Pretendard ">
+      </p>
+      <div className="relative font-Pretendard">
         <Textarea
           variant="main"
           value={review}
-          className="font-regular text-[22px] max-w-[1680px] min-h-[179px]"
+          className="font-regular 2xl:text-2xl xl:text-xl lg:text-lg md:text-base sm:text-sm w-full min-h-[179px]"
           onChange={onCreateReview}
           placeholder="한줄평을 자유롭게 작성해보세요."
         />
-        <div className="absolute bottom-[26px] right-[36px]">
+        <div className="absolute bottom-7 right-7 md:bottom-6 md:right-6 sm:bottom-5 sm:right-5">
           <Button
-            className="font-medium text-[21px]"
+            className="sm:w-20 sm:h-8 md:w-24 md:h-10 w-28"
             onClick={handleReviewSubmit}
           >
-            <div className="px-[25px] my-[8px]">등록하기</div>
+            <div className="font-medium2xl:text-2xl xl:text-xl lg:text-lg md:text-base sm:text-sm">
+              등록하기
+            </div>
           </Button>
         </div>
       </div>
