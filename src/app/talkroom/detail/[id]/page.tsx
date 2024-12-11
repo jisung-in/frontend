@@ -85,7 +85,6 @@ const Page = ({ params }: { params: { id: number } }) => {
         </div>
 
         <div className="px-[5%]">
-          <SkeletonTalkRoomDetailMain />
           {isTalkroomOne && <SkeletonTalkRoomDetailMain />}
           <TalkRoomDetailMain
             data={talkroomOne}
