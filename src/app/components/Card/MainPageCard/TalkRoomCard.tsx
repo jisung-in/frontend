@@ -1,13 +1,12 @@
 "use client";
 
 import BookTitle from "@/assets/img/book-title.svg";
-import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
-import NotLike from "@/assets/img/not-like-white.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title.svg";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
+import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -211,9 +210,13 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
                     <p>
-                      <Like width={21} height={19} />
+                      <Heart
+                        className="2xl:size-7 xl:size-7 lg:size-6 md:size-5 sm:size-4"
+                        fill="red"
+                        stroke="red"
+                      />
                       <span
-                        className="text-[13px] 
+                        className="text-[13px] sm:text-xs
                         font-Inter font-regular text-[#F24D4D]"
                       >
                         {count}
@@ -221,9 +224,12 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                     </p>
                   ) : (
                     <p>
-                      <NotLike width={21} height={19} />
+                      <Heart
+                        className="2xl:size-7 xl:size-7 lg:size-6 md:size-5 sm:size-4"
+                        stroke="white"
+                      />
                       <span
-                        className="text-[13px] 
+                        className="text-[13px] sm:text-xs
                         font-Inter font-regular text-white"
                       >
                         {count}

@@ -1,11 +1,10 @@
 import BookTitleRelate from "@/assets/img/book-title-relate.svg";
-import Like from "@/assets/img/like.svg";
 import NoImage from "@/assets/img/no-image.png";
-import NotLike from "@/assets/img/not-like-white.svg";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title-middle.svg";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
+import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
@@ -95,14 +94,14 @@ const RelatedTalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
                     <>
-                      <Like width={29} height={22} />
+                      <Heart className="size-7" fill="red" stroke="red" />
                       <div className="h-[22px] font-Inter font-regular text-[13px] text-[#F24D4D]">
                         {count}
                       </div>
                     </>
                   ) : (
                     <>
-                      <NotLike width={29} height={22} />
+                      <Heart className="size-7" stroke="white" />
                       <div className="h-[22px] font-Inter font-regular text-[13px] text-white">
                         {count}
                       </div>

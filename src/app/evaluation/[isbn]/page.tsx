@@ -3,6 +3,7 @@
 import EvaluationCard from "@/app/components/Card/EvaluationCard/EvaluationCard";
 import { Layout } from "@/app/components/Layout/Layout";
 import SkeletonEvaluation from "@/app/components/SkeletonUi/SkeletonEvaluation";
+import BookTitleBigImg from "@/assets/img/book-title-big.png";
 import NoImage from "@/assets/img/no-image.png";
 import UserEvaluationImg from "@/assets/img/user-evaluation.png";
 import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
@@ -93,7 +94,10 @@ const Page = ({ params }: { params: { isbn: string } }) => {
     <>
       <Layout className="sm:bg-[white]">
         <div className="px-[5%]">
-          <MainThemeTitle title="유저들의 평가">
+          <MainThemeTitle
+            title="유저들의 평가"
+            className="sm:mt-[3px] md:mt-[2px] mt-[1px]"
+          >
             <Image src={UserEvaluationImg} alt="평가 아이콘" />
           </MainThemeTitle>
         </div>
@@ -110,7 +114,7 @@ const Page = ({ params }: { params: { isbn: string } }) => {
       </p>
 
       <Layout>
-        <div className="flex items-center justify-center font-Pretendard font-medium my-10">
+        <div className="flex items-center justify-center font-Pretendard font-medium my-10 px-[5%]">
           <div className="flex justify-start">
             {isBookDetail ? (
               <Skeleton className="sm:w-[124px] sm:h-[168px] md:w-[144px] md:h-[198px] lg:w-[174px] lg:h-[228px] xl:w-[194px] xl:h-[258px] 2xl:w-[214px] 2xl:h-[288px] 2xl:mr-12 xl:mr-10 lg:mr-8 md:mr-6 sm:mr-4" />
@@ -131,7 +135,14 @@ const Page = ({ params }: { params: { isbn: string } }) => {
                   {isBookDetail ? (
                     <Skeleton className="sm:w-[100px] sm:h-[30px] md:w-[150px] md:h-[35px] lg:w-[200px] lg:h-[40px] xl:w-[250px] xl:h-[45px] 2xl:w-[300px] 2xl:h-[50px]" />
                   ) : (
-                    bookDetail?.title
+                    <div className="flex flex-row items-center gap-x-2">
+                      <Image
+                        src={BookTitleBigImg}
+                        alt="책 제목"
+                        className="2xl:size-10 xl:size-8 lg:size-6 md:size-5 sm:hidden"
+                      />
+                      {bookDetail?.title}
+                    </div>
                   )}
                 </div>
               </div>
@@ -139,7 +150,7 @@ const Page = ({ params }: { params: { isbn: string } }) => {
                 {isBookDetail ? (
                   <Skeleton className="sm:w-[100px] sm:h-[20px] md:w-[120px] md:h-[25px] lg:w-[140px] lg:h-[30px] xl:w-[170px] xl:h-[35px] 2xl:w-[200px] 2xl:h-[35px]" />
                 ) : (
-                  <p className="flex gap-3 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+                  <p className="flex gap-3 sm:flex-col sm:gap-0.5 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
                     <span>{bookDetail?.publisher}</span>
                     <span>{bookDetail?.authors}</span>
                     <span className="font-Inter">

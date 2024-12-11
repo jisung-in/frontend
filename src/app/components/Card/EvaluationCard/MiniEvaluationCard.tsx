@@ -1,10 +1,9 @@
-import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
-import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
 import Star from "@/assets/img/star.svg";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
 import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
+import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -110,9 +109,9 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
             <div className="flex flex-row mt-[18px] ml-[7px]">
               <IconButton onClick={changeIsLike}>
                 {isLike ? (
-                  <LikeSpeechBubble width={16} height={15} />
+                  <Heart className="size-4" fill="#80685D" stroke="#80685D" />
                 ) : (
-                  <NotLike width={16} height={15} />
+                  <Heart className="size-4" stroke="#656565" />
                 )}
               </IconButton>
               <div className="font-Inter font-medium text-[17px] ml-[5px]">

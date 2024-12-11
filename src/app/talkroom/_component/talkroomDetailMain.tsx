@@ -1,16 +1,15 @@
 import DeleteButton from "@/app/components/DeleteButton/DeleteButton";
 import IconButton from "@/app/components/IconButton/IconButton";
-import BookTitleBigImg from "@/assets/img/book-title-big.svg";
-import Like from "@/assets/img/like.svg";
+import BookTitleBigImg from "@/assets/img/book-title-big.png";
 import NoImage from "@/assets/img/no-image.png";
-import NotLike from "@/assets/img/not-like.svg";
-import TitleThemeBigImg from "@/assets/img/theme-title-big.svg";
+import TitleThemeBigImg from "@/assets/img/theme-title-big.png";
 import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
 import { useDeleteRoom } from "@/hook/reactQuery/talkRoom/useDeleteRoom";
 import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import timeLapse from "@/util/timeLapse";
+import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -98,98 +97,112 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
   const isDeleteShowModal = () => setDeleteShowModal(!deleteShowModal);
 
   return (
-    <div className="w-full min-h-[1194px] bg-[white] border-2 border-[#F4E4CE] rounded-[12px] flex flex-col font-Pretendard font-medium">
-      <div className="mx-[46px] mt-[44px]">
-        <div className="flex flex-col">
-          <div className="flex flex-col items-end">
-            <div className="flex flex-col">
-              <div className="flex flex-col items-center">
-                <IconButton onClick={changeIsLike}>
-                  {isLike ? (
-                    <>
-                      <Like width={26} height={24} />
-                      <div className="h-[16px] font-Inter font-regular text-[16px] text-[#F24D4D]">
-                        {count}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <NotLike width={26} height={24} />
-                      <div className="h-[16px] font-Inter font-regular text-[16px] text-[#656565]">
-                        {count}
-                      </div>
-                    </>
-                  )}
-                </IconButton>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col items-center">
-            <div className="flex items-center text-[#000] mt-[6px] text-[30px] mb-4">
-              <div className="mr-[7px]">
-                <TitleThemeBigImg />
-              </div>
-              {data.title}
-            </div>
-            <div className="flex font-regular text-lg text-[#7E7E7E]">
-              생성일: &nbsp;
-              {timeLapse(data.registeredDateTime)}
-            </div>
-            <Image
-              className="min-w-[260px] min-h-[339px] max-w-[260px] max-h-[339px]  border border-solid border-[#F4E4CE] my-[27px]"
-              src={data.bookThumbnail || NoImage}
-              alt={"책표지"}
-              width={223}
-              height={291}
-            />
-
-            <div className="flex items-center text-[#656565] mb-[20px] text-[28px]">
-              <div className="mr-[7px]">
-                <BookTitleBigImg />
-              </div>
-              {data.bookName}
-            </div>
-          </div>
-          <div className="flex flex-col items-center mt-[19px] font-Pretendard font-medium text-lg text-[#FF6363]">
-            <div className="text-2xl mb-[7px]">참가조건</div>
-            <div className="flex flex-row gap-x-3 h-[30px]">
-              {data.readingStatuses.map((status: string, index: number) => (
-                <div
-                  className="flex justify-center items-center w-auto h-[35px] text-[#656565] bg-[#FBF7F0] border border-[#F4E4CE] border-solid rounded-[4px] px-[9px] py-[7px]"
-                  key={index}
-                >
-                  {status}
-                </div>
-              ))}
-            </div>
-          </div>
+    <div className="size-full bg-[white] border-2 border-[#F4E4CE] rounded-[12px] flex flex-col font-Pretendard font-medium">
+      <div className="2xl:m-12 xl:m-10 lg:m-8 md:m-6 sm:m-4">
+        <div className="flex flex-col items-end">
+          <p className="flex flex-col items-center">
+            <IconButton onClick={changeIsLike}>
+              {isLike ? (
+                <>
+                  <Heart className="size-7 sm:size-5" fill="red" stroke="red" />
+                  <span className="font-Inter font-regular text-base md:text-sm sm:text-xs text-[#F24D4D]">
+                    {count}
+                  </span>
+                </>
+              ) : (
+                <>
+                  <Heart className="size-7 sm:size-5" stroke="#656565" />
+                  <span className="font-Inter font-regular text-base md:text-sm sm:text-xs text-[#656565]">
+                    {count}
+                  </span>
+                </>
+              )}
+            </IconButton>
+          </p>
         </div>
 
-        <hr className="border border-solid border-[#F5EFE5] mt-[34px] mb-[25px]" />
+        <div className="flex flex-col items-center">
+          <h1 className="flex items-center text-[#000] mt-2 sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl mb-4">
+            <span className="mr-2 md:mr-1 sm:mr-1">
+              <Image
+                src={TitleThemeBigImg}
+                alt="책 제목"
+                className="2xl:size-7 size-5 size-5 sm:size-4"
+              />
+            </span>
+            <span>{data.title}</span>
+          </h1>
+
+          <span className="flex font-regular 2xl:text-lg xl:text-base lg:text-sm text-xs text-[#7E7E7E]">
+            생성일: {timeLapse(data.registeredDateTime)}
+          </span>
+
+          <Image
+            className="sm:w-[120px] sm:h-[160px] md:w-[160px] md:h-[200px] lg:w-[200px] lg:h-[260px] xl:w-[220px] xl:h-[280px] 2xl:w-[260px] 2xl:h-[340px] border border-solid border-[#F4E4CE] my-[27px]"
+            src={data.bookThumbnail || NoImage}
+            alt={"책표지"}
+            width={223}
+            height={291}
+          />
+
+          <h2 className="flex items-center text-[#656565] mb-[20px] sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
+            <Image
+              src={BookTitleBigImg}
+              alt="책 제목"
+              className="2xl:size-6 xl:size-5 size-4 sm:size-3 mr-2 sm:mr-1"
+            />
+            <span>{data.bookName}</span>
+          </h2>
+        </div>
+
+        <div className="flex flex-col items-center font-Pretendard font-medium text-[#FF6363]">
+          <h3 className="sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl mb-2">
+            참가조건
+          </h3>
+          <p className="flex flex-row flex-wrap justify-center gap-x-3 sm:gap-2">
+            {data.readingStatuses.map((status: string, index: number) => (
+              <span
+                className="flex justify-center items-center text-[#656565] bg-[#FBF7F0] border border-[#F4E4CE] border-solid rounded-[4px]
+                sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl
+                px-2 py-1
+                "
+                key={index}
+              >
+                {status}
+              </span>
+            ))}
+          </p>
+        </div>
+
+        <hr className="border border-solid border-[#F5EFE5] my-7" />
 
         <div className="min-h-[120px]">
-          <div className="font-semibold text-2xl mb-[5px]">{data.title}</div>
-          <div className="font-regular text-[22px] text-[#000]">
+          <h3 className="font-semibold sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl mb-[5px]">
+            {data.title}
+          </h3>
+          <span className="font-regular sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-[#000]">
             {data.content}
-          </div>
+          </span>
         </div>
 
-        <hr className="border border-solid border-[#F5EFE5] mt-[25px] mb-[35px]" />
+        <hr className="border border-solid border-[#F5EFE5] my-7" />
 
-        <div className="font-semibold text-2xl mb-[18px]">이미지</div>
+        <p className="font-semibold sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl mb-5">
+          이미지
+        </p>
         {data.images.length > 0 ? (
-          <div className="flex gap-x-[23px] mb-10">
+          <p className="flex flex-wrap gap-6">
             {data.images.map((image: string, index: number) => (
               <Image
-                key={`image_${index}`}
-                className="min-w-[160px] max-w-[160px] min-h-[160px] max-h-[160px] border border-solid border-[#FBF7F0] rounded-[4px]"
+                key={image}
+                className="2xl:size-40 xl:size-36 lg:size-32 md:size-28 sm:size-24 border border-solid border-[#FBF7F0] rounded-[4px]"
                 src={image}
                 alt="이미지"
                 width={160}
                 height={160}
               />
             ))}
-          </div>
+          </p>
         ) : (
           <HaveNotData content="이미지가" />
         )}

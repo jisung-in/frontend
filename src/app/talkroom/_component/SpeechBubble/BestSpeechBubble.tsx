@@ -1,7 +1,6 @@
 import Crown from "@/assets/img/crown.svg";
-import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
-import NotLike from "@/assets/img/not-like.svg";
 import Profile from "@/assets/img/profile.png";
+import { Heart } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 import IconButton from "../../../components/IconButton/IconButton";
@@ -60,9 +59,13 @@ const SpeechBubble = ({ content }: SpeechBubbleProps) => {
             <div className="flex items-center gap-x-[3px]">
               <IconButton onClick={() => changeIsLike(isLike)}>
                 {isLike ? (
-                  <LikeSpeechBubble width={16} height={15} />
+                  <Heart
+                    className="size-7 sm:size-5"
+                    fill="#80685D"
+                    stroke="#80685D"
+                  />
                 ) : (
-                  <NotLike width={16} height={15} />
+                  <Heart className="size-7 sm:size-5" stroke="#656565" />
                 )}
               </IconButton>
               <div className="font-Inter font-medium font-[17px]">
