@@ -1,11 +1,7 @@
-"use client";
-
 import ManyTalkRoomBookCard from "@/app/components/Card/MainPageCard/ManyTalkRoomBookCard";
 import { Layout } from "@/app/components/Layout/Layout";
-import SkeletonManyTalkRoom from "@/app/components/SkeletonUi/SkeletonManyTalkRoom";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import ManyTalkRoomBookImg from "@/assets/img/many-talk-room-book.svg";
-import { useGetRoomBookOrder } from "@/hook/reactQuery/talkRoom/useGetRoomBookOrder";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -13,7 +9,7 @@ const HaveNotData = dynamic(
   () => import("@/app/components/HaveNotData/HaveNotData"),
 );
 
-interface TalkRoomBookOrder {
+interface TalkRoomBookProps {
   isbn: string;
   title: string;
   publisher: string;
@@ -22,13 +18,13 @@ interface TalkRoomBookOrder {
   dateTime: string;
 }
 
-const TalkRoomManyBookRoom = () => {
-  const { data, isLoading } = useGetRoomBookOrder({
-    page: 1,
-    size: 12,
-    order: "comment",
-  });
+interface TalkRoomManyBookRoomProps {
+  data: TalkRoomBookProps[];
+}
 
+const TalkRoomManyBookRoom: React.FC<TalkRoomManyBookRoomProps> = ({
+  data,
+}) => {
   return (
     <Layout
       className="            
@@ -63,7 +59,6 @@ const TalkRoomManyBookRoom = () => {
       </ThemeMain>
 
       <div className="mx-[5%]">
-        {isLoading && <SkeletonManyTalkRoom />}
         {data && data.length > 0 ? (
           <div
             className="
@@ -75,14 +70,14 @@ const TalkRoomManyBookRoom = () => {
           2xl:grid-cols-6
         "
           >
-            {data.map((items: TalkRoomBookOrder) => (
+            {data.map((items: TalkRoomBookProps) => (
               <Link key={items.isbn} href={`/book/${items.isbn}`}>
                 <ManyTalkRoomBookCard data={items} />
               </Link>
             ))}
           </div>
         ) : (
-          !isLoading && <HaveNotData content={"토크 많은 책이"} />
+          <HaveNotData content={"토크 많은 책이"} />
         )}
       </div>
     </Layout>

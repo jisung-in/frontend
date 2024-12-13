@@ -1,7 +1,6 @@
 import { nextui } from "@nextui-org/react";
 import type { Config } from "tailwindcss";
 import { border, colors, radius } from "./src/styles/theme";
-
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -16,7 +15,7 @@ const config: Config = {
       radius,
       fontFamily: {
         Pretendard: ["Pretendard", "sans-serif"],
-        SpoqaHanSansNeo: ['"Spoqa Han Sans Neo"', "sans-serif"],
+        SpoqaHanSansNeo: ['Spoqa Han Sans Neo"', "sans-serif"],
         Inter: ["Inter", "sans-serif"],
         Kalufo: ["var(--font-Kalufo)"],
       },
@@ -25,15 +24,33 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      borderRadius: {
+        lg: "var(--radius)",
+        md: "calc(var(--radius) - 2px)",
+        sm: "calc(var(--radius) - 4px)",
+      },
     },
     screens: {
-      sm: { max: "600px" },
-      md: { min: "601px", max: "900px" },
-      lg: { min: "901px", max: "1200px" },
-      xl: { min: "1201px", max: "1800px" },
-      "2xl": { min: "1801px" },
+      sm: {
+        max: "600px",
+      },
+      md: {
+        min: "601px",
+        max: "900px",
+      },
+      lg: {
+        min: "901px",
+        max: "1200px",
+      },
+      xl: {
+        min: "1201px",
+        max: "1800px",
+      },
+      "2xl": {
+        min: "1801px",
+      },
     },
   },
-  plugins: [nextui()],
+  plugins: [nextui(), require("tailwindcss-animate")],
 };
 export default config;

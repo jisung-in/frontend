@@ -46,7 +46,7 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
         />
         <div className="absolute bottom-7 right-7 md:bottom-6 md:right-6 sm:bottom-5 sm:right-5">
           <Button
-            className="sm:w-20 sm:h-[36px] md:w-24 md:h-10 lg:w-[110px] w-32 xl:h-[52px] 2xl:w-36 2xl:h-[60px]"
+            className="sm:w-20 sm:h-[36px] md:w-24 md:h-10 lg:w-[110px] xl:w-32 xl:h-[52px] 2xl:w-36 2xl:h-[60px]"
             onClick={handleReviewSubmit}
           >
             <div className="font-medium 2xl:text-2xl xl:text-xl lg:text-lg md:text-base sm:text-sm">

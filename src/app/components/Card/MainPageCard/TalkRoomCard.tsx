@@ -1,19 +1,10 @@
-"use client";
-
 import BookTitle from "@/assets/img/book-title.svg";
 import NoImage from "@/assets/img/no-image.png";
 import Profile from "@/assets/img/profile.png";
 import ThemeTitle from "@/assets/img/theme-title.svg";
-import { useCreateRoomLike } from "@/hook/reactQuery/talkRoom/useCreateRoomLike";
-import { useDeleteRoomLike } from "@/hook/reactQuery/talkRoom/useDeleteRoomLike";
 import { Heart } from "lucide-react";
-import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import IconButton from "../../IconButton/IconButton";
-
-const Modal = dynamic(() => import("../../Modal/Modal"));
 
 type TalkRoomCardProps = {
   data: {
@@ -31,49 +22,15 @@ type TalkRoomCardProps = {
     creatorId: number;
   };
   userId: number;
-  isBest: boolean;
+  isBest?: boolean;
   isLike: boolean;
 };
 
 const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
   data,
-  userId,
   isBest,
-  isLike: initialIsLike,
+  isLike,
 }) => {
-  const [count, setCount] = useState<number>(data.likeCount);
-  const [isLike, setIsLike] = useState<boolean>(initialIsLike);
-  const addTalkRoomLike = useCreateRoomLike();
-  const deleteTalkRoomLike = useDeleteRoomLike();
-  const [showModal, setShowModal] = useState<boolean>(false);
-
-  useEffect(() => {
-    setCount(data.likeCount);
-    setIsLike(initialIsLike);
-  }, [data.likeCount, initialIsLike]);
-
-  const changeIsLike = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (userId === -1) {
-      setShowModal(true);
-    } else if (data.creatorId !== userId) {
-      if (isLike) {
-        deleteTalkRoomLike.mutate(data.id);
-        setCount((prevCount) => prevCount - 1);
-      } else {
-        addTalkRoomLike.mutate(data.id);
-        setCount((prevCount) => prevCount + 1);
-      }
-      setIsLike(!isLike);
-    } else {
-      setShowModal(true);
-    }
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-  };
-
   return (
     <div
       className="relative 
@@ -206,38 +163,28 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
                 </span>
               </p>
 
-              <p className="flex flex-col items-center">
-                <IconButton onClick={changeIsLike}>
-                  {isLike ? (
-                    <p>
-                      <Heart
-                        className="2xl:size-7 xl:size-7 lg:size-6 md:size-5 sm:size-4"
-                        fill="red"
-                        stroke="red"
-                      />
-                      <span
-                        className="text-[13px] sm:text-xs
-                        font-Inter font-regular text-[#F24D4D]"
-                      >
-                        {count}
-                      </span>
-                    </p>
-                  ) : (
-                    <p>
-                      <Heart
-                        className="2xl:size-7 xl:size-7 lg:size-6 md:size-5 sm:size-4"
-                        stroke="white"
-                      />
-                      <span
-                        className="text-[13px] sm:text-xs
-                        font-Inter font-regular text-white"
-                      >
-                        {count}
-                      </span>
-                    </p>
-                  )}
-                </IconButton>
-              </p>
+              {isLike ? (
+                <p className="flex flex-col items-center">
+                  <Heart
+                    className="2xl:size-7 xl:size-7 lg:size-6 md:size-5 sm:size-4"
+                    fill="red"
+                    stroke="red"
+                  />
+                  <span className="text-sm sm:text-xs font-Inter font-regular text-[#F24D4D]">
+                    {data.likeCount}
+                  </span>
+                </p>
+              ) : (
+                <p className="flex flex-col items-center">
+                  <Heart
+                    className="2xl:size-7 xl:size-7 lg:size-6 md:size-5 sm:size-4"
+                    stroke="white"
+                  />
+                  <span className="text-sm sm:text-xs font-Inter font-regular text-white">
+                    {data.likeCount}
+                  </span>
+                </p>
+              )}
             </div>
 
             <p
@@ -349,26 +296,6 @@ const TalkRoomCard: React.FC<TalkRoomCardProps> = ({
           </div>
         </div>
       </Link>
-
-      {userId === -1 ? (
-        <Modal
-          title="로그인"
-          content="로그인을 해야 이용할 수 있는 기능입니다"
-          isOpen={showModal}
-          onClose={closeModal}
-          onConfirm={closeModal}
-          buttonTitle="확인"
-        />
-      ) : (
-        <Modal
-          title="좋아요 실패"
-          content="본인이 작성한 토크방에는 좋아요를 할 수 없습니다"
-          isOpen={showModal}
-          onClose={closeModal}
-          onConfirm={closeModal}
-          buttonTitle="확인"
-        />
-      )}
     </div>
   );
 };

@@ -1,14 +1,12 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import TalkRoomCardCarousel from "@/app/components/Carousel/TalkRoomCardCarousel";
 import { Layout } from "@/app/components/Layout/Layout";
-import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
-import TalkRoomCardSwiper from "@/app/components/Swiper/TalkRoomCardSwiper";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import PopularTalkRoomImg from "@/assets/img/popular-talk-room.svg";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
-import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
 import { useBreakpoint } from "@/util/useBreakPoint";
 import dynamic from "next/dynamic";
@@ -18,7 +16,7 @@ const HaveNotData = dynamic(
   () => import("@/app/components/HaveNotData/HaveNotData"),
 );
 
-interface TalkRoom {
+interface TalkRoomProps {
   id: number;
   profileImage: string;
   username: string;
@@ -33,7 +31,11 @@ interface TalkRoom {
   creatorId: number;
 }
 
-const PopularTalkRoom = () => {
+interface PopularTalkRoomProps {
+  data: TalkRoomProps[];
+}
+
+const PopularTalkRoom: React.FC<PopularTalkRoomProps> = ({ data }) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -42,14 +44,7 @@ const PopularTalkRoom = () => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data, isLoading } = useGetRooms({
-    size: 4,
-    order: "recommend",
-    search: "",
-    sortbydate: "",
-  });
-
-  const { isSwiper } = useBreakpoint();
+  const { isCarousel } = useBreakpoint();
 
   return (
     <Layout
@@ -96,41 +91,36 @@ const PopularTalkRoom = () => {
       </div>
 
       <div className="mx-[5%]">
-        {isLoading && <SkeletonTalkRoomCard />}
-        {data && data.pages.length > 0 && data.pages[0].content.length > 0 ? (
-          isSwiper ? (
-            <TalkRoomCardSwiper
-              talkRooms={data.pages[0].content}
+        {data && data.length > 0 ? (
+          isCarousel ? (
+            <TalkRoomCardCarousel
+              talkRooms={data}
               userId={myDetailData?.userId || -1}
               isBest={true}
               userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row 2xl:gap-x-[20px]">
-              {data.pages.map(
-                (page) =>
-                  page.content &&
-                  page.content.length > 0 &&
-                  page.content.map((itmes: TalkRoom) => {
-                    const isLike =
-                      isLoggedIn &&
-                      (talkRoomLikeIds?.talkRoomIds || []).includes(itmes.id);
-                    return (
-                      <div key={itmes.id}>
-                        <TalkRoomCard
-                          data={itmes}
-                          userId={myDetailData?.userId || -1}
-                          isBest={true}
-                          isLike={isLike}
-                        />
-                      </div>
-                    );
-                  }),
-              )}
+              {data.map((itmes: TalkRoomProps) => {
+                const isLike =
+                  isLoggedIn &&
+                  (talkRoomLikeIds?.talkRoomIds || []).includes(itmes.id);
+                return (
+                  <div key={itmes.id}>
+                    <TalkRoomCard
+                      data={itmes}
+                      userId={myDetailData?.userId || -1}
+                      isBest={true}
+                      isLike={isLike}
+                    />
+                  </div>
+                );
+              })}
+              ,
             </div>
           )
         ) : (
-          !isLoading && <HaveNotData content={"인기있는 토크방이"} />
+          <HaveNotData content={"인기있는 토크방이"} />
         )}
       </div>
     </Layout>

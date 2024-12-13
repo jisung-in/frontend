@@ -63,9 +63,9 @@ export const useBreakpoint = (
     return ["xs", "sm"].includes(breakpoint);
   }, [breakpoint]);
 
-  const isSwiper = useMemo(() => {
+  const isCarousel = useMemo(() => {
     return ["xs", "sm", "md", "lg", "xl"].includes(breakpoint);
   }, [breakpoint]);
 
-  return { breakpoint, isDesktop, isMobile, isSwiper };
+  return { breakpoint, isDesktop, isMobile, isCarousel };
 };

@@ -1,5 +1,5 @@
+import RankCarousel from "@/app/components/Carousel/RankCarousel";
 import { Layout } from "@/app/components/Layout/Layout";
-import RankSwiper from "@/app/components/Swiper/RankSwiper";
 import { ThemeMain } from "@/app/components/Theme/Theme";
 import BestSellerImg from "@/assets/img/best-seller.svg";
 import dynamic from "next/dynamic";
@@ -57,7 +57,7 @@ const BestSeller = ({ data }: BestSellerDataType) => {
 
       <div className="mx-[5%]">
         {data && data.queryResponse.length > 0 ? (
-          <RankSwiper data={data.queryResponse} />
+          <RankCarousel data={data.queryResponse} />
         ) : (
           <HaveNotData content={"베스트 셀러가"} />
         )}

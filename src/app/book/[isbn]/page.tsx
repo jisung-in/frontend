@@ -1,6 +1,7 @@
 "use client";
+
 import MiniEvaluationCard from "@/app/components/Card/EvaluationCard/MiniEvaluationCard";
-import RelatedTalkRoomCard from "@/app/components/Card/MainPageCard/RelatedTalkRoomCard";
+import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
 import { Layout } from "@/app/components/Layout/Layout";
 import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import SkeletonBookDetail from "@/app/components/SkeletonUi/SkeletonBookDetail";
@@ -168,7 +169,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
                 isLoggedIn &&
                 (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
               return (
-                <RelatedTalkRoomCard
+                <TalkRoomCard
                   key={data.id}
                   data={data}
                   userId={myDetailData?.userId || -1}

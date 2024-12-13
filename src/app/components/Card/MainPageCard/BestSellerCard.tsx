@@ -22,15 +22,17 @@ const BestSellerCard: React.FC<BestSellerCardProps> = ({
   return (
     <BookMain>
       <BookMain.BookCover>
-        <div className="relative aspect-[0.7] overflow-hidden">
+        <div className="relative overflow-hidden aspect-[2/3] w-full">
           <Image
-            className="border border-[#F4E4CE] 
-            sm:rounded-[5px]
-            md:rounded-[6px]
-            lg:rounded-[8px]
-            xl:rounded-[9px]
-            2xl:rounded-[10px] 
-            object-cover"
+            className="
+              border border-[#F4E4CE] 
+              sm:rounded-[5px]
+              md:rounded-[6px]
+              lg:rounded-[8px]
+              xl:rounded-[9px]
+              2xl:rounded-[10px] 
+              object-cover
+            "
             src={thumbnail ? thumbnail : NoImage}
             alt="책 표지"
             fill
