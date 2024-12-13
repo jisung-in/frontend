@@ -15,7 +15,7 @@ const config: Config = {
       radius,
       fontFamily: {
         Pretendard: ["Pretendard", "sans-serif"],
-        SpoqaHanSansNeo: ['Spoqa Han Sans Neo"', "sans-serif"],
+        SpoqaHanSansNeo: ["Spoqa Han Sans Neo", "sans-serif"],
         Inter: ["Inter", "sans-serif"],
         Kalufo: ["var(--font-Kalufo)"],
       },
