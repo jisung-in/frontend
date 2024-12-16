@@ -15,7 +15,7 @@ const MainThemeTitle = ({ children, title, className }: MainThemeTitlePrps) => {
         <BackButton />
       </span>
       <ThemeMain.MainTheme>
-        <h1 className="flex items-center 2xl:gap-x-4 xl:gap-x-4 lg:gap-x-3 md:gap-x-2 sm:gap-x-1.5">
+        <h1 className="flex items-center 2xl:gap-x-4 gap-x-2 sm:gap-x-1.5">
           <span className="hidden sm:block">
             <BackButton />
           </span>

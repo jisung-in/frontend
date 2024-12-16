@@ -74,9 +74,9 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
 
   return (
     <div className="w-full h-full 2xl:w-[425px] 2xl:h-[320px] xl:w-[385px] xl:h-[320px] lg:w-[340px] md:w-[340px] sm:min-w-[288px] bg-[#FFF] rounded-[18px] border border-[#F4E4CE] font-Pretendard font-medium">
-      <div className="m-6 w-auto">
+      <div className="m-6 w-auto sm:m-4">
         <div className="flex flex-row mb-[23px]">
-          <div className="flex flex-row items-center flex-grow gap-x-1 lg:gap-x-1.5 xl:gap-x-2 2xl:gap-x-2.5">
+          <p className="flex flex-row items-center flex-grow gap-x-1 lg:gap-x-1.5 xl:gap-x-2 2xl:gap-x-2.5">
             <Image
               className="rounded-[50%] sm:size-5 md:size-6 lg:size-7 xl:size-8 2xl:size-10"
               src={data ? data.profileImage : Profile}
@@ -88,7 +88,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
             <span className="font-bold sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
               {data.username}
             </span>
-          </div>
+          </p>
           {data.starRating ? (
             <p className="2xl:w-24 2xl:h-10 bg-[#FBF7F0] border border-[#624E45] sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl border-solid rounded-[24px] px-[9px] flex items-center font-Inter font-medium text-[#80685D] sm:gap-x-[1px] md:gap-x-[1px] lg:gap-x-[2px] xl:gap-x-[2px] 2xl:gap-x-[3px] justify-center">
               <span>★</span>
@@ -99,12 +99,12 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
           )}
         </div>
 
-        <p className="font-regular sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl min-h-[112px]">
+        <p className="font-regular sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl min-h-[112px] sm:min-h-0 sm:max-h-[112px] overflow-hidden line-clamp-5">
           {data.reviewContent}
         </p>
 
         <div className="flex flex-col justify-start sm:hidden block">
-          <div className="flex flex-row mt-7 2xl:mt-[18px]">
+          <p className="flex flex-row mt-7 2xl:mt-[18px]">
             <IconButton onClick={changeIsLike}>
               {isLike ? (
                 <Heart className="size-4" fill="#80685D" stroke="#80685D" />
@@ -113,16 +113,16 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
               )}
             </IconButton>
             <span className="ml-[5px]">{count > 999 ? "999+" : count}</span>
-          </div>
+          </p>
         </div>
 
-        <hr className="w-full border border-[#F4E4CE] mt-[8px] mb-[16px] sm:mt-16" />
+        <hr className="w-full border border-[#F4E4CE] mt-2 mb-4 sm:mt-4" />
 
-        <div className="flex">
+        <div className="flex flex-row">
           <div className="flex flex-row items-center grow justify-start">
             <LikeButton isLike={isLike} onClick={changeIsLike} />
             <div className="flex flex-col justify-start hidden sm:block ml-2">
-              <div className="flex flex-row">
+              <p className="flex flex-row">
                 <IconButton onClick={changeIsLike}>
                   {isLike ? (
                     <Heart className="size-4" fill="#80685D" stroke="#80685D" />
@@ -133,7 +133,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
                 <span className="text-sm ml-[5px]">
                   {count > 999 ? "999+" : count}
                 </span>
-              </div>
+              </p>
             </div>
           </div>
 
