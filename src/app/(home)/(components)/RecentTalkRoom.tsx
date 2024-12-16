@@ -8,7 +8,9 @@ import RecentTalkRoomImg from "@/assets/img/recent-make-talk-room.svg";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
+import { TalkRoomQueryOptions } from "@/services/talk-room/TalkRoomQueries";
 import { useBreakpoint } from "@/util/useBreakPoint";
+import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -31,11 +33,15 @@ interface TalkRoomProps {
   creatorId: number;
 }
 
-interface RecentTalkRoomProps {
-  data: TalkRoomProps[];
-}
+const RecentTalkRoom = () => {
+  const { data, isLoading, error } = useQuery(
+    TalkRoomQueryOptions.getRecentTalkRooms({
+      size: 4,
+      order: "recent",
+      search: "",
+    }),
+  );
 
-const RecentTalkRoom: React.FC<RecentTalkRoomProps> = ({ data }) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -90,17 +96,17 @@ const RecentTalkRoom: React.FC<RecentTalkRoomProps> = ({ data }) => {
       </div>
 
       <div className="mx-[5%]">
-        {data && data.length > 0 ? (
+        {data && data.data.content.length > 0 ? (
           isCarousel ? (
             <TalkRoomCardCarousel
-              talkRooms={data}
+              talkRooms={data.data.content}
               userId={myDetailData?.userId || -1}
               isBest={true}
               userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row 2xl:gap-x-[20px]">
-              {data.map((items: TalkRoomProps) => {
+              {data.data.content.map((items: TalkRoomProps) => {
                 const isLike =
                   isLoggedIn &&
                   (talkRoomLikeIds?.talkRoomIds || []).includes(items.id);

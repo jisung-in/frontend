@@ -1,7 +1,7 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-type BookRankResponse = {
+interface BestSellerProps {
   ranking: number;
   isbn: string;
   title: string;
@@ -9,10 +9,10 @@ type BookRankResponse = {
   thumbnail: string;
   authors: string[];
   dateTime: string;
-};
+}
 
-export const useGetBookRank = () => {
-  return useQuery<BookRankResponse[]>({
+export const useGetBestSeller = () => {
+  return useQuery<BestSellerProps[]>({
     queryKey: ["book", "rank"],
     queryFn: () =>
       axiosInstance

@@ -15,6 +15,13 @@ const ReactQueryProvider = ({ children }: Props) => {
           retryOnMount: true,
           refetchOnReconnect: false,
           retry: false,
+          // SSR을 위해서 staleTime을 설정
+          /* 
+            staleTime이 0으로 설정할 경우 서버에서 prefetch이후 
+            클라이언트에서 hydrate하는 과정에서 
+            한번 더 fetch가 발생하고 이는 잠재적인 불일치를 야기
+          */
+          staleTime: 60 * 1000,
         },
       },
     }),

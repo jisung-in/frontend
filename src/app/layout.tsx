@@ -4,7 +4,7 @@ import { Header } from "./components/Layout/Header/Header";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
 import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
 import "./globals.css";
-import { Providers } from "./providers";
+import Providers from "./providers";
 export const metadata: Metadata = {
   title: "지성인",
   description: "책과 관련된 주제로 자유로운 이야기를 나누는 곳.",

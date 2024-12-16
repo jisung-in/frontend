@@ -1,31 +1,27 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-type param = {
+interface params {
   page: number;
   size: number;
   order?: string;
-};
+}
 
-type TalkRoomBookOrder = {
+interface ManyTalkRoomProps {
   isbn: string;
   title: string;
   publisher: string;
   thumbnail: string;
   authors: string[];
   dateTime: string;
-};
+}
 
-export const useGetRoomBookOrder = ({
-  page = 1,
-  size = 10,
-  order = "recent",
-}: param) => {
-  return useQuery<TalkRoomBookOrder[]>({
-    queryKey: ["talkroom", "order", page, size, order],
+export const useGetManyTalkRoom = ({ page = 1, size = 10 }: params) => {
+  return useQuery<ManyTalkRoomProps[]>({
+    queryKey: ["talkroom", "order", page, size],
     queryFn: () =>
       axiosInstance
-        .get(`/v1/books?page=${page}&size=${size}&order=${order}`)
+        .get(`/v1/books?page=${page}&size=${size}&order=comment`)
         .then(({ data }) => data.queryResponse),
     throwOnError: true,
     // 데이터 및 캐시 유효 시간 설정
