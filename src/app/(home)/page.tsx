@@ -1,4 +1,4 @@
-import { getDehydratedQuery } from "@/lib/react-query.utils";
+import { getDehydratedQueries } from "@/lib/react-query.utils";
 import { TalkRoomQueryOptions } from "@/services/talk-room/TalkRoomQueries";
 import { HydrationBoundary } from "@tanstack/react-query";
 import Banner from "./(components)/Banner";
@@ -43,7 +43,8 @@ const Home = async () => {
     }),
   ];
 
-  const dehydratedState = await getDehydratedQuery(queries);
+  const dehydratedState = await getDehydratedQueries(queries);
+
   return (
     <HydrationBoundary state={dehydratedState}>
       <div className="bg-[#FFF] w-full flex flex-col justify-center items-center">
