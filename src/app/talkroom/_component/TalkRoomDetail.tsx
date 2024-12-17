@@ -39,7 +39,7 @@ type TalkRoomData = {
   };
   userId: number;
 };
-const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
+const TalkRoomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
   const router = useRouter();
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
@@ -130,7 +130,7 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
                 className="2xl:size-7 size-5 size-5 sm:size-4"
               />
             </span>
-            <span>{data.title}</span>
+            <strong>{data.title}</strong>
           </h1>
 
           <span className="flex font-regular 2xl:text-lg xl:text-base lg:text-sm text-xs text-[#7E7E7E]">
@@ -245,4 +245,4 @@ const talkroomDetailMain: React.FC<TalkRoomData> = ({ data, userId }) => {
   );
 };
 
-export default talkroomDetailMain;
+export default TalkRoomDetailMain;

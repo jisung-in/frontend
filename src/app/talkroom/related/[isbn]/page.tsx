@@ -51,8 +51,8 @@ const page = ({ params }: { params: { isbn: string } }) => {
     <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
       <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
         <ThemeMain.MainTheme>
-          <p className="flex items-center 2xl:my-20 xl:my-16 lg:my-10 md:my-6 sm:my-4">
-            <span className="hidden sm:block mr-2">
+          <p className="flex flex-col sm:flex-row 2xl:my-20 xl:my-16 lg:my-10 md:my-6 sm:my-4">
+            <span className="mr-2">
               <BackButton />
             </span>
             <span className="flex items-center">
@@ -86,9 +86,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
               );
             })}
           </div>
-          {isLoading ? (
-            <></>
-          ) : (
+          {!isLoading && (
             <Pagination
               totalItems={relateData?.totalCount ?? 0}
               postPage={relateData?.size ?? 12}
