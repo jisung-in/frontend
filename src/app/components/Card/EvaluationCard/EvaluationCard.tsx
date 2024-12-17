@@ -89,13 +89,11 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
               {data.username}
             </span>
           </p>
-          {data.starRating ? (
+          {data.starRating && (
             <p className="2xl:w-24 2xl:h-10 bg-[#FBF7F0] border border-[#624E45] sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl border-solid rounded-[24px] px-[9px] flex items-center font-Inter font-medium text-[#80685D] sm:gap-x-[1px] md:gap-x-[1px] lg:gap-x-[2px] xl:gap-x-[2px] 2xl:gap-x-[3px] justify-center">
               <span>★</span>
               <span>{data.starRating.toFixed(1)}</span>
             </p>
-          ) : (
-            <></>
           )}
         </div>
 
