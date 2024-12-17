@@ -4,7 +4,6 @@ import { Header } from "./components/Layout/Header/Header";
 import ReactQueryProvider from "./components/Provider/ReactQueryProvider/ReactQueryProvider";
 import ReduxProvider from "./components/Provider/ReduxProvider/ReduxProvider";
 import "./globals.css";
-import Providers from "./providers";
 export const metadata: Metadata = {
   title: "지성인",
   description: "책과 관련된 주제로 자유로운 이야기를 나누는 곳.",
@@ -72,13 +71,11 @@ export default function RootLayout({
         <div className="flex flex-col min-h-screen">
           <ReactQueryProvider>
             <ReduxProvider>
-              <Providers>
-                <div className="flex flex-col items-center justify-center w-[100%]">
-                  <Header />
-                  {children}
-                </div>
-                <Footer />
-              </Providers>
+              <div className="flex flex-col items-center justify-center w-[100%]">
+                <Header />
+                {children}
+              </div>
+              <Footer />
             </ReduxProvider>
           </ReactQueryProvider>
         </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { NextUIProvider } from "@nextui-org/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import React, { useState } from "react";
@@ -29,9 +30,9 @@ const ReactQueryProvider = ({ children }: Props) => {
 
   return (
     <QueryClientProvider client={client}>
-      {children}
+      <NextUIProvider>{children}</NextUIProvider>
       <ReactQueryDevtools
-        initialIsOpen={process.env.NETX_PUBLIC_MODE === "local"}
+        initialIsOpen={process.env.NEXT_PUBLIC_MODE === "local"}
       />
     </QueryClientProvider>
   );
