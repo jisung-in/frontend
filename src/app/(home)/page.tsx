@@ -11,25 +11,49 @@ const bestSellerDataRevalidateTime = 86400;
 const manyTalkRoomDataRevalidateTime = 1800;
 
 const Home = async () => {
-  const { data: bestSellerData } = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER}/v1/books/best-seller?page=1&size=20`,
-    {
-      next: {
-        // 24시간 마다 베스트 셀러 갱신
-        revalidate: bestSellerDataRevalidateTime,
-      },
-    },
-  ).then((res) => res.json());
-  const { data: manyTalkRoomData } = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER}/v1/books?page=1&size=12&order=comment`,
-    {
-      next: {
-        // 30분 마다 베스트 셀러 갱신
-        revalidate: manyTalkRoomDataRevalidateTime,
-      },
-    },
-  ).then((res) => res.json());
+  let bestSellerData;
+  let manyTalkRoomData;
 
+  // ISR : 베스트 셀러 데이터
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER}/v1/books/best-seller?page=1&size=20`,
+      {
+        next: {
+          revalidate: bestSellerDataRevalidateTime, // 24시간 마다 베스트 셀러 갱신
+        },
+      },
+    );
+
+    if (!res.ok) {
+      throw new Error("베스트 셀러 데이터를 가져오는 데 문제가 발생했습니다.");
+    }
+
+    bestSellerData = await res.json();
+  } catch (error) {
+    console.error(error);
+  }
+
+  // ISR : 토크 많은 책 데이터
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER}/v1/books?page=1&size=12&order=comment`,
+      {
+        next: {
+          revalidate: manyTalkRoomDataRevalidateTime, // 30분 마다 베스트 셀러 갱신
+        },
+      },
+    );
+
+    if (!res.ok) {
+      throw new Error("토크 많은 책 데이터를 가져오는 데 문제가 발생했습니다.");
+    }
+    manyTalkRoomData = await res.json();
+  } catch (error) {
+    console.error(error);
+  }
+
+  // SSR + react-query
   const queries = [
     TalkRoomQueryOptions.getRecentTalkRooms({
       size: 4,
@@ -53,13 +77,13 @@ const Home = async () => {
         <PopularTalkRoom />
 
         <div className="bg-[#FBF7F0] py-[1px] w-full flex justify-center">
-          <BestSeller data={bestSellerData} />
+          <BestSeller data={bestSellerData.data} />
         </div>
 
         <RecentTalkRoom />
 
         <div className="bg-[#FBF7F0] py-[1px] w-full flex justify-center">
-          <TalkRoomManyBookRoom data={manyTalkRoomData.queryResponse} />
+          <TalkRoomManyBookRoom data={manyTalkRoomData.data.queryResponse} />
         </div>
       </div>
     </HydrationBoundary>

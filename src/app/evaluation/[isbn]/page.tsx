@@ -9,13 +9,24 @@ import EvaluatiionList from "./_component/EvaluatiionList";
 const page = async ({ params }: { params: { isbn: string } }) => {
   const isbn = params.isbn;
 
-  const { data: bookDetail } = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER}/v1/books/${isbn}`,
-    {
-      // 캐시된 데이터를 사용
-      cache: "force-cache",
-    },
-  ).then((res) => res.json());
+  let bookDetail;
+
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER}/v1/books/${isbn}`,
+      {
+        cache: "force-cache",
+      },
+    );
+
+    if (!res.ok) {
+      throw new Error("책 정보를 가져오는 데 문제가 발생했습니다.");
+    }
+
+    bookDetail = await res.json();
+  } catch (error) {
+    console.error(error);
+  }
 
   return (
     <>
@@ -39,7 +50,7 @@ const page = async ({ params }: { params: { isbn: string } }) => {
 
       <Layout className="flex flex-col items-center">
         <div className="font-Pretendard font-medium my-10 px-[5%]">
-          <BookDetail data={bookDetail} />
+          <BookDetail data={bookDetail.data} />
         </div>
 
         {/* Moblie 환경에서 나오는 DropDown */}
