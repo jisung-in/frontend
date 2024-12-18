@@ -7,6 +7,7 @@ interface TalkRoomRequestProps {
   order?: string;
   search?: string;
   sortbydate?: "1m" | "1w" | "1d" | "";
+  initialPageParam?: number;
 }
 
 interface TalkRoomInfoProps {
@@ -38,10 +39,11 @@ export const useGetRooms = ({
   order = "recent",
   search = "",
   sortbydate = "",
+  initialPageParam = 1,
 }: TalkRoomRequestProps) => {
   return useInfiniteQuery<TalkRoomInfoProps, Error>({
     queryKey: ["talkrooms", size, order, search, sortbydate],
-    queryFn: async ({ pageParam = 1 }) => {
+    queryFn: async ({ pageParam = initialPageParam }) => {
       return await axiosInstance
         .get(
           `/v1/talk-rooms?page=${pageParam}&size=${size}&order=${order}&search=${search}&day=${sortbydate}`,
@@ -52,7 +54,7 @@ export const useGetRooms = ({
       if (lastPage.isLast) return undefined;
       return lastPage.number + 1;
     },
-    initialPageParam: 1,
+    initialPageParam,
     throwOnError: true,
     staleTime: 5000, // 5초 마다 신선한 데이터로 교체
     gcTime: 5 * 60 * 1000, // 캐시 데이터 5분 유지

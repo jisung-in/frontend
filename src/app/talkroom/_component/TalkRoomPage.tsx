@@ -11,29 +11,6 @@ interface TalkRoomPageProps {
 
 const page = async ({ params }: TalkRoomPageProps) => {
   const search = params ? decodeURIComponent(params.result) : "";
-
-  // SSR + react-query
-  // const queries = [
-  //   TalkRoomQueryOptions.getRecentTalkRooms({
-  //     size: 12,
-  //     order: "recent",
-  //     search: "",
-  //   }),
-  //   TalkRoomQueryOptions.getRecommendTalkRooms({
-  //     size: 12,
-  //     order: "recommend",
-  //     search: "",
-  //   }),
-  //   TalkRoomQueryOptions.getRecommendFilterTalkRooms({
-  //     size: 12,
-  //     order: "recent",
-  //     search: "",
-  //     sortbydate: "",
-  //   }),
-  // ];
-
-  // const dehydratedState = await getDehydratedQueries(queries);
-
   return (
     <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
       <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
