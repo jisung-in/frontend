@@ -89,7 +89,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
     <>
       <Layout>
         <div className="px-[5%]">
-          <MainThemeTitle title="책 상세보기">
+          <MainThemeTitle title="책 상세보기" url={`/book/${params.isbn}`}>
             <BestSeller />
           </MainThemeTitle>
 

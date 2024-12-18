@@ -1,10 +1,9 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import Pagination from "@/app/components/Pagination/Pagination";
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
-import { ThemeMain } from "@/app/components/Theme/Theme";
-import BackButton from "@/app/summary/_component/BackButton";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
@@ -50,21 +49,12 @@ const page = ({ params }: { params: { isbn: string } }) => {
   return (
     <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
       <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
-        <ThemeMain.MainTheme>
-          <p className="flex flex-col sm:flex-row 2xl:my-20 xl:my-16 lg:my-10 md:my-6 sm:my-4">
-            <span className="mr-2">
-              <BackButton />
-            </span>
-            <span className="flex items-center">
-              <span className="sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl 2xl:mr-4 xl:mr-4 lg:mr-3 md:mr-2 sm:mr-2">
-                연관된 토크방
-              </span>
-              <span className="sm:size-4 size-5 xl:size-6 2xl:size-7">
-                <RecentMakeTalkRoom />
-              </span>
-            </span>
-          </p>
-        </ThemeMain.MainTheme>
+        <MainThemeTitle
+          title="연관된 토크방"
+          url={`/talkroom/related/${params.isbn}`}
+        >
+          <RecentMakeTalkRoom />
+        </MainThemeTitle>
       </div>
 
       {isLoading && <SkeletonTalkRoomCard />}

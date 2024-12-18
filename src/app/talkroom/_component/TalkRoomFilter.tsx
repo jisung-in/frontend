@@ -1,3 +1,5 @@
+"use client";
+
 import MakeTalkRoom from "@/assets/img/make-talk-room.svg";
 import { useInput } from "@/hook/useInput";
 import { useLogin } from "@/hook/useLogin";
@@ -11,21 +13,17 @@ import { Input } from "../../components/Input/Input";
 
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
-type TalkRoomButtonsProps = {
-  onSearchSubmit: (searchValue: string) => void;
+interface TalkRoomButtonsProps {
   searchParam: string;
-};
+}
 
-type StatusChange = {
+interface StatusChange {
   status: "recent" | "recommend";
   date?: "~한달 전" | "7일전" | "하루 전";
   searchParam?: string;
-};
+}
 
-const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
-  onSearchSubmit,
-  searchParam,
-}) => {
+const TalkRoomFilter: React.FC<TalkRoomButtonsProps> = ({ searchParam }) => {
   const router = useRouter();
   const params = useSearchParams();
   const orderParam = params.get("order");
@@ -62,6 +60,10 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
     value.trim().length > 0
       ? onSearchSubmit(value.trim())
       : setShowSearchModal(true);
+  };
+
+  const onSearchSubmit = (searchValue: string) => {
+    router.push(`/talkroom/${searchValue}/?order=recent&search=${searchValue}`);
   };
 
   const statusChange = ({ status, date, searchParam }: StatusChange) => {
@@ -223,5 +225,4 @@ const TalkRoomSearch: React.FC<TalkRoomButtonsProps> = ({
     </>
   );
 };
-
-export default TalkRoomSearch;
+export default TalkRoomFilter;

@@ -35,10 +35,12 @@ interface TalkRoomProps {
 
 const PopularTalkRoom = () => {
   const { data, isLoading, error } = useQuery(
-    TalkRoomQueryOptions.getRecommendTalkRooms({
+    TalkRoomQueryOptions.getTalkRooms({
+      page: 1,
       size: 4,
       order: "recommend",
       search: "",
+      sortbydate: "",
     }),
   );
 

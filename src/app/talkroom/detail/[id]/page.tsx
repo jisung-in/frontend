@@ -74,7 +74,7 @@ const Page = ({ params }: { params: { id: number } }) => {
     <>
       <div className="max-w-[1180px] w-full">
         <div className="px-[5%]">
-          <MainThemeTitle title="토크해요">
+          <MainThemeTitle title="토크해요" url="/talkroom" query="recent">
             <Image src={PopularTalkRoom} alt="토크해요" />
           </MainThemeTitle>
 

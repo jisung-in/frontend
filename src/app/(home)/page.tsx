@@ -40,7 +40,7 @@ const Home = async () => {
       `${process.env.NEXT_PUBLIC_SERVER}/v1/books?page=1&size=12&order=comment`,
       {
         next: {
-          revalidate: manyTalkRoomDataRevalidateTime, // 30분 마다 베스트 셀러 갱신
+          revalidate: manyTalkRoomDataRevalidateTime, // 30분 마다 토크 많은 책 갱신
         },
       },
     );
@@ -55,15 +55,19 @@ const Home = async () => {
 
   // SSR + react-query
   const queries = [
-    TalkRoomQueryOptions.getRecentTalkRooms({
+    TalkRoomQueryOptions.getTalkRooms({
+      page: 1,
       size: 4,
       order: "recent",
       search: "",
+      sortbydate: "",
     }),
-    TalkRoomQueryOptions.getRecommendTalkRooms({
+    TalkRoomQueryOptions.getTalkRooms({
+      page: 1,
       size: 4,
       order: "recommend",
       search: "",
+      sortbydate: "",
     }),
   ];
 

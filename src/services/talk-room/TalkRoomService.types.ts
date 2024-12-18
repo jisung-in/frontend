@@ -14,23 +14,25 @@ export interface EachTalkRoomProps {
 }
 
 export interface TalkRoomRequestProps {
-  page?: number;
+  page: number;
   size?: number;
   order?: string;
   search?: string;
   sortbydate?: "1m" | "1w" | "1d" | "";
 }
 
+export interface TalkRoomInfoProps {
+  content: EachTalkRoomProps[];
+  hasContent: boolean;
+  number: number;
+  size: number;
+  isFirst: boolean;
+  isLast: boolean;
+}
+
 export interface TalkRoomsProps {
   code: number;
-  data: {
-    content: EachTalkRoomProps[];
-    hasContent: boolean;
-    isFirst: boolean;
-    isLast: boolean;
-    number: number;
-    size: number;
-  };
+  data: TalkRoomInfoProps;
   message: string;
   status: string;
 }
