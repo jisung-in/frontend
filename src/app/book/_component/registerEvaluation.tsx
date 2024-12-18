@@ -1,24 +1,27 @@
+"use client";
+
 import { Button } from "@/app/components/Button/Button";
 import { Textarea } from "@/app/components/Textarea/Textarea";
 import { useCreateReview } from "@/hook/reactQuery/book/useCreateReview";
 import { useInput } from "@/hook/useInput";
+import { useLogin } from "@/hook/useLogin";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
-type RegisterCondition = {
+type RegisterEvaluationProps = {
   isbn: string;
-  isLogin: boolean;
 };
 
-const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
+const RegisterEvaluation = ({ isbn }: RegisterEvaluationProps) => {
+  const { isLoggedIn } = useLogin();
   const { value: review, handleChange: onCreateReview } = useInput("");
   const createReview = useCreateReview();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const handleReviewSubmit = () => {
-    if (isLogin && review.trim().length > 0) {
+    if (isLoggedIn && review.trim().length > 0) {
       createReview.mutate({ bookIsbn: isbn, content: review });
     }
     setShowModal(true);
@@ -33,7 +36,7 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
 
   return (
     <>
-      <p className="font-SpoqaHanSansNeo font-bold 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-base mb-7">
+      <p className="font-SpoqaHanSansNeo font-bold 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-base my-7">
         한줄평을 작성해보세요
       </p>
       <div className="relative font-Pretendard">
@@ -56,7 +59,7 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
         </div>
       </div>
 
-      {!isLogin ? (
+      {!isLoggedIn ? (
         <Modal
           title="로그인"
           content="로그인을 해야 이용할 수 있는 기능입니다"
@@ -88,4 +91,4 @@ const registerEvaluation = ({ isbn, isLogin }: RegisterCondition) => {
   );
 };
 
-export default registerEvaluation;
+export default RegisterEvaluation;

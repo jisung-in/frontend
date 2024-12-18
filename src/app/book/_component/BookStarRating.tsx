@@ -1,6 +1,3 @@
-// import BigStar from "@/assets/img/big-star.svg";
-// import EmptyStar from "@/assets/img/empty-star.svg";
-// import HalfStar from "@/assets/img/half-star.svg";
 import { useCreateStarRating } from "@/hook/reactQuery/book/useCreateStarRating";
 import { useDeleteStarRating } from "@/hook/reactQuery/book/useDeleteStarRating";
 import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";

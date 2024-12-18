@@ -1,5 +1,11 @@
+"use client";
+
 import NoImage from "@/assets/img/no-image.png";
+import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
+import { useLogin } from "@/hook/useLogin";
+import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useCallback } from "react";
 import BookStarRating from "./BookStarRating";
 import BookStatus from "./BookStatus";
 
@@ -14,19 +20,25 @@ type BookInformation = {
   ratingAverage: number;
   dateTime: string;
 };
+
 type BookInformationProps = {
-  data: BookInformation;
   isbn: string;
-  isLogin: boolean;
-  onTotalRatingChange: () => void;
 };
 
-const BookInformation: React.FC<BookInformationProps> = ({
-  data,
-  isbn,
-  isLogin,
-  onTotalRatingChange,
-}) => {
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
+
+const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
+  const { isLoggedIn } = useLogin();
+  const { data, refetch: refetchBookInformation } = useGetBookInformation({
+    isbn: isbn,
+  });
+
+  const totalRatingChange = useCallback(() => {
+    refetchBookInformation();
+  }, [refetchBookInformation]);
+
   return (
     <div className="flex flex-row mt-5 mb-24 md:mb-8 sm:mb-8">
       <Image
@@ -75,9 +87,9 @@ const BookInformation: React.FC<BookInformationProps> = ({
           </span>
           <BookStarRating
             isbn={isbn}
-            isLogin={isLogin}
-            ratingAverage={data.ratingAverage}
-            onTotalRatingChange={onTotalRatingChange}
+            isLogin={isLoggedIn}
+            ratingAverage={data?.ratingAverage || 0}
+            onTotalRatingChange={totalRatingChange}
           />
 
           <hr className="w-full border border-[#F4E4CE] my-5 hidden md:block sm:block" />
@@ -86,7 +98,7 @@ const BookInformation: React.FC<BookInformationProps> = ({
             독서상태
           </span>
           <div className="w-full flex flex-row 2xl:gap-5 xl:gap-4 gap-3 justify-end sm:justify-start md:justify-center">
-            <BookStatus isbn={isbn} isLogin={isLogin} />
+            <BookStatus isbn={isbn} isLogin={isLoggedIn} />
           </div>
         </div>
 
