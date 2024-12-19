@@ -33,18 +33,14 @@ const UserEvaluation = ({ params }: { params: { isbn: string } }) => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data, isLoading, error } = useQuery(
+  const { data } = useQuery(
     EvaluationQueryOptions.getEvaluation({
       isbn: params.isbn,
       size: 8,
       order: "recent",
     }),
   );
-  const {
-    data: reviewCount,
-    isLoading: isReviewCountLoading,
-    error: isReviewCountError,
-  } = useQuery(
+  const { data: reviewCount } = useQuery(
     EvaluationQueryOptions.getEvaluationCount({
       isbn: params.isbn,
     }),

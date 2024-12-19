@@ -34,7 +34,7 @@ interface TalkRoomProps {
 }
 
 const RecentTalkRoom = () => {
-  const { data, isLoading, error } = useQuery(
+  const { data } = useQuery(
     TalkRoomQueryOptions.getTalkRooms({
       page: 1,
       size: 4,

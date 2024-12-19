@@ -37,7 +37,7 @@ const RelatedTalkRoom = ({ params }: { params: { isbn: string } }) => {
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data, isLoading, error } = useQuery(
+  const { data } = useQuery(
     TalkRoomQueryOptions.getRelatedTalkRooms({
       isbn: params.isbn,
       page: 1,
