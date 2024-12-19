@@ -1,11 +1,11 @@
-import SummaryCard from "./_component/SummaryCard";
-import Star from "@/assets/img/star-rate.svg";
 import Answer from "@/assets/img/answer-room.svg";
 import Review from "@/assets/img/book-review.svg";
 import Create from "@/assets/img/create-room.svg";
-import Profile from "./_component/Profile";
 import MyProfile from "@/assets/img/MyProfile.svg";
+import Star from "@/assets/img/star-rate.svg";
 import BackButton from "../summary/_component/BackButton";
+import Profile from "./_component/Profile";
+import SummaryCard from "./_component/SummaryCard";
 
 const data = [
   {
@@ -14,7 +14,7 @@ const data = [
     path: "/summary/star",
   },
   {
-    title: "한줄평",
+    title: "한 줄평",
     icon: <Answer />,
     path: "/summary/review",
   },
