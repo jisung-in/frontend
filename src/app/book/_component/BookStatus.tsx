@@ -15,9 +15,10 @@ import { useDeleteBookState } from "@/hook/reactQuery/book/useDeleteBookState";
 import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
 import { usePatchBookState } from "@/hook/reactQuery/book/usePatchBookState";
 import { useLogin } from "@/hook/useLogin";
+import debounce from "lodash.debounce";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
@@ -66,32 +67,43 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn }) => {
   const patchBookState = usePatchBookState(bookStateId || 0);
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const changeStatus = (statusName: string) => {
-    if (!isLoggedIn) {
-      setShowModal(true);
-      return;
-    }
+  const changeStatus = useCallback(
+    debounce((statusName: string) => {
+      if (!isLoggedIn) {
+        setShowModal(true);
+        return;
+      }
 
-    const successStatusChange = () => {
-      setStatus(statusName === status ? "" : statusName);
-      refetch();
-    };
+      const successStatusChange = () => {
+        setStatus(statusName === status ? "" : statusName);
+        refetch();
+      };
 
-    if (status === "") {
-      createBookState.mutate(
-        { isbn, readingStatus: statusName },
-        { onSuccess: successStatusChange },
-      );
-    } else if (statusName === status && bookStateId !== null) {
-      deleteBookState.mutate(bookStateId, { onSuccess: successStatusChange });
-    } else if (bookStateId !== null) {
-      patchBookState.mutate(
-        { isbn, readingStatus: statusName },
-        { onSuccess: successStatusChange },
-      );
-    }
-  };
-
+      if (status === "") {
+        createBookState.mutate(
+          { isbn, readingStatus: statusName },
+          { onSuccess: successStatusChange },
+        );
+      } else if (statusName === status && bookStateId !== null) {
+        deleteBookState.mutate(bookStateId, { onSuccess: successStatusChange });
+      } else if (bookStateId !== null) {
+        patchBookState.mutate(
+          { isbn, readingStatus: statusName },
+          { onSuccess: successStatusChange },
+        );
+      }
+    }, 300), // 0.3초 디바운스 설정
+    [
+      isLoggedIn,
+      status,
+      bookStateId,
+      isbn,
+      createBookState,
+      deleteBookState,
+      patchBookState,
+      refetch,
+    ],
+  );
   const closeModal = () => setShowModal(false);
 
   return (

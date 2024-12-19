@@ -5,9 +5,10 @@ import { useDeleteStarRating } from "@/hook/reactQuery/book/useDeleteStarRating"
 import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";
 import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
 import { useLogin } from "@/hook/useLogin";
+import debounce from "lodash.debounce";
 import { Star, StarHalf } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
@@ -48,44 +49,59 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
 
   const patchStarRating = usePatchStarRating(getStarRating?.id || 0);
 
-  const mouseMove = (index: number, isLeftSide: boolean) => {
-    const rating = index + (isLeftSide ? 0.5 : 1);
-    setStarRate(rating);
-  };
+  const mouseMove = useCallback(
+    debounce((index: number, isLeftSide: boolean) => {
+      const rating = index + (isLeftSide ? 0.5 : 1);
+      setStarRate(rating);
+    }, 30), // 0.03초 디바운스 설정
+    [],
+  );
 
   const mouseLeave = () => {
     setStarRate(0);
   };
 
-  const clickStarRate = async (index: number, isHalf: boolean) => {
-    const starRating = index + (isHalf ? 0.5 : 1);
-    if (isLoggedIn) {
-      if (myStarRate === starRating) {
-        setMyStarRate(0);
-        setStarRate(0);
-        if (getStarRating?.id) {
-          await deleteStarRating.mutateAsync(getStarRating.id);
-        }
-      } else {
-        setMyStarRate(starRating);
-        setStarRate(starRating);
-        if (getStarRating?.id) {
-          await patchStarRating.mutateAsync({
-            bookIsbn: isbn,
-            rating: starRating,
-          });
+  const clickStarRate = useCallback(
+    debounce(async (index: number, isHalf: boolean) => {
+      const starRating = index + (isHalf ? 0.5 : 1);
+      if (isLoggedIn) {
+        if (myStarRate === starRating) {
+          setMyStarRate(0);
+          setStarRate(0);
+          if (getStarRating?.id) {
+            await deleteStarRating.mutateAsync(getStarRating.id);
+          }
         } else {
-          await createStarRating.mutateAsync({
-            bookIsbn: isbn,
-            rating: starRating,
-          });
+          setMyStarRate(starRating);
+          setStarRate(starRating);
+          if (getStarRating?.id) {
+            await patchStarRating.mutateAsync({
+              bookIsbn: isbn,
+              rating: starRating,
+            });
+          } else {
+            await createStarRating.mutateAsync({
+              bookIsbn: isbn,
+              rating: starRating,
+            });
+          }
         }
+        await refetchStarRating();
+      } else {
+        setShowModal(true);
       }
-      await refetchStarRating();
-    } else {
-      setShowModal(true);
-    }
-  };
+    }, 300), // 0.3초 디바운스 설정
+    [
+      isLoggedIn,
+      myStarRate,
+      getStarRating,
+      createStarRating,
+      deleteStarRating,
+      patchStarRating,
+      refetchStarRating,
+      isbn,
+    ],
+  );
 
   useEffect(() => {
     setEvaluate(evaluationMap[myStarRate] || "평가하기");
