@@ -1,13 +1,13 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useQuery } from "@tanstack/react-query";
 
-type params = {
+interface params {
   isbn: string;
   page: number;
   size: number;
-};
+}
 
-type BookStateResponse = {
+interface BookStateResponse {
   queryResponse: [
     {
       id: number;
@@ -26,7 +26,7 @@ type BookStateResponse = {
   ];
   totalCount: number;
   size: number;
-};
+}
 
 export const useGetBookRelatedTalkRoom = ({
   isbn = "",
@@ -34,7 +34,7 @@ export const useGetBookRelatedTalkRoom = ({
   size = 12,
 }: params) => {
   return useQuery<BookStateResponse>({
-    queryKey: ["book", "talkroom", isbn, page, size],
+    queryKey: ["related-talkrooms", isbn, page, size],
     queryFn: () =>
       axiosInstance
         .get(`/v1/books/${isbn}/talk-rooms?page=${page}&size=${size}`)

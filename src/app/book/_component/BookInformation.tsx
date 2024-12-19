@@ -1,49 +1,37 @@
-"use client";
-
 import NoImage from "@/assets/img/no-image.png";
-import { useGetBookInformation } from "@/hook/reactQuery/book/useGetBookInformation";
-import { useLogin } from "@/hook/useLogin";
-import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useCallback } from "react";
 import BookStarRating from "./BookStarRating";
 import BookStatus from "./BookStatus";
 
-type BookInformation = {
-  title: string;
-  content: string;
+interface BookInformationProps {
+  data: {
+    code: number;
+    status: string;
+    message: string;
+    data: {
+      title: string;
+      content: string;
+      isbn: string;
+      publisher: string;
+      imageUrl: string;
+      thumbnail: string;
+      authors: string[];
+      ratingAverage: number;
+      dateTime: string;
+    };
+  };
   isbn: string;
-  publisher: string;
-  imageUrl: string;
-  thumbnail: string;
-  authors: string[];
-  ratingAverage: number;
-  dateTime: string;
-};
+}
 
-type BookInformationProps = {
-  isbn: string;
-};
-
-const HaveNotData = dynamic(
-  () => import("@/app/components/HaveNotData/HaveNotData"),
-);
-
-const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
-  const { isLoggedIn } = useLogin();
-  const { data, refetch: refetchBookInformation } = useGetBookInformation({
-    isbn: isbn,
-  });
-
-  const totalRatingChange = useCallback(() => {
-    refetchBookInformation();
-  }, [refetchBookInformation]);
-
+const BookInformation: React.FC<BookInformationProps> = async ({
+  isbn,
+  data,
+}) => {
   return (
     <div className="flex flex-row mt-5 mb-24 md:mb-8 sm:mb-8">
       <Image
         className="md:hidden sm:hidden 2xl:w-[360px] 2xl:h-[470px] xl:w-[300px] xl:h-[400px] lg:w-[240px] lg:h-[320px] md:w-[180px] md:h-[240px] sm:w-[120px] sm:h-[160px] mr-10"
-        src={data ? data?.thumbnail : NoImage}
+        src={data.data ? data.data.imageUrl : NoImage}
         alt="책표지"
         width={360}
         height={470}
@@ -54,7 +42,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
           <div className="hidden md:flex md:flex-row sm:flex sm:flex-row w-full md:justify-center">
             <Image
               className="2xl:w-[360px] 2xl:h-[470px] xl:w-[300px] xl:h-[400px] lg:w-[240px] lg:h-[320px] md:w-[180px] md:h-[240px] sm:w-[120px] sm:h-[160px] mr-5"
-              src={data ? data?.thumbnail : NoImage}
+              src={data.data ? data.data.thumbnail : NoImage}
               alt="책표지"
               width={360}
               height={470}
@@ -62,13 +50,15 @@ const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
 
             <div className="flex flex-col mt-5">
               <span className="mb-2 font-semibold 2xl:text-[40px] xl:text-[36px] lg:text-3xl md:text-xl sm:text-base">
-                {data?.title}
+                {data.data.title}
               </span>
 
               <p className="font-Inter flex flex-row flex-wrap gap-4 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#656565] mb-10">
-                <span>{data?.publisher}</span>
-                <span>{data?.authors.join(", ")}</span>
-                <span>{data?.dateTime.slice(0, 4)}</span>
+                <span>{data.data.publisher}</span>
+                <span> {data.data.authors.join(", ")}</span>
+                <span>
+                  <span>{data.data.dateTime.slice(0, 4)}</span>
+                </span>
               </p>
             </div>
           </div>
@@ -77,7 +67,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
             줄거리
           </span>
           <span className="md:max-w-[370px] hidden md:block sm:block sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-[#656565] overflow-hidden">
-            {data?.content.slice(0, 400)} {"... "}
+            {data.data.content.slice(0, 400)} {"... "}
           </span>
 
           <hr className="w-full border border-[#F4E4CE] my-5 hidden md:block sm:block" />
@@ -87,9 +77,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
           </span>
           <BookStarRating
             isbn={isbn}
-            isLogin={isLoggedIn}
-            ratingAverage={data?.ratingAverage || 0}
-            onTotalRatingChange={totalRatingChange}
+            ratingAverage={data.data.ratingAverage || 0}
           />
 
           <hr className="w-full border border-[#F4E4CE] my-5 hidden md:block sm:block" />
@@ -98,7 +86,7 @@ const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
             독서상태
           </span>
           <div className="w-full flex flex-row 2xl:gap-5 xl:gap-4 gap-3 justify-end sm:justify-start md:justify-center">
-            <BookStatus isbn={isbn} isLogin={isLoggedIn} />
+            <BookStatus isbn={isbn} />
           </div>
         </div>
 
@@ -106,17 +94,17 @@ const BookInformation: React.FC<BookInformationProps> = ({ isbn }) => {
 
         <div className="flex flex-col block md:hidden sm:hidden">
           <span className="mb-2 font-semibold 2xl:text-[40px] xl:text-[36px] lg:text-3xl md:text-xl sm:text-base">
-            {data?.title}
+            {data.data.title}
           </span>
 
           <p className="font-Inter flex flex-row flex-wrap gap-7 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#656565] mb-[41px]">
-            <span>{data?.publisher}</span>
-            <span>{data?.authors.join(", ")}</span>
-            <span>{data?.dateTime.slice(0, 4)}</span>
+            <span>{data.data.publisher}</span>
+            <span> {data.data.authors.join(", ")}</span>
+            <span>{data.data.dateTime.slice(0, 4)}</span>
           </p>
 
           <span className="sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl text-[#656565] overflow-hidden">
-            {data?.content.slice(0, 400)} {"... "}
+            {data.data.content.slice(0, 400)} {"... "}
           </span>
         </div>
       </div>

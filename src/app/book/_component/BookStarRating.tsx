@@ -1,7 +1,10 @@
+"use client";
+
 import { useCreateStarRating } from "@/hook/reactQuery/book/useCreateStarRating";
 import { useDeleteStarRating } from "@/hook/reactQuery/book/useDeleteStarRating";
 import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";
 import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
+import { useLogin } from "@/hook/useLogin";
 import { Star, StarHalf } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
@@ -10,9 +13,7 @@ const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type BookStarRatingCondition = {
   isbn: string;
-  isLogin: boolean;
   ratingAverage: number;
-  onTotalRatingChange: () => void;
 };
 
 const evaluationMap: { [key: number]: string } = {
@@ -29,12 +30,9 @@ const evaluationMap: { [key: number]: string } = {
   5.0: "최고에요!",
 };
 
-const BookStarRating = ({
-  isbn,
-  isLogin,
-  ratingAverage,
-  onTotalRatingChange,
-}: BookStarRatingCondition) => {
+const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
+  const { isLoggedIn } = useLogin();
+
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -61,7 +59,7 @@ const BookStarRating = ({
 
   const clickStarRate = async (index: number, isHalf: boolean) => {
     const starRating = index + (isHalf ? 0.5 : 1);
-    if (isLogin) {
+    if (isLoggedIn) {
       if (myStarRate === starRating) {
         setMyStarRate(0);
         setStarRate(0);
@@ -83,7 +81,6 @@ const BookStarRating = ({
           });
         }
       }
-      onTotalRatingChange();
       await refetchStarRating();
     } else {
       setShowModal(true);
@@ -191,7 +188,7 @@ const BookStarRating = ({
         </p>
       </div>
 
-      {!isLogin && (
+      {!isLoggedIn && (
         <Modal
           title="로그인"
           content="로그인을 해야 이용할 수 있는 기능입니다"

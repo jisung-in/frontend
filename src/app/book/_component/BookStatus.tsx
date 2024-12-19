@@ -1,3 +1,5 @@
+"use client";
+
 import PasueOff from "@/assets/img/pause-off.png";
 import PasueOn from "@/assets/img/pause-on.png";
 import ReadOff from "@/assets/img/read-off.png";
@@ -21,7 +23,6 @@ const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type BookStatusCondition = {
   isbn: string;
-  isLogin: boolean;
 };
 
 const statusOptions = [
@@ -32,7 +33,7 @@ const statusOptions = [
   { status: "stop", Correct: PasueOn, InCorrect: PasueOff },
 ];
 
-const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
+const BookStatus: React.FC<BookStatusCondition> = ({ isbn }) => {
   const { isLoggedIn } = useLogin();
   const { data: statusData, refetch } = isLoggedIn
     ? useGetBookState()
@@ -66,7 +67,7 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   const changeStatus = (statusName: string) => {
-    if (!isLogin) {
+    if (!isLoggedIn) {
       setShowModal(true);
       return;
     }
@@ -117,7 +118,7 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn, isLogin }) => {
         </div>
       ))}
 
-      {!isLogin && (
+      {!isLoggedIn && (
         <Modal
           title="로그인"
           content="로그인을 해야 이용할 수 있는 기능입니다"

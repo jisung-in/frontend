@@ -11,11 +11,14 @@ const page = async ({ params }: { params: { isbn: string } }) => {
 
   let bookDetail;
 
+  // ISR
   try {
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_SERVER}/v1/books/${isbn}`,
       {
-        cache: "force-cache",
+        next: {
+          revalidate: 86400 * 24, // 4주 마다 책 정보 갱신(표지)
+        },
       },
     );
 

@@ -1,13 +1,17 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
-import HaveNotData from "@/app/components/HaveNotData/HaveNotData";
-import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
-import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
+import { TalkRoomQueryOptions } from "@/services/talk-room/TalkRoomQueries";
+import { useQuery } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+
+const HaveNotData = dynamic(
+  () => import("@/app/components/HaveNotData/HaveNotData"),
+);
 
 interface TalkRoomProps {
   id: number;
@@ -29,19 +33,18 @@ const RelatedTalkRoom = ({ params }: { params: { isbn: string } }) => {
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
     : { data: { talkRoomIds: [] } };
-  const { data: reviewLikeIds } = isLoggedIn
-    ? useGetReviewLike()
-    : { data: { reviewIds: [] } };
   const { data: myDetailData } = isLoggedIn
     ? useGetMyDetail()
     : { data: { userId: -1, userImage: "", userName: "" } };
 
-  const { data: relatedTalkRoom, isLoading: isRelatedTalkRoom } =
-    useGetBookRelatedTalkRoom({
+  const { data, isLoading, error } = useQuery(
+    TalkRoomQueryOptions.getRelatedTalkRooms({
       isbn: params.isbn,
       page: 1,
-      size: 6,
-    });
+      size: 8,
+    }),
+  );
+
   return (
     <>
       <div className="flex flex-row my-7 items-center">
@@ -55,9 +58,9 @@ const RelatedTalkRoom = ({ params }: { params: { isbn: string } }) => {
         </Link>
       </div>
 
-      {relatedTalkRoom && relatedTalkRoom.queryResponse.length > 0 ? (
+      {data && data.data.queryResponse.length > 0 ? (
         <div className="flex fex-row flex-wrap gap-7 mb-7 md:justify-center sm:justify-center">
-          {relatedTalkRoom.queryResponse.map((data: TalkRoomProps) => {
+          {data.data.queryResponse.map((data: TalkRoomProps) => {
             const isLike =
               isLoggedIn &&
               (talkRoomLikeIds?.talkRoomIds || []).includes(data.id);
@@ -72,7 +75,7 @@ const RelatedTalkRoom = ({ params }: { params: { isbn: string } }) => {
           })}
         </div>
       ) : (
-        !isRelatedTalkRoom && <HaveNotData content={"연관된 토크방이"} />
+        !data && <HaveNotData content={"연관된 토크방이"} />
       )}
     </>
   );

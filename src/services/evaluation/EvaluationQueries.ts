@@ -1,42 +1,28 @@
-import TalkRoomService from "./TalkRoomService";
+import EvaluationService from "./EvaluationService";
 import {
-  RelatedTalkRoomsRequestProps,
-  TalkRoomRequestProps,
-} from "./TalkRoomService.types";
+  EvaluationCountProps,
+  EvaluationRequestProps,
+} from "./EvaluationService.types";
 
-export const TalkRoomQueryOptions = {
-  getTalkRooms: ({
-    page,
-    size,
-    order,
-    search,
-    sortbydate,
-  }: TalkRoomRequestProps) => ({
-    queryKey: ["talkrooms", { page, size, order, search, sortbydate }],
+export const EvaluationQueryOptions = {
+  getEvaluation: ({ isbn, size, order }: EvaluationRequestProps) => ({
+    queryKey: ["evaluation", { isbn, size, order }],
     queryFn: () =>
-      TalkRoomService.getTalkRooms({
-        page,
+      EvaluationService.getEvaluation({
+        isbn,
         size,
         order,
-        search,
-        sortbydate,
       }),
     staleTime: 5000, // 5초 마다 신선한 데이터로 교체
     gcTime: 5 * 60 * 1000, // 캐시 데이터 5분 유지
     refetchOnWindowFocus: false, // 포커스 전환 시 리패칭 방지
     refetchOnMount: false, // 컴포넌트가 마운트될 때 리패칭 방지
   }),
-  getRelatedTalkRooms: ({
-    isbn,
-    page,
-    size,
-  }: RelatedTalkRoomsRequestProps) => ({
-    queryKey: ["related-talkrooms", isbn, page, size],
+  getEvaluationCount: ({ isbn }: EvaluationCountProps) => ({
+    queryKey: ["evaluation", { isbn }],
     queryFn: () =>
-      TalkRoomService.getRelatedTalkRooms({
+      EvaluationService.getEvaluationCount({
         isbn,
-        page,
-        size,
       }),
     staleTime: 5000, // 5초 마다 신선한 데이터로 교체
     gcTime: 5 * 60 * 1000, // 캐시 데이터 5분 유지
