@@ -2,10 +2,11 @@ import Profile from "@/assets/img/profile.png";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
 import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
+import debounce from "lodash.debounce";
 import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import DeleteButton from "../../DeleteButton/DeleteButton";
 import IconButton from "../../IconButton/IconButton";
 import LikeButton from "../../LikeButton/LikeButton";
@@ -45,20 +46,23 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
     setIsLike(initialIsLike);
   }, [data.likeCount, initialIsLike]);
 
-  const changeIsLike = () => {
-    if (userId === -1 || data.creatorId === userId) {
-      setShowModal(true);
-      return;
-    }
-    if (isLike) {
-      deleteReviewLike.mutate(data.reviewId);
-      setCount((prevCount) => prevCount - 1);
-    } else {
-      createReviewLike.mutate(data.reviewId);
-      setCount((prevCount) => prevCount + 1);
-    }
-    setIsLike(!isLike);
-  };
+  const changeIsLike = useCallback(
+    debounce(() => {
+      if (userId === -1 || data.creatorId === userId) {
+        setShowModal(true);
+        return;
+      }
+      if (isLike) {
+        deleteReviewLike.mutate(data.reviewId);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        createReviewLike.mutate(data.reviewId);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
+    }, 300), // 0.3초 디바운스 설정
+    [userId, data, isLike, deleteReviewLike, createReviewLike],
+  );
 
   const closeModal = () => setShowModal(false);
 
@@ -163,8 +167,8 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
         />
       )}
       <Modal
-        title="한줄평 삭제"
-        content="한줄평을 삭제하시겠습니까?"
+        title="한 줄평 삭제"
+        content="한 줄평을 삭제하시겠습니까?"
         isOpen={deleteShowModal}
         onClose={isDeleteShowModal}
         onConfirm={deleteMyReview}

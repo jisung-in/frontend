@@ -14,11 +14,12 @@ import { useGetOneRoom } from "@/hook/reactQuery/talkRoom/useGetOneRoom";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useLogin } from "@/hook/useLogin";
 import timeLapse from "@/util/timeLapse";
+import debounce from "lodash.debounce";
 import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const HaveNotData = dynamic(
   () => import("@/app/components/HaveNotData/HaveNotData"),
@@ -61,25 +62,34 @@ const TalkRoomDetailMain: React.FC<TalkRoomDataProps> = ({ id }) => {
     }
   }, [talkroomOne]);
 
-  const changeIsLike = () => {
-    if (talkroomOne) {
-      if (
-        myDetail?.userId === -1 ||
-        talkroomOne.creatorId === myDetail?.userId
-      ) {
-        setShowModal(true);
-        return;
+  const changeIsLike = useCallback(
+    debounce(() => {
+      if (talkroomOne) {
+        if (
+          myDetail?.userId === -1 ||
+          talkroomOne.creatorId === myDetail?.userId
+        ) {
+          setShowModal(true);
+          return;
+        }
+        if (isLike) {
+          deleteTalkRoomLike.mutate(talkroomOne.id);
+          setCount((prevCount) => prevCount - 1);
+        } else {
+          addTalkRoomLike.mutate(talkroomOne.id);
+          setCount((prevCount) => prevCount + 1);
+        }
+        setIsLike(!isLike);
       }
-      if (isLike) {
-        deleteTalkRoomLike.mutate(talkroomOne.id);
-        setCount((prevCount) => prevCount - 1);
-      } else {
-        addTalkRoomLike.mutate(talkroomOne.id);
-        setCount((prevCount) => prevCount + 1);
-      }
-      setIsLike(!isLike);
-    }
-  };
+    }, 300), // 0.3초 디바운스 설정
+    [
+      myDetail?.userId,
+      talkroomOne,
+      isLike,
+      deleteTalkRoomLike,
+      addTalkRoomLike,
+    ],
+  );
 
   const closeModal = () => setShowModal(false);
 

@@ -4,10 +4,11 @@ import Profile from "@/assets/img/profile.png";
 import { useCreateCommentLike } from "@/hook/reactQuery/talkRoom/useCreateCommentLike";
 import { useDeleteCommentLike } from "@/hook/reactQuery/talkRoom/useDeleteCommentLike";
 import timeLapse from "@/util/timeLapse";
+import debounce from "lodash.debounce";
 import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import IconButton from "../../../components/IconButton/IconButton";
 import LikeButton from "../../../components/LikeButton/LikeButton";
 
@@ -43,20 +44,23 @@ const SpeechBubble = ({
     setIsLike(initialIsLike);
   }, [data.commentLikeCount, initialIsLike]);
 
-  const changeIsLike = () => {
-    if (userId === -1 || data.creatorId === userId) {
-      setShowModal(true);
-      return;
-    }
-    if (isLike) {
-      deleteCommentLike.mutate(data.commentId);
-      setCount((prevCount) => prevCount - 1);
-    } else {
-      createCommentLike.mutate(data.commentId);
-      setCount((prevCount) => prevCount + 1);
-    }
-    setIsLike(!isLike);
-  };
+  const changeIsLike = useCallback(
+    debounce(() => {
+      if (userId === -1 || data.creatorId === userId) {
+        setShowModal(true);
+        return;
+      }
+      if (isLike) {
+        deleteCommentLike.mutate(data.commentId);
+        setCount((prevCount) => prevCount - 1);
+      } else {
+        createCommentLike.mutate(data.commentId);
+        setCount((prevCount) => prevCount + 1);
+      }
+      setIsLike(!isLike);
+    }, 300), // 0.3초 디바운스 설정
+    [userId, isLike, deleteCommentLike, createCommentLike],
+  );
 
   const closeModal = () => setShowModal(false);
 
