@@ -1,21 +1,41 @@
+"use client";
+
 import { Button } from "@/app/components/Button/Button";
+import { useGetBookState } from "@/hook/reactQuery/book/useGetBookState";
+import { useGetOneRoom } from "@/hook/reactQuery/talkRoom/useGetOneRoom";
+import { useLogin } from "@/hook/useLogin";
 import Link from "next/link";
 import React from "react";
 
 interface ParticipationConditionProps {
-  isLoggedIn: boolean;
-  isCondition: boolean;
   id: number;
 }
 
+interface BookProps {
+  id: number;
+  bookIsbn: string;
+  status: string;
+}
+
 const ParticipationCondition: React.FC<ParticipationConditionProps> = ({
-  isLoggedIn,
-  isCondition,
   id,
 }) => {
+  const { isLoggedIn } = useLogin();
+  const { data: getBookState } = isLoggedIn ? useGetBookState() : { data: [] };
+  const { data: talkroomOne, isLoading: isTalkroomOne } = useGetOneRoom({
+    talkRoomId: id,
+  });
+
+  const isCondition = () =>
+    Array.isArray(getBookState) &&
+    getBookState.some(
+      (book: BookProps) =>
+        book.bookIsbn === talkroomOne?.bookIsbn &&
+        talkroomOne?.readingStatuses.includes(book.status),
+    );
   return (
     <>
-      {isLoggedIn && isCondition ? (
+      {isLoggedIn && isCondition() ? (
         <>
           <h3 className="text-center font-SpoqaHanSansNeo font-bold text-[#80685D] 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-base 2xl:mb-10 xl:mb-8 lg:mb-6 mb-4">
             참가 조건에 부합하여 의견 작성이 가능합니다
