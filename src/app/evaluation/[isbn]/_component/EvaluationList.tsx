@@ -30,7 +30,7 @@ interface EvaluationListProps {
   isbn: string;
 }
 
-const EvaluatiionList: React.FC<EvaluationListProps> = ({ isbn }) => {
+const EvaluationList: React.FC<EvaluationListProps> = ({ isbn }) => {
   const { isLoggedIn } = useLogin();
   const { data: reviewLikeIds } = isLoggedIn
     ? useGetReviewLike()
@@ -105,4 +105,4 @@ const EvaluatiionList: React.FC<EvaluationListProps> = ({ isbn }) => {
   );
 };
 
-export default EvaluatiionList;
+export default EvaluationList;

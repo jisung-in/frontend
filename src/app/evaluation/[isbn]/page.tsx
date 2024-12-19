@@ -4,7 +4,7 @@ import Image from "next/image";
 import MainThemeTitle from "../../components/MainThemeTitle/MainThemeTitle";
 import BookDetail from "./_component/BookDetail";
 import DropDownStandard from "./_component/DropDownStandard";
-import EvaluatiionList from "./_component/EvaluatiionList";
+import EvaluationList from "./_component/EvaluationList";
 
 const page = async ({ params }: { params: { isbn: string } }) => {
   const isbn = params.isbn;
@@ -64,7 +64,7 @@ const page = async ({ params }: { params: { isbn: string } }) => {
         </p>
 
         <div className="w-full max-w-[910px]">
-          <EvaluatiionList isbn={isbn} />
+          <EvaluationList isbn={isbn} />
         </div>
       </Layout>
     </>
