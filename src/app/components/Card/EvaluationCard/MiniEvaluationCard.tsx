@@ -2,6 +2,7 @@ import Profile from "@/assets/img/profile.png";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
 import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
+import { useQueryClient } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
 import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -26,12 +27,14 @@ type MiniEvaluationProps = {
   };
   userId: number;
   isLike: boolean;
+  isbn: string;
 };
 
 const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   data,
   userId,
   isLike: initialIsLike,
+  isbn,
 }) => {
   const [count, setCount] = useState<number>(data.likeCount);
   const [isLike, setIsLike] = useState<boolean>(initialIsLike);
@@ -40,6 +43,7 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   const deleteReview = useDeleteReview();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [deleteShowModal, setDeleteShowModal] = useState<boolean>(false);
+  const query = useQueryClient();
 
   useEffect(() => {
     setCount(data.likeCount);
@@ -69,7 +73,10 @@ const MiniEvaluationCard: React.FC<MiniEvaluationProps> = ({
   const deleteMyReview = () => {
     deleteReview.mutate(data.reviewId, {
       onSuccess: () => {
-        window.location.reload();
+        query.invalidateQueries({
+          queryKey: ["evaluation", { isbn, size: 8, order: "recent" }],
+        });
+        query.invalidateQueries({ queryKey: ["evaluation-count", { isbn }] });
       },
     });
   };

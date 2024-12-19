@@ -5,6 +5,7 @@ import { Textarea } from "@/app/components/Textarea/Textarea";
 import { useCreateReview } from "@/hook/reactQuery/book/useCreateReview";
 import { useInput } from "@/hook/useInput";
 import { useLogin } from "@/hook/useLogin";
+import { useQueryClient } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 
@@ -19,25 +20,43 @@ const RegisterUserEvaluation = ({ isbn }: RegisterUserEvaluationProps) => {
   const { value: review, handleChange: onCreateReview } = useInput("");
   const createReview = useCreateReview();
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [createReviewModal, setCreateReviewModal] = useState<boolean>(false);
+  const query = useQueryClient();
 
   const handleReviewSubmit = () => {
     if (isLoggedIn && review.trim().length > 0) {
-      createReview.mutate({ bookIsbn: isbn, content: review });
+      setCreateReviewModal(true);
+    } else {
+      setShowModal(true);
     }
-    setShowModal(true);
+  };
+  const createMyReview = () => {
+    if (isLoggedIn && review.trim().length > 0) {
+      createReview.mutate(
+        { bookIsbn: isbn, content: review },
+        {
+          onSuccess: () => {
+            query.invalidateQueries({
+              queryKey: ["evaluation", { isbn, size: 8, order: "recent" }],
+            });
+            query.invalidateQueries({
+              queryKey: ["evaluation-count", { isbn }],
+            });
+            setCreateReviewModal(false);
+          },
+        },
+      );
+    }
   };
 
   const closeModal = () => setShowModal(false);
 
-  const refreshPage = () => {
-    setShowModal(false);
-    window.location.reload();
-  };
+  const isCreateReviewModal = () => setCreateReviewModal(!createReviewModal);
 
   return (
     <>
       <p className="font-SpoqaHanSansNeo font-bold 2xl:text-3xl xl:text-2xl lg:text-xl md:text-lg sm:text-base my-7">
-        한줄평을 작성해보세요
+        한 줄평을 작성해보세요
       </p>
       <div className="relative font-Pretendard">
         <Textarea
@@ -45,7 +64,7 @@ const RegisterUserEvaluation = ({ isbn }: RegisterUserEvaluationProps) => {
           value={review}
           className="font-regular 2xl:text-2xl xl:text-xl lg:text-lg md:text-base sm:text-sm w-full min-h-[179px]"
           onChange={onCreateReview}
-          placeholder="한줄평을 자유롭게 작성해보세요."
+          placeholder="한 줄평을 자유롭게 작성해보세요."
         />
         <div className="absolute bottom-7 right-7 md:bottom-6 md:right-6 sm:bottom-5 sm:right-5">
           <Button
@@ -70,17 +89,17 @@ const RegisterUserEvaluation = ({ isbn }: RegisterUserEvaluationProps) => {
         />
       ) : review.trim().length > 0 ? (
         <Modal
-          title="한줄평 작성 완료"
-          content="한줄평이 등록되었습니다"
-          isOpen={showModal}
-          onClose={refreshPage}
-          onConfirm={refreshPage}
+          title="한 줄평 작성 완료"
+          content="한 줄평을 등록 하시겠습니까?"
+          isOpen={createReviewModal}
+          onClose={isCreateReviewModal}
+          onConfirm={createMyReview}
           buttonTitle="확인"
         />
       ) : (
         <Modal
-          title="한줄평"
-          content="한줄평을 적어주세요"
+          title="한 줄평"
+          content="한 줄평을 적어주세요"
           isOpen={showModal}
           onClose={closeModal}
           onConfirm={closeModal}

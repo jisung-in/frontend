@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export const useGetReviewCount = (isbn: string) => {
   return useQuery({
-    queryKey: ["book", isbn],
+    queryKey: ["evaluation-count", isbn],
     queryFn: () =>
       axiosInstance
         .get(`/v1/books/${isbn}/reviews/count`)

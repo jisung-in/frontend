@@ -2,6 +2,7 @@ import Profile from "@/assets/img/profile.png";
 import { useCreateReviewLike } from "@/hook/reactQuery/book/useCreateReviewLike";
 import { useDeleteReview } from "@/hook/reactQuery/book/useDeleteReview";
 import { useDeleteReviewLike } from "@/hook/reactQuery/book/useDeleteReviewLike";
+import { useQueryClient } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
 import { Heart } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -40,6 +41,7 @@ const EvaluationCard: React.FC<UserEvaluation> = ({
   const deleteReview = useDeleteReview();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [deleteShowModal, setDeleteShowModal] = useState<boolean>(false);
+  const query = useQueryClient();
 
   useEffect(() => {
     setCount(data.likeCount);

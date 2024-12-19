@@ -25,6 +25,7 @@ const HaveNotData = dynamic(
 );
 
 const UserEvaluation = ({ params }: { params: { isbn: string } }) => {
+  const isbn = params.isbn;
   const { isLoggedIn } = useLogin();
   const { data: reviewLikeIds } = isLoggedIn
     ? useGetReviewLike()
@@ -75,6 +76,7 @@ const UserEvaluation = ({ params }: { params: { isbn: string } }) => {
                     data={items}
                     userId={myDetailData?.userId || -1}
                     isLike={isLike}
+                    isbn={isbn}
                   />
                 </div>
               );
