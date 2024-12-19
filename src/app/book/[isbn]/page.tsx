@@ -3,6 +3,7 @@ import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import BestSeller from "@/assets/img/best-seller.svg";
 import { getDehydratedQueries } from "@/lib/react-query.utils";
 import { EvaluationQueryOptions } from "@/services/evaluation/EvaluationQueries";
+import { TalkRoomQueryOptions } from "@/services/talk-room/TalkRoomQueries";
 import { HydrationBoundary } from "@tanstack/react-query";
 import BookInformation from "../_component/BookInformation";
 import RegisterUserEvaluation from "../_component/RegisterUserEvaluation";
@@ -39,6 +40,11 @@ const page = async ({ params }: { params: { isbn: string } }) => {
       isbn: params.isbn,
       size: 8,
       order: "recent",
+    }),
+    TalkRoomQueryOptions.getRelatedTalkRooms({
+      isbn: params.isbn,
+      page: 1,
+      size: 8,
     }),
   ];
 

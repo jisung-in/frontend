@@ -108,10 +108,3 @@ const BookInformation: React.FC<BookInformationProps> = ({ isbn, data }) => {
 };
 
 export default BookInformation;
-function useState(arg0: boolean): [any, any] {
-  throw new Error("Function not implemented.");
-}
-
-function useEffect(arg0: () => void, arg1: any[]) {
-  throw new Error("Function not implemented.");
-}
