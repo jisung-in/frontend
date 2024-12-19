@@ -23,10 +23,7 @@ interface BookInformationProps {
   isbn: string;
 }
 
-const BookInformation: React.FC<BookInformationProps> = async ({
-  isbn,
-  data,
-}) => {
+const BookInformation: React.FC<BookInformationProps> = ({ isbn, data }) => {
   return (
     <div className="flex flex-row mt-5 mb-24 md:mb-8 sm:mb-8">
       <Image
@@ -56,9 +53,7 @@ const BookInformation: React.FC<BookInformationProps> = async ({
               <p className="font-Inter flex flex-row flex-wrap gap-4 sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl text-[#656565] mb-10">
                 <span>{data.data.publisher}</span>
                 <span> {data.data.authors.join(", ")}</span>
-                <span>
-                  <span>{data.data.dateTime.slice(0, 4)}</span>
-                </span>
+                <span>{data.data.dateTime.slice(0, 4)}</span>
               </p>
             </div>
           </div>
@@ -113,3 +108,10 @@ const BookInformation: React.FC<BookInformationProps> = async ({
 };
 
 export default BookInformation;
+function useState(arg0: boolean): [any, any] {
+  throw new Error("Function not implemented.");
+}
+
+function useEffect(arg0: () => void, arg1: any[]) {
+  throw new Error("Function not implemented.");
+}
