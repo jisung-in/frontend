@@ -10,11 +10,11 @@ import { useState } from "react";
 
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
-type RegisterEvaluationProps = {
+type RegisterUserEvaluationProps = {
   isbn: string;
 };
 
-const RegisterEvaluation = ({ isbn }: RegisterEvaluationProps) => {
+const RegisterUserEvaluation = ({ isbn }: RegisterUserEvaluationProps) => {
   const { isLoggedIn } = useLogin();
   const { value: review, handleChange: onCreateReview } = useInput("");
   const createReview = useCreateReview();
@@ -91,4 +91,4 @@ const RegisterEvaluation = ({ isbn }: RegisterEvaluationProps) => {
   );
 };
 
-export default RegisterEvaluation;
+export default RegisterUserEvaluation;

@@ -5,7 +5,7 @@ import { getDehydratedQueries } from "@/lib/react-query.utils";
 import { EvaluationQueryOptions } from "@/services/evaluation/EvaluationQueries";
 import { HydrationBoundary } from "@tanstack/react-query";
 import BookInformation from "../_component/BookInformation";
-import RegisterEvaluation from "../_component/RegisterEvaluation";
+import RegisterUserEvaluation from "../_component/RegisterUserEvaluation";
 import RelatedTalkRoom from "../_component/RelatedTalkRoom";
 import UserEvaluation from "../_component/UserEvaluation";
 
@@ -26,7 +26,6 @@ const page = async ({ params }: { params: { isbn: string } }) => {
     if (!res.ok) {
       throw new Error("책 정보를 가져오는 데 문제가 발생했습니다.");
     }
-
     bookDetail = await res.json();
   } catch (error) {
     console.error(error);
@@ -59,7 +58,7 @@ const page = async ({ params }: { params: { isbn: string } }) => {
 
       <div className="w-full bg-white flex flex-col items-center">
         <Layout className="max-w-[2000px] py-10 px-[5%]">
-          <RegisterEvaluation isbn={params.isbn} />
+          <RegisterUserEvaluation isbn={params.isbn} />
 
           <UserEvaluation params={params} />
         </Layout>
