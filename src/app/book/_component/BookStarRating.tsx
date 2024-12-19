@@ -1,10 +1,9 @@
-"use client";
-
 import { useCreateStarRating } from "@/hook/reactQuery/book/useCreateStarRating";
 import { useDeleteStarRating } from "@/hook/reactQuery/book/useDeleteStarRating";
 import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";
 import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
 import { useLogin } from "@/hook/useLogin";
+import { useQueryClient } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
 import { Star, StarHalf } from "lucide-react";
 import dynamic from "next/dynamic";
@@ -33,7 +32,6 @@ const evaluationMap: { [key: number]: string } = {
 
 const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
   const { isLoggedIn } = useLogin();
-
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -42,6 +40,12 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
     useGetStarRating(isbn);
   const createStarRating = useCreateStarRating();
   const deleteStarRating = useDeleteStarRating();
+  const query = useQueryClient();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     getStarRating && setMyStarRate(getStarRating.rating);
@@ -87,6 +91,9 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
           }
         }
         await refetchStarRating();
+        query.invalidateQueries({
+          queryKey: ["book-information", { isbn }],
+        });
       } else {
         setShowModal(true);
       }
@@ -158,61 +165,70 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
 
   return (
     <>
-      <div className="flex flex-row items-cemter md:flex-col-reverse sm:flex-col-reverse md:gap-5 sm:gap-5 gap-10">
-        <div className="flex flex-col">
-          <div className="flex">
-            {Array(5)
-              .fill(1)
-              .map((_, index: number) => (
-                <div key={index} className="relative" onMouseLeave={mouseLeave}>
-                  <div
-                    className="absolute left-0 top-0 w-1/2 h-full cursor-pointer z-10"
-                    onClick={() => clickStarRate(index, true)}
-                    onMouseMove={() => mouseMove(index, true)}
-                  />
-                  <div
-                    className="absolute right-0 top-0 w-1/2 h-full cursor-pointer z-10"
-                    onClick={() => clickStarRate(index, false)}
-                    onMouseMove={() => mouseMove(index, false)}
-                  />
-                  {cancelMessage(index) && (
-                    <>
-                      <span className="absolute w-[65px] text-center bottom-full left-1/2 transform -translate-x-1/2 bg-[#624E45] text-white text-sm px-2 py-1 rounded-md">
-                        취소하기
-                      </span>
-                      <div className="absolute w-0 h-0 border-8 border-solid border-[#624E45] border-t-[10px] border-r-transparent border-b-transparent border-l-transparent left-[70%] transform -translate-x-1/2" />
-                    </>
-                  )}
-                  {myStarRate ? myStarRating(index) : noneMyStarRate(index)}
-                </div>
-              ))}
+      {isClient ? (
+        <>
+          <div className="flex flex-row items-cemter md:flex-col-reverse sm:flex-col-reverse md:gap-5 sm:gap-5 gap-10">
+            <div className="flex flex-col">
+              <div className="flex">
+                {Array(5)
+                  .fill(1)
+                  .map((_, index: number) => (
+                    <div
+                      key={index}
+                      className="relative"
+                      onMouseLeave={mouseLeave}
+                    >
+                      <div
+                        className="absolute left-0 top-0 w-1/2 h-full cursor-pointer z-10"
+                        onClick={() => clickStarRate(index, true)}
+                        onMouseMove={() => mouseMove(index, true)}
+                      />
+                      <div
+                        className="absolute right-0 top-0 w-1/2 h-full cursor-pointer z-10"
+                        onClick={() => clickStarRate(index, false)}
+                        onMouseMove={() => mouseMove(index, false)}
+                      />
+                      {cancelMessage(index) && (
+                        <>
+                          <span className="absolute w-[65px] text-center bottom-full left-1/2 transform -translate-x-1/2 bg-[#624E45] text-white text-sm px-2 py-1 rounded-md">
+                            취소하기
+                          </span>
+                          <div className="absolute w-0 h-0 border-8 border-solid border-[#624E45] border-t-[10px] border-r-transparent border-b-transparent border-l-transparent left-[70%] transform -translate-x-1/2" />
+                        </>
+                      )}
+                      {myStarRate ? myStarRating(index) : noneMyStarRate(index)}
+                    </div>
+                  ))}
+              </div>
+              <span className="2xl:text-base xl:text-base lg:text-sm md:text-sm sm:text-xs text-[#B1B1B1] mt-4 xl:mt-[18px] 2xl:mt-[19px] sm:text-center md:text-center">
+                {evaluate}
+              </span>
+            </div>
+
+            <p className="flex flex-col items-center">
+              <span className="font-Inter 2xl:text-[44px] xl:text-[40px] lg:text-[36px] md:text-[32px] sm:text-[28px]">
+                {ratingAverage
+                  ? ratingAverage.toFixed(1).toString()
+                  : (0).toFixed(1).toString()}
+              </span>
+              <span className="2xl:text-base xl:text-base lg:text-sm md:text-sm sm:text-xs text-[#B1B1B1]">
+                평균별점
+              </span>
+            </p>
           </div>
-          <span className="2xl:text-base xl:text-base lg:text-sm md:text-sm sm:text-xs text-[#B1B1B1] mt-4 xl:mt-[18px] 2xl:mt-[19px] sm:text-center md:text-center">
-            {evaluate}
-          </span>
-        </div>
-
-        <p className="flex flex-col items-center">
-          <span className="font-Inter 2xl:text-[44px] xl:text-[40px] lg:text-[36px] md:text-[32px] sm:text-[28px]">
-            {ratingAverage
-              ? ratingAverage.toFixed(1).toString()
-              : (0).toFixed(1).toString()}
-          </span>
-          <span className="2xl:text-base xl:text-base lg:text-sm md:text-sm sm:text-xs text-[#B1B1B1]">
-            평균별점
-          </span>
-        </p>
-      </div>
-
-      {!isLoggedIn && (
-        <Modal
-          title="로그인"
-          content="로그인을 해야 이용할 수 있는 기능입니다"
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-          onConfirm={() => setShowModal(false)}
-          buttonTitle="확인"
-        />
+          {!isLoggedIn && (
+            <Modal
+              title="로그인"
+              content="로그인을 해야 이용할 수 있는 기능입니다"
+              isOpen={showModal}
+              onClose={() => setShowModal(false)}
+              onConfirm={() => setShowModal(false)}
+              buttonTitle="확인"
+            />
+          )}
+        </>
+      ) : (
+        <>Loading...</>
       )}
     </>
   );

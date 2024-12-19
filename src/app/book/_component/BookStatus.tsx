@@ -1,5 +1,3 @@
-"use client";
-
 import PasueOff from "@/assets/img/pause-off.png";
 import PasueOn from "@/assets/img/pause-on.png";
 import ReadOff from "@/assets/img/read-off.png";
@@ -39,7 +37,7 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn }) => {
   const { data: statusData, refetch } = isLoggedIn
     ? useGetBookState()
     : { data: [], refetch: () => {} };
-  const [status, setStatus] = useState<string>("");
+  const [status, setStatus] = useState<string | null>(null);
   const [bookStateId, setBookStateId] = useState<number | null>(null);
   const statusMap: { [key: string]: string } = {
     "읽고 싶은": "want",
@@ -48,6 +46,11 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn }) => {
     "잠시 멈춤": "pause",
     중단: "stop",
   };
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     const bookState = Array.isArray(statusData)
@@ -57,7 +60,7 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn }) => {
       setStatus(statusMap[bookState.status] || "");
       setBookStateId(bookState.id);
     } else {
-      setStatus("");
+      setStatus(null);
       setBookStateId(null);
     }
   }, [statusData, isbn]);
@@ -108,37 +111,43 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn }) => {
 
   return (
     <>
-      {statusOptions.map(({ status: statusOption, Correct, InCorrect }) => (
-        <div
-          key={statusOption}
-          className="cursor-pointer"
-          onClick={() => changeStatus(statusOption)}
-        >
-          {status === statusOption ? (
-            <Image
-              className="2xl:size-[64px] xl:size-[56px] size-[50px]"
-              src={Correct}
-              alt="상태"
-            />
-          ) : (
-            <Image
-              className="2xl:size-[64px] xl:size-[56px] size-[50px]"
-              src={InCorrect}
-              alt="상태"
+      {isClient ? (
+        <>
+          {statusOptions.map(({ status: statusOption, Correct, InCorrect }) => (
+            <div
+              key={statusOption}
+              className="cursor-pointer"
+              onClick={() => changeStatus(statusOption)}
+            >
+              {status === statusOption ? (
+                <Image
+                  className="2xl:size-[64px] xl:size-[56px] size-[50px]"
+                  src={Correct}
+                  alt="상태"
+                />
+              ) : (
+                <Image
+                  className="2xl:size-[64px] xl:size-[56px] size-[50px]"
+                  src={InCorrect}
+                  alt="상태"
+                />
+              )}
+            </div>
+          ))}
+
+          {!isLoggedIn && (
+            <Modal
+              title="로그인"
+              content="로그인을 해야 이용할 수 있는 기능입니다"
+              isOpen={showModal}
+              onClose={closeModal}
+              onConfirm={closeModal}
+              buttonTitle="확인"
             />
           )}
-        </div>
-      ))}
-
-      {!isLoggedIn && (
-        <Modal
-          title="로그인"
-          content="로그인을 해야 이용할 수 있는 기능입니다"
-          isOpen={showModal}
-          onClose={closeModal}
-          onConfirm={closeModal}
-          buttonTitle="확인"
-        />
+        </>
+      ) : (
+        <>Loading...</>
       )}
     </>
   );

@@ -5,12 +5,6 @@ import ParticipationCondition from "../../_component/ParticipationCondition";
 import TalkRoomComments from "../../_component/TalkRoomComments";
 import TalkRoomDetail from "../../_component/TalkRoomDetail";
 
-interface BookProps {
-  id: number;
-  bookIsbn: string;
-  status: string;
-}
-
 const Page = ({ params }: { params: { id: number } }) => {
   return (
     <>
