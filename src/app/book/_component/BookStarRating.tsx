@@ -1,3 +1,6 @@
+import EmptyStar from "@/assets/img/empty-star.svg";
+import FullStar from "@/assets/img/full-star.svg";
+import HalfStar from "@/assets/img/half-star.svg";
 import { useCreateStarRating } from "@/hook/reactQuery/book/useCreateStarRating";
 import { useDeleteStarRating } from "@/hook/reactQuery/book/useDeleteStarRating";
 import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";
@@ -5,7 +8,6 @@ import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
 import { useLogin } from "@/hook/useLogin";
 import { useQueryClient } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
-import { Star, StarHalf } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
@@ -124,42 +126,23 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
     );
   };
 
-  const star = (
-    <Star
-      fill="#624E45"
-      className="text-[#624E45] 2xl:size-[50px] xl:size-11 lg:size-10 md:size-10 sm:size-9"
-    />
-  );
-  const halfStar = (
-    <div className="relative">
-      <Star className="text-[#624E45] 2xl:size-[50px] xl:size-11 lg:size-10 md:size-10 sm:size-9" />
-      <StarHalf
-        fill="#624E45"
-        className="absolute top-0 left-0 text-[#624E45] 2xl:size-[50px] xl:size-11 lg:size-10 md:size-10 sm:size-9"
-      />
-    </div>
-  );
-  const nonStar = (
-    <Star className="text-[#624E45] 2xl:size-[50px] xl:size-11 lg:size-10 md:size-10 sm:size-9" />
-  );
-
   const myStarRating = (index: number) => {
     if (myStarRate >= index + 1) {
-      return star;
+      return <FullStar />;
     } else if (myStarRate >= index + 0.5) {
-      return halfStar;
+      return <HalfStar />;
     } else {
-      return nonStar;
+      return <EmptyStar />;
     }
   };
 
   const noneMyStarRate = (index: number) => {
     if (starRate >= index + 1) {
-      return star;
+      return <FullStar />;
     } else if (starRate >= index + 0.5) {
-      return halfStar;
+      return <HalfStar />;
     } else {
-      return nonStar;
+      return <EmptyStar />;
     }
   };
 
@@ -228,7 +211,7 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
           )}
         </>
       ) : (
-        <>Loading...</>
+        <>별점 불러오는 중...</>
       )}
     </>
   );
