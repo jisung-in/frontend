@@ -147,7 +147,7 @@ const BookStatus: React.FC<BookStatusCondition> = ({ isbn }) => {
           )}
         </>
       ) : (
-        <>Loading...</>
+        <>책 상태 불러오는중...</>
       )}
     </>
   );
