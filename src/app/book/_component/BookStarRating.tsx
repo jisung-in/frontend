@@ -45,6 +45,7 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
   const deleteStarRating = useDeleteStarRating();
   const query = useQueryClient();
   const [isClient, setIsClient] = useState(false);
+  const starWidth = 51;
 
   useEffect(() => {
     setIsClient(true);
@@ -57,39 +58,46 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
   const patchStarRating = usePatchStarRating(getStarRating?.id || 0);
 
   const mouseMove = useCallback(
-    debounce((index: number, isLeftSide: boolean) => {
-      const rating = index + (isLeftSide ? 0.5 : 1);
-      setStarRate(rating);
-    }, 30), // 0.03초 디바운스 설정
+    debounce((e) => {
+      const offsetX = e.nativeEvent.offsetX;
+      const calculatedStarRate = Math.floor(offsetX / starWidth);
+      const half = offsetX % starWidth <= starWidth / 2;
+      setStarRate(calculatedStarRate + (half ? 0.5 : 1));
+    }, 25), // 0.025초 디바운스 설정
     [],
   );
 
-  const mouseLeave = () => {
-    setStarRate(0);
-  };
+  const mouseLeave = useCallback(
+    debounce(() => {
+      setStarRate(0);
+    }, 25), // 0.025초 디바운스 설정, mouseMove와 맞춰야 정상 작동
+    [],
+  );
 
   const clickStarRate = useCallback(
-    debounce(async (index: number, isHalf: boolean) => {
-      const starRating = index + (isHalf ? 0.5 : 1);
-      if (isLoggedIn) {
-        if (myStarRate === starRating) {
+    debounce(async () => {
+      if (!isLoggedIn) return setShowModal(true);
+
+      try {
+        if (myStarRate === starRate) {
           setMyStarRate(0);
           setStarRate(0);
           if (getStarRating?.id) {
             await deleteStarRating.mutateAsync(getStarRating.id);
           }
         } else {
-          setMyStarRate(starRating);
-          setStarRate(starRating);
+          setMyStarRate(starRate);
+          setStarRate(starRate);
+
           if (getStarRating?.id) {
             await patchStarRating.mutateAsync({
               bookIsbn: isbn,
-              rating: starRating,
+              rating: starRate,
             });
           } else {
             await createStarRating.mutateAsync({
               bookIsbn: isbn,
-              rating: starRating,
+              rating: starRate,
             });
           }
         }
@@ -97,8 +105,8 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
         query.invalidateQueries({
           queryKey: ["book-information", { isbn }],
         });
-      } else {
-        setShowModal(true);
+      } catch (error) {
+        console.error("오류 발생:", error);
       }
     }, 300), // 0.3초 디바운스 설정
     [
@@ -153,29 +161,18 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
         <>
           <div className="flex flex-row items-cemter md:flex-col-reverse sm:flex-col-reverse md:gap-5 sm:gap-5 gap-10">
             <div className="flex flex-col">
-              <div className="flex">
-                {Array(5)
-                  .fill(1)
-                  .map((_, index: number) => (
-                    <div
-                      key={index}
-                      className="relative"
-                      onMouseLeave={mouseLeave}
-                    >
-                      <div
-                        className="absolute left-0 top-0 w-1/2 h-full cursor-pointer z-10"
-                        onClick={() => clickStarRate(index, true)}
-                        onMouseMove={() => mouseMove(index, true)}
-                      />
-                      <div
-                        className="absolute right-0 top-0 w-1/2 h-full cursor-pointer z-10"
-                        onClick={() => clickStarRate(index, false)}
-                        onMouseMove={() => mouseMove(index, false)}
-                      />
-                      {cancelMessage(index) && <CancelStarRateMessage />}
-                      {myStarRate ? myStarRating(index) : noneMyStarRate(index)}
-                    </div>
-                  ))}
+              <div
+                className="w-[255px] flex flex-row cursor-pointer"
+                onClick={clickStarRate}
+                onMouseMove={mouseMove}
+                onMouseLeave={mouseLeave}
+              >
+                {Array.from({ length: 5 }, (_, index) => (
+                  <div key={index} className="relative pointer-events-none">
+                    {cancelMessage(index) && <CancelStarRateMessage />}
+                    {myStarRate ? myStarRating(index) : noneMyStarRate(index)}
+                  </div>
+                ))}
               </div>
               <span className="2xl:text-base xl:text-base lg:text-sm md:text-sm sm:text-xs text-[#B1B1B1] mt-4 xl:mt-[18px] 2xl:mt-[19px] sm:text-center md:text-center">
                 {evaluate}
