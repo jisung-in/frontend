@@ -1,5 +1,5 @@
 "use client";
-import BackArrow from "@/assets/img/back-arrow.svg";
+import { ArrowLeft } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const BackButton = () => {
@@ -7,7 +7,7 @@ const BackButton = () => {
 
   return (
     <button className="max-w-[25px]" onClick={() => router.back()}>
-      <BackArrow />
+      <ArrowLeft className="text-[#624E45] sm:size-4 size-6 sm:mb-[2px]" />
     </button>
   );
 };

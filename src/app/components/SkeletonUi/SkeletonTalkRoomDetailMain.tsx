@@ -13,28 +13,27 @@ const SkeletonTalkRoomDetailMain = () => {
             </div>
           </div>
           <div className="flex flex-col items-center">
-            <Skeleton className="w-[300px] h-[50px] mt-3 mb-4" />
-            <Skeleton className="w-[250px] h-[50px] mb-4" />
-            <Skeleton className="w-[260px] h-[339px] mb-4" />
-            <Skeleton className="w-[300px] h-[50px]" />
+            <Skeleton className="w-[260px] sm:w-40 h-[50px] mt-3 mb-4" />
+            <Skeleton className="w-[260px] sm:w-40 h-[50px] mb-4" />
+            <Skeleton className="w-[260px] sm:w-40 h-[339px] mb-4" />
+            <Skeleton className="w-[300px] sm:w-40 h-[50px]" />
           </div>
           <div className="flex flex-col items-center mt-[19px]">
             <Skeleton className="w-[100px] h-[50px] mb-4" />
-            <Skeleton className="border border-[#F4E4CE] border-solid rounded-[4px] w-[300px] h-[50px]" />
+            <Skeleton className="border border-[#F4E4CE] border-solid rounded-[4px] sm:w-40 sm:h-10 w-[300px] h-[50px]" />
           </div>
         </div>
 
-        <hr className="border border-solid border-[#F5EFE5] mt-[34px] mb-[25px]" />
+        <hr className="border border-solid border-[#F5EFE5] my-7" />
 
         <div className="min-h-[120px]">
-          <Skeleton className="w-[200px] h-[40px] mb-4" />
+          <Skeleton className="w-full h-[40px] mb-4" />
           <Skeleton className="w-full h-[50px] mb-4" />
         </div>
 
         <hr className="border border-solid border-[#F5EFE5] mt-[25px] mb-[35px]" />
 
-        <div className="font-semibold text-2xl mb-[18px]">이미지</div>
-        <Skeleton className="w-[160px] h-[160px] mb-4" />
+        <Skeleton className="2xl:size-40 xl:size-36 lg:size-32 md:size-28 sm:size-24 border border-solid rounded-[4px]" />
       </div>
     </div>
   );

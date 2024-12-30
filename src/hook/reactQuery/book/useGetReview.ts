@@ -1,7 +1,7 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-type ReviewPage = {
+interface EvaluationInfoProps {
   content: {
     reviewId: number;
     ratingId: number;
@@ -17,21 +17,21 @@ type ReviewPage = {
   size: number;
   isFirst: boolean;
   isLast: boolean;
-};
+}
 
-type RequestField = {
+interface EvaluationRequestProps {
   isbn: string;
   size: number;
   order: string;
-};
+}
 
 export const useGetReview = ({
   isbn,
   size,
   order = "recent",
-}: RequestField) => {
-  return useInfiniteQuery<ReviewPage, Error>({
-    queryKey: ["bookEvaluationUser", isbn],
+}: EvaluationRequestProps) => {
+  return useInfiniteQuery<EvaluationInfoProps, Error>({
+    queryKey: ["evaluation", isbn, size, order],
     queryFn: async ({ pageParam = 1 }) => {
       return await axiosInstance
         .get(
@@ -45,5 +45,7 @@ export const useGetReview = ({
     },
     initialPageParam: 1,
     throwOnError: true,
+    staleTime: 5000, // 5초 마다 신선한 데이터로 교체
+    gcTime: 5 * 60 * 1000, // 캐시 데이터 5분 유지
   });
 };

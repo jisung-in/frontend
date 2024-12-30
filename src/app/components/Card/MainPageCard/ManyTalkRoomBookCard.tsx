@@ -21,7 +21,7 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
       md:w-[27vw]
       lg:w-[21vw]
       xl:w-[16vw]
-      xl2:w-[14vw]
+      2xl:w-[14vw]
       h-full"
     >
       <BookMain>
@@ -31,7 +31,7 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
             relative
             w-full 
             cursor-pointer 
-            aspect-[0.6] 
+            aspect-[0.7] 
             min-h-[147px] 
             max-h-[375px] 
             "
@@ -42,7 +42,7 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
               md:rounded-[5px]
               lg:rounded-[7px]
               xl:rounded-[9px]
-              xl2:rounded-[10px]"
+              2xl:rounded-[10px]"
               src={data.thumbnail ? data.thumbnail : NoImage}
               alt="책 표지"
               fill
@@ -55,62 +55,63 @@ const ManyTalkRoomBookCard: React.FC<{ data: dataPrpos }> = ({ data }) => {
             />
           </div>
         </BookMain.BookCover>
+
         <BookMain.BookTitle>
-          <div
+          <span
             className="
           sm:text-[12px]
           md:text-[15px]
           lg:text-[17px]
           xl:text-[19px]
-          xl2:text-[21px]
+          2xl:text-[21px]
           sm:mt-[8px]
           md:mt-[9px]
           lg:mt-[10px]
           xl:mt-[11px]
-          xl2:mt-[12px]
+          2xl:mt-[12px]
           font-semibold text-[#000] overflow-hidden line-clamp-1"
           >
             {data.title}
-          </div>
+          </span>
         </BookMain.BookTitle>
         <BookMain.Publisher>
-          <div
+          <span
             className="
           sm:text-[11px]
           md:text-[13px]
           lg:text-[15px]
           xl:text-[17px]
-          xl2:text-lg
+          2xl:text-lg
           overflow-hidden line-clamp-1"
           >
             {data.publisher}
-          </div>
+          </span>
         </BookMain.Publisher>
         <BookMain.Author>
-          <div
+          <span
             className="
           sm:text-[11px]
           md:text-[13px]
           lg:text-[15px]
           xl:text-[17px]
-          xl2:text-lg 
+          2xl:text-lg 
           overflow-hidden line-clamp-1"
           >
             {data.authors.join(", ")}
-          </div>
+          </span>
         </BookMain.Author>
         <BookMain.Year>
-          <div
+          <span
             className="          
           sm:text-[11px]
           md:text-[13px]
           lg:text-[15px]
           xl:text-[17px]
-          xl2:text-lg
+          2xl:text-lg
           overflow-hidden line-clamp-1"
           >
             {data.dateTime.slice(0, 4)}
-          </div>
+          </span>
         </BookMain.Year>
       </BookMain>
     </div>

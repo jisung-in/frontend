@@ -1,24 +1,24 @@
 import axiosInstance from "@/app/api/requestApi";
 import { useInfiniteQuery } from "@tanstack/react-query";
 
-type TalkRoomRequest = {
+interface TalkRoomRequestProps {
   page?: number;
   size?: number;
   order?: string;
   search?: string;
   sortbydate?: "1m" | "1w" | "1d" | "";
-};
+}
 
-type TalkRoomInfo = {
-  content: TalkRoom[];
+interface TalkRoomInfoProps {
+  content: TalkRoomProps[];
   hasContent: boolean;
   number: number;
   size: number;
   isFirst: boolean;
   isLast: boolean;
-};
+}
 
-type TalkRoom = {
+interface TalkRoomProps {
   id: number;
   profileImage: string;
   username: string;
@@ -31,15 +31,15 @@ type TalkRoom = {
   readingStatuses: string[];
   registeredDateTime: string;
   creatorId: number;
-};
+}
 
 export const useGetRooms = ({
   size,
   order = "recent",
   search = "",
   sortbydate = "",
-}: TalkRoomRequest) => {
-  return useInfiniteQuery<TalkRoomInfo, Error>({
+}: TalkRoomRequestProps) => {
+  return useInfiniteQuery<TalkRoomInfoProps, Error>({
     queryKey: ["talkrooms", size, order, search, sortbydate],
     queryFn: async ({ pageParam = 1 }) => {
       return await axiosInstance
@@ -54,5 +54,7 @@ export const useGetRooms = ({
     },
     initialPageParam: 1,
     throwOnError: true,
+    staleTime: 5000, // 5초 마다 신선한 데이터로 교체
+    gcTime: 5 * 60 * 1000, // 캐시 데이터 5분 유지
   });
 };

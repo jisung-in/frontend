@@ -1,9 +1,9 @@
 "use client";
 
 import TalkRoomCard from "@/app/components/Card/MainPageCard/TalkRoomCard";
+import MainThemeTitle from "@/app/components/MainThemeTitle/MainThemeTitle";
 import Pagination from "@/app/components/Pagination/Pagination";
 import SkeletonTalkRoomCard from "@/app/components/SkeletonUi/SkeletonTalkRoomCard";
-import { ThemeMain } from "@/app/components/Theme/Theme";
 import RecentMakeTalkRoom from "@/assets/img/recent-make-talk-room.svg";
 import { useGetBookRelatedTalkRoom } from "@/hook/reactQuery/book/useGetBookRelatedTalkRoom";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
@@ -47,22 +47,20 @@ const page = ({ params }: { params: { isbn: string } }) => {
   });
 
   return (
-    <div className="flex flex-col">
-      <ThemeMain.MainTheme>
-        <div className="flex mt-[78px] mb-[23px]">
-          <div className="flex items-center mb-[23px]">
-            <div className="text-[30px] mr-[16px]">연관된 토크방</div>
-            <div className="w-[30px] h-[30px]">
-              <RecentMakeTalkRoom />
-            </div>
-          </div>
-        </div>
-      </ThemeMain.MainTheme>
+    <div className="flex flex-col items-center w-full max-w-[1300px] min-h-screen">
+      <div className="w-full max-w-[1225px] px-[5%] 2xl:px-0">
+        <MainThemeTitle
+          title="연관된 토크방"
+          url={`/talkroom/related/${params.isbn}`}
+        >
+          <RecentMakeTalkRoom />
+        </MainThemeTitle>
+      </div>
 
       {isLoading && <SkeletonTalkRoomCard />}
       {relateData && relateData.queryResponse.length > 0 ? (
         <>
-          <div className="flex fex-row flex-wrap gap-x-[19px] gap-y-[30px] mb-[121px]">
+          <div className="flex fex-row flex-wrap justify-center gap-x-[40px] gap-y-[30px] w-full mb-[30px] px-[5%] xl:px-0 2xl:px-0">
             {relateData.queryResponse.map((data: TalkRoom) => {
               const isLike =
                 isLoggedIn &&
@@ -78,9 +76,7 @@ const page = ({ params }: { params: { isbn: string } }) => {
               );
             })}
           </div>
-          {isLoading ? (
-            <></>
-          ) : (
+          {!isLoading && (
             <Pagination
               totalItems={relateData?.totalCount ?? 0}
               postPage={relateData?.size ?? 12}

@@ -1,13 +1,10 @@
 import BookTitle from "@/assets/img/book-title.svg";
-import LikeSpeechBubble from "@/assets/img/like-speech-bubble.svg";
-import NotLike from "@/assets/img/not-like.svg";
-import Profile from "@/assets/img/profile.png";
 import Star from "@/assets/img/star.svg";
+import { Heart } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
-import IconButton from "../../IconButton/IconButton";
-import LikeButton from "../../LikeButton/LikeButton";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import LikeButton from "../../LikeButton/LikeButton";
 
 type MiniEvaluationProps = {
   id: number;
@@ -32,12 +29,7 @@ const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
 }) => {
   const router = useRouter();
   const [count, setCount] = useState<number>(data.like);
-  const [isLike, setIsLike] = useState<boolean>(false);
-  const changeIsLike = (isLike: boolean) => {
-    setIsLike(!isLike);
-    setCount(count + 1);
-    if (isLike) setCount(count - 1);
-  };
+
   return (
     <div
       className="w-[100%] bg-[#FFF] shadow-lg shadow-[#E7E7E7] rounded-[11px] font-Pretendard font-medium cursor-pointer"
@@ -90,20 +82,14 @@ const MyEvaluationCard: React.FC<{ data: MiniEvaluationProps }> = ({
 
         <div className="flex flex-col gap-4">
           <div className="flex flex-row gap-x-[5px]">
-            <IconButton onClick={() => changeIsLike(isLike)}>
-              {isLike ? (
-                <LikeSpeechBubble width={16} height={15} />
-              ) : (
-                <NotLike width={16} height={15} />
-              )}
-            </IconButton>
+            <Heart className="size-4" stroke="#656565" />
             <div className="font-Inter font-mediumtext-[17px]">
               {count > 999 ? "999+" : count}
             </div>
           </div>
           <hr className="w-full border border-[#E3E3E3]" />
           <div className="w-[80px]">
-            <LikeButton isLike={isLike} onClick={() => changeIsLike(isLike)} />
+            <LikeButton />
           </div>
         </div>
       </div>

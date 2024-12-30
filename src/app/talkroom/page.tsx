@@ -1,4 +1,4 @@
-import TalkRoomPage from "../components/TalkRoomPage/TalkRoomPage";
+import TalkRoomPage from "./_component/TalkRoomPage";
 
 const page = () => {
   return <TalkRoomPage />;

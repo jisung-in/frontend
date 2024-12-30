@@ -1,12 +1,12 @@
 "use client";
-import Profile from "@/assets/img/profile.png";
-import Image from "next/image";
-import MyButton from "../_component/MyButton";
 import { Button } from "@/app/components/Button/Button";
 import { Textarea } from "@/app/components/Textarea/Textarea";
-import { useInput } from "@/hook/useInput";
-import { ChangeEvent, useRef, useState } from "react";
 import BackButton from "@/app/summary/_component/BackButton";
+import Profile from "@/assets/img/profile.png";
+import { useInput } from "@/hook/useInput";
+import Image from "next/image";
+import { ChangeEvent, useRef, useState } from "react";
+import MyButton from "../_component/MyButton";
 
 const EditPage = () => {
   const { value: name, handleChange: onNameChange } = useInput("");
@@ -66,7 +66,7 @@ const EditPage = () => {
         <Textarea value={name} onChange={onNameChange} />
       </div>
 
-      <h2 className="text-[27px] font-[700]">한줄 소개</h2>
+      <h2 className="text-[27px] font-[700]">한 줄 소개</h2>
 
       <div className="h-[300px] bg-gray-30">
         <Textarea value={intro} onChange={onIntroChange} />

@@ -1,3 +1,4 @@
+import { throttle } from "lodash";
 import { MutableRefObject, useEffect } from "react";
 
 interface UseObserverProps {
@@ -18,8 +19,11 @@ const useObserver = ({
   useEffect(() => {
     let observer: IntersectionObserver | undefined;
 
+    // 쓰로틀링을 적용하기 위한 함수
+    const throttledOnIntersect = throttle(onIntersect, 500); // 데이터를 500ms 간격으로 호출
+
     if (target && target.current) {
-      observer = new IntersectionObserver(onIntersect, {
+      observer = new IntersectionObserver(throttledOnIntersect, {
         root,
         rootMargin,
         threshold,
@@ -27,7 +31,10 @@ const useObserver = ({
       observer.observe(target.current);
     }
 
-    return () => observer && observer.disconnect();
+    return () => {
+      observer && observer.disconnect();
+      throttledOnIntersect.cancel(); // 쓰로틀링 취소
+    };
   }, [target, root, rootMargin, threshold, onIntersect]);
 };
 

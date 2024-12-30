@@ -1,4 +1,5 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import { Button } from "../Button/Button";
 
 interface ModalProps {
@@ -20,11 +21,13 @@ const Modal: React.FC<ModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-white rounded-lg shadow-lg w-[650px] sm:w-[320px] overflow-hidden">
         <div className="flex relative justify-center items-center border-b p-4">
-          <h2 className="text-2xl font-bold text-center">{title}</h2>
+          <h2 className="sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl font-bold text-center">
+            {title}
+          </h2>
           <button
             className="absolute top-4 right-4 text-xl font-bold"
             onClick={onClose}
@@ -33,9 +36,11 @@ const Modal: React.FC<ModalProps> = ({
           </button>
         </div>
         <div className="flex h-full justify-center items-center min-h-[200px] sm:min-h-[100px] p-4">
-          <p>{content}</p>
+          <p className="sm:text-xs md:text-sm lg:text-base xl:text-lg 2xl:text-xl">
+            {content}
+          </p>
         </div>
-        <div className="flex">
+        <div className="flex sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
           <Button onClick={onConfirm} rounded="none">
             {buttonTitle}
           </Button>
@@ -43,6 +48,9 @@ const Modal: React.FC<ModalProps> = ({
       </div>
     </div>
   );
+
+  // React Portal을 사용하여 모달을 body에 렌더링
+  return ReactDOM.createPortal(modalContent, document.body);
 };
 
 export default Modal;

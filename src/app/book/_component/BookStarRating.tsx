@@ -1,20 +1,22 @@
-import BigStar from "@/assets/img/big-star.svg";
 import EmptyStar from "@/assets/img/empty-star.svg";
+import FullStar from "@/assets/img/full-star.svg";
 import HalfStar from "@/assets/img/half-star.svg";
 import { useCreateStarRating } from "@/hook/reactQuery/book/useCreateStarRating";
 import { useDeleteStarRating } from "@/hook/reactQuery/book/useDeleteStarRating";
 import { useGetStarRating } from "@/hook/reactQuery/book/useGetStarRating";
 import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
+import { useLogin } from "@/hook/useLogin";
+import { useQueryClient } from "@tanstack/react-query";
+import debounce from "lodash.debounce";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import CancelStarRateMessage from "./CancelStarRateMessage";
 
 const Modal = dynamic(() => import("@/app/components/Modal/Modal"));
 
 type BookStarRatingCondition = {
   isbn: string;
-  isLogin: boolean;
   ratingAverage: number;
-  onTotalRatingChange: () => void;
 };
 
 const evaluationMap: { [key: number]: string } = {
@@ -31,12 +33,8 @@ const evaluationMap: { [key: number]: string } = {
   5.0: "최고에요!",
 };
 
-const BookStarRating = ({
-  isbn,
-  isLogin,
-  ratingAverage,
-  onTotalRatingChange,
-}: BookStarRatingCondition) => {
+const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
+  const { isLoggedIn } = useLogin();
   const [starRate, setStarRate] = useState<number>(0);
   const [myStarRate, setMyStarRate] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
@@ -45,6 +43,13 @@ const BookStarRating = ({
     useGetStarRating(isbn);
   const createStarRating = useCreateStarRating();
   const deleteStarRating = useDeleteStarRating();
+  const query = useQueryClient();
+  const [isClient, setIsClient] = useState(false);
+  const starWidth = 51;
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   useEffect(() => {
     getStarRating && setMyStarRate(getStarRating.rating);
@@ -52,45 +57,69 @@ const BookStarRating = ({
 
   const patchStarRating = usePatchStarRating(getStarRating?.id || 0);
 
-  const mouseMove = (index: number, isLeftSide: boolean) => {
-    const rating = index + (isLeftSide ? 0.5 : 1);
-    setStarRate(rating);
-  };
+  const mouseMove = useCallback(
+    debounce((e) => {
+      const offsetX = e.nativeEvent.offsetX;
+      const calculatedStarRate = Math.floor(offsetX / starWidth);
+      const half = offsetX % starWidth <= starWidth / 2;
+      setStarRate(calculatedStarRate + (half ? 0.5 : 1));
+    }, 25), // 0.025초 디바운스 설정
+    [],
+  );
 
-  const mouseLeave = () => {
-    setStarRate(0);
-  };
+  const mouseLeave = useCallback(
+    debounce(() => {
+      setStarRate(0);
+    }, 25), // 0.025초 디바운스 설정, mouseMove와 맞춰야 정상 작동
+    [],
+  );
 
-  const clickStarRate = async (index: number, isHalf: boolean) => {
-    const starRating = index + (isHalf ? 0.5 : 1);
-    if (isLogin) {
-      if (myStarRate === starRating) {
-        setMyStarRate(0);
-        setStarRate(0);
-        if (getStarRating?.id) {
-          await deleteStarRating.mutateAsync(getStarRating.id);
-        }
-      } else {
-        setMyStarRate(starRating);
-        setStarRate(starRating);
-        if (getStarRating?.id) {
-          await patchStarRating.mutateAsync({
-            bookIsbn: isbn,
-            rating: starRating,
-          });
+  const clickStarRate = useCallback(
+    debounce(async () => {
+      if (!isLoggedIn) return setShowModal(true);
+
+      try {
+        if (myStarRate === starRate) {
+          setMyStarRate(0);
+          setStarRate(0);
+          if (getStarRating?.id) {
+            await deleteStarRating.mutateAsync(getStarRating.id);
+          }
         } else {
-          await createStarRating.mutateAsync({
-            bookIsbn: isbn,
-            rating: starRating,
-          });
+          setMyStarRate(starRate);
+          setStarRate(starRate);
+
+          if (getStarRating?.id) {
+            await patchStarRating.mutateAsync({
+              bookIsbn: isbn,
+              rating: starRate,
+            });
+          } else {
+            await createStarRating.mutateAsync({
+              bookIsbn: isbn,
+              rating: starRate,
+            });
+          }
         }
+        await refetchStarRating();
+        query.invalidateQueries({
+          queryKey: ["book-information", { isbn }],
+        });
+      } catch (error) {
+        console.error("오류 발생:", error);
       }
-      onTotalRatingChange();
-      await refetchStarRating();
-    } else {
-      setShowModal(true);
-    }
-  };
+    }, 300), // 0.3초 디바운스 설정
+    [
+      isLoggedIn,
+      myStarRate,
+      getStarRating,
+      createStarRating,
+      deleteStarRating,
+      patchStarRating,
+      refetchStarRating,
+      isbn,
+    ],
+  );
 
   useEffect(() => {
     setEvaluate(evaluationMap[myStarRate] || "평가하기");
@@ -108,7 +137,7 @@ const BookStarRating = ({
 
   const myStarRating = (index: number) => {
     if (myStarRate >= index + 1) {
-      return <BigStar />;
+      return <FullStar />;
     } else if (myStarRate >= index + 0.5) {
       return <HalfStar />;
     } else {
@@ -118,7 +147,7 @@ const BookStarRating = ({
 
   const noneMyStarRate = (index: number) => {
     if (starRate >= index + 1) {
-      return <BigStar />;
+      return <FullStar />;
     } else if (starRate >= index + 0.5) {
       return <HalfStar />;
     } else {
@@ -128,53 +157,52 @@ const BookStarRating = ({
 
   return (
     <>
-      <div className="flex flex-col">
-        <div className="flex">
-          {Array(5)
-            .fill(1)
-            .map((_, index: number) => (
-              <div key={index} className="relative" onMouseLeave={mouseLeave}>
-                <div
-                  className="absolute left-0 top-0 w-1/2 h-full cursor-pointer"
-                  onClick={() => clickStarRate(index, true)}
-                  onMouseMove={() => mouseMove(index, true)}
-                />
-                <div
-                  className="absolute right-0 top-0 w-1/2 h-full cursor-pointer"
-                  onClick={() => clickStarRate(index, false)}
-                  onMouseMove={() => mouseMove(index, false)}
-                />
-                {cancelMessage(index) && (
-                  <>
-                    <div className="absolute w-[65px] text-center bottom-full left-1/2 transform -translate-x-1/2 bg-[#624E45] text-white text-sm px-2 py-1 rounded-md">
-                      취소하기
-                    </div>
-                    <div className="absolute w-0 h-0 border-8 border-solid border-[#624E45] border-t-[10px] border-r-transparent border-b-transparent border-l-transparent left-[70%] transform -translate-x-1/2"></div>
-                  </>
-                )}
-                {myStarRate ? myStarRating(index) : noneMyStarRate(index)}
+      {isClient ? (
+        <>
+          <div className="flex flex-row items-cemter md:flex-col-reverse sm:flex-col-reverse md:gap-5 sm:gap-5 gap-10">
+            <div className="flex flex-col">
+              <div
+                className="w-[255px] flex flex-row cursor-pointer"
+                onClick={clickStarRate}
+                onMouseMove={mouseMove}
+                onMouseLeave={mouseLeave}
+              >
+                {Array.from({ length: 5 }, (_, index) => (
+                  <div key={index} className="relative pointer-events-none">
+                    {cancelMessage(index) && <CancelStarRateMessage />}
+                    {myStarRate ? myStarRating(index) : noneMyStarRate(index)}
+                  </div>
+                ))}
               </div>
-            ))}
-        </div>
-        <div className="text-base text-[#B1B1B1] mt-[15px]">{evaluate}</div>
-      </div>
-      <div className="flex flex-col items-center">
-        <div className="font-Inter text-[44px]">
-          {ratingAverage
-            ? ratingAverage.toFixed(1).toString()
-            : (0).toFixed(1).toString()}
-        </div>
-        <div className="text-base text-[#B1B1B1]">평균별점</div>
-      </div>
-      {!isLogin && (
-        <Modal
-          title="로그인"
-          content="로그인을 해야 이용할 수 있는 기능입니다"
-          isOpen={showModal}
-          onClose={() => setShowModal(false)}
-          onConfirm={() => setShowModal(false)}
-          buttonTitle="확인"
-        />
+              <span className="2xl:text-base xl:text-base lg:text-sm md:text-sm sm:text-xs text-[#B1B1B1] mt-4 xl:mt-[18px] 2xl:mt-[19px] sm:text-center md:text-center">
+                {evaluate}
+              </span>
+            </div>
+
+            <p className="flex flex-col items-center">
+              <span className="font-Inter 2xl:text-[44px] xl:text-[40px] lg:text-[36px] md:text-[32px] sm:text-[28px]">
+                {ratingAverage
+                  ? ratingAverage.toFixed(1).toString()
+                  : (0).toFixed(1).toString()}
+              </span>
+              <span className="2xl:text-base xl:text-base lg:text-sm md:text-sm sm:text-xs text-[#B1B1B1]">
+                평균별점
+              </span>
+            </p>
+          </div>
+          {!isLoggedIn && (
+            <Modal
+              title="로그인"
+              content="로그인을 해야 이용할 수 있는 기능입니다"
+              isOpen={showModal}
+              onClose={() => setShowModal(false)}
+              onConfirm={() => setShowModal(false)}
+              buttonTitle="확인"
+            />
+          )}
+        </>
+      ) : (
+        <>별점 불러오는 중...</>
       )}
     </>
   );
