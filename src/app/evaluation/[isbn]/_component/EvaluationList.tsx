@@ -6,7 +6,7 @@ import { useGetReview } from "@/hook/reactQuery/book/useGetReview";
 import { useGetReviewLike } from "@/hook/reactQuery/book/useGetReviewLike";
 import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useLogin } from "@/hook/useLogin";
-import useObserver from "@/util/useObserver";
+import useObserver from "@/hook/useObserver";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
