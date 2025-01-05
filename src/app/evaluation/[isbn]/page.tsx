@@ -17,7 +17,7 @@ const page = async ({ params }: { params: { isbn: string } }) => {
       `${process.env.NEXT_PUBLIC_SERVER}/v1/books/${isbn}`,
       {
         next: {
-          revalidate: 86400 * 24, // 4주 마다 책 정보 갱신(표지)
+          revalidate: 60 * 60 * 24 * 14, // 2주 마다 책 정보 갱신(표지)
         },
       },
     );

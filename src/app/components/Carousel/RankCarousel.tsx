@@ -7,7 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { useBreakpoint } from "@/util/useBreakPoint";
+import { useBreakpoint } from "@/hook/useBreakPoint";
 import Link from "next/link";
 import { useMemo } from "react";
 import BestSellerCard from "../Card/MainPageCard/BestSellerCard";

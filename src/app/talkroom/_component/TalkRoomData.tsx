@@ -6,7 +6,7 @@ import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useGetRooms } from "@/hook/reactQuery/talkRoom/useGetRooms";
 import { useLogin } from "@/hook/useLogin";
-import useObserver from "@/util/useObserver";
+import useObserver from "@/hook/useObserver";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
 import { useRef } from "react";

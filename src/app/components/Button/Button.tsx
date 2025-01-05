@@ -1,3 +1,5 @@
+import { cn } from "@/lib/tailwind.utils";
+
 import { cva, type VariantProps } from "class-variance-authority";
 import { forwardRef, type ButtonHTMLAttributes } from "react";
 
@@ -14,6 +16,8 @@ const buttonVariants = cva(
         notCondition: "bg-[#E7E7E7]",
         mainPage:
           "bg-[#fff] px-4 text-[#80685D] text-[17px] border border-rounded border-[#80685D] rounded-[5px] hover:bg-brown-50 hover:text-white",
+        outline:
+          "border border-input bg-background hover:bg-accent hover:text-accent-foreground",
       },
       rounded: {
         none: "rounded-none",
@@ -38,6 +42,12 @@ const buttonVariants = cva(
         semi: "font-semibold",
         bold: "font-bold",
       },
+      size: {
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        lg: "h-11 rounded-md px-8",
+        icon: "h-10 w-10",
+      },
     },
     defaultVariants: {
       variant: "main",
@@ -54,17 +64,23 @@ interface ButtonProps
     VariantProps<typeof buttonVariants> {}
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, rounded, width, weight, height, ...props }, ref) => {
+  (
+    { className, variant, size, rounded, width, weight, height, ...props },
+    ref,
+  ) => {
     return (
       <button
-        className={buttonVariants({
-          variant,
-          rounded,
-          width,
-          weight,
-          height,
-          className,
-        })}
+        className={cn(
+          buttonVariants({
+            variant,
+            size,
+            rounded,
+            width,
+            weight,
+            height,
+            className,
+          }),
+        )}
         ref={ref}
         {...props}
       />

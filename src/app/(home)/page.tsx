@@ -7,8 +7,8 @@ import PopularTalkRoom from "./(components)/PopularTalkRoom";
 import RecentTalkRoom from "./(components)/RecentTalkRoom";
 import TalkRoomManyBookRoom from "./(components)/TalkRoomManyBookRoom";
 
-const bestSellerDataRevalidateTime = 86400;
-const manyTalkRoomDataRevalidateTime = 1800;
+const bestSellerDataRevalidateTime = 60 * 60 * 24; // 24시간
+const manyTalkRoomDataRevalidateTime = 60 * 30; // 30분
 
 const Home = async () => {
   let bestSellerData;

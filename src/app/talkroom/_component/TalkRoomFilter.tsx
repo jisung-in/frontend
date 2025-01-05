@@ -128,7 +128,7 @@ const TalkRoomFilter: React.FC<TalkRoomButtonsProps> = ({ searchParam }) => {
                       searchParam,
                     });
                   }}
-                  className="left-[-35px] "
+                  className="left-[-35px]"
                 />
               </p>
             </>
@@ -189,21 +189,23 @@ const TalkRoomFilter: React.FC<TalkRoomButtonsProps> = ({ searchParam }) => {
         </div>
       </div>
 
-      <p className="flex items-center ml-2 hidden sm:block mt-3">
-        <DropDown
-          items={dateType}
-          selectedItem={isDate}
-          setSelectedItem={(date: "~한달 전" | "7일전" | "하루 전") => {
-            setIsDate(date);
-            statusChange({
-              status: "recommend",
-              date,
-              searchParam,
-            });
-          }}
-          className="left-[-35px] "
-        />
-      </p>
+      {orderStatus === "recommend" && (
+        <p className="flex items-center ml-2 hidden sm:block mt-3">
+          <DropDown
+            items={dateType}
+            selectedItem={isDate}
+            setSelectedItem={(date: "~한달 전" | "7일전" | "하루 전") => {
+              setIsDate(date);
+              statusChange({
+                status: "recommend",
+                date,
+                searchParam,
+              });
+            }}
+            className="left-[-35px]"
+          />
+        </p>
+      )}
 
       <Modal
         title="로그인"
