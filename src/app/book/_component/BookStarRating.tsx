@@ -8,6 +8,7 @@ import { usePatchStarRating } from "@/hook/reactQuery/book/usePatchStarRating";
 import { useLogin } from "@/hook/useLogin";
 import { useQueryClient } from "@tanstack/react-query";
 import debounce from "lodash.debounce";
+import throttle from "lodash/throttle";
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 import CancelStarRateMessage from "./CancelStarRateMessage";
@@ -63,52 +64,56 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
       const calculatedStarRate = Math.floor(offsetX / starWidth);
       const half = offsetX % starWidth <= starWidth / 2;
       setStarRate(calculatedStarRate + (half ? 0.5 : 1));
-    }, 25), // 0.025초 디바운스 설정
+    }, 15), // 0.015초 디바운스 설정
     [],
   );
 
   const mouseLeave = useCallback(
     debounce(() => {
       setStarRate(0);
-    }, 25), // 0.025초 디바운스 설정, mouseMove와 맞춰야 정상 작동
+    }, 15), // 0.015초 디바운스 설정, mouseMove와 맞춰야 정상 작동
     [],
   );
 
   const clickStarRate = useCallback(
-    debounce(async () => {
-      if (!isLoggedIn) return setShowModal(true);
+    throttle(
+      async () => {
+        if (!isLoggedIn) return setShowModal(true);
 
-      try {
-        if (myStarRate === starRate) {
-          setMyStarRate(0);
-          setStarRate(0);
-          if (getStarRating?.id) {
-            await deleteStarRating.mutateAsync(getStarRating.id);
-          }
-        } else {
-          setMyStarRate(starRate);
-          setStarRate(starRate);
-
-          if (getStarRating?.id) {
-            await patchStarRating.mutateAsync({
-              bookIsbn: isbn,
-              rating: starRate,
-            });
+        try {
+          if (myStarRate === starRate) {
+            setMyStarRate(0);
+            setStarRate(0);
+            if (getStarRating?.id) {
+              await deleteStarRating.mutateAsync(getStarRating.id);
+            }
           } else {
-            await createStarRating.mutateAsync({
-              bookIsbn: isbn,
-              rating: starRate,
-            });
+            setMyStarRate(starRate);
+            setStarRate(starRate);
+
+            if (getStarRating?.id) {
+              await patchStarRating.mutateAsync({
+                bookIsbn: isbn,
+                rating: starRate,
+              });
+            } else {
+              await createStarRating.mutateAsync({
+                bookIsbn: isbn,
+                rating: starRate,
+              });
+            }
           }
+          await refetchStarRating();
+          query.invalidateQueries({
+            queryKey: ["book-information", { isbn }],
+          });
+        } catch (error) {
+          console.error("오류 발생:", error);
         }
-        await refetchStarRating();
-        query.invalidateQueries({
-          queryKey: ["book-information", { isbn }],
-        });
-      } catch (error) {
-        console.error("오류 발생:", error);
-      }
-    }, 300), // 0.3초 디바운스 설정
+      },
+      50, // 0.05초 쓰로틀 설정
+      { leading: false, trailing: true }, // 트레일링 호출만 활성화
+    ),
     [
       isLoggedIn,
       myStarRate,
