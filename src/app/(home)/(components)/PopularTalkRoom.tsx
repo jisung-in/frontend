@@ -9,8 +9,6 @@ import { useGetMyDetail } from "@/hook/reactQuery/my/useGetMyDetail";
 import { useGetRoomLike } from "@/hook/reactQuery/talkRoom/useGetRoomLike";
 import { useBreakpoint } from "@/hook/useBreakPoint";
 import { useLogin } from "@/hook/useLogin";
-import { TalkRoomQueryOptions } from "@/services/talk-room/TalkRoomQueries";
-import { useQuery } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 
@@ -33,17 +31,11 @@ interface TalkRoomProps {
   creatorId: number;
 }
 
-const PopularTalkRoom = () => {
-  const { data } = useQuery(
-    TalkRoomQueryOptions.getTalkRooms({
-      page: 1,
-      size: 4,
-      order: "recommend",
-      search: "",
-      sortbydate: "",
-    }),
-  );
+interface TalkRoomDataProps {
+  data: TalkRoomProps[];
+}
 
+const PopularTalkRoom = ({ data }: TalkRoomDataProps) => {
   const { isLoggedIn } = useLogin();
   const { data: talkRoomLikeIds } = isLoggedIn
     ? useGetRoomLike()
@@ -99,17 +91,17 @@ const PopularTalkRoom = () => {
       </div>
 
       <div className="mx-[5%]">
-        {data && data.data.content.length > 0 ? (
+        {data && data.length > 0 ? (
           isCarousel ? (
             <TalkRoomCardCarousel
-              talkRooms={data.data.content}
+              talkRooms={data}
               userId={myDetailData?.userId || -1}
               isBest={true}
               userLikeTalkRoomIds={talkRoomLikeIds?.talkRoomIds || []}
             />
           ) : (
             <div className="flex flex-row 2xl:gap-x-[20px]">
-              {data.data.content.map((itmes: TalkRoomProps) => {
+              {data.map((itmes: TalkRoomProps) => {
                 const isLike =
                   isLoggedIn &&
                   (talkRoomLikeIds?.talkRoomIds || []).includes(itmes.id);
