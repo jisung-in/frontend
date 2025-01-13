@@ -111,7 +111,7 @@ const BookStarRating = ({ isbn, ratingAverage }: BookStarRatingCondition) => {
           console.error("오류 발생:", error);
         }
       },
-      50, // 0.05초 쓰로틀 설정
+      70, // 0.07초 쓰로틀 설정
       { leading: false, trailing: true }, // 트레일링 호출만 활성화
     ),
     [
