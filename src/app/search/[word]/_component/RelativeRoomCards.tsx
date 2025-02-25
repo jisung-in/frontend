@@ -41,6 +41,7 @@ const RelativeRoomCards = ({ name }: Props) => {
     : { data: { userId: -1, userImage: "", userName: "" } };
   const { data: bookData, isLoading: isBookDataLoading } = useGetRooms({
     search: name,
+    size: 10,
   });
 
   return (
