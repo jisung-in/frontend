@@ -32,7 +32,7 @@ const SearchedList = ({
   };
 
   const onRecentListClicked = (serach: string) => {
-    router.push(`/search/book?name=${serach}}`);
+    router.push(`/search/book?name=${serach}`);
   };
 
   const onRemoveClicked = (content: string) => {
