@@ -1,0 +1,57 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - [develop]
+  pull_request:
+    branches:
+      - [develop]
+
+jobs:
+  ci:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+      node-version: [18.x, 20.x, 22.x]
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+
+      - name: Install Dependencies
+        run: yarn install --immutable --check-cache
+
+      - name: Run Lint
+        run: yarn lint
+
+      - name: Run Build
+        run: yarn build
+
+      - name: Stop workflow on failure
+        if: failure()
+        run: exit 1
+
+  cd:
+    name: Deploy to Vercel
+    needs: ci
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Deploy to Vercel
+        run: vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
